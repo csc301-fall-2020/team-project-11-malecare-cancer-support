@@ -21,7 +21,7 @@
 We are planning to build a website, providing matches to cancer patients to hook-up, look for a mentor, or become other patients' mentors.
 
 #### Q: How to provide matches for users?
-	Our product will provide several tags (e.g. Need-Mentor, Want-Hookup, etc) to let users choose from and define themselves (purpose and need).
+	Our product will provide several tags (e.g. Need-Mentor, Want-Hookup, etc) to let users choose from.<br \> and define themselves (purpose and need).<br \>
 	Then the product can provide matches for users. (see below)
 
 #### Q: How to match up users?
