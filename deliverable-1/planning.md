@@ -86,16 +86,20 @@ No similar apps and they have needs
  * Describe the architecture - what are the high level components or patterns you will use? Diagrams are useful here. 
  * Will you be using third party applications or APIs? If so, what are they?
  * What is your testing strategy?
- 
- -We will use javascript for the entire software, and choose react and nodejs as frameworks to complete the front-end and back-end respectively. 
- -After complementation, we may deploy our web app through aws or heroku.
- -Not Sure
- -As a dating app, we hope to provide users with the approximate distance between other users, which requires the google map API.
- -Not Sure
- frontend: react
- backend: node
- database: sql/mongodb
- api: geo, (maybe chatroom)
+#### Q: What is the technology stack? Specify any and all languages, frameworks, libraries, PaaS products or tools. 
+	We will use javascript for the entire software, and choose react and nodejs as frameworks to complete the front-end and back-end respectively. 
+	
+#### Q: How will you deploy the application?
+	After complementation, we may deploy our web app through aws or heroku.
+	
+#### Q: Describe the architecture - what are the high level components or patterns you will use? Diagrams are useful here. 
+	We use mango db as our online database, which is high level component.
+	
+#### Q: Will you be using third party applications or APIs? If so, what are they?
+	As a dating app, we hope to provide users with the approximate distance between other users, which requires the google map API.
+	(maybe chatroom)
+#### Q: What is your testing strategy?
+	-Not Sure
  
 
 #### Q5: What are the user stories that make up the MVP?
