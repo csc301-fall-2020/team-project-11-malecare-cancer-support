@@ -17,6 +17,8 @@
  * Focus on *what* your product does, and avoid discussing *how* you're going to implement it.      
    For example: This is not the time or the place to talk about which programming language and/or framework you are planning to use.
  * **Feel free (and very much encouraged) to include useful diagrams, mock-ups and/or links**.
+ 
+ a web app(cancer patients hookup)
 
 
 #### Q2: Who are your target users?
@@ -25,6 +27,8 @@
  * Be specific (e.g. a 'a third-year university student studying Computer Science' and not 'a student')
  * **Feel free (but not obligated) to use personas.         
    You can create your personas as part of this Markdown file, or add a link to an external site (for example, [Xtensio](https://xtensio.com/user-persona/)).**
+   
+cancer patients who wants to hook up or find a mentor
 
 #### Q3: Why would your users choose your product? What are they using today to solve their problem/need?
 
@@ -36,6 +40,9 @@
     * Provide users with more accurate and/or informative data (what kind of data? Why is it useful to them?)
     * Does this application exist in another form? If so, how does your differ and provide value to the users?
     * How does this align with your partner's organization's values/mission/mandate?
+    
+No similar apps and they have needs
+(what the app can do: find people also have cancer and can understand each other)
 
 #### Q4: How will you build it?
 
@@ -45,6 +52,12 @@
  * Describe the architecture - what are the high level components or patterns you will use? Diagrams are useful here. 
  * Will you be using third party applications or APIs? If so, what are they?
  * What is your testing strategy?
+ 
+ frontend: react
+ backend: node
+ database: sql/mongodb
+ api: geo, (maybe chatroom)
+ 
 
 #### Q5: What are the user stories that make up the MVP?
 
@@ -52,6 +65,13 @@
  * You must follow proper user story format (as taught in lecture) ```As a <user of the app>, I want to <do something in the app> in order to <accomplish some goal>```
  * If you have a partner, these must be reviewed and accepted by them
  * The user stories should be written in Github and each one must have clear acceptance criteria.
+ 
+ 1. (age: 25)Just get cancer, wants to find a mentor
+ 2. (age: 54)Cancer wanqi, wife left me, want to find someone to be with
+ 3. (age: 30)im a man and want to meet other men with cancer (gay)
+ 4. (age: 58)I want to mentor and guide some cancer patient as I'm having the same type of cancer
+ 5. (age: 22)want to find lover and mentor, boyfriend left me
+ 6. (age: 28)im from england and just moved/travelled to canada, i want to make some friends
 
 ----
 
@@ -65,6 +85,11 @@ Describe the different roles on the team and the responsibilities associated wit
 List each team member and:
  * A description of their role(s) and responsibilities including the components they'll work on and non-software related work
  * 3 technical strengths and weaknesses each (e.g. languages, frameworks, libraries, development methodologies, etc.)
+ Xiaomeng: frontend
+ Ruikai: tbd
+ Rui: backend
+ Jiayueran: backend
+ Meilin: tbd
 
 #### Q7: What operational events will you have as a team?
 
@@ -77,6 +102,11 @@ Describe meetings (and other events) you are planning to have.
    * What were the outcomes of each meeting?
    * You must provide meeting minutes.
    * You must have a regular meeting schedule established by the second meeting.  
+
+We'll stay in touch via WeChat and zoom so that...
+time difference
+What's the purpose of each meeting? : stay on the same page and divide up the work
+
   
 #### Q8: What artifacts will you use to self-organize?
 
@@ -88,6 +118,8 @@ List/describe the artifacts you will produce in order to organize your team.
    * How do you prioritize tasks?
    * How do tasks get assigned to team members?
    * How do you determine the status of work from inception to completion?
+
+todo list(a shared google doc)
 
 #### Q9: What are the rules regarding how your team works?
 
@@ -119,3 +151,7 @@ and/or collaborative process.
     * Explain why the option you decided on makes the most sense for your team/product/users.
  * Essentially, we want to understand how (and why) you ended up with your current product and process plan.
  * This section is useful for important information regarding your decision making process that may not necessarily fit in other sections. 
+ 
+ 1. we had a vote on the technology stacks we are going to use
+ 3. divide up the work(personal preference)
+ 4. product details from the meeting with the customer
