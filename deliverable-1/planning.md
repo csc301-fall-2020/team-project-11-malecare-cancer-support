@@ -21,16 +21,13 @@
 We are planning to build a website, providing matches to cancer patients to hook-up, look for a mentor, or become other patients' mentors.
 
 #### Q: How to provide matches for users?
-	Our product will provide several tags (e.g. Need-Mentor, Want-Hookup, etc) to let users choose from.
-	This helps users define themselves (purpose and need).
-	Then the product can provide matches for users. (see below)
-	
-	First, Our product will provide several tags (e.g. Need-Mentor, Want-Hookup, etc) to let users choose from,  
-	users can define their purpose by choosing the correct tags for themselves.  
+	First, Our product will provide several tags (e.g. Need-Mentor, Want-Hookup, etc) to let users choose from, users can define  
+	their purpose by choosing the correct tags for themselves.  
 	Then the product can provide matches for users. (see below)
 
 #### Q: How to match up users?
-	Our product will have a tag filter setting on the main page. It makes sure that the matches we provide meet the user's will. 
+	Our product will have a setting(tags, ages, gender, location, etc) on the main page.  
+	It makes sure that the matches we provide meet the user's will. 
 
 #### Q:  How to show matches?
 	On the main page, our product will display a person's photos and profiles once a time. 
@@ -44,15 +41,30 @@ We are planning to build a website, providing matches to cancer patients to hook
 (The mock-ups needed)
 
 #### Q2: Who are your target users?
+	The target users are cancer patients who have (one or multiple) below needs: 
+	- Want to hook-up 
+	- Want to have a mentor 
+	- Want to be a mentor
 
   > Short (1 - 2 min' read max)
  * Be specific (e.g. a 'a third-year university student studying Computer Science' and not 'a student')
  * **Feel free (but not obligated) to use personas.         
    You can create your personas as part of this Markdown file, or add a link to an external site (for example, [Xtensio](https://xtensio.com/user-persona/)).**
    
-cancer patients who wants to hook up or find a mentor
+
+
 
 #### Q3: Why would your users choose your product? What are they using today to solve their problem/need?
+	The product provides several matches as user required.
+	Users will see the tags for this match in the profile section, to verify the requirement. 
+	Moreover, the product provides a chatroom for users who have an agreement on matches to chat.
+
+	Since there are no similar apps available now, we are providing a new platform for them to use. 
+	The product also requires the user to define themselves' need and use filter to search,   
+	in this way we can provide users with matches that meet user's requirements.
+	
+	This product follows the instruction that the partner provided and the main functionality  
+	are decided on the meeting with the partner.
 
 > Short (1 - 2 min' read max)
  * We want you to "connect the dots" for us - Why does your product (as described in your answer to Q1) fits the needs of your users (as described in your answer to Q2)?
