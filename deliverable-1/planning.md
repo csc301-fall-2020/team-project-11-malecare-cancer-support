@@ -87,6 +87,11 @@ No similar apps and they have needs
  * Will you be using third party applications or APIs? If so, what are they?
  * What is your testing strategy?
  
+ -We will use javascript for the entire software, and choose react and nodejs as frameworks to complete the front-end and back-end respectively. 
+ -After complementation, we may deploy our web app through aws or heroku.
+ -Not Sure
+ -As a dating app, we hope to provide users with the approximate distance between other users, which requires the google map API.
+ -Not Sure
  frontend: react
  backend: node
  database: sql/mongodb
