@@ -18,12 +18,24 @@
    For example: This is not the time or the place to talk about which programming language and/or framework you are planning to use.
  * **Feel free (and very much encouraged) to include useful diagrams, mock-ups and/or links**.
  
- a web app(cancer patients hookup)
- 
- We are planning to build a website, a place for cancer patients to hookup, or look for a mentor.
- Users have several tags attached and on the main pages, you can use the filter to find the users you want to find. 
- (e.g. Show people want to be mentor/ Show people want to hookup/ Show people want both)
+ # We are planning to build a website, providing matches to cancer patients to hook-up, look for a mentor, or become other patients' mentors.
 
+# Q: How to provide matches for users?
+	First, Our product will provide several tags (e.g. Need-Mentor, Want-Hookup, etc) to let users choose from, users can define their purpose by choosing the correct tags for themselves. Then the product can provide matches for users. (see below)
+
+# Q: How to match up users?
+	Our product will have a tag filter setting on the main page. It makes sure that the matches we provide meet the user's will. 
+
+# Q:  How to show matches?
+	On the main page, our product will display a person's photos and profiles once a time. 
+
+# Q:  What operations can users do for matches?
+	Users can make these decisions: 
+ * Chat with him
+ * Show more about him
+ * Swap to next person
+ 
+(The mock-ups needed)
 
 #### Q2: Who are your target users?
 
