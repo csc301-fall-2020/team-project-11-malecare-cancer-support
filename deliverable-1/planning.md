@@ -109,7 +109,17 @@ No similar apps and they have needs
  * If you have a partner, these must be reviewed and accepted by them
  * The user stories should be written in Github and each one must have clear acceptance criteria.
  
- 1. (age: 25)Just get cancer, wants to find a mentor
+#### 5 user story
+	1. As a 25-year-old patient who has just been found to have cancer, I want to find a mentor in the app, who can guide me to fight the 
+	disease more optimistically.
+	2. As a 54-year-old single man with terminal cancer, whose wife has left, I hope to find a lover in the app in order to accompany me for the 
+	rest of my life.
+	3. (age: 30)im a man and want to meet other men with cancer (gay)
+	4. As a 58-year-old patient who has been suffering from cancer for 20 years, I hope to find people in need of mentor in the app and 
+	share my experience with the disease to them, so that they can be as optimistic and happy as I am.
+	5. As a 28-year-old cancer patient who has just come to Canada from the UK, I hope to make some like-minded friends in the app to expand my social 
+	circle and quickly integrate into the life around me。
+	6. As a 22-year-old cancer patient, whose boyfriend me because I was found to be suffering from cancer, I hope to find a boyfriend who is also a cancer 	patient, who will understand me better, as well as guiding me on how to face cancer.
  2. (age: 54)Cancer wanqi, wife left me, want to find someone to be with
  3. (age: 30)im a man and want to meet other men with cancer (gay)
  4. (age: 58)I want to mentor and guide some cancer patient as I'm having the same type of cancer
