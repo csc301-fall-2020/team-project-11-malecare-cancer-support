@@ -19,6 +19,10 @@
  * **Feel free (and very much encouraged) to include useful diagrams, mock-ups and/or links**.
  
  a web app(cancer patients hookup)
+ 
+ We are planning to build a website, a place for cancer patients to hookup, or look for a mentor.
+ Users have several tags attached and on the main pages, you can use the filter to find the users you want to find. 
+ (e.g. Show people want to be mentor/ Show people want to hookup/ Show people want both)
 
 
 #### Q2: Who are your target users?
