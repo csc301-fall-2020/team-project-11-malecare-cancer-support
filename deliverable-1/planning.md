@@ -102,7 +102,8 @@ No similar apps and they have needs
 	the google map API.
 	
 #### Q: What is your testing strategy?
-	-Not Sure
+	We may use CI in our project, using github actions to test auotomatically. After creating work flows, we can only change 
+	yml file and 
  
 
 #### Q5: What are the user stories that make up the MVP?
