@@ -223,7 +223,7 @@ and/or collaborative process.
 				1. Nodejs is also based on javascript, which having similar syntax with frontend
 				2. Nodejs's runtime is faster than flask
 				3. Nodejs is more easily scalable network applications 
-		For database, we have different oppinions on what stack to use. Some people want to choose flask and mysql, others 
+		For database, we have different opinions on what stack to use. Some people want to choose flask and mysql, others 
 		prefer nodejs and mangodb.
 			pros of mysql:
 				1. all of us have expereince using sql
@@ -233,8 +233,10 @@ and/or collaborative process.
 				2. handle highly diverse data types, and manage applications more efficiently at scale
 				3. build applications faster
 		After voting, we choose nodejs and mangodb, since it's apparently that this combination has more advantages.
-	2. divide up the work through several meetings
-		For the d
- 1. we had a vote on the technology stacks we are going to use
- 3. divide up the work(personal preference)
- 4. product details from the meeting with the customer
+	2. Divide up the work through several meetings
+		Since there are five people in our group, and our project as a dating software, the front-end requires more time and 
+		coding relatively. So we decided to have three people in charge of the front-end and two other people in charge of 
+		the back-end and database. We firstly make choices based on personal preference. 
+		Finally determined: front-end: Xiaomeng Hu, Ruikai Fang, Meilin Yang; back-end: Rui Zhu, Jiayueran Sun
+ 	3. Product details from the meeting with the customer
+		We 
