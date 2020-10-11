@@ -87,7 +87,9 @@ No similar apps and they have needs
  * Will you be using third party applications or APIs? If so, what are they?
  * What is your testing strategy?
 #### Q: What is the technology stack? Specify any and all languages, frameworks, libraries, PaaS products or tools. 
-	We will use javascript for the entire software, and choose react and nodejs as frameworks to complete the front-end and back-end respectively. 
+	We will use javascript for the entire software, and choose react and nodejs as frameworks to complete 
+	the front-end and back-end respectively. We may use antd as our frontend library. Also, AWS EC2, heroku, and mangodb 
+	are Paas tools which may use in our project.
 	
 #### Q: How will you deploy the application?
 	After complementation, we may deploy our web app through aws or heroku.
@@ -96,8 +98,9 @@ No similar apps and they have needs
 	We use mango db as our online database, which is high level component.
 	
 #### Q: Will you be using third party applications or APIs? If so, what are they?
-	As a dating app, we hope to provide users with the approximate distance between other users, which requires the google map API.
-	(maybe chatroom)
+	As a dating app, we hope to provide users with the approximate distance between other users, which requires 
+	the google map API.
+	
 #### Q: What is your testing strategy?
 	-Not Sure
  
