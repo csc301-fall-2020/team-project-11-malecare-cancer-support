@@ -239,4 +239,6 @@ and/or collaborative process.
 		the back-end and database. We firstly make choices based on personal preference. 
 		Finally determined: front-end: Xiaomeng Hu, Ruikai Fang, Meilin Yang; back-end: Rui Zhu, Jiayueran Sun
  	3. Product details from the meeting with the customer
-		We 
+		1. Write the client and operator web-app respectively
+		2. The homepage needs to have news reminders, such as promoting some in-app activities
+		3. Show users the distance of other users
