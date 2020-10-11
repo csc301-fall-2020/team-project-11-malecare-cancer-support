@@ -210,7 +210,31 @@ and/or collaborative process.
     * Explain why the option you decided on makes the most sense for your team/product/users.
  * Essentially, we want to understand how (and why) you ended up with your current product and process plan.
  * This section is useful for important information regarding your decision making process that may not necessarily fit in other sections. 
- 
+#### 3 key decisions
+	1. We had a vote on the technology stacks we are going to use.
+		For frontend, we all agree with using react. The main reason is that all of us are familiar with React, and there are 
+		many libraries that can provide many good-looking components to facilitate the design of front-end pages.
+		For backend, we have different oppinions on what stack to use. Some people want to choose flask and mysql, others 
+		want to choose nodejs and mangodb.
+			pros of Flask and mysql: 
+				1. python is the most familiar language and all of us have expereince using sql
+				2. get start quickly
+			pros of Nodejs and mangodb: 
+				1. Nodejs is also based on javascript, which having similar syntax with frontend
+				2. Nodejs's runtime is faster than flask
+				3. Nodejs is more easily scalable network applications 
+		For database, we have different oppinions on what stack to use. Some people want to choose flask and mysql, others 
+		prefer nodejs and mangodb.
+			pros of mysql:
+				1. all of us have expereince using sql
+				2. get start quickly
+			pros of mangodb:
+				1. allows all sizes organizations, especially as a cloud database
+				2. handle highly diverse data types, and manage applications more efficiently at scale
+				3. build applications faster
+		After voting, we choose nodejs and mangodb, since it's apparently that this combination has more advantages.
+	2. divide up the work through several meetings
+		For the d
  1. we had a vote on the technology stacks we are going to use
  3. divide up the work(personal preference)
  4. product details from the meeting with the customer
