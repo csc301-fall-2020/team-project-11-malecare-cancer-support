@@ -20,6 +20,8 @@
  
 We are planning to build a web-based, Tinder-like app that serves as a platform, on which the cancer patients can be matched to other cancer patients that meets their requirements. The users of our app can find someone to date, or someone as a mentor who can share their stories fighting with cancer. The users themselves can also be mentors and they're able to find someone who wants to be mentored in our app.
 
+Other than cancer patients, people from MaleCare (our project partner) will play the roles of administrators in our app, and they'll have a separate administration page. The main functionality of administrators is that they're able to send out news to a specific group of cancer patients. For example, if a new treatment has just been found to be effective to treat breast cancer, then the administrator can choose to send out this exciting news to the users with breast cancer. 
+
 #### Q: How to help patients who want to find mentors or find other patients to date?
 	Our product will provide matches for patients, they can create accounts and log in. 
 	As they create accounts, they need to choose their tags(e.g. Mentor, Mentee, Looking For Love). 
