@@ -27,7 +27,7 @@ The users of our app can find someone to date, or someone as a mentor who can sh
 Other than cancer patients, people from MaleCare (our project partner) will play the role of administrators in our app, and they'll have a separate administration page. What administrators can do in our app is that they're able to send out news to specific groups of cancer patients. For example, if a new treatment has just been found to be effective to cure breast cancer, then the administrator can choose to send out this exciting news to the users with breast cancer. 
 
 #### Q: How do normal users use our app?
-To start usingour app, the user needs to creater an account first. They should provide some basic information so that our system can find perfect matches for them. The mock-up sign-up page is as follows:
+To start using our app, the user needs to creater an account. They should provide some basic information so that our system can find the perfect matches for them. The mock-up sign-up page is as follows:
 <img src="https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/blob/master/deliverable-1/mock-ups/register.jpg " width="600" height="1350" alt="matches"/>
 
 After they're loggin in, they will see the following page:
@@ -36,12 +36,16 @@ After they're loggin in, they will see the following page:
 On the left is a matched user that our system has found for the current user. On the right is the filter section where the user can customize their filters to find someone that meets their requirement. 
 	
 The user can choose to view the full profile page of the other user, or send a message to say hi. If the user doesn't like this match, then he/she can simply click on the Next button to move on to the next match. 
+
+Here's what the messages page look like:
+<img src="https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/blob/master/deliverable-1/mock-ups/message.jpg " width="800" height="600" alt="matches"/>
 	
-What's more, every user has a profle page where they can edit their personal information. 
+What's more, every user has a profile page where they can edit their personal information. 
 	<img src="https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/blob/master/deliverable-1/mock-ups/profile.jpg " width="800" height="600" alt="matches"/>
 
 #### Q:  How can administrators send the news to a specific group of patients?
 We will provide them with pre-set administrator accounts. After login, they would be able to send the news to the patients of specific groups.
+
 <img src="https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/blob/master/deliverable-1/mock-ups/admin.jpg" width="800" height="600" alt="profile"/>
  
 #### Q2: Who are your target users?
@@ -56,7 +60,7 @@ We will provide them with pre-set administrator accounts. After login, they woul
    You can create your personas as part of this Markdown file, or add a link to an external site (for example, [Xtensio](https://xtensio.com/user-persona/)).**
 
 #### Q3: Why would your users choose your product? What are they using today to solve their problem/need?
-Our product provides a platform where the cancer patients can meet other cancer patients, either they want to date or find themselves a mentor or mentee. There is no app on the market currently that does what our app does, and our app would provide a solution to the cancer patients who wants to meet other patients to solve their socialization easier. 
+Our product provides a platform where the cancer patients can meet other cancer patients, either they want to date or find themselves a mentor or mentee. There is no such app on the market currently that does what our app does, and our app would provide a solution to the cancer patients who wants to meet other patients to solve their socialization easier. 
 	
 What's more, because the administrators from Malecare can send news about new treatments, it's also a great platform where the patients can be kept updated and receive new information about their cancer. 
 
@@ -99,6 +103,10 @@ What's more, because the administrators from Malecare can send news about new tr
 	We may use AVA test framework to write unit test for our javascript code and run the test file using github actions 
 	to test auotomatically. As well as, we will perform manual operations on the front-end page as much as possible to 
 	mock how users use our web-app to make sure there are no operation bugs.
+
+#### Q: A word on privacy
+	We always put the safety and privacy of our users first. All the credentials of the users would be encrypted before 
+	storing. All the user data will be kept confidential and will only be used for matching purposes.
  
 
 #### Q5: What are the user stories that make up the MVP?
@@ -225,7 +233,7 @@ Describe meetings (and other events) you are planning to have.
 Our team members are located in different countries so we can't have in-person meetings. Instead, We'll stay in touch via WeChat and zoom. We have decided to have at least one online zoom meeting a week so that everyone can report on what they have done and what they're planning to do, as well as the problems they have. 
 We had our first meeting with our partner, Darryl, on Oct. 7th. During the meeting, we first introduced ourselves and Darryl shared some of his stories and told us how he came up with the idea of the project. He also cleared up our questions, some of which are:
 #### Q: Who would be the target user of our product?
-        People with cancer who wants to date someone, or wants to find mentors who can share their experience. We would also have some users as adminiatrators from Malecare and they can send messages about things like new treatment to target cancer patients
+        People with cancer who wants to date someone, find a mentor or mentee.
 #### Q: Do you want this to be a mobile app or web app?
 	Either is fine. You can make the choice based on your design.
 #### Q：Is there any website that we can refer to?
