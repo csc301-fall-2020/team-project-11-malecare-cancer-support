@@ -18,16 +18,16 @@
    For example: This is not the time or the place to talk about which programming language and/or framework you are planning to use.
  * **Feel free (and very much encouraged) to include useful diagrams, mock-ups and/or links**.
  
-We are planning to build a web-based, Tinder-like app that serves as a platform, on which the cancer patients can be matched to other cancer patients that meets their requirements. 
+We are planning to build a web-based, Tinder-like app that serves as a platform, on which the cancer patients can be matched to other cancer patients that meet their requirements. 
 
-At the moment, there's no similar app in the market and cancer patients lacks a way to know each other, so our app would provide a solution to them and solve their socialization problem. 
+At the moment, there's no similar app in the market and cancer patients lack a way to know each other, so our app would provide a solution to them and solve their socialization problem. 
 
-The users of our app can find someone to date, or someone as a mentor who can share their stories fighting with cancer. The users themselves can also be mentors and find their mentees on our app. 
+The users of our app can find someone to date or someone as a mentor who can share their stories fighting with cancer. The users themselves can also be mentors and find their mentees on our app. 
 
 Other than cancer patients, people from MaleCare (our project partner) will play the role of administrators in our app, and they'll have a separate administration page. What administrators can do in our app is that they're able to send out news to specific groups of cancer patients. For example, if a new treatment has just been found to be effective to cure breast cancer, then the administrator can choose to send out this exciting news to the users with breast cancer. 
 
 #### Q: How do normal users use our app?
-To start using our app, the user needs to creater an account. They should provide some basic information so that our system can find the perfect matches for them. The mock-up sign-up page is as follows:
+To start using our app, the user needs to create an account. They should provide some basic information so that our system can find the perfect matches for them. The mock-up sign-up page is as follows:
 <img src="https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/blob/master/deliverable-1/mock-ups/register.jpg " width="600" height="1350" alt="matches"/>
 
 After they're loggin in, they will see the following page:
@@ -35,7 +35,7 @@ After they're loggin in, they will see the following page:
 	
 On the left is a matched user that our system has found for the current user. On the right is the filter section where the user can customize their filters to find someone that meets their requirement. 
 	
-The user can choose to view the full profile page of the other user, or send a message to say hi. If the user doesn't like this match, then he/she can simply click on the Next button to move on to the next match. 
+The user can choose to view the full profile page of the other user or send a message to say hi. If the user doesn't like this match, then he/she can simply click on the Next button to move on to the next match. 
 
 Here's what the messages page look like:
 <img src="https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/blob/master/deliverable-1/mock-ups/message.jpg " width="800" height="600" alt="matches"/>
@@ -62,7 +62,7 @@ We will provide them with pre-set administrator accounts. After login, they woul
 #### Q3: Why would your users choose your product? What are they using today to solve their problem/need?
 Our product provides a platform where the cancer patients can meet other cancer patients, either they want to date or find themselves a mentor or mentee. There is no such app on the market currently that does what our app does, and our app would provide a solution to the cancer patients who wants to meet other patients to solve their socialization easier. 
 	
-What's more, because the administrators from Malecare can send news about new treatments, it's also a great platform where the patients can be kept updated and receive new information about their cancer. 
+What's more, because the administrators from Malecare can send news about new treatments, it's also a great platform where the patients can receive the latest information about their cancer. 
 
 > Short (1 - 2 min' read max)
  * We want you to "connect the dots" for us - Why does your product (as described in your answer to Q1) fits the needs of your users (as described in your answer to Q2)?
@@ -83,30 +83,29 @@ What's more, because the administrators from Malecare can send news about new tr
  * Will you be using third party applications or APIs? If so, what are they?
  * What is your testing strategy?
 #### Q: What is the technology stack? Specify any and all languages, frameworks, libraries, PaaS products or tools. 
-	We will use javascript for the entire software, and choose react and node.js as frameworks to complete 
-	the front-end and back-end respectively. We may use martial ui as our frontend library. What's more, AWS EC2, heroku, and mangodb 
-	are Paas tools which we may use in our project.
+	We will use javascript for the entire software, with the react and node.js frameworks to complete 
+	the front-end and back-end respectively. We may use martial ui as our frontend library. What's more, AWS EC2, heroku, 
+	and mangodb are Paas tools that we may use in our project.
 	
 #### Q: How will you deploy the application?
-	We may deploy our web app through aws.
+	We will deploy our web app through aws.
 	
 #### Q: Describe the architecture - what are the high level components or patterns you will use? Diagrams are useful here. 
 	We use MongoDB as our online database, which is a high level component.
 	We will use mvvm pattern for the frontend.
-	 ????????
 	
 #### Q: Will you be using third party applications or APIs? If so, what are they?
 	As a dating app, we hope to provide users with the approximate distance between other users, which requires 
 	the google map API.
 	
 #### Q: What is your testing strategy?
-	We may use AVA test framework to write unit test for our javascript code and run the test file using github actions 
-	to test auotomatically. As well as, we will perform manual operations on the front-end page as much as possible to 
+	We may use AVA test framework to write unit tests and run the test files with Github Actions for every pull request. 
+	Apart from that, we will perform manual operations on the front-end page as much as possible to 
 	mock how users use our web-app to make sure there are no operation bugs.
 
 #### Q: A word on privacy
-	We always put the safety and privacy of our users first. All the credentials of the users would be encrypted before 
-	storing. All the user data will be kept confidential and will only be used for matching purposes.
+	We always put the safety and privacy of our users first. All the user credentials would be encrypted before 
+	storage. All the user data will be kept confidential and will only be used for matching purposes.
  
 
 #### Q5: What are the user stories that make up the MVP?
@@ -120,14 +119,14 @@ What's more, because the administrators from Malecare can send news about new tr
 	1. As a 25-year-old man who has just been found to have cancer, I want to find a mentor in the app, who can 
 	guide me to fight the disease more optimistically.
 	
-	2. As a 54-year-old single man with terminal cancer, whose wife left one year ago, I hope to find a lover in the app in 
-	order to accompany me for the rest of my life.
+	2. As a 54-year-old single man with terminal cancer, whose wife left one year ago, I hope to find a lover in the app 
+	to accompany me for the rest of my life.
 	
 	3. As a 32-year-old male cancer patient, who prefers male lovers, I hope to meet other male cancer patients in the app and 
-	fall in love with him, then we fight with cancer togather.
+	fall in love with him, then we fight with cancer together.
 	
-	4. As a 58-year-old female patient who has been suffering from cancer for 20 years, I hope to find people in need of mentor in 
-	the app and share my experience with the disease to them, so that they can be as optimistic and happy as me.
+	4. As a 58-year-old female patient who has been suffering from cancer for 20 years, I hope to find people in need of a mentor in 
+	the app and share my experience with the disease with them, so that they can be as optimistic and happy as me.
 	
 	5. As a 28-year-old male cancer patient who has just come to Canada from the UK, I hope to make some like-minded friends in 
 	the app to expand my social circle and quickly integrate into the life around me.
@@ -151,11 +150,11 @@ List each team member and:
  #### Xiaomeng: 
  Roles: 
  Scrum manager: I will keep an eye on the development progress tell people when things fall behind
- Communicator: I'm reponsible for communicating with the customer because I'm located in Toronto so I don't have any time difference with the customer. 
+ Communicator: I'm responsible for communicating with the customer because I'm located in Toronto so I don't have any time difference with the customer. 
  Frontend developer: Responsible for implementing the login and sign-up page, as well as the administration page.
  Technical strengths: 
  1. I worked with React before so I'm familiar with it.
- 2. I have taken csc309 so I know what it takes to succeed in a group project (things like keeping in good communication, and dividing up the work as evenly as possible)
+ 2. I have taken csc309 so I know what it takes to succeed in a group project (things like keeping in good communication and dividing up the work as evenly as possible)
  3. I have experience working with node.js 
  Technical weaknesses: 
  1. I'm not very good at database-related work
@@ -169,7 +168,7 @@ List each team member and:
  Technical strengths: 
  1. I'm good at database-related work
  2. I worked on some React Native projects, and learning React should be easy for me.
- 3. I'm good at designing UI that are comfortable and easy to work with
+ 3. I'm good at designing UI that is comfortable and easy to work with
  Technical weaknesses: 
  1. Not much experience in working on a web app
  2. Never worked with node.js before so this part is quite challenging
@@ -185,15 +184,15 @@ List each team member and:
  3. I'm familiar with database-related work.
  Technical weaknesses: 
  1. I don't have much experience working on a web app, and I haven't taken csc309 (Web Programming) so javascript is new to me
- 2. Writing unit tests can be challenging to me
+ 2. Writing unit tests can be challenging for me
  3. Not familiar with the deployment process
  
  
   #### Jiayueran: 
   Roles: 
-  Backend developer: I'm responsible for all the data-base related work
+  Backend developer: I'm responsible for all the database related work
   Technical strengths: 
-  1. I have taken CSC343 (Intro to Database) and did well in it, so working with sql is not new to me. I'm also familiar with MongoDB.
+  1. I have taken CSC343 (Intro to Database) and did well in it, so working with SQL is not new to me. I'm also familiar with MongoDB.
   2. I have worked on some node.js projects so I feel comfortable using node.js
   3. I'm good at various algorithms, and they should be useful when working on a project
   Technical weaknesses: 
@@ -204,11 +203,11 @@ List each team member and:
  
  #### Meilin: 
  Roles: 
- Communicator: I'm reponsible for communicating with the customer
+ Communicator: I'm responsible for communicating with the customer
  Backend developer: I'm responsible for the rest of the backend work
  QA: I will be responsible for writing unit tests 
  Technical strengths: 
- 1. I'm a careful person and like testing stuff out throughly
+ 1. I'm a careful person and like testing stuff out thoroughly
  2. I'm good at coding and likes learning new technologies, so I'm excited to have the chance to learn node.js
  3. I'm familiar with database-related stuff
  Technical weaknesses: 
@@ -251,9 +250,9 @@ List/describe the artifacts you will produce in order to organize your team.
    * How do tasks get assigned to team members?
    * How do you determine the status of work from inception to completion?
 
-We'll be using a shared google sheet as a task board. Each task would have a status field, and the field value can be open, in progress, resolved, or blocked. Before we start working on the project, we would have at least 2 meetings on how to divide up the work, and based on the meeting outcome, each task would be assigned to a team member with a status of open. When he/she starts working on the task, the status of the task would be changed to in progress. If he/she successfully finished the task, the task status would be updated to resolved. If some blockers showed up, he/she can change the status to blocked and the team can discuss it during the next team meeting.
+We'll be using a shared google sheet as a task board. Each task would have a status field, and the field value can be Open, In Progress, Resolved, or Blocked. Before we start working on the project, we would have at least 2 meetings on how to divide up the work, and based on the meeting outcome, each task would be assigned to a team member with a status of Open. When he/she starts working on the task, the status of the task would be changed to In Progress. If he/she successfully finished the task, the task status would be updated to Resolved. If some blockers showed up, he/she can change the status to Blocked and the team can discuss it during the next team meeting.
 
-Each task would also has a priority assigned to it, starting from p1 to p3. For a minor bug such as font adjustment, we would priotize it as P3. For regular tasks, such as implementing the sign-up page, or a bug which leads to failure in sending messages, we will prioritize it as P2. For really serious bugs, such as the server is down, it woule be priotized to P1, and any free group member must be looking at it asap.
+Each task would also have a priority assigned to it, starting from p1 to p3. For a minor bug such as font adjustment, we would prioritize it as P3. For regular tasks, such as implementing the sign-up page, or a bug which leads to failure in sending messages, we will prioritize it as P2. For really serious bugs, such as the server is down, it would be prioritized to P1, and any free group member must be looking at it asap.
 
 #### Q9: What are the rules regarding how your team works?
 
@@ -264,17 +263,17 @@ Describe your team's working culture.
  * If you have a partner project, what is your process (in detail) for communicating with your partner?
  
 The teams would be communicating with each other via the WeChat channel and zoom calls. For regular questions, we encourage the members to ask directly in the WeChat group chat to get a quick answer. In terms of the bigger questions, such as a design issue, we would discuss it in the weekly zoom calls. All communications must be conducted in a friendly and peaceful environment. We also encourage meaningful and efficient communications, rather than aimless chat.
-In terms of communicating with the partner, we have agreed on a bi-weekly meeting shcedule to keep everything on track. Bewteen the meetings, we will communicate via emails to get quick answers to questions. 
+In terms of communicating with the partner, we have agreed on a bi-weekly meeting schedule to keep everything on track. Between the meetings, we will communicate via emails to get quick answers to questions. 
  
 **Meetings:**
  * How are people held accountable for attending meetings, completing action items? Is there a moderator or process?
  
-There are 5 people in our group and we'll take turns to host the meeting. In each meeting, we'll begin with everyone sharing their working progress. After that, we'll take a look at the action items from last meeting to see if all of them have been resolved. Next, we'll discuss the blocked tasks on the task board, from highest to lowest priority. At the end of the meeting, we'll come up with the action items to be done before the next meeting and assign them to team members. 
+There are 5 people in our group and we'll take turns to host the meeting. In each meeting, we'll begin with everyone sharing their working progress. After that, we'll take a look at the action items from the last meeting to see if all of them have been resolved. Next, we'll discuss the blocked tasks on the task board, from highest to lowest priority. At the end of the meeting, we'll come up with the action items to be done before the next meeting and assign them to team members. 
  
 **Conflict Resolution:**
  * List at least three team scenarios/conflicts you discussed in lecture and how you decided you will resolve them. Indecisions? Non-responsive team members? Any other scenarios you can think of?
  1. What to do if we can't achieve consensus？
-We've been in that situation before. When we were duscussing what stack technology to use for the backend, we narrowed down the options to two - node.js and flask. They all have their pros and cons, thus the team members cannot decide which one to use. So in the end, we had a vote. 2 people voted flask and 3 voted node.js, so we decides to use node.js for backend. This is just a example of how to make a decision when we can't achieve consensus, and we'll take a vote whenver we get into that situation again in the future.
+We've been in that situation before. When we were discussing what stack technology to use for the backend, we narrowed down the options to two - node.js and flask. They all have their pros and cons, thus the team members cannot decide which one to use. So in the end, we had a vote. 2 people voted flask and 3 voted node.js, so we decided to use node.js for backend. This is just an example of how to make a decision when we can't achieve consensus, and we'll take a vote whenever we get into that situation again in the future.
  
  2. What to do if any team member is not responsive?
  All of the team members have a strong sense of responsibility so I assume that this is not very likely to happen, but just in case, we did discuss this in our last meeting. If any team member is not responsive in any way for more than 48 hours (this is a rather long time because the time difference among the team members can be up to 12 hours, and we want to be generous on this), we would report the member to the professor immediately and see what's the next step to do.
@@ -298,11 +297,11 @@ and/or collaborative process.
  * This section is useful for important information regarding your decision making process that may not necessarily fit in other sections. 
 #### 3 key decisions
 	1. We had a vote on the technology stacks we are going to use.
-		For frontend, we all agree with using react. The main reason is that all of us are familiar with React, and there are 
+		For the frontend, we all agree with using react. The main reason is that all of us are familiar with React, and there are 
 		many libraries that can provide many good-looking components to facilitate the design of front-end pages.
-		For backend, we have different oppinions on what stack to use. Some people want to choose flask and mysql, others 
+		For the backend, we have different opinions on what stack to use. Some people want to choose flask and MySql, others 
 		want to choose nodejs and mangodb.
-			pros of Flask and mysql: 
+			pros of Flask and MySql: 
 				1. python is the most familiar language and all of us have expereince using sql
 				2. get start quickly
 			pros of Nodejs and mangodb: 
@@ -310,15 +309,15 @@ and/or collaborative process.
 				2. Nodejs's runtime is faster than flask
 				3. Nodejs is more easily scalable network applications 
 		For database, we have different opinions on what stack to use. Some people want to choose flask and mysql, others 
-		prefer nodejs and mangodb.
+		prefer Node.js and MongoDB.
 			pros of mysql:
-				1. all of us have expereince using sql
+				1. all of us have experience using Sql
 				2. get start quickly
-			pros of mangodb:
+			pros of MongoDB:
 				1. allows all sizes organizations, especially as a cloud database
 				2. handle highly diverse data types, and manage applications more efficiently at scale
 				3. build applications faster
-		After voting, we choose nodejs and mangodb, since it's apparently that this combination has more advantages.
+		After voting, we choose Node.js and MongoDB, since it's apparent that this combination has more advantages.
 	2. Divide up the work through several meetings
 		Since there are five people in our group and our project is a dating software, the front-end requires more time and 
 		coding compared to the backend, so we decided to have three people in charge of the front-end and two other people 
@@ -326,7 +325,7 @@ and/or collaborative process.
 		Finally determined: front-end: Xiaomeng Hu, Ruikai Fang, Meilin Yang; back-end: Rui Zhu, Jiayueran Sun
  	3. Product details from the meeting with the customer
 		1. Write the user and administrator page respectively
-		2. Provide users with the latest cancer related information. For example, a certain organization has just developed
+		2. Provide users with the latest cancer-related information. For example, a certain organization has just developed
 		an effective drug to treat skin cancer, but many cancer patients do not know this news in time. Our app will remind
 		users as soon as possible.
 		3. Show users the distance between them and other users
