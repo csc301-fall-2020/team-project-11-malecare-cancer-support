@@ -129,13 +129,13 @@ We are planning to build a website, providing matches to cancer patients to date
 	3. As a 32-year-old male cancer patient, who prefers male lovers, I hope to meet other male cancer patients in the app and 
 	fall in love with him, then we fight with cancer togather.
 	
-	4. As a 58-year-old patient who has been suffering from cancer for 20 years, I hope to find people in need of mentor in 
+	4. As a 58-year-old female patient who has been suffering from cancer for 20 years, I hope to find people in need of mentor in 
 	the app and share my experience with the disease to them, so that they can be as optimistic and happy as me.
 	
-	5. As a 28-year-old cancer patient who has just come to Canada from the UK, I hope to make some like-minded friends in 
+	5. As a 28-year-old male cancer patient who has just come to Canada from the UK, I hope to make some like-minded friends in 
 	the app to expand my social circle and quickly integrate into the life around me.
 	
-	6. As a 22-year-old cancer patient, whose boyfriend left me because I was found to have cancer, I hope to find a 
+	6. As a 22-year-old female cancer patient, whose boyfriend left me because I was found to have cancer, I hope to find a 
 	boyfriend who is also a cancer patient, who will understand me better, as well as guide me to face cancer.
 
 ----
