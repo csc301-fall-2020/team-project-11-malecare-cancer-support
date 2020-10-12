@@ -60,14 +60,16 @@ We are planning to build a website, providing matches to cancer patients to date
 #### Q3: Why would your users choose your product? What are they using today to solve their problem/need?
 	The product provides a platform where the cancer patients can meet other cancer patients,
 	either they want to date or find themselves a mentor or mentee. Users would be matched based on their tags.
+	Malecare staff can log in to this product and send news to groups of patients.
 	
 	Malecare staff can only use this product since there is no product now for them to send groups of patients news.
-	Since there are no similar apps available now for patients, we are providing a new platform for patients to use.
+	For patients, Since there are no similar apps available now for patients, we are providing a new platform for patients to use.
 	
 	Since the product provide filter and tags to filter the matches, this will save the patients time searching without 
 	tags and also bring patients more accurate matches.
 	
-	This product will provide the staff in Malecare accounts for them to send the news to the specific groups of patients.
+	This product will provide our partner's organization's (Malecare) the staff accounts for them 
+	to send the news to the specific groups of patients.
 
 > Short (1 - 2 min' read max)
  * We want you to "connect the dots" for us - Why does your product (as described in your answer to Q1) fits the needs of your users (as described in your answer to Q2)?
