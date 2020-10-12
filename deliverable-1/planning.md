@@ -20,11 +20,11 @@
  
 We are planning to build a website, providing matches to cancer patients to date, look for a mentor, or become other patients' mentors.
 
-#### Q: Q: How to help patients who want to find mentors or find other patients to date?
+#### Q: How to help patients who want to find mentors or find other patients to date?
 	Our product will provide matches for patients, they can create accounts and log in. 
 	As they create accounts, they need to choose their tags(e.g. Mentor, Mentee, Looking For Love). 
 	After login, the matches will be shown on the main page, if they have specific requirements, we provide a filter for them to use.
-	![matches](https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/blob/master/deliverable-1/mock-ups/match.jpg)
+![matches](https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/blob/master/deliverable-1/mock-ups/match.jpg)
 
 #### Q: How the filter works?
 	If the patient does not have a specific requirement, it will provide the default filter settings based on the tags in the user's profile.
