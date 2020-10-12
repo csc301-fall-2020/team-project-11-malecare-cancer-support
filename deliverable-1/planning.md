@@ -26,12 +26,12 @@ We are planning to build a website, providing matches to cancer patients to date
 	After login, the matches will be shown on the main page, if they have specific requirements, we provide a filter for them to use.
 <img src="https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/blob/master/deliverable-1/mock-ups/match.jpg " width="800" height="600" alt="matches"/>
 
-#### Q: How the filter works?
+#### Q: How does the filter works?
 	If the patient does not have a specific requirement, it will provide the default filter settings based on the tags in the user's profile.
 	If they have specific requirements, they have a few tags and other settings to set the filter to show the person who meets their requirement.
 
 
-#### Q:  How do people from Melecare want to send the news to a specific group of patients?
+#### Q:  How can people from Melecare send the news to a specific group of patients?
 	We will provide them accounts to login. After login, they can send the news to the patients(specific groups) they want to.
 
 #### Q:  What operations can users do for matches?
