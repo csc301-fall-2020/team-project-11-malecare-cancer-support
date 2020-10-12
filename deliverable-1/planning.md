@@ -32,40 +32,24 @@ Other than cancer patients, people from MaleCare (our project partner) will play
 	After they're loggin in, they will see the following page:
 	<img src="https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/blob/master/deliverable-1/mock-ups/match.jpg " width="800" height="600" alt="matches"/>
 	On the left is a matched user that our system has found for the current user. On the right is the filter section where the user can customize their filters to find someone that meets their requirement. 
-	The user can choose to view the full profile page of the other user, so chat to him directly. If the user doesn't like this match, then he/she can simply click on the Next button to move on to the next match. 
+	The user can choose to view the full profile page of the other user, or send a message to say hi. If the user doesn't like this match, then he/she can simply click on the Next button to move on to the next match. 
+	What's more, every user has a profle page where they can edit their personal information. 
+	<img src="https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/blob/master/deliverable-1/mock-ups/profile.jpg " width="800" height="600" alt="matches"/>
 
-<img src="https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/blob/master/deliverable-1/mock-ups/register.jpg " width="600" height="1350" alt="matches"/>
-
-#### Q: How does the filter works?
-	If the patient does not have a specific requirement, it will provide the default filter settings based on the tags 
-	in the user's profile. If they have specific requirements, they have a few tags and other settings to set the filter 
-	to show the person who meets their requirement.
-
-#### Q:  How can people from Melecare send the news to a specific group of patients?
-	We will provide them accounts to login. After login, they can send the news to the patients(specific groups) they want to.
+#### Q:  How can administrators send the news to a specific group of patients?
+	We will provide them with pre-set administrator accounts. After login, they would be able to send the news to the patients of specific groups.
 <img src="https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/blob/master/deliverable-1/mock-ups/admin.jpg" width="800" height="600" alt="profile"/>
-
-#### Q:  What operations can users do for matches?
-	Users can make these decisions: 
- 	- Chat with him
- 	- Show more about him
- 	- Swap to next person
-<img src="https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/blob/master/deliverable-1/mock-ups/match.jpg " width="800" height="600" alt="matches"/>
  
 #### Q2: Who are your target users?
-	The target users are cancer patients who have (one or multiple) below needs: 
-	- Want to hook-up 
-	- Want to have a mentor 
-	- Want to be a mentor
-	- Malecare staff who want to send the news to specific groups of patients.
+	The target users are cancer patients who have any of the following needs: 
+	- Want to find someone to date
+	- Want to be mentored by someone
+	- Want to mentor someone
 
   > Short (1 - 2 min' read max)
  * Be specific (e.g. a 'a third-year university student studying Computer Science' and not 'a student')
  * **Feel free (but not obligated) to use personas.         
    You can create your personas as part of this Markdown file, or add a link to an external site (for example, [Xtensio](https://xtensio.com/user-persona/)).**
-   
-
-
 
 #### Q3: Why would your users choose your product? What are they using today to solve their problem/need?
 	The product provides a platform where the cancer patients can meet other cancer patients,
