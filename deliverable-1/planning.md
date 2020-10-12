@@ -20,16 +20,19 @@
  
 We are planning to build a website, providing matches to cancer patients to date, look for a mentor, or become other patients' mentors.
 
-#### Q: Functionalities
+#### Q: Q: How to help patients who want to find mentors or find other patients to date?
+	Our product will provide matches for patients, they can create accounts and log in. 
+	As they create accounts, they need to choose their tags(e.g. Mentor, Mentee, Looking For Love). 
+	After login, the matches will be shown on the main page, if they have specific requirements, we provide a filter for them to use.
+	![matches](https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/blob/master/deliverable-1/mock-ups/match.jpg)
 
-#### Q: How to provide matches for users?
-	First, our product will provide several tags (e.g. Mentor, Mentee, Looking For Love) from which the users can choose, and users' purposes can be met by 	choosing the correct tags for themselves, then the product can provide the correct matches for them. Once the user has logged in, our app 
+#### Q: How the filter works?
+	If the patient does not have a specific requirement, it will provide the default filter settings based on the tags in the user's profile.
+	If they have specific requirements, they have a few tags and other settings to set the filter to show the person who meets their requirement.
 
-	Our product will have a setting(tags, ages, gender, location, etc) on the main page.  
-	It makes sure that the matches we provide meet the user's will. 
 
-#### Q:  How to show matches?
-	On the main page, our product will display a person's photos and profiles once a time. 
+#### Q:  How do people from Melecare want to send the news to a specific group of patients?
+	We will provide them accounts to login. After login, they can send the news to the patients(specific groups) they want to.
 
 #### Q:  What operations can users do for matches?
 	Users can make these decisions: 
