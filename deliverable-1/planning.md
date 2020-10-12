@@ -29,10 +29,14 @@ Other than cancer patients, people from MaleCare (our project partner) will play
 #### Q: How do normal users use our app?
 	To start usingour app, the user needs to creater an account first. They should provide some basic data so that our system can provide perfect matches for them. The mock-up sign-up page is as follows:
 <img src="https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/blob/master/deliverable-1/mock-ups/register.jpg " width="600" height="1350" alt="matches"/>
+
 	After they're loggin in, they will see the following page:
 	<img src="https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/blob/master/deliverable-1/mock-ups/match.jpg " width="800" height="600" alt="matches"/>
+	
 	On the left is a matched user that our system has found for the current user. On the right is the filter section where the user can customize their filters to find someone that meets their requirement. 
+	
 	The user can choose to view the full profile page of the other user, or send a message to say hi. If the user doesn't like this match, then he/she can simply click on the Next button to move on to the next match. 
+	
 	What's more, every user has a profle page where they can edit their personal information. 
 	<img src="https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/blob/master/deliverable-1/mock-ups/profile.jpg " width="800" height="600" alt="matches"/>
 
@@ -52,18 +56,9 @@ Other than cancer patients, people from MaleCare (our project partner) will play
    You can create your personas as part of this Markdown file, or add a link to an external site (for example, [Xtensio](https://xtensio.com/user-persona/)).**
 
 #### Q3: Why would your users choose your product? What are they using today to solve their problem/need?
-	The product provides a platform where the cancer patients can meet other cancer patients,
-	either they want to date or find themselves a mentor or mentee. Users would be matched based on their tags.
-	Malecare staff can log in to this product and send news to groups of patients.
+	Our product provides a platform where the cancer patients can meet other cancer patients, either they want to date or find themselves a mentor or mentee. There is no app on the market currently that does what our app does, and our app would provide a solution to the cancer patients who wants to meet other patients to solve their socialization easier. 
 	
-	Malecare staff can only use this product since there is no product now for them to send groups of patients news.
-	For patients, Since there are no similar apps available now for patients, we are providing a new platform for patients to use.
-	
-	Since the product provide filter and tags to filter the matches, this will save the patients time searching without 
-	tags and also bring patients more accurate matches.
-	
-	This product will provide our partner's organization's (Malecare) the staff accounts for them 
-	to send the news to the specific groups of patients.
+	What's more, because the administrators from Malecare can send news about new treatments, it's also a great platform where the patients can be kept updated and receive new information about their cancer. 
 
 > Short (1 - 2 min' read max)
  * We want you to "connect the dots" for us - Why does your product (as described in your answer to Q1) fits the needs of your users (as described in your answer to Q2)?
