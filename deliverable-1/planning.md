@@ -24,30 +24,30 @@ We are planning to build a website, providing matches to cancer patients to date
 	Our product will provide matches for patients, they can create accounts and log in. 
 	As they create accounts, they need to choose their tags(e.g. Mentor, Mentee, Looking For Love). 
 	After login, the matches will be shown on the main page, if they have specific requirements, we provide a filter for them to use.
-<img src="https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/blob/master/deliverable-1/mock-ups/match.jpg " width="800" height="600" alt="matches"/>
+<img src="https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/blob/master/deliverable-1/mock-ups/register.jpg " width="800" height="600" alt="matches"/>
 
 #### Q: How does the filter works?
-	If the patient does not have a specific requirement, it will provide the default filter settings based on the tags in the user's profile.
-	If they have specific requirements, they have a few tags and other settings to set the filter to show the person who meets their requirement.
-
+	If the patient does not have a specific requirement, it will provide the default filter settings based on the tags 
+	in the user's profile. If they have specific requirements, they have a few tags and other settings to set the filter 
+	to show the person who meets their requirement.
 
 #### Q:  How can people from Melecare send the news to a specific group of patients?
 	We will provide them accounts to login. After login, they can send the news to the patients(specific groups) they want to.
+<img src="https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/blob/master/deliverable-1/mock-ups/admin.jpg" width="800" height="600" alt="profile"/>
 
 #### Q:  What operations can users do for matches?
 	Users can make these decisions: 
  	- Chat with him
  	- Show more about him
  	- Swap to next person
+<img src="https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/blob/master/deliverable-1/mock-ups/match.jpg " width="800" height="600" alt="matches"/>
  
-(The mock-ups needed)
-
 #### Q2: Who are your target users?
 	The target users are cancer patients who have (one or multiple) below needs: 
 	- Want to hook-up 
 	- Want to have a mentor 
 	- Want to be a mentor
-	- TODO
+	- Malecare staff who want to send the news to specific groups of patients.
 
   > Short (1 - 2 min' read max)
  * Be specific (e.g. a 'a third-year university student studying Computer Science' and not 'a student')
@@ -58,15 +58,16 @@ We are planning to build a website, providing matches to cancer patients to date
 
 
 #### Q3: Why would your users choose your product? What are they using today to solve their problem/need?
-	The product provides a platform where the cancer patients can meet other cancer patients, either they want to date or find themselves a mentor or mentee. 
-	Users would be matched based on their tags. Users will see tags for this match in the profile section, to verify the requirement. 
-
-	Since there are no similar apps available now, we are providing a new platform for them to use. 
-	The product also requires the user to define their need and use filter to search,   
-	in this way we can provide users with matches that meet user's requirements.
+	The product provides a platform where the cancer patients can meet other cancer patients,
+	either they want to date or find themselves a mentor or mentee. Users would be matched based on their tags.
 	
-	This product follows the instruction that the partner provided and the main functionality  
-	is decided on the meeting with the partner.
+	Malecare staff can only use this product since there is no product now for them to send groups of patients news.
+	Since there are no similar apps available now for patients, we are providing a new platform for patients to use.
+	
+	Since the product provide filter and tags to filter the matches, this will save the patients time searching without 
+	tags and also bring patients more accurate matches.
+	
+	This product will provide the staff in Malecare accounts for them to send the news to the specific groups of patients.
 
 > Short (1 - 2 min' read max)
  * We want you to "connect the dots" for us - Why does your product (as described in your answer to Q1) fits the needs of your users (as described in your answer to Q2)?
@@ -77,8 +78,6 @@ We are planning to build a website, providing matches to cancer patients to date
     * Does this application exist in another form? If so, how does your differ and provide value to the users?
     * How does this align with your partner's organization's values/mission/mandate?
     
-No similar apps and they have needs
-(what the app can do: find people also have cancer and can understand each other)
 
 #### Q4: How will you build it?
 
