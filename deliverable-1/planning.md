@@ -18,7 +18,11 @@
    For example: This is not the time or the place to talk about which programming language and/or framework you are planning to use.
  * **Feel free (and very much encouraged) to include useful diagrams, mock-ups and/or links**.
  
-We are planning to build a web-based, Tinder-like app that serves as a platform, on which the cancer patients can be matched to other cancer patients that meets their requirements. The users of our app can find someone to date, or someone as a mentor who can share their stories fighting with cancer. The users themselves can also be mentors and they're able to find someone who wants to be mentored in our app.
+We are planning to build a web-based, Tinder-like app that serves as a platform, on which the cancer patients can be matched to other cancer patients that meets their requirements. 
+
+At the moment, there's no similar app in the market and cancer patients lacks a way to know each other, so our app would provide a solution to them and solve their socialization problem. 
+
+The users of our app can find someone to date, or someone as a mentor who can share their stories fighting with cancer. The users themselves can also be mentors and they're able to find someone who wants to be mentored in our app.
 
 Other than cancer patients, people from MaleCare (our project partner) will play the roles of administrators in our app, and they'll have a separate administration page. The main functionality of administrators is that they're able to send out news to a specific group of cancer patients. For example, if a new treatment has just been found to be effective to treat breast cancer, then the administrator can choose to send out this exciting news to the users with breast cancer. 
 
