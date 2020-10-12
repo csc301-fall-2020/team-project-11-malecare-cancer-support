@@ -28,7 +28,8 @@ Other than cancer patients, people from MaleCare (our project partner) will play
 
 #### Q: How do normal users use our app?
 To start using our app, the user needs to create an account. They should provide some basic information so that our system can find the perfect matches for them. The mock-up sign-up page is as follows:
-<img src="https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/blob/master/deliverable-1/mock-ups/register.jpg " width="400" height="800" alt="matches"/>
+
+<img src="https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/blob/master/deliverable-1/mock-ups/register.jpg " width="600" height="1200" alt="matches"/>
 
 After they're loggin in, they will see the following page:
 	<img src="https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/blob/master/deliverable-1/mock-ups/match.jpg " width="800" height="600" alt="matches"/>
