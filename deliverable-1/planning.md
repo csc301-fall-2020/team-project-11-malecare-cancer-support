@@ -14,18 +14,17 @@
    browser extension, command-line app, etc.?      
     * When describing the problem/need, give concrete examples of common use cases.
     * Assume your the reader knows nothing about the problem domain and provide the necessary context. 
- * Focus on *what* your product does, and avoid discussing *how* you're going to implement it.      
+ * Focus on *what* your product does, and avoid discussing *how* you're going to implement it. 
    For example: This is not the time or the place to talk about which programming language and/or framework you are planning to use.
  * **Feel free (and very much encouraged) to include useful diagrams, mock-ups and/or links**.
  
-We are planning to build a website, providing matches to cancer patients to hook-up, look for a mentor, or become other patients' mentors.
+We are planning to build a website, providing matches to cancer patients to date, look for a mentor, or become other patients' mentors.
+
+#### Q: Functionalities
 
 #### Q: How to provide matches for users?
-	First, Our product will provide several tags (e.g. Need-Mentor, Want-Hookup, etc) to let users choose from, users can define  
-	their purpose by choosing the correct tags for themselves.  
-	Then the product can provide matches for users. (see below)
+	First, our product will provide several tags (e.g. Mentor, Mentee, Looking For Love) from which the users can choose, and users' purposes can be met by 	choosing the correct tags for themselves, then the product can provide the correct matches for them. Once the user has logged in, our app 
 
-#### Q: How to match up users?
 	Our product will have a setting(tags, ages, gender, location, etc) on the main page.  
 	It makes sure that the matches we provide meet the user's will. 
 
@@ -45,6 +44,7 @@ We are planning to build a website, providing matches to cancer patients to hook
 	- Want to hook-up 
 	- Want to have a mentor 
 	- Want to be a mentor
+	- TODO
 
   > Short (1 - 2 min' read max)
  * Be specific (e.g. a 'a third-year university student studying Computer Science' and not 'a student')
@@ -55,16 +55,15 @@ We are planning to build a website, providing matches to cancer patients to hook
 
 
 #### Q3: Why would your users choose your product? What are they using today to solve their problem/need?
-	The product provides several matches as user required.
-	Users will see the tags for this match in the profile section, to verify the requirement. 
-	Moreover, the product provides a chatroom for users who have an agreement on matches to chat.
+	The product provides a platform where the cancer patients can meet other cancer patients, either they want to date or find themselves a mentor or mentee. 
+	Users would be matched based on their tags. Users will see tags for this match in the profile section, to verify the requirement. 
 
 	Since there are no similar apps available now, we are providing a new platform for them to use. 
-	The product also requires the user to define themselves' need and use filter to search,   
+	The product also requires the user to define their need and use filter to search,   
 	in this way we can provide users with matches that meet user's requirements.
 	
 	This product follows the instruction that the partner provided and the main functionality  
-	are decided on the meeting with the partner.
+	is decided on the meeting with the partner.
 
 > Short (1 - 2 min' read max)
  * We want you to "connect the dots" for us - Why does your product (as described in your answer to Q1) fits the needs of your users (as described in your answer to Q2)?
@@ -87,15 +86,17 @@ No similar apps and they have needs
  * Will you be using third party applications or APIs? If so, what are they?
  * What is your testing strategy?
 #### Q: What is the technology stack? Specify any and all languages, frameworks, libraries, PaaS products or tools. 
-	We will use javascript for the entire software, and choose react and nodejs as frameworks to complete 
-	the front-end and back-end respectively. We may use antd as our frontend library. Also, AWS EC2, heroku, and mangodb 
-	are Paas tools which may use in our project.
+	We will use javascript for the entire software, and choose react and node.js as frameworks to complete 
+	the front-end and back-end respectively. We may use martial ui as our frontend library. What's more, AWS EC2, heroku, and mangodb 
+	are Paas tools which we may use in our project.
 	
 #### Q: How will you deploy the application?
-	After complementation, we may deploy our web app through aws or heroku.
+	We may deploy our web app through aws.
 	
 #### Q: Describe the architecture - what are the high level components or patterns you will use? Diagrams are useful here. 
-	We use mango db as our online database, which is high level component.
+	We use MongoDB as our online database, which is a high level component.
+	We will use mvvm pattern for the frontend.
+	 ????????
 	
 #### Q: Will you be using third party applications or APIs? If so, what are they?
 	As a dating app, we hope to provide users with the approximate distance between other users, which requires 
@@ -104,6 +105,7 @@ No similar apps and they have needs
 #### Q: What is your testing strategy?
 	We may use CI in our project, using github actions to test auotomatically. After creating work flows, we can only change 
 	yml file and 
+	fhjashjkfkjaslf
  
 
 #### Q5: What are the user stories that make up the MVP?
@@ -114,23 +116,23 @@ No similar apps and they have needs
  * The user stories should be written in Github and each one must have clear acceptance criteria.
  
 #### 5 user story
-	1. As a 25-year-old patient who has just been found to have cancer, I want to find a mentor in the app, who can 
+	1. As a 25-year-old man who has just been found to have cancer, I want to find a mentor in the app, who can 
 	guide me to fight the disease more optimistically.
 	
-	2. As a 54-year-old single man with terminal cancer, whose wife has left, I hope to find a lover in the app in 
+	2. As a 54-year-old single man with terminal cancer, whose wife left one year ago, I hope to find a lover in the app in 
 	order to accompany me for the rest of my life.
 	
-	3. As a 32-year-old male cancer patient, who prefer male lover, I hope to meet other men with cancer in the app and 
+	3. As a 32-year-old male cancer patient, who prefers male lovers, I hope to meet other male cancer patients in the app and 
 	fall in love with him, then we fight with cancer togather.
 	
 	4. As a 58-year-old patient who has been suffering from cancer for 20 years, I hope to find people in need of mentor in 
-	the app and share my experience with the disease to them, so that they can be as optimistic and happy as I am.
+	the app and share my experience with the disease to them, so that they can be as optimistic and happy as me.
 	
 	5. As a 28-year-old cancer patient who has just come to Canada from the UK, I hope to make some like-minded friends in 
 	the app to expand my social circle and quickly integrate into the life around me.
 	
-	6. As a 22-year-old cancer patient, whose boyfriend me because I was found to be suffering from cancer, I hope to find a 
-	boyfriend who is also a cancer 	patient, who will understand me better, as well as guiding me on how to face cancer.
+	6. As a 22-year-old cancer patient, whose boyfriend left me because I was found to have cancer, I hope to find a 
+	boyfriend who is also a cancer patient, who will understand me better, as well as guide me to face cancer.
 
 ----
 
@@ -230,7 +232,7 @@ Describe meetings (and other events) you are planning to have.
 Our team members are located in different countries so we can't have in-person meetings. Instead, We'll stay in touch via WeChat and zoom. We have decided to have at least one online zoom meeting a week so that everyone can report on what they have done and what they're planning to do, as well as the problems they have. 
 We had our first meeting with our partner, Darryl, on Oct. 7th. During the meeting, we first introduced ourselves and Darryl shared some of his stories and told us how he came up with the idea of the project. He also cleared up our questions, some of which are:
 #### Q: Who would be the target user of our product?
-        People with cancer who wants to date someone, or wants to find mentors who can share their experience.
+        People with cancer who wants to date someone, or wants to find mentors who can share their experience. We would also have some users as adminiatrators from Malecare and they can send messages about things like new treatment to target cancer patients
 #### Q: Do you want this to be a mobile app or web app?
 	Either is fine. You can make the choice based on your design.
 #### Q：Is there any website that we can refer to?
@@ -317,11 +319,11 @@ and/or collaborative process.
 				3. build applications faster
 		After voting, we choose nodejs and mangodb, since it's apparently that this combination has more advantages.
 	2. Divide up the work through several meetings
-		Since there are five people in our group, and our project as a dating software, the front-end requires more time and 
-		coding relatively. So we decided to have three people in charge of the front-end and two other people in charge of 
-		the back-end and database. We firstly make choices based on personal preference. 
+		Since there are five people in our group and our project is a dating software, the front-end requires more time and 
+		coding compared to the backend, so we decided to have three people in charge of the front-end and two other people in charge of 
+		the back-end and database. We have made choices based on personal preference. 
 		Finally determined: front-end: Xiaomeng Hu, Ruikai Fang, Meilin Yang; back-end: Rui Zhu, Jiayueran Sun
  	3. Product details from the meeting with the customer
-		1. Write the client and operator web-app respectively
-		2. The homepage needs to have news reminders, such as promoting some in-app activities
-		3. Show users the distance of other users
+		1. Write the user and administrator page respectively
+		2. fsdafsafas The homepage needs to have news reminders, such as promoting some in-app activities
+		3. Show users the distance between them and other users
