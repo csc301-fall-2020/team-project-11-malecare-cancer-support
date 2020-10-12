@@ -26,10 +26,8 @@ The users of our app can find someone to date, or someone as a mentor who can sh
 
 Other than cancer patients, people from MaleCare (our project partner) will play the roles of administrators in our app, and they'll have a separate administration page. The main functionality of administrators is that they're able to send out news to a specific group of cancer patients. For example, if a new treatment has just been found to be effective to treat breast cancer, then the administrator can choose to send out this exciting news to the users with breast cancer. 
 
-#### Q: How to help patients who want to find mentors or find other patients to date?
-	Our product will provide matches for patients, they can create accounts and log in. 
-	As they create accounts, they need to choose their tags(e.g. Mentor, Mentee, Looking For Love). 
-	After login, the matches will be shown on the main page, if they have specific requirements, we provide a filter for them to use.
+#### Q: How to use our app?
+	In order to use our app, the user needs to creater an account first. The mock-up login page is as follows:
 <img src="https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/blob/master/deliverable-1/mock-ups/register.jpg " width="600" height="1350" alt="matches"/>
 
 #### Q: How does the filter works?
