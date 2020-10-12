@@ -324,10 +324,12 @@ and/or collaborative process.
 		After voting, we choose nodejs and mangodb, since it's apparently that this combination has more advantages.
 	2. Divide up the work through several meetings
 		Since there are five people in our group and our project is a dating software, the front-end requires more time and 
-		coding compared to the backend, so we decided to have three people in charge of the front-end and two other people in charge of 
-		the back-end and database. We have made choices based on personal preference. 
+		coding compared to the backend, so we decided to have three people in charge of the front-end and two other people 
+		in charge of the back-end and database. We have made choices based on personal preference. 
 		Finally determined: front-end: Xiaomeng Hu, Ruikai Fang, Meilin Yang; back-end: Rui Zhu, Jiayueran Sun
  	3. Product details from the meeting with the customer
 		1. Write the user and administrator page respectively
-		2. fsdafsafas The homepage needs to have news reminders, such as promoting some in-app activities
+		2. Provide users with the latest cancer related information. For example, a certain organization has just developed
+		an effective drug to treat skin cancer, but many cancer patients do not know this news in time. Our app will remind
+		users as soon as possible.
 		3. Show users the distance between them and other users
