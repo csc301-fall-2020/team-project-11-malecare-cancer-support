@@ -107,9 +107,9 @@ We are planning to build a website, providing matches to cancer patients to date
 	the google map API.
 	
 #### Q: What is your testing strategy?
-	We may use CI in our project, using github actions to test auotomatically. After creating work flows, we can only change 
-	yml file and 
-	fhjashjkfkjaslf
+	We may use AVA test framework to write unit test for our javascript code and run the test file using github actions 
+	to test auotomatically. As well as, we will perform manual operations on the front-end page as much as possible to 
+	mock how users use our web-app to make sure there are no operation bugs.
  
 
 #### Q5: What are the user stories that make up the MVP?
