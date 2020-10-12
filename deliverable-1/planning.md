@@ -22,12 +22,18 @@ We are planning to build a web-based, Tinder-like app that serves as a platform,
 
 At the moment, there's no similar app in the market and cancer patients lacks a way to know each other, so our app would provide a solution to them and solve their socialization problem. 
 
-The users of our app can find someone to date, or someone as a mentor who can share their stories fighting with cancer. The users themselves can also be mentors and they're able to find someone who wants to be mentored in our app.
+The users of our app can find someone to date, or someone as a mentor who can share their stories fighting with cancer. The users themselves can also be mentors and find their mentees. 
 
-Other than cancer patients, people from MaleCare (our project partner) will play the roles of administrators in our app, and they'll have a separate administration page. The main functionality of administrators is that they're able to send out news to a specific group of cancer patients. For example, if a new treatment has just been found to be effective to treat breast cancer, then the administrator can choose to send out this exciting news to the users with breast cancer. 
+Other than cancer patients, people from MaleCare (our project partner) will play the roles of administrators in our app, and they'll have a separate administration page. What administrators can do in our app is that they're able to send out news to specific groups of cancer patients. For example, if a new treatment has just been found to be effective to cure breast cancer, then the administrator can choose to send out this exciting news to the users with breast cancer. 
 
-#### Q: How to use our app?
-	In order to use our app, the user needs to creater an account first. The mock-up login page is as follows:
+#### Q: How do normal users use our app?
+	To start usingour app, the user needs to creater an account first. They should provide some basic data so that our system can provide perfect matches for them. The mock-up sign-up page is as follows:
+<img src="https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/blob/master/deliverable-1/mock-ups/register.jpg " width="600" height="1350" alt="matches"/>
+	After they're loggin in, they will see the following page:
+	<img src="https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/blob/master/deliverable-1/mock-ups/match.jpg " width="800" height="600" alt="matches"/>
+	On the left is a matched user that our system has found for the current user. On the right is the filter section where the user can customize their filters to find someone that meets their requirement. 
+	The user can choose to view the full profile page of the other user, so chat to him directly. If the user doesn't like this match, then he/she can simply click on the Next button to move on to the next match. 
+
 <img src="https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/blob/master/deliverable-1/mock-ups/register.jpg " width="600" height="1350" alt="matches"/>
 
 #### Q: How does the filter works?
