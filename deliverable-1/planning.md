@@ -18,7 +18,7 @@
    For example: This is not the time or the place to talk about which programming language and/or framework you are planning to use.
  * **Feel free (and very much encouraged) to include useful diagrams, mock-ups and/or links**.
  
-We are planning to build a website, providing matches to cancer patients to date, look for a mentor, or become other patients' mentors.
+We are planning to build a web-based, Tinder-like app that serves as a platform, on which the cancer patients can be matched to other cancer patients that meets their requirements. The users of our app can find someone to date, or someone as a mentor who can share their stories fighting with cancer. The users themselves can also be mentors and they're able to find someone who wants to be mentored in our app.
 
 #### Q: How to help patients who want to find mentors or find other patients to date?
 	Our product will provide matches for patients, they can create accounts and log in. 
