@@ -42,7 +42,7 @@ Here's what the messages page look like:
 <img src="https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/blob/master/deliverable-1/mock-ups/message.jpg " width="800" height="600" alt="matches"/>
 	
 What's more, every user has a profile page where they can edit their personal information. 
-	<img src="https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/blob/master/deliverable-1/mock-ups/profile.jpg " width="800" height="600" alt="matches"/>
+<img src="https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/blob/master/deliverable-1/mock-ups/profile.jpg " width="800" height="600" alt="matches"/>
 
 #### Q:  How can administrators send the news to a specific group of patients?
 We will provide them with pre-set administrator accounts. After login, they would be able to send the news to the patients of specific groups.
@@ -101,12 +101,10 @@ What's more, because the administrators from Malecare can send news about new tr
 	
 #### Q: What is your testing strategy?
 	We may use AVA test framework to write unit tests and run the test files with Github Actions for every pull request. 
-	Apart from that, we will perform manual operations on the front-end page as much as possible to 
-	mock how users use our web-app to make sure there are no operation bugs.
+	Apart from that, we will perform manual operations on the front-end page as much as possible to mock how users use our web-app to make sure there are no operation bugs.
 
 #### Q: A word on privacy
-	We always put the safety and privacy of our users first. All the user credentials would be encrypted before 
-	storage. All the user data will be kept confidential and will only be used for matching purposes.
+	We always put the safety and privacy of our users first. All the user credentials would be encrypted before storage. All the user data will be kept confidential and will only be used for matching and receiving news from Malecare.
  
 
 #### Q5: What are the user stories that make up the MVP?
