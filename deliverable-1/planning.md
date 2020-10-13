@@ -151,8 +151,11 @@ List each team member and:
  #### Xiaomeng: 
  Roles: 
  Scrum manager: I will keep an eye on the development progress tell people when things fall behind
+ 
  Communicator: I'm responsible for communicating with the customer because I'm located in Toronto so I don't have any time difference with the customer. 
+ 
  Frontend developer: Responsible for implementing the login and sign-up page, as well as the administration page.
+ 
  Technical strengths: 
  1. I worked with React before so I'm familiar with it.
  2. I have taken csc309 so I know what it takes to succeed in a group project (things like keeping in good communication and dividing up the work as evenly as possible)
