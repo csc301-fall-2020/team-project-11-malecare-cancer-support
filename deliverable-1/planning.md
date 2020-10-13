@@ -51,9 +51,9 @@ We will provide them with pre-set administrator accounts. After login, they woul
  
 #### Q2: Who are your target users?
 	The target users are cancer patients who have any of the following needs: 
-	- Want to find someone to date
-	- Want to be mentored by someone
-	- Want to mentor someone
+	- Want to find someone who also suffers from the same type(s) of cancer to date
+	- just diagnosed with cancer and want to be mentored and comforted by someone who has had the same type(s) of cancer as them for longer time
+	- have experience fighting with cancer and now want to mentor someone who has the same type(s) of cancer as them for shorter time
 
   > Short (1 - 2 min' read max)
  * Be specific (e.g. a 'a third-year university student studying Computer Science' and not 'a student')
@@ -64,6 +64,8 @@ We will provide them with pre-set administrator accounts. After login, they woul
 Our product provides a platform where the cancer patients can meet other cancer patients, either they want to date or find themselves a mentor or mentee. There is no such app on the market currently that does what our app does, and our app would provide a solution to the cancer patients who wants to meet other patients and make their socialization easier. 
 	
 What's more, because the administrators from Malecare can send news about new treatments, it's also a great platform where the patients can receive the latest information about their cancer. 
+
+Our partner, Malecare, is a non-profitable organization providing support to cancer patients. This app certainly helps cancer patients with socializing and receiving latest information.
 
 > Short (1 - 2 min' read max)
  * We want you to "connect the dots" for us - Why does your product (as described in your answer to Q1) fits the needs of your users (as described in your answer to Q2)?
