@@ -116,7 +116,7 @@ What's more, because the administrators from Malecare can send news about new tr
  * If you have a partner, these must be reviewed and accepted by them
  * The user stories should be written in Github and each one must have clear acceptance criteria.
  
-#### 5 user story
+#### 5 user stories
 	1. As a 25-year-old man who has just been found to have cancer, I want to find a mentor in the app, who can 
 	guide me to fight the disease more optimistically.
 	
