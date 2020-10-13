@@ -88,7 +88,7 @@ Our partner, Malecare, is a non-profitable organization providing support to can
 #### Q: What is the technology stack? Specify any and all languages, frameworks, libraries, PaaS products or tools. 
 	We will use javascript for the entire software, with the react and node.js frameworks to complete 
 	the front-end and back-end respectively. We may use martial ui as our frontend library. What's more, AWS EC2, heroku, 
-	and mangodb are Paas tools that we may use in our project.
+	and MongoDB are Paas tools that we may use in our project.
 	
 #### Q: How will you deploy the application?
 	We will deploy our web app through aws.
