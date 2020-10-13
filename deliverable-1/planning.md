@@ -150,6 +150,7 @@ List each team member and:
  
  #### Xiaomeng: 
  Roles: 
+ 
  Scrum manager: I will keep an eye on the development progress tell people when things fall behind
  
  Communicator: I'm responsible for communicating with the customer because I'm located in Toronto so I don't have any time difference with the customer. 
@@ -167,8 +168,11 @@ List each team member and:
  
  #### Ruikai:
  Roles: 
+ 
  Frontend developer: Responsible for implementing the matching page, and the full profile page.
+ 
  QA: I will write unit tests and test the functionalities with hands
+ 
  Technical strengths: 
  1. I'm good at database-related work
  2. I worked on some React Native projects, and learning React should be easy for me.
