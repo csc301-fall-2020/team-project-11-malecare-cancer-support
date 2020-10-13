@@ -184,8 +184,11 @@ List each team member and:
 
  #### Rui: 
  Roles: 
+ 
  Product manager: I'll design the product, both the functionalities and the UI
+ 
  Backend developer: I'll come up with a good matching algorithm and implements it so that each user can be matched to people that satisfy their requirements.
+ 
  Technical strengths: 
  1. I'm good at designing UI
  2. I took many algorithm courses and did well in them, and I have confidence in the matching algorithm that I am going to design.
@@ -198,7 +201,9 @@ List each team member and:
  
   #### Jiayueran: 
   Roles: 
+  
   Backend developer: I'm responsible for all the database related work
+  
   Technical strengths: 
   1. I have taken CSC343 (Intro to Database) and did well in it, so working with SQL is not new to me. I'm also familiar with MongoDB.
   2. I have worked on some node.js projects so I feel comfortable using node.js
@@ -211,9 +216,13 @@ List each team member and:
  
  #### Meilin: 
  Roles: 
+ 
  Communicator: I'm responsible for communicating with the customer
+ 
  Backend developer: I'm responsible for the rest of the backend work
+ 
  QA: I will be responsible for writing unit tests 
+ 
  Technical strengths: 
  1. I'm a careful person and like testing stuff out thoroughly
  2. I'm good at coding and likes learning new technologies, so I'm excited to have the chance to learn node.js
@@ -240,11 +249,11 @@ Describe meetings (and other events) you are planning to have.
 Our team members are located in different countries so we can't have in-person meetings. Instead, We'll stay in touch via WeChat and zoom. We have decided to have at least one online zoom meeting a week so that everyone can report on what they have done and what they're planning to do, as well as the problems they have. 
 We had our first meeting with our partner, Darryl, on Oct. 7th. During the meeting, we first introduced ourselves and Darryl shared some of his stories and told us how he came up with the idea of the project. He also cleared up our questions, some of which are:
 #### Q: Who would be the target user of our product?
-        People with cancer who wants to date someone, find a mentor or mentee.
+People with cancer who wants to date someone, find a mentor or mentee.
 #### Q: Do you want this to be a mobile app or web app?
-	Either is fine. You can make the choice based on your design.
+Either is fine. You can make the choice based on your design.
 #### Q：Is there any website that we can refer to?
-	https://cancergraph.com/
+https://cancergraph.com/
 We have also agreed on a bi-weekly meeting schedule.
   
 #### Q8: What artifacts will you use to self-organize?
