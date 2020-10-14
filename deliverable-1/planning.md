@@ -131,11 +131,13 @@ Our partner, Malecare, is a non-profitable organization providing support to can
 	breast cancer patients who are between the ages of 30 and 40 and live in Toronto so that they can decide whether to 
 	take a part in the clinical trial.
 	
-	4. As a 58-year-old female patient who has been suffering from cancer for 20 years, I hope to find people in need of a mentor in 
-	the app and share my experience with the disease with them, so that they can be as optimistic and happy as me.
+	4. As a 58-year-old female patient who has been suffering from cancer for 20 years, I hope to find people in need of a 
+	mentor in the app and share my experience with the disease with them, so that they can be as optimistic and happy as me.
 	
-	5. As a 28-year-old male cancer patient who has just come to Canada from the UK, I hope to make some like-minded friends staying 
-	same city with me through the app to expand my new social circle and quickly integrate into the new life around me.
+	5. As a 28-year-old male cancer patient who has just come to Canada from the UK, I hope this app can detect that I have 
+	moved, and can recommend me to people who live in the same city as me, preferably no more than 5km away from me. In this
+	way, I can make some like-minded friends staying same city with me through the app to expand my new social circle and 
+	quickly integrate into the new life around me.
 	
 	6. As a 22-year-old female cancer patient, whose boyfriend left me because I was found to have cancer, I hope to find a 
 	boyfriend who is also a cancer patient, who will understand me better, as well as guide me to face cancer.
