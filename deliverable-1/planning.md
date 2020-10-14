@@ -121,28 +121,26 @@ Our partner, Malecare, is a non-profitable organization providing support to can
  
 #### 5 user stories
 	1. As a 25-year-old man who has just been found to have cancer, I want to find a mentor in the app, who can 
-	guide me to fight the disease more optimistically.
+	guide me to fight the disease more optimistically. After I can balance between cancer and life, I would like 
+	to meet people in need of a mentor through the app and share my experience with the disease with them, so 
+	that they can be as optimistic and happy as me.
 	
-	2. As a 54-year-old single man with terminal cancer, whose wife left one year ago, I hope to find a lover in the app 
-	to accompany me for the rest of my life.
+	2. As a 54-year-old single man with terminal cancer, whose wife left one year ago, I hope to find a lover as well as 
+	a mentor in the app to accompany me for the rest of my life and guide me to face cancer.
 	
 	3. As a member of Malecare cancer support group, I just discovered that there is a clinical trial in Toronto for breast 
 	cancer treatment looking for volunteers between ages 30 and 40. I would like to send this news through the app to all 
 	breast cancer patients who are between the ages of 30 and 40 and live in Toronto so that they can decide whether to 
 	take a part in the clinical trial.
 	
-	4. As a 58-year-old female patient who has been suffering from cancer for 20 years, I hope to find people in need of a 
-	mentor in the app and share my experience with the disease with them, so that they can be as optimistic and happy as me.
-	
-	5. As a 28-year-old male cancer patient who has just come to Canada from the UK, I hope this app can detect that I have 
+	4. As a 28-year-old male cancer patient who has just come to Canada from the UK, I hope this app can detect that I have 
 	moved, and can recommend me to people who live in the same city as me, preferably no more than 5km away from me. In this
 	way, I can make some like-minded friends staying same city with me through the app to expand my new social circle and 
 	quickly integrate into the new life around me.
-	
-	6. As a 22-year-old female cancer patient, whose boyfriend left me because I was found to have cancer, I hope to find a 
-	boyfriend who is also a cancer patient, who will understand me better, as well as guide me to face cancer.
 
-	7. As a 40-year-old breast cancer patient living in New York City, I would like to explore clinical trials close to my living area by using this app, because manual searches for clinical trials on the Internet can be difficult for me.Then, I can access a drug to which I might not have access otherwise.
+	5. As a 40-year-old breast cancer patient living in New York City, I would like to explore clinical trials close to my 
+	living area by using this app, because manual searches for clinical trials on the Internet can be difficult for me.Then,
+	I can access a drug to which I might not have access otherwise.
 
 ----
 
