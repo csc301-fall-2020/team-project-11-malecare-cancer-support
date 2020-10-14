@@ -126,7 +126,10 @@ Our partner, Malecare, is a non-profitable organization providing support to can
 	2. As a 54-year-old single man with terminal cancer, whose wife left one year ago, I hope to find a lover in the app 
 	to accompany me for the rest of my life.
 	
-	3. As a member of Malecare cancer support group, I just discovered that there is a clinical trial in Toronto for breast cancer treatment looking for volunteers between ages 30 and 40. I would like to send this news through the app to all breast cancer patients who are between the ages of 30 and 40 and live in Toronto so that they can decide whether to take a part in the clinical trial.
+	3. As a member of Malecare cancer support group, I just discovered that there is a clinical trial in Toronto for breast 
+	cancer treatment looking for volunteers between ages 30 and 40. I would like to send this news through the app to all 
+	breast cancer patients who are between the ages of 30 and 40 and live in Toronto so that they can decide whether to 
+	take a part in the clinical trial.
 	
 	4. As a 58-year-old female patient who has been suffering from cancer for 20 years, I hope to find people in need of a mentor in 
 	the app and share my experience with the disease with them, so that they can be as optimistic and happy as me.
