@@ -140,6 +140,8 @@ Our partner, Malecare, is a non-profitable organization providing support to can
 	6. As a 22-year-old female cancer patient, whose boyfriend left me because I was found to have cancer, I hope to find a 
 	boyfriend who is also a cancer patient, who will understand me better, as well as guide me to face cancer.
 
+	7. As a 40-year-old breast cancer patient living in New York City, I would like to explore clinical trials close to my living area by using this app, because manual searches for clinical trials on the Internet can be difficult for me.Then, I can access a drug to which I might not have access otherwise.
+
 ----
 
 ## Process Details
