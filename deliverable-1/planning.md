@@ -55,7 +55,7 @@ We will provide them with pre-set administrator accounts. After login, they woul
 	- Cancer patients who just diagnosed with cancer and want to be mentored and comforted by someone who has had the same type(s) of cancer as them for longer time
 	- Cancer patients who have experience fighting with cancer and now want to mentor someone who has the same type(s) of cancer as them for shorter time
 	- Members from Malecare cancer support who wants to send news, such as new treatments, new clinical trials, etc., to a specific group of cancer patients
-	- Cancer patients who wants to explore more information specific to their cancer type(s)
+	- Cancer patients who want to explore more information specific to their cancer type(s)
 	
 
   > Short (1 - 2 min' read max)
