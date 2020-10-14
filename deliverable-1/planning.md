@@ -64,6 +64,8 @@ We will provide them with pre-set administrator accounts. After login, they woul
    You can create your personas as part of this Markdown file, or add a link to an external site (for example, [Xtensio](https://xtensio.com/user-persona/)).**
 
 #### Q3: Why would your users choose your product? What are they using today to solve their problem/need?
+
+//TODO: Add info about new treatment and how it helps
 Our product provides a platform where the cancer patients can meet other cancer patients, either they want to date or find themselves a mentor or mentee. We will match users who are close to each other and having same type(s) of cancer since they may be interested in meeting each other in reality to expand their social circles.
 
 What's more, because the administrators from Malecare can send news about new treatments, it's also a great platform where the patients can receive the latest information about their cancer. Cancer patients used to have to search throughout the internet to find information regarding their cancer, which was more time-consuming than getting information from our application.
@@ -123,14 +125,14 @@ Our partner, Malecare, is a non-profitable organization providing support to can
  
 #### 5 user stories
 	1. As a 25-year-old man who has just been found to have cancer, I want to find a mentor in the app, who can 
-	guide me to fight the disease more optimistically. After I can balance between cancer and life, I would like 
+	guide me to fight the disease. After I can balance between cancer and life, I would like 
 	to meet people in need of a mentor through the app and share my experience with the disease with them, so 
 	that they can be as optimistic and happy as me.
 	
 	2. As a 54-year-old single man with terminal cancer, whose wife left one year ago, I hope to find a lover as well as 
 	a mentor in the app to accompany me for the rest of my life and guide me to face cancer.
 	
-	3. As a member of Malecare cancer support group, I just discovered that there is a clinical trial in Toronto for breast 
+	3. As an employee of Malecare, I just discovered that there is a clinical trial in Toronto for breast 
 	cancer treatment looking for volunteers between ages 30 and 40. I would like to send this news through the app to all 
 	breast cancer patients who are between the ages of 30 and 40 and live in Toronto so that they can decide whether to 
 	take a part in the clinical trial.
@@ -140,9 +142,8 @@ Our partner, Malecare, is a non-profitable organization providing support to can
 	way, I can make some like-minded friends staying same city with me through the app to expand my new social circle and 
 	quickly integrate into the new life around me.
 
-	5. As a 40-year-old breast cancer patient living in New York City, I would like to explore clinical trials close to my 
-	living area by using this app, because manual searches for clinical trials on the Internet can be difficult for me.Then,
-	I can access a drug to which I might not have access otherwise.
+	5. As a 40-year-old breast cancer patient living in New York City, I would like to receive information about clinical trials and new treatments available close to my 
+	living area by using this app. Then, I can access a drug to which I might not have access/not aware otherwise.
 
 ----
 
