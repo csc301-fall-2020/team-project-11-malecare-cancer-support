@@ -50,10 +50,13 @@ We will provide them with pre-set administrator accounts. After login, they woul
 <img src="https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/blob/master/deliverable-1/mock-ups/admin.jpg" width="800" height="600" alt="profile"/>
  
 #### Q2: Who are your target users?
-	The target users are cancer patients who have any of the following needs: 
-	- Want to find someone who also suffers from the same type(s) of cancer to date
-	- just diagnosed with cancer and want to be mentored and comforted by someone who has had the same type(s) of cancer as them for longer time
-	- have experience fighting with cancer and now want to mentor someone who has the same type(s) of cancer as them for shorter time
+	Our target users are listed below:
+	- Cancer patients who want to find someone who also suffers from the same type(s) of cancer to date
+	- Cancer patients who just diagnosed with cancer and want to be mentored and comforted by someone who has had the same type(s) of cancer as them for longer time
+	- Cancer patients who have experience fighting with cancer and now want to mentor someone who has the same type(s) of cancer as them for shorter time
+	- Members from Malecare cancer support who wants to send news, such as new treatments, new clinical trials, etc., to a specific group of cancer patients
+	- Cancer patients who wants to explore more information specific to their cancer type(s)
+	
 
   > Short (1 - 2 min' read max)
  * Be specific (e.g. a 'a third-year university student studying Computer Science' and not 'a student')
