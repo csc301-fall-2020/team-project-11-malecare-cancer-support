@@ -64,7 +64,7 @@ We will provide them with pre-set administrator accounts. After login, they woul
    You can create your personas as part of this Markdown file, or add a link to an external site (for example, [Xtensio](https://xtensio.com/user-persona/)).**
 
 #### Q3: Why would your users choose your product? What are they using today to solve their problem/need?
-Our product provides a platform where the cancer patients can meet other cancer patients, either they want to date or find themselves a mentor or mentee. We will match users who are close to each other, since they may be interested in meeting each other in reality to expand their social circles.
+Our product provides a platform where the cancer patients can meet other cancer patients, either they want to date or find themselves a mentor or mentee. We will match users who are close to each other and having same type(s) of cancer since they may be interested in meeting each other in reality to expand their social circles.
 
 What's more, because the administrators from Malecare can send news about new treatments, it's also a great platform where the patients can receive the latest information about their cancer. Cancer patients used to have to search throughout the internet to find information regarding their cancer, which was more time-consuming than getting information from our application.
 
