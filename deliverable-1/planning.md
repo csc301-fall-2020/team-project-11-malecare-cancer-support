@@ -36,16 +36,17 @@ After they're loggin in, they will see the following page:
 	
 On the left is a matched user that our system has found for the current user. On the right is the filter section where the user can customize their filters to find someone that meets their requirement. 
 	
-The user can choose to view the full profile page of the other user or send a message to say hi. If the user doesn't like this match, then he/she can simply click on the Next button to move on to the next match. 
+The user can choose to view the full profile page of the other user or send a request to start chatting. Only when the chatting request has been approved by the other user can they start sending messages to each other. If the user doesn't like this match, then he/she can simply click on the Next button to move on to the next match. If the user clicks on the Next button by mistake, then he/she can click on teh Prev button to go back to the previous match. 
 
+The messages page is where the users communicate with each other. They can send text, emojis, or even photos. If the user doesn't want to receive messages from another user anymore, then he/she can simply block that user. If during the conversation, a user starts to harass, abuse, or even threaten the other user, then the user can simply report him/her to the administrator and that user's account would be blcoked forever. 
 Here's what the messages page look like:
 <img src="https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/blob/master/deliverable-1/mock-ups/message.jpg " width="800" height="600" alt="matches"/>
 	
-What's more, every user has a profile page where they can edit their personal information. 
+What's more, every user has a profile page where they can edit their personal information. They are also able to upload up to 3 photos to their profile. The reason why we have a limit on the number of photos is that we don't want this app to be like Facebook or Instagram, where one can share their daily life and upload tons of photos. The main goal for our app is to provide a platform for cancer patients to meet each other, and 3 photos and a brief introduction are enough for people to get a general impression of each other.
 <img src="https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/blob/master/deliverable-1/mock-ups/profile.jpg " width="800" height="600" alt="matches"/>
 
-#### Q:  How can administrators send the news to a specific group of patients?
-We will provide them with pre-set administrator accounts. After login, they would be able to send the news to the patients of specific groups.
+#### Q:  What can administrators do in our app?
+We will provide them with pre-set administrator accounts. After login, they would be able to see the administrator page, where they can send the news to the patients of specific groups, or view the patients that has been reported. An administrator has the right to see the conversation that has been reported and make a decision on whether or not to ban a user's account.
 
 <img src="https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/blob/master/deliverable-1/mock-ups/admin.jpg" width="800" height="600" alt="profile"/>
  
@@ -54,8 +55,9 @@ We will provide them with pre-set administrator accounts. After login, they woul
 	- Cancer patients who want to find someone who also suffers from the same type(s) of cancer to date
 	- Cancer patients who just diagnosed with cancer and want to be mentored and comforted by someone who has had the same type(s) of cancer as them for longer time
 	- Cancer patients who have experience fighting with cancer and now want to mentor someone who has the same type(s) of cancer as them for shorter time
-	- Members from Malecare cancer support who wants to send news, such as new treatments, new clinical trials, etc., to a specific group of cancer patients
 	- Cancer patients who want to explore more information specific to their cancer type(s)
+	- Employees from Malecare cancer support that would take the role as the administrators. They are able to send news, such as new treatments, new clinical trials, etc., to a specific group of cancer patients, or ban people's account for misconducting.
+
 	
 
   > Short (1 - 2 min' read max)
@@ -92,13 +94,11 @@ Our partner, Malecare, is a non-profitable organization providing support to can
  * Describe the architecture - what are the high level components or patterns you will use? Diagrams are useful here. 
  * Will you be using third party applications or APIs? If so, what are they?
  * What is your testing strategy?
-#### Q: What is the technology stack? Specify any and all languages, frameworks, libraries, PaaS products or tools. 
-	We will use javascript for the entire software, with the react and node.js frameworks to complete 
-	the front-end and back-end respectively. We may use martial ui as our frontend library. What's more, AWS EC2, heroku, 
-	and MongoDB are Paas tools that we may use in our project.
+We will use javascript for the entire software, with the react and node.js frameworks to complete 
+the front-end and back-end respectively. We may use martial ui as our frontend library. What's more, AWS EC2, heroku, 
+and MongoDB are Paas tools that we may use in our project.
 	
-#### Q: How will you deploy the application?
-	We will deploy our web app through aws.
+As for how we are going to deploy the app, we will deploy our web app through aws.
 	
 #### Q: Describe the architecture - what are the high level components or patterns you will use? Diagrams are useful here. 
 	We use MongoDB as our online database, which is a high level component.
@@ -124,26 +124,28 @@ Our partner, Malecare, is a non-profitable organization providing support to can
  * The user stories should be written in Github and each one must have clear acceptance criteria.
  
 #### 5 user stories
-	1. As a 25-year-old man who has just been found to have cancer, I want to find a mentor in the app, who can 
+1. As a 25-year-old man who has just been found to have cancer, I want to find a mentor in the app, who can 
 	guide me to fight the disease. After I can balance between cancer and life, I would like 
 	to meet people in need of a mentor through the app and share my experience with the disease with them, so 
 	that they can be as optimistic and happy as me.
 	
-	2. As a 54-year-old single man with terminal cancer, whose wife left one year ago, I hope to find a lover as well as 
+2. As a 54-year-old single man with terminal cancer, whose wife left one year ago, I hope to find a lover as well as 
 	a mentor in the app to accompany me for the rest of my life and guide me to face cancer.
 	
-	3. As an employee of Malecare, I just discovered that there is a clinical trial in Toronto for breast 
+3. As an employee of Malecare, and an administrator of Cancerchat, I just discovered that there is a clinical trial in 
+	Toronto for breast 
 	cancer treatment looking for volunteers between ages 30 and 40. I would like to send this news through the app to all 
 	breast cancer patients who are between the ages of 30 and 40 and live in Toronto so that they can decide whether to 
 	take a part in the clinical trial.
 	
-	4. As a 28-year-old male cancer patient who has just come to Canada from the UK, I hope this app can detect that I have 
+4. As an employee of Malecare, and an administrator of Cancerchat, I found that one user has been reported for defrauding. I opened the conversation that had been reported and found that the user is bragging on a “latest treatment” on stomach cancer, and is willing to share it at a cost of $500. I immediately realized that this is defrauding so I banned that user's account and put his/her email in the blacklist so he/she can't create another account with this email.
+	
+5. As a 28-year-old male cancer patient who has just come to Canada from the UK, I hope this app can detect that I have 
 	moved, and can recommend me to people who live in the same city as me, preferably no more than 5km away from me. In this
 	way, I can make some like-minded friends staying same city with me through the app to expand my new social circle and 
 	quickly integrate into the new life around me.
 
-	5. As a 40-year-old breast cancer patient living in New York City, I would like to receive information about clinical trials and new treatments available close to my 
-	living area by using this app. Then, I can access a drug to which I might not have access/not aware otherwise.
+6. As a 40-year-old breast cancer patient living in New York City, I would like to receive information about clinical trials and new treatments available close to my living area by using this app. Then, I can access a drug to which I might not have access/not aware otherwise.
 
 ----
 
