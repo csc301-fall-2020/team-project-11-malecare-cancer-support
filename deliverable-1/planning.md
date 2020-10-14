@@ -51,12 +51,12 @@ We will provide them with pre-set administrator accounts. After login, they woul
 <img src="https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/blob/master/deliverable-1/mock-ups/admin.jpg" width="800" height="600" alt="profile"/>
  
 #### Q2: Who are your target users?
-	Our target users are listed below:
-	- Cancer patients who want to find someone who also suffers from the same type(s) of cancer to date
-	- Cancer patients who just diagnosed with cancer and want to be mentored and comforted by someone who has had the same type(s) of cancer as them for longer time
-	- Cancer patients who have experience fighting with cancer and now want to mentor someone who has the same type(s) of cancer as them for shorter time
-	- Cancer patients who want to explore more information specific to their cancer type(s)
-	- Employees from Malecare cancer support that would take the role as the administrators. They are able to send news, such as new treatments, new clinical trials, etc., to a specific group of cancer patients, or ban people's account for misconducting.
+Our target users are listed below:
+- Cancer patients who want to find someone who also suffers from the same type(s) of cancer to date
+- Cancer patients who just diagnosed with cancer and want to be mentored and comforted by someone who has had the same type(s) of cancer as them for longer time
+- Cancer patients who have experience fighting with cancer and now want to mentor someone who has the same type(s) of cancer as them for shorter time
+- Cancer patients who want to explore more information specific to their cancer type(s)
+- Employees from Malecare cancer support that would take the role as the administrators. They are able to send news, such as new treatments, new clinical trials, etc., to a specific group of cancer patients, or ban people's account for misconducting.
 
 	
 
@@ -67,7 +67,6 @@ We will provide them with pre-set administrator accounts. After login, they woul
 
 #### Q3: Why would your users choose your product? What are they using today to solve their problem/need?
 
-//TODO: Add info about new treatment and how it helps
 Our product provides a platform where the cancer patients can meet other cancer patients, either they want to date or find themselves a mentor or mentee. We will match users who are close to each other and having same type(s) of cancer since they may be interested in meeting each other in reality to expand their social circles.
 
 What's more, because the administrators from Malecare can send news about new treatments, it's also a great platform where the patients can receive the latest information about their cancer. Cancer patients used to have to search throughout the internet to find information regarding their cancer, which was more time-consuming than getting information from our application.
@@ -267,6 +266,24 @@ Either is fine. You can make the choice based on your design.
 #### Q：Is there any website that we can refer to?
 https://cancergraph.com/
 We have also agreed on a bi-weekly meeting schedule.
+
+We had a second meeting with Darryl on Oct 14th. The main purpose of the meeting is to present him with our draft D1 and get some feedback. Here are the meeting minutes:
+1.Showed the user stories in D1 and the mock-up pages to Darryl to get feedback
+2.Not a facebook-like app, just a platform to meet people. All the other things can happen in the background
+3.Bigger message icon
+4.The user should be able to go back to the previous match
+5.Simple simple simple
+6.Keep spammers off, report button, administrators should be able to handle this
+7.Administrator messages can be pinned till the user reads it, or 72 hours
+8.A user should not send too many messages to another user who hasn’t respond (no more than 2 messages for the first time, and 5 in the future), and the user should be able to block other people
+9.Send photos and emojis in messages
+10.Medication and types of cancer are lists, there might be hundreds of them, with the correct spelling. We don’t want the user to type in whatever they want because they may spell it wrong.
+11.What our app can do: add something about new treatment 
+12.No logo currently
+13.Consider add a permission to chat
+14.3 Labels sound good(mentor, mentee, looking for love)
+15.Kms vs miles
+
   
 #### Q8: What artifacts will you use to self-organize?
 
