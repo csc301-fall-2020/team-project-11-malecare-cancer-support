@@ -111,7 +111,7 @@ We will use javascript for the entire software, React for front-end and Node.js 
 #### user stories
 1. As a 25-year-old man who has just received cancer diagnosis, I want to find a mentor in the app, who can guide me to fight the disease. After I find balance in my life, I would like to meet people in need of a mentor through the app and share my experience with the disease with them, so that they can be as optimistic as me.
 	
-2. As a 54-year-old single man with terminal cancer, whose wife left one year ago, I hope to find a lover as well as a mentor in the app to accompany me for the rest of my life and guide me to face cancer.
+2. As a 54-year-old single man with terminal cancer, whose wife left one year ago, I hope to find a lover through the app to accompany me for the rest of life. At the same time, I can also be her mentor and share with her my years of experience in cancer treatment.
 	
 3. As an employee of Malecare and an administrator of Cancerchat, I just discovered that there is a clinical trial in Toronto for breast cancer treatment looking for volunteers between ages 30 and 40. I would like to send this news through the app to all breast cancer patients who are between the ages of 30 and 40 and live in Toronto so that they can decide whether to take a part in the clinical trial.
 	
