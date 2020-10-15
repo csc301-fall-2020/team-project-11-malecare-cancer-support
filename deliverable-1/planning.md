@@ -348,6 +348,7 @@ and/or collaborative process.
 		1. allows all sizes organizations, especially as a cloud database
 		2. handle highly diverse data types, and manage applications more efficiently at scale
 		3. build applications faster
+		
 For database, we have different opinions on what stack to use. Some people want to choose flask and mysql, others prefer Node.js and MongoDB.
 After voting, we choose Node.js and MongoDB, since it's apparent that this combination has more advantages.
 2. Divide up the work through several meetings
