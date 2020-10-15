@@ -108,8 +108,8 @@ We will use javascript for the entire software, React for front-end and Node.js 
  * If you have a partner, these must be reviewed and accepted by them
  * The user stories should be written in Github and each one must have clear acceptance criteria.
  
-#### 5 user stories
-1. As a 25-year-old man who has just been found to have cancer, I want to find a mentor in the app, who can guide me to fight the disease. After I can balance between cancer and life, I would like to meet people in need of a mentor through the app and share my experience with the disease with them, so that they can be as optimistic and happy as me.
+#### user stories
+1. As a 25-year-old man who has just received cancer diagnosis, I want to find a mentor in the app, who can guide me to fight the disease. After I find balance in my life, I would like to meet people in need of a mentor through the app and share my experience with the disease with them, so that they can be as optimistic as me.
 	
 2. As a 54-year-old single man with terminal cancer, whose wife left one year ago, I hope to find a lover as well as a mentor in the app to accompany me for the rest of my life and guide me to face cancer.
 	
