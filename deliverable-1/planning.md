@@ -36,7 +36,10 @@ After they're loggin in, they will see the following page:
 	
 On the left is a matched user that our system has found for the current user. On the right is the filter section where the user can customize their filters to find someone that meets their requirement. 
 	
-The user can choose to view the full profile page of the other user or send a request to start chatting. Only when the chatting request has been approved by the other user can they start sending messages to each other. If the user doesn't like this match, then he/she can simply click on the Next button to move on to the next match. If the user clicks on the Next button by mistake, then he/she can click on teh Prev button to go back to the previous match. 
+The user can choose to view the full profile page of the other user or send a request to start chatting. Only when the chatting request has been approved by the other user can they start sending messages to each other. If the user doesn't like this match, then he/she can simply click on the Next button to move on to the next match. If the user clicks on the Next button by mistake, then he/she can click on the Prev button to go back to the previous match. 
+
+The user can view all the chat requests in a separate page:
+<img src="https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/blob/master/deliverable-1/mock-ups/requests.jpg " width="800" height="600" alt="matches"/>
 
 The messages page is where the users communicate with each other. They can send text, emojis, or even photos. If the user doesn't want to receive messages from another user anymore, then he/she can simply block that user. If during the conversation, a user starts to harass, abuse, or even threaten the other user, then the user can simply report him/her to the administrator and that user's account would be blcoked forever. 
 Here's what the messages page look like:
@@ -44,11 +47,13 @@ Here's what the messages page look like:
 	
 What's more, every user has a profile page where they can edit their personal information. They are also able to upload up to 3 photos to their profile. The reason why we have a limit on the number of photos is that we don't want this app to be like Facebook or Instagram, where one can share their daily life and upload tons of photos. The main goal for our app is to provide a platform for cancer patients to meet each other, and 3 photos and a brief introduction are enough for people to get a general impression of each other.
 <img src="https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/blob/master/deliverable-1/mock-ups/profile.jpg " width="800" height="600" alt="matches"/>
+<img src="https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/blob/master/deliverable-1/mock-ups/album.jpg " width="800" height="600" alt="matches"/>
 
 #### Q:  What can administrators do in our app?
 We will provide them with pre-set administrator accounts. After login, they would be able to see the administrator page, where they can send the news to the patients of specific groups, or view the patients that has been reported. An administrator has the right to see the conversation that has been reported and make a decision on whether or not to ban a user's account.
 
 <img src="https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/blob/master/deliverable-1/mock-ups/admin.jpg" width="800" height="600" alt="profile"/>
+<img src="https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/blob/master/deliverable-1/mock-ups/reports.jpg" width="800" height="600" alt="profile"/>
  
 #### Q2: Who are your target users?
 Our target users are listed below:
