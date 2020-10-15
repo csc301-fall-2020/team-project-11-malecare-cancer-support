@@ -103,21 +103,19 @@ the front-end and back-end respectively. We may use martial ui as our frontend l
 and MongoDB are Paas tools that we may use in our project.
 	
 As for how we are going to deploy the app, we will deploy our web app through aws.
-	
+#### Q: What is the technology stack? Specify any and all languages, frameworks, libraries, PaaS products or tools. 
+We will use javascript for the entire software, with the react and node.js frameworks to complete the front-end and back-end respectively.We may use martial ui as our frontend library. What's more, AWS EC2, heroku, and MongoDB are Paas tools that we may use in our project.
 #### Q: Describe the architecture - what are the high level components or patterns you will use? Diagrams are useful here. 
-	We use MongoDB as our online database, which is a high level component.
-	We will use mvvm pattern for the frontend.
+We use MongoDB as our online database, which is a high level component. We will use mvvm pattern for the frontend.
 	
 #### Q: Will you be using third party applications or APIs? If so, what are they?
-	As a dating app, we hope to provide users with the approximate distance between other users, which requires 
-	the google map API.
+As a dating app, we hope to provide users with the approximate distance between other users, which requires the google map API.
 	
 #### Q: What is your testing strategy?
-	We may use AVA test framework to write unit tests and run the test files with Github Actions for every pull request. 
-	Apart from that, we will perform manual operations on the front-end page as much as possible to mock how users use our web-app to make sure there are no operation bugs.
+We may use AVA test framework to write unit tests and run the test files with Github Actions for every pull request. Apart from that, we will perform manual operations on the front-end page as much as possible to mock how users use our web-app to make sure there are no operation bugs.
 
 #### Q: A word on privacy
-	We always put the safety and privacy of our users first. All the user credentials would be encrypted before storage. All the user data will be kept confidential and will only be used for matching and receiving news from Malecare.
+We always put the safety and privacy of our users first. All the user credentials would be encrypted before storage. All the user data will be kept confidential and will only be used for matching and receiving news from Malecare.
  
 
 #### Q5: What are the user stories that make up the MVP?
@@ -128,26 +126,15 @@ As for how we are going to deploy the app, we will deploy our web app through aw
  * The user stories should be written in Github and each one must have clear acceptance criteria.
  
 #### 5 user stories
-1. As a 25-year-old man who has just been found to have cancer, I want to find a mentor in the app, who can 
-	guide me to fight the disease. After I can balance between cancer and life, I would like 
-	to meet people in need of a mentor through the app and share my experience with the disease with them, so 
-	that they can be as optimistic and happy as me.
+1. As a 25-year-old man who has just been found to have cancer, I want to find a mentor in the app, who can guide me to fight the disease. After I can balance between cancer and life, I would like to meet people in need of a mentor through the app and share my experience with the disease with them, so that they can be as optimistic and happy as me.
 	
-2. As a 54-year-old single man with terminal cancer, whose wife left one year ago, I hope to find a lover as well as 
-	a mentor in the app to accompany me for the rest of my life and guide me to face cancer.
+2. As a 54-year-old single man with terminal cancer, whose wife left one year ago, I hope to find a lover as well as a mentor in the app to accompany me for the rest of my life and guide me to face cancer.
 	
-3. As an employee of Malecare, and an administrator of Cancerchat, I just discovered that there is a clinical trial in 
-	Toronto for breast 
-	cancer treatment looking for volunteers between ages 30 and 40. I would like to send this news through the app to all 
-	breast cancer patients who are between the ages of 30 and 40 and live in Toronto so that they can decide whether to 
-	take a part in the clinical trial.
+3. As an employee of Malecare, and an administrator of Cancerchat, I just discovered that there is a clinical trial in Toronto for breast  cancer treatment looking for volunteers between ages 30 and 40. I would like to send this news through the app to all breast cancer patients who are between the ages of 30 and 40 and live in Toronto so that they can decide whether to take a part in the clinical trial.
 	
 4. As an employee of Malecare, and an administrator of Cancerchat, I found that one user has been reported for defrauding. I opened the conversation that had been reported and found that the user is bragging on a “latest treatment” on stomach cancer, and is willing to share it at a cost of $500. I immediately realized that this is defrauding so I banned that user's account and put his/her email in the blacklist so he/she can't create another account with this email.
 	
-5. As a 28-year-old male cancer patient who has just come to Canada from the UK, I hope this app can detect that I have 
-	moved, and can recommend me to people who live in the same city as me, preferably no more than 5km away from me. In this
-	way, I can make some like-minded friends staying same city with me through the app to expand my new social circle and 
-	quickly integrate into the new life around me.
+5. As a 28-year-old male cancer patient who has just come to Canada from the UK, I hope this app can detect that I have moved, and can recommend me to people who live in the same city as me, preferably no more than 5km away from me. In thisway, I can make some like-minded friends staying same city with me through the app to expand my new social circle and quickly integrate into the new life around me.
 
 6. As a 40-year-old breast cancer patient living in New York City, I would like to receive information about clinical trials and new treatments available close to my living area by using this app. Then, I can access a drug to which I might not have access/not aware otherwise.
 
