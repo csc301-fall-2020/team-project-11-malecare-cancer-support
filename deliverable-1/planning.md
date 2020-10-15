@@ -334,10 +334,9 @@ and/or collaborative process.
  * Essentially, we want to understand how (and why) you ended up with your current product and process plan.
  * This section is useful for important information regarding your decision making process that may not necessarily fit in other sections. 
 #### 3 key decisions
-	1. We had a vote on the technology stacks we are going to use.
-		For the frontend, we all agree with using react. The main reason is that all of us are familiar with React, and there are 
-		many libraries that can provide many good-looking components to facilitate the design of front-end pages.
-		For the backend, we have different opinions on what stack to use. Some people want to choose flask and MySql, others 
+1. We had a vote on the technology stacks we are going to use.
+For the frontend, we all agree with using react. The main reason is that all of us are familiar with React, and there are many libraries that can provide many good-looking components to facilitate the design of front-end pages.
+For the backend, we have different opinions on what stack to use. Some people want to choose flask and MySql, others 
 		want to choose nodejs and mongoDB.
 			pros of Flask and MySql: 
 				1. python is the most familiar language and all of us have expereince using sql
@@ -346,8 +345,8 @@ and/or collaborative process.
 				1. Nodejs is also based on javascript, which having similar syntax with frontend
 				2. Nodejs's runtime is faster than flask
 				3. Nodejs is more easily scalable network applications 
-		For database, we have different opinions on what stack to use. Some people want to choose flask and mysql, others 
-		prefer Node.js and MongoDB.
+For database, we have different opinions on what stack to use. Some people want to choose flask and mysql, others 
+prefer Node.js and MongoDB.
 			pros of mysql:
 				1. all of us have experience using Sql
 				2. get start quickly
@@ -355,15 +354,11 @@ and/or collaborative process.
 				1. allows all sizes organizations, especially as a cloud database
 				2. handle highly diverse data types, and manage applications more efficiently at scale
 				3. build applications faster
-		After voting, we choose Node.js and MongoDB, since it's apparent that this combination has more advantages.
-	2. Divide up the work through several meetings
-		Since there are five people in our group and our project is a dating software, the front-end requires more time and 
-		coding compared to the backend, so we decided to have three people in charge of the front-end and two other people 
-		in charge of the back-end and database. We have made choices based on personal preference. 
-		Finally determined: front-end: Xiaomeng Hu, Ruikai Fang, Meilin Yang; back-end: Rui Zhu, Jiayueran Sun
- 	3. Product details from the meeting with the customer
-		1. Write the user and administrator page respectively
-		2. Provide users with the latest cancer-related information. For example, a certain organization has just developed
-		an effective drug to treat skin cancer, but many cancer patients do not know this news in time. Our app will remind
-		users as soon as possible.
-		3. Show users the distance between them and other users
+After voting, we choose Node.js and MongoDB, since it's apparent that this combination has more advantages.
+2. Divide up the work through several meetings
+Since there are five people in our group and our project is a dating software, the front-end requires more time and coding compared to the backend, so we decided to have three people in charge of the front-end and two other people in charge of the back-end and database. We have made choices based on personal preference. 
+Finally determined: front-end: Xiaomeng Hu, Ruikai Fang, Meilin Yang; back-end: Rui Zhu, Jiayueran Sun
+3. Product details from the meeting with the customer
+	1. Write the user and administrator page respectively
+	2. Provide users with the latest cancer-related information. For example, a certain organization has just developed an effective drug to treat skin cancer, but many cancer patients do not know this news in time. Our app will remind users as soon as possible.
+	3. Show users the distance between them and other users
