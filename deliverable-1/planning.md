@@ -98,23 +98,9 @@ Our partner, Malecare, is a non-profitable organization providing support to can
  * Will you be using third party applications or APIs? If so, what are they?
  * What is your testing strategy?
 
-We will use javascript for the entire software, with the react and node.js frameworks to complete the front-end and back-end respectively. We may use martial ui as our frontend library. What's more, AWS EC2, heroku, and MongoDB are Paas tools that we may use in our project.
-	
-As for how we are going to deploy the app, we will deploy our web app through aws.
+We will use javascript for the entire software, React for front-end and Node.js for back-end. We may use Martial-UI and Ant-Design, which are ui libraries for front-end. Also, we will use mvvm pattern for the front-end. What's more, AWS EC2, heroku, and MongoDB are Paas tools that we may use in our project. Also, google map API could be useful since we need the location of users to match them to each other. As for how we are going to deploy the app, we will deploy our web app through aws. We may use AVA test framework to write unit tests and run the test files with Github Actions for every pull request. Besides, we will perform manual operations on the front-end page as much as possible to mock how users use our web-app to make sure there are no operation bugs. Lastly, we always put the safety and privacy of our users first. All the user credentials would be encrypted before storage. All the user data will be kept confidential and will only be used for matching and receiving news from Malecare.
 
-#### Q: Describe the architecture - what are the high level components or patterns you will use? Diagrams are useful here. 
-We use MongoDB as our online database, which is a high level component. We will use mvvm pattern for the frontend.
-	
-#### Q: Will you be using third party applications or APIs? If so, what are they?
-As a dating app, we hope to provide users with the approximate distance between other users, which requires the google map API.
-	
-#### Q: What is your testing strategy?
-We may use AVA test framework to write unit tests and run the test files with Github Actions for every pull request. Apart from that, we will perform manual operations on the front-end page as much as possible to mock how users use our web-app to make sure there are no operation bugs.
-
-#### Q: A word on privacy
-We always put the safety and privacy of our users first. All the user credentials would be encrypted before storage. All the user data will be kept confidential and will only be used for matching and receiving news from Malecare.
  
-
 #### Q5: What are the user stories that make up the MVP?
 
  * At least 5 user stories concerning the main features of the application - note that this can broken down further
