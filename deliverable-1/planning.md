@@ -97,13 +97,11 @@ Our partner, Malecare, is a non-profitable organization providing support to can
  * Describe the architecture - what are the high level components or patterns you will use? Diagrams are useful here. 
  * Will you be using third party applications or APIs? If so, what are they?
  * What is your testing strategy?
-We will use javascript for the entire software, with the react and node.js frameworks to complete 
-the front-end and back-end respectively. We may use martial ui as our frontend library. What's more, AWS EC2, heroku, 
-and MongoDB are Paas tools that we may use in our project.
+
+We will use javascript for the entire software, with the react and node.js frameworks to complete the front-end and back-end respectively. We may use martial ui as our frontend library. What's more, AWS EC2, heroku, and MongoDB are Paas tools that we may use in our project.
 	
 As for how we are going to deploy the app, we will deploy our web app through aws.
-#### Q: What is the technology stack? Specify any and all languages, frameworks, libraries, PaaS products or tools. 
-We will use javascript for the entire software, with the react and node.js frameworks to complete the front-end and back-end respectively.We may use martial ui as our frontend library. What's more, AWS EC2, heroku, and MongoDB are Paas tools that we may use in our project.
+
 #### Q: Describe the architecture - what are the high level components or patterns you will use? Diagrams are useful here. 
 We use MongoDB as our online database, which is a high level component. We will use mvvm pattern for the frontend.
 	
