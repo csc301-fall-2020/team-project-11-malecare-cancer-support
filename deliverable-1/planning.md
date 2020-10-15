@@ -348,12 +348,14 @@ and/or collaborative process.
 		1. allows all sizes organizations, especially as a cloud database
 		2. handle highly diverse data types, and manage applications more efficiently at scale
 		3. build applications faster
-		
+
 For database, we have different opinions on what stack to use. Some people want to choose flask and mysql, others prefer Node.js and MongoDB.
 After voting, we choose Node.js and MongoDB, since it's apparent that this combination has more advantages.
+
 2. Divide up the work through several meetings
 Since there are five people in our group and our project is a dating software, the front-end requires more time and coding compared to the backend, so we decided to have three people in charge of the front-end and two other people in charge of the back-end and database. We have made choices based on personal preference. 
 Finally determined: front-end: Xiaomeng Hu, Ruikai Fang, Meilin Yang; back-end: Rui Zhu, Jiayueran Sun
+
 3. Product details from the meeting with the customer
 	1. Write the user and administrator page respectively
 	2. Provide users with the latest cancer-related information. For example, a certain organization has just developed an effective drug to treat skin cancer, but many cancer patients do not know this news in time. Our app will remind users as soon as possible.
