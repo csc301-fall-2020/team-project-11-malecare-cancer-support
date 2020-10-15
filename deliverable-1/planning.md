@@ -342,4 +342,5 @@ Finally determined: front-end: Xiaomeng Hu, Ruikai Fang, Meilin Yang; back-end: 
 3. Product details from the meeting with the customer
 	1. Write the user and administrator page respectively
 	2. Provide users with the latest cancer-related information. For example, a certain organization has just developed an effective drug to treat skin cancer, but many cancer patients do not know this news in time. Our app will remind users as soon as possible.
-	3. Show users the distance between them and other users
+	3. Show users the distance between them and other users.
+	4. Detect users latest location and recommend users to people who live in the same city as them.
