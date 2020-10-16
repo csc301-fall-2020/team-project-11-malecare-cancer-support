@@ -57,10 +57,10 @@ We will provide them with pre-set administrator accounts. After login, they woul
 #### Q2: Who are your target users?
 Our target users are listed below:
 - Cancer patients who want to find someone who also suffers from the same type(s) of cancer to date
-- Cancer patients who just diagnosed with cancer and want to be mentored and comforted by someone who has had the same type(s) of cancer as them for longer time
-- Cancer patients who have experience fighting with cancer and now want to mentor someone who has the same type(s) of cancer as them for shorter time
+- Cancer patients who just diagnosed with cancer and want to be mentored and comforted by someone who has had the same type(s) of cancer as them for a longer time
+- Cancer patients who have experience fighting with cancer and now want to mentor someone who has the same type(s) of cancer as them for a shorter time
 - Cancer patients who want to explore more information specific to their cancer type(s)
-- Employees from Malecare cancer support that would take the role as the administrators. They are able to send news, such as new treatments, new clinical trials, etc., to a specific group of cancer patients, or ban people's account for misconducting.
+- Employees from Malecare cancer support that would take the role of the administrators. They are able to send news, such as new treatments, new clinical trials, etc., to a specific group of cancer patients, or ban people's accounts for misconducting.
 
 	
 
