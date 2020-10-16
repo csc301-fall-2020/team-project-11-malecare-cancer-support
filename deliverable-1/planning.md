@@ -12,6 +12,8 @@ The users of our app can find someone to date or someone as a mentor who can sha
 
 Other than cancer patients, people from MaleCare (our project partner) will play the role of administrators in our app, and they'll have a separate administration page. What administrators can do in our app is that they're able to send out news to specific groups of cancer patients. For example, if a new treatment has just been found to be effective to cure breast cancer, then the administrator can choose to send out this exciting news to the users with breast cancer. 
 
+Below are some brief instructions on how to use our app. We're including some of the mock-ups in this section for demonstration purposes. More mock-ups can be found in ../mock-ups
+
 #### Q: How do normal users use our app?
 To start using our app, the user needs to create an account. They should provide some basic information so that our system can find the perfect matches for them. The mock-up sign-up page is as follows:
 
