@@ -139,7 +139,7 @@ List each team member and:
  
  Communicator: I'm responsible for communicating with the customer because I'm located in Toronto so I don't have any time difference with the customer. 
  
- Frontend developer: Responsible for implementing the login and sign-up page, as well as the administration page.
+ Front-end developer: Responsible for implementing the login and sign-up page, as well as the administration page.
  
  Technical strengths: 
  1. I worked with React before so I'm familiar with it.
@@ -153,7 +153,7 @@ List each team member and:
  #### Ruikai:
  Roles: 
  
- Frontend developer: Responsible for implementing the matching page, and the full profile page.
+ Front-end developer: Responsible for implementing the matching page, and the full profile page.
  
  QA: I will write unit tests and test the functionalities with hands
  
@@ -193,7 +193,7 @@ List each team member and:
   2. I have worked on some node.js projects so I feel comfortable using node.js
   3. I'm good at various algorithms, and they should be useful when working on a project
   Technical weaknesses: 
-  1. I don't have much frontend development experience.
+  1. I don't have much front-end development experience.
   2. I find it hard for me to come up with a good-looking UI.
   3. I have never worked on such a large project with a group.
  
@@ -231,7 +231,7 @@ Describe meetings (and other events) you are planning to have.
    * You must have a regular meeting schedule established by the second meeting.  
 
 Our team members are located in different countries so we can't have in-person meetings. Instead, We'll stay in touch via WeChat and zoom. We have decided to have at least one online zoom meeting a week so that everyone can report on what they have done and what they're planning to do, as well as the problems they have. 
-We had our first meeting with our partner, Darryl, on Oct. 7th. During the meeting, we first introduced ourselves and Darryl shared some of his stories and told us how he came up with the idea of the project. He also cleared up our questions, some of which are:
+We had our first meeting with our partner, Darryl, on Oct. 7th. During the meeting, we first introduced ourselves and Darryl shared some of his stories and told us how he came up with the idea for the project. He also cleared up our questions, some of which are:
 #### Q: Who would be the target user of our product?
 People with cancer who wants to date someone, find a mentor or mentee.
 #### Q: Do you want this to be a mobile app or web app?
