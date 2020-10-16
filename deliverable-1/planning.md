@@ -241,20 +241,35 @@ https://cancergraph.com/
 We have also agreed on a bi-weekly meeting schedule.
 
 We had a second meeting with Darryl on Oct 14th. The main purpose of the meeting is to present him with our draft D1 and get some feedback. Here are the meeting minutes:
+
 1.Showed the user stories in D1 and the mock-up pages to Darryl to get feedback
+
 2.Not a facebook-like app, just a platform to meet people. All the other things can happen in the background
+
 3.Bigger message icon
+
 4.The user should be able to go back to the previous match
+
 5.Simple simple simple
+
 6.Keep spammers off, report button, administrators should be able to handle this
+
 7.Administrator messages can be pinned till the user reads it, or 72 hours
+
 8.A user should not send too many messages to another user who hasn’t respond (no more than 2 messages for the first time, and 5 in the future), and the user should be able to block other people
+
 9.Send photos and emojis in messages
+
 10.Medication and types of cancer are lists, there might be hundreds of them, with the correct spelling. We don’t want the user to type in whatever they want because they may spell it wrong.
+
 11.What our app can do: add something about new treatment 
+
 12.No logo currently
-13.Consider add a permission to chat
+
+13.Consider adding permission to chat
+
 14.3 Labels sound good(mentor, mentee, looking for love)
+
 15.Kms vs miles
 
   
