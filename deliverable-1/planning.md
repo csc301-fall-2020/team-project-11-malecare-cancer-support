@@ -70,15 +70,6 @@ Our target users are listed below:
    You can create your personas as part of this Markdown file, or add a link to an external site (for example, [Xtensio](https://xtensio.com/user-persona/)).**
 
 #### Q3: Why would your users choose your product? What are they using today to solve their problem/need?
-
-Our product provides a platform where the cancer patients can meet other cancer patients, either they want to date or find themselves a mentor or mentee. We will match users who are close to each other and having same type(s) of cancer since they may be interested in meeting each other in reality to expand their social circles.
-
-What's more, because the administrators from Malecare can send news about new treatments, it's also a great platform where the patients can receive the latest information about their cancer. Cancer patients used to have to search throughout the internet to find information regarding their cancer, which was more time-consuming than getting information from our application.
-
-There is no such app on the market currently that does what our app does, and our app would provide a solution to the cancer patients who wants to meet other patients and make their socialization easier.
-
-Our partner, Malecare, is a non-profitable organization providing support to cancer patients. This app certainly helps cancer patients with socializing and receiving latest information.
-
 > Short (1 - 2 min' read max)
  * We want you to "connect the dots" for us - Why does your product (as described in your answer to Q1) fits the needs of your users (as described in your answer to Q2)?
  * Explain the benefits of your product explicitly & clearly. For example:
@@ -88,6 +79,14 @@ Our partner, Malecare, is a non-profitable organization providing support to can
     * Does this application exist in another form? If so, how does your differ and provide value to the users?
     * How does this align with your partner's organization's values/mission/mandate?
     
+Our product provides a platform where the cancer patients can meet other cancer patients, either they want to date or find themselves a mentor or mentee. We will match users who are close to each other and having same type(s) of cancer since they may be interested in meeting each other in reality to expand their social circles.
+
+What's more, because the administrators from Malecare can send news about new treatments, it's also a great platform where the patients can receive the latest information about their cancer. Cancer patients used to have to search throughout the internet to find information regarding their cancer, which was more time-consuming than getting information from our application.
+
+There is no such app on the market currently that does what our app does, and our app would provide a solution to the cancer patients who wants to meet other patients and make their socialization easier.
+
+Our partner, Malecare, is a non-profitable organization providing support to cancer patients. This app certainly helps cancer patients with socializing and receiving latest information.
+
 
 #### Q4: How will you build it?
 
