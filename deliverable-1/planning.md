@@ -34,7 +34,7 @@ Here's what the messages page look like:
 <img src="https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/blob/master/deliverable-1/mock-ups/message.jpg " width="800" height="600" alt="matches"/>
 	
 What's more, every user has a profile page where they can edit their personal information. They are also able to upload up to 3 photos to their profile. The reason why we have a limit on the number of photos is that we don't want this app to be like Facebook or Instagram, where one can share their daily life and upload tons of photos. The main goal for our app is to provide a platform for cancer patients to meet each other, and 3 photos and a brief introduction are enough for people to get a general impression of each other.
-<img src="https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/blob/master/deliverable-1/mock-ups/profile.jpg " width="600" height="1200" alt="matches"/>
+<img src="https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/blob/master/deliverable-1/mock-ups/profile.jpg " width="600" height="1000" alt="matches"/>
 
 #### Q:  What can administrators do in our app?
 We will provide them with pre-set administrator accounts. After login, they would be able to see the administrator page, where they can send the news to the patients of specific groups, or view the patients that has been reported. An administrator has the right to see the conversation that has been reported and make a decision on whether or not to ban a user's account.
