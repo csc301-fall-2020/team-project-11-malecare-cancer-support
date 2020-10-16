@@ -96,9 +96,7 @@ Our partner, Malecare, is a non-profitable organization providing support to can
  * Will you be using third party applications or APIs? If so, what are they?
  * What is your testing strategy?
 
-We will use javascript for the entire software, React for front-end and Node.js for back-end. We may use Martial-UI and Ant-Design, which are ui libraries for front-end. Also, we will use mvvm pattern for the front-end. What's more, AWS EC2, heroku, and MongoDB are Paas tools that we may use in our project. Also, google map API could be useful since we need the location of users to match them to each other. As for how we are going to deploy the app, we will deploy our web app through aws. We may use AVA test framework to write unit tests and run the test files with Github Actions for every pull request. Besides, we will perform manual operations on the front-end page as much as possible to mock how users use our web-app to make sure there are no operation bugs. Lastly, we always put the safety and privacy of our users first. All the user credentials would be encrypted before storage. All the user data will be kept confidential and will only be used for matching and receiving news from Malecare.
-
-This is a use case uml:
+We will use javascript for the entire software, React for front-end and Node.js for back-end. We may use Martial-UI and Ant-Design, which are ui libraries for front-end. Also, we will use mvvm pattern for the front-end. What's more, AWS EC2, heroku, and MongoDB are Paas tools that we may use in our project. Also, google map API could be useful since we need the location of users to match them to each other. As for how we are going to deploy the app, we will deploy our web app through aws. We may use AVA test framework to write unit tests and run the test files with Github Actions for every pull request. Besides, we will perform manual operations on the front-end page as much as possible to mock how users use our web-app to make sure there are no operation bugs. Lastly, we always put the safety and privacy of our users first. All the user credentials would be encrypted before storage. All the user data will be kept confidential and will only be used for matching and receiving news from Malecare.This is a use case uml:
 <img src="https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/blob/master/deliverable-1/uml/uml.png " width="800" height="600" alt="matches"/>
  
 #### Q5: What are the user stories that make up the MVP?
@@ -109,17 +107,17 @@ This is a use case uml:
  * The user stories should be written in Github and each one must have clear acceptance criteria.
  
 #### user stories
-1. As a 25-year-old man who has just received cancer diagnosis, I want to find a mentor in the app, who can guide me to fight the disease. After I find balance in my life, I would like to meet people in need of a mentor through the app and share my experience with the disease with them, so that they can be as optimistic as me.
+1. As a 25-year-old man who has just received a cancer diagnosis, I want to find a mentor in the app, who can guide me to fight the disease. After I find balance in my life, I would like to meet people in need of a mentor through the app and share my experience with the disease with them, so that they can be as optimistic as me.
 	
 2. As a 54-year-old single man with terminal cancer, whose wife left one year ago, I hope to find a lover through the app to accompany me for the rest of life. At the same time, I can also be her mentor and share with her my years of experience in cancer treatment.
 	
 3. As an employee of Malecare and an administrator of Cancerchat, I just discovered that there is a clinical trial in Toronto for breast cancer treatment looking for volunteers between ages 30 and 40. I would like to send this news through the app to all breast cancer patients who are between the ages of 30 and 40 and live in Toronto so that they can decide whether to take a part in the clinical trial.
 	
-4. As an employee of Malecare and an administrator of Cancerchat, I found that one user has been reported for spamming. I look at the chat history of the user and find out that the user is bragging about a “latest treatment” on stomach cancer. The user said he/she would share it at a cost of $500. I immediately realize that this is spamming message so I banned that user's account and put his/her email in the blacklist so he/she can't create another account with this email.
+4. As an employee of Malecare and an administrator of Cancerchat, I found that one user has been reported for spamming. I look at the chat history of the user and find out that the user is bragging about a “latest treatment” on stomach cancer. The user said he/she would share it at a cost of $500. I immediately realize that this is a spamming message so I banned that user's account and put his/her email in the blacklist so he/she can't create another account with this email.
 	
-5. As a 28-year-old male cancer patient who has just come to Canada from the UK, I hope this app can detect that I have moved, and can recommend me to people who live in the same city as me, preferably no more than 5km away from me. In thisway, I can make some like-minded friends staying same city with me through the app to expand my new social circle and quickly integrate into the new life around me.
+5. As a 28-year-old male cancer patient who has just come to Canada from the UK, I hope this app can detect that I have moved, and can recommend me to people who live in the same city as me, preferably no more than 5km away from me. In this way, I can make some like-minded friends staying the same city with me through the app to expand my new social circle and quickly integrate into the new life around me.
 
-6. As a 40-year-old breast cancer patient living in New York City, I would like to receive information about clinical trials and new treatments available close to my living area by using this app. Then, I can access a drug to which I might not have access/not aware otherwise.
+6. As a 40-year-old breast cancer patient living in New York City, I would like to receive information about clinical trials and new treatments available close to my living area by using this app. Then, I can access a drug to which I might not have the access/not aware otherwise.
 
 ----
 
