@@ -1,23 +1,9 @@
 # CancerChat/TEAM 11
-> _Note:_ This document is meant to evolve throughout the planning phase of your project.   That is, it makes sense for you commit regularly to this file while working on the project (especially edits/additions/deletions to the _Highlights_ section). Most importantly, it is a reflection of all the planning you work you've done in the first iteration. 
- > **This document will serve as a master plan between your team, your partner and your TA.**
 
 ## Product Details
  
 #### Q1: What are you planning to build?
 
- > Short (1 - 2 min' read)
- * Start with a single sentence, high-level description of the product.
- * Be clear - Describe the problem you are solving in simple terms.
- * Be concrete. For example:
-    * What are you planning to build? Is it a website, mobile app,
-   browser extension, command-line app, etc.?      
-    * When describing the problem/need, give concrete examples of common use cases.
-    * Assume your the reader knows nothing about the problem domain and provide the necessary context. 
- * Focus on *what* your product does, and avoid discussing *how* you're going to implement it. 
-   For example: This is not the time or the place to talk about which programming language and/or framework you are planning to use.
- * **Feel free (and very much encouraged) to include useful diagrams, mock-ups and/or links**.
- 
 We are planning to build a web-based, Tinder-like app that serves as a platform, on which the cancer patients can be matched to other cancer patients that meet their requirements. 
 
 At the moment, there's no similar app in the market and cancer patients lack a way to know each other, so our app would provide a solution to them and solve their socialization problem. 
@@ -55,10 +41,6 @@ We will provide them with pre-set administrator accounts. After login, they woul
 <img src="https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/blob/master/deliverable-1/mock-ups/admin_sendinfo.jpg" width="800" height="600" alt="admin_sendinfo"/>
  
 #### Q2: Who are your target users?
-  > Short (1 - 2 min' read max)
- * Be specific (e.g. a 'a third-year university student studying Computer Science' and not 'a student')
- * **Feel free (but not obligated) to use personas.         
-   You can create your personas as part of this Markdown file, or add a link to an external site (for example, [Xtensio](https://xtensio.com/user-persona/)).**
 
 Our target users are listed below:
 - Cancer patients who want to find someone who also suffers from the same type(s) of cancer to date
@@ -69,15 +51,7 @@ Our target users are listed below:
 
 	
 #### Q3: Why would your users choose your product? What are they using today to solve their problem/need?
-> Short (1 - 2 min' read max)
- * We want you to "connect the dots" for us - Why does your product (as described in your answer to Q1) fits the needs of your users (as described in your answer to Q2)?
- * Explain the benefits of your product explicitly & clearly. For example:
-    * Save users time (how much?)
-    * Allow users to discover new information (which information? And, why couldn't they discover it before?)
-    * Provide users with more accurate and/or informative data (what kind of data? Why is it useful to them?)
-    * Does this application exist in another form? If so, how does your differ and provide value to the users?
-    * How does this align with your partner's organization's values/mission/mandate?
-    
+
 Our product provides a platform where the cancer patients can meet other cancer patients, either they want to date or find themselves a mentor or mentee. We will match users who are close to each other and having same type(s) of cancer since they may be interested in meeting each other in reality to expand their social circles.
 
 What's more, because the administrators from Malecare can send news about new treatments, it's also a great platform where the patients can receive the latest information about their cancer. Cancer patients used to have to search throughout the internet to find information regarding their cancer, which was more time-consuming than getting information from our application.
@@ -89,24 +63,11 @@ Our partner, Malecare, is a non-profitable organization providing support to can
 
 #### Q4: How will you build it?
 
-> Short (1-2 min' read max)
- * What is the technology stack? Specify any and all languages, frameworks, libraries, PaaS products or tools. 
- * How will you deploy the application?
- * Describe the architecture - what are the high level components or patterns you will use? Diagrams are useful here. 
- * Will you be using third party applications or APIs? If so, what are they?
- * What is your testing strategy?
-
 We will use javascript for the entire software, React for front-end and Node.js for back-end. We may use Martial-UI and Ant-Design, which are ui libraries for front-end. Also, we will use mvvm pattern for the front-end. What's more, AWS EC2, heroku, and MongoDB are Paas tools that we may use in our project. Also, google map API could be useful since we need the location of users to match them to each other. As for how we are going to deploy the app, we will deploy our web app through aws. We may use AVA test framework to write unit tests and run the test files with Github Actions for every pull request. Besides, we will perform manual operations on the front-end page as much as possible to mock how users use our web-app to make sure there are no operation bugs. Lastly, we always put the safety and privacy of our users first. All the user credentials would be encrypted before storage. All the user data will be kept confidential and will only be used for matching and receiving news from Malecare.This is a use case uml:
 <img src="https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/blob/master/deliverable-1/uml/uml.png " width="800" height="600" alt="matches"/>
  
 #### Q5: What are the user stories that make up the MVP?
 
- * At least 5 user stories concerning the main features of the application - note that this can broken down further
- * You must follow proper user story format (as taught in lecture) ```As a <user of the app>, I want to <do something in the app> in order to <accomplish some goal>```
- * If you have a partner, these must be reviewed and accepted by them
- * The user stories should be written in Github and each one must have clear acceptance criteria.
- 
-#### user stories
 1. As a 25-year-old man who has just received a cancer diagnosis, I want to find a mentor in the app, who can guide me to fight the disease. After I find balance in my life, I would like to meet people in need of a mentor through the app and share my experience with the disease with them, so that they can be as optimistic as me.
 	
 2. As a 54-year-old single man with terminal cancer, whose wife left one year ago, I hope to find a lover through the app to accompany me for the rest of life. At the same time, I can also be her mentor and share with her my years of experience in cancer treatment.
@@ -125,13 +86,6 @@ We will use javascript for the entire software, React for front-end and Node.js 
 
 #### Q6: What are the roles & responsibilities on the team?
 
-Describe the different roles on the team and the responsibilities associated with each role. 
- * Roles should reflect the structure of your team and be appropriate for your project. Not necessarily one role to one team member.
-
-List each team member and:
- * A description of their role(s) and responsibilities including the components they'll work on and non-software related work
- * 3 technical strengths and weaknesses each (e.g. languages, frameworks, libraries, development methodologies, etc.)
- 
  #### Xiaomeng: 
  Roles: 
  
@@ -220,16 +174,6 @@ List each team member and:
 
 #### Q7: What operational events will you have as a team?
 
-Describe meetings (and other events) you are planning to have. 
- * When and where? Recurring or ad hoc? In-person or online?
- * What's the purpose of each meeting?
- * Other events could be coding sessions, code reviews, quick weekly sync meeting online, etc.
- * You must have at least 2 meetings with your project partner (if you have one) before D1 is due. Describe them here:
-   * What did you discuss during the meetings?
-   * What were the outcomes of each meeting?
-   * You must provide meeting minutes.
-   * You must have a regular meeting schedule established by the second meeting.  
-
 Our team members are located in different countries so we can't have in-person meetings. Instead, We'll stay in touch via WeChat and zoom. We have decided to have at least one online zoom meeting a week so that everyone can report on what they have done and what they're planning to do, as well as the problems they have. 
 We had our first meeting with our partner, Darryl, on Oct. 7th. During the meeting, we first introduced ourselves and Darryl shared some of his stories and told us how he came up with the idea for the project. He also cleared up our questions, some of which are:
 #### Q: Who would be the target user of our product?
@@ -275,37 +219,22 @@ We had a second meeting with Darryl on Oct 14th. The main purpose of the meeting
   
 #### Q8: What artifacts will you use to self-organize?
 
-List/describe the artifacts you will produce in order to organize your team.       
-
- * Artifacts can be To-Do lists, Task boards, schedule(s), meeting minutes, etc.
- * We want to understand:
-   * How do you keep track of what needs to get done?
-   * How do you prioritize tasks?
-   * How do tasks get assigned to team members?
-   * How do you determine the status of work from inception to completion?
-
 We'll be using a shared google sheet as a task board. Each task would have a status field, and the field value can be Open, In Progress, Resolved, or Blocked. Before we start working on the project, we would have at least 2 meetings on how to divide up the work, and based on the meeting outcome, each task would be assigned to a team member with a status of Open. When he/she starts working on the task, the status of the task would be changed to In Progress. If he/she successfully finished the task, the task status would be updated to Resolved. If some blockers showed up, he/she can change the status to Blocked and the team can discuss it during the next team meeting.
 
 Each task would also have a priority assigned to it, starting from p1 to p3. For a minor bug such as font adjustment, we would prioritize it as P3. For regular tasks, such as implementing the sign-up page, or a bug which leads to failure in sending messages, we will prioritize it as P2. For really serious bugs, such as the server is down, it would be prioritized to P1, and any free group member must be looking at it asap.
 
 #### Q9: What are the rules regarding how your team works?
 
-Describe your team's working culture.
-
 **Communications:**
- * What is the expected frequency? What methods/channels are appropriate? 
- * If you have a partner project, what is your process (in detail) for communicating with your partner?
  
 The teams would be communicating with each other via the WeChat channel and zoom calls. For regular questions, we encourage the members to ask directly in the WeChat group chat to get a quick answer. In terms of the bigger questions, such as a design issue, we would discuss it in the weekly zoom calls. All communications must be conducted in a friendly and peaceful environment. We also encourage meaningful and efficient communications, rather than aimless chat.
 In terms of communicating with the partner, we have agreed on a bi-weekly meeting schedule to keep everything on track. Between the meetings, we will communicate via emails to get quick answers to questions. 
  
 **Meetings:**
- * How are people held accountable for attending meetings, completing action items? Is there a moderator or process?
  
 There are 5 people in our group and we'll take turns to host the meeting. In each meeting, we'll begin with everyone sharing their working progress. After that, we'll take a look at the action items from the last meeting to see if all of them have been resolved. Next, we'll discuss the blocked tasks on the task board, from highest to lowest priority. At the end of the meeting, we'll come up with the action items to be done before the next meeting and assign them to team members. 
  
 **Conflict Resolution:**
- * List at least three team scenarios/conflicts you discussed in lecture and how you decided you will resolve them. Indecisions? Non-responsive team members? Any other scenarios you can think of?
  1. What to do if we can't achieve consensus？
 We've been in that situation before. When we were discussing what stack technology to use for the backend, we narrowed down the options to two - node.js and flask. They all have their pros and cons, thus the team members cannot decide which one to use. So in the end, we had a vote. 2 people voted flask and 3 voted node.js, so we decided to use node.js for the backend. This is just an example of how to make a decision when we can't achieve consensus, and we'll take a vote whenever we get into that situation again in the future.
  
@@ -319,16 +248,6 @@ We've been in that situation before. When we were discussing what stack technolo
 ----
 ### Highlights
 
-Specify 3 - 5 key decisions and/or insights that came up during your meetings
-and/or collaborative process.
-
- * Short (5 min' read max)
- * Decisions can be related to the product and/or the team process.
-    * Mention which alternatives you were considering.
-    * Present the arguments for each alternative.
-    * Explain why the option you decided on makes the most sense for your team/product/users.
- * Essentially, we want to understand how (and why) you ended up with your current product and process plan.
- * This section is useful for important information regarding your decision making process that may not necessarily fit in other sections. 
 #### 3 key decisions
 1. We had a vote on the technology stacks we are going to use.For the frontend, we all agree with using react. The main reason is that all of us are familiar with React, and there are many libraries that can provide many good-looking components to facilitate the design of front-end pages.For the backend and database, we have different opinions on what stack to use. Some people want to choose flask and MySql, others want to choose nodejs and mongoDB.
 	- pros of Flask: 
