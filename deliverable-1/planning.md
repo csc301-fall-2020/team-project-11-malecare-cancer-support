@@ -52,14 +52,11 @@ Our target users are listed below:
 	
 #### Q3: Why would your users choose your product? What are they using today to solve their problem/need?
 
-Our product provides a platform where the cancer patients can meet other cancer patients, either they want to date or find themselves a mentor or mentee. We will match users who are close to each other and having same type(s) of cancer since they may be interested in meeting each other in reality to expand their social circles.
+Our app focuses on a social issue that has long been ignored -- the social problem of cancer patients. Because of their cancer, it could be difficult for them to find dates on other social platforms. As cancer patients, they have more social needs than many people may have, to help them through the difficult cancer treatment, and to relieve their inner loneliness.
 
-What's more, because the administrators from Malecare can send news about new treatments, it's also a great platform where the patients can receive the latest information about their cancer. Cancer patients used to have to search throughout the internet to find information regarding their cancer, which was more time-consuming than getting information from our application.
+To address this problem and make cancer patients' social easier, our app provides a platform where the cancer patients can meet other cancer patients, either they want to date or find themselves a mentor or mentee. There is no such app on the market currently that does what our app does. We will match users who are close to each other and having the same type(s) of cancer since they may be interested in meeting each other in reality to expand their social circles and significantly improve their life quality.
 
-There is no such app on the market currently that does what our app does, and our app would provide a solution to the cancer patients who wants to meet other patients and make their socialization easier.
-
-Our partner, Malecare, is a non-profitable organization providing support to cancer patients. This app certainly helps cancer patients with socializing and receiving latest information.
-
+What's more, because the administrators from Malecare can send news about new treatments, it's also a great platform where the patients can receive the latest information about their cancer. Patients used to get information about new treatments when they met their doctors， while this app allows them to directly access this piece of information. They can then contact the doctor and ask if the new treatment can be applied to them. It can make cancer patients’ lives better and even save their lives.
 
 #### Q4: How will you build it?
 
