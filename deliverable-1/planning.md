@@ -307,7 +307,7 @@ There are 5 people in our group and we'll take turns to host the meeting. In eac
 **Conflict Resolution:**
  * List at least three team scenarios/conflicts you discussed in lecture and how you decided you will resolve them. Indecisions? Non-responsive team members? Any other scenarios you can think of?
  1. What to do if we can't achieve consensus？
-We've been in that situation before. When we were discussing what stack technology to use for the backend, we narrowed down the options to two - node.js and flask. They all have their pros and cons, thus the team members cannot decide which one to use. So in the end, we had a vote. 2 people voted flask and 3 voted node.js, so we decided to use node.js for backend. This is just an example of how to make a decision when we can't achieve consensus, and we'll take a vote whenever we get into that situation again in the future.
+We've been in that situation before. When we were discussing what stack technology to use for the backend, we narrowed down the options to two - node.js and flask. They all have their pros and cons, thus the team members cannot decide which one to use. So in the end, we had a vote. 2 people voted flask and 3 voted node.js, so we decided to use node.js for the backend. This is just an example of how to make a decision when we can't achieve consensus, and we'll take a vote whenever we get into that situation again in the future.
  
  2. What to do if any team member is not responsive?
  All of the team members have a strong sense of responsibility so I assume that this is not very likely to happen, but just in case, we did discuss this in our last meeting. If any team member is not responsive in any way for more than 48 hours (this is a rather long time because the time difference among the team members can be up to 12 hours, and we want to be generous on this), we would report the member to the professor immediately and see what's the next step to do.
@@ -335,10 +335,10 @@ and/or collaborative process.
 		1. python is the most familiar language
 		2. get start quickly
 	- pros of Nodejs: 
-		1. Nodejs is also based on javascript, which having similar syntax with frontend
+		1. Nodejs is also based on javascript, which has similar syntax to frontend
 		2. Nodejs's runtime is faster than flask
 		3. Nodejs is more easily scalable network applications 
-	- pros of mysql:
+	- pros of MySql:
 		1. all of us have experience using Sql, there is no need to set up again
 		2. get start quickly
 	- pros of MongoDB:
@@ -356,4 +356,4 @@ Finally determined: front-end: Xiaomeng Hu, Ruikai Fang, Meilin Yang; back-end: 
 	1. Write the user and administrator page respectively
 	2. Provide users with the latest cancer-related information. For example, a certain organization has just developed an effective drug to treat skin cancer, but many cancer patients do not know this news in time. Our app will remind users as soon as possible.
 	3. Show users the distance between them and other users.
-	4. Detect users latest location and recommend users to people who live in the same city as them.
+	4. Detect users' latest location and recommend users to people who live in the same city as them.
