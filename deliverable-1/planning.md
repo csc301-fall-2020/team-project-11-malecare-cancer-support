@@ -67,7 +67,7 @@ We will use javascript for the entire software, React for front-end and Node.js 
 Here is a high-level architecture diagram:
 <img src="https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/blob/master/deliverable-1/architecture/architecture.png " alt="matches"/>
 
-here is a use case uml:
+Here is a use case uml:
 <img src="https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/blob/master/deliverable-1/uml/uml.png " alt="matches"/>
  
 #### Q5: What are the user stories that make up the MVP?
