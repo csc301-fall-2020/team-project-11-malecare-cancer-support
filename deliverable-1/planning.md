@@ -63,9 +63,9 @@ What's more, because the administrators from Malecare can send news about new tr
 #### Q4: How will you build it?
 
 We will use javascript for the entire software, React for front-end and Node.js for back-end. We may use Material-UI and Ant-Design, which are ui libraries for front-end. Also, we will use mvvm pattern for the front-end. What's more, AWS EC2, heroku, and MongoDB are Paas tools that we may use in our project. Also, google map API could be useful since we need the location of users to match them to each other. As for how we are going to deploy the app, we will deploy our web app through aws. We may use AVA test framework to write unit tests and run the test files with Github Actions for every pull request. Besides, we will perform manual operations on the front-end page as much as possible to mock how users use our web-app to make sure there are no operation bugs. Lastly, we always put the safety and privacy of our users first. All the user credentials would be encrypted before storage. All the user data will be kept confidential and will only be used for matching and receiving news from Malecare.
-Here's a high-level architecture diagram:
-<img src="https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/blob/master/deliverable-1/architecture/architecture.png " width="800" height="600" alt="matches"/>
 
+Here is a high-level architecture diagram:
+<img src="https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/blob/master/deliverable-1/architecture/architecture.png " width="800" height="600" alt="matches"/>
 This is a use case uml:
 <img src="https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/blob/master/deliverable-1/uml/uml.png " width="800" height="600" alt="matches"/>
  
