@@ -49,7 +49,7 @@ Our target users are listed below:
 - Cancer patients who just diagnosed with cancer and want to be mentored and comforted by someone who has had the same type(s) of cancer as them for a longer time
 - Cancer patients who have experience fighting with cancer and now want to mentor someone who has the same type(s) of cancer as them for a shorter time
 - Cancer patients who want to explore more information specific to their cancer type(s)
-- Employees from Malecare cancer support that would take the role of the administrators. They are able to send news, such as new treatments, new clinical trials, etc., to a specific group of cancer patients, or ban people's accounts for misconducting.
+- Employees from Malecare that would take the role of the administrators. They are able to send news, such as new treatments, new clinical trials, etc., to a specific group of cancer patients, or ban people's accounts for misconducting.
 
 	
 #### Q3: Why would your users choose your product? What are they using today to solve their problem/need?
