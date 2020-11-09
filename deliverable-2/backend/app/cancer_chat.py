@@ -1,6 +1,7 @@
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from flask import Flask, request
 from ..usecases import login_register_helpers
+
 login_manager = LoginManager()
 app = Flask(__name__)
 # app.config['MONGODB_SETTINGS'] = {
@@ -38,7 +39,7 @@ def login():
     if not login_register_helpers.email_already_existed(user_email):
         return "Email does not exists"
     if login_register_helpers.verify_password_by_email(email=user_email,
-                                password=request.get_json()["password"]):
+                                                       password=request.get_json()["password"]):
         login_user(login_register_helpers.get_user_by_email(email=user_email))
         return "Login successfully"
     else:
@@ -51,7 +52,7 @@ def signup():
         return "Email already exists."
     else:
         return login_register_helpers.create_new_user(email=request.get_json()["email"],
-                               password=request.get_json()["password"])
+                                                      password=request.get_json()["password"])
 
 
 if __name__ == '__main__':
