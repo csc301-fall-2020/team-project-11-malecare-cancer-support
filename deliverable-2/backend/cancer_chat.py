@@ -4,16 +4,17 @@ from flask import Flask, request
 from flask_mongoengine import MongoEngine
 
 from .usecases.login_register_helpers import *
+
 login_manager = LoginManager()
 app = Flask(__name__)
-app.config['MONGODB_SETTINGS'] = {
-    "db": "malecare-dev",
-    'host': 'localhost',
-    'port': 27017
-}
+# app.config['MONGODB_SETTINGS'] = {
+#     "db": "malecare-dev",
+#     'host': 'localhost',
+#     'port': 27017
+# }
 app.config["SECRET_KEY"] = 'my secret'
-db = MongoEngine()
-db.init_app(app)
+# db = MongoEngine()
+# db.init_app(app)
 login_manager.init_app(app)
 
 
@@ -21,16 +22,19 @@ login_manager.init_app(app)
 def load_user(user_id):
     return get_user_by_user_id(user_id)
 
+
 @app.route("/")
 @login_required
 def index():
     return "your email is " + current_user.get_email()
+
 
 @app.route("/logout")
 @login_required
 def logout():
     logout_user()
     return "logout"
+
 
 @app.route('/login', methods=['POST'])
 def login():
