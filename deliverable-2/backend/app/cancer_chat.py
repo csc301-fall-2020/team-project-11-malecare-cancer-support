@@ -25,6 +25,9 @@ def load_user(user_id):
 def index():
     return "your email is " + current_user.get_email()
 
+@login_manager.unauthorized_handler
+def unauthorized():
+    return "user is not logged in"
 
 @app.route("/logout")
 @login_required
