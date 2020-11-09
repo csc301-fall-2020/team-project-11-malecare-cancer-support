@@ -1,4 +1,4 @@
-from backend.models.user import User
+from ..models.user import User
 import string
 import random
 from passlib.context import CryptContext
@@ -34,3 +34,7 @@ def create_new_user(email, password):
 
 def get_user_by_user_id(user_id):
     return User.objects(user_id=user_id).first()
+
+
+if __name__ == "__main__":
+    print("aaaaa")
