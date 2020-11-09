@@ -1,10 +1,6 @@
-import json
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from flask import Flask, request
-from flask_mongoengine import MongoEngine
-
-from .usecases.login_register_helpers import *
-
+from ..usecases import login_register_helpers
 login_manager = LoginManager()
 app = Flask(__name__)
 # app.config['MONGODB_SETTINGS'] = {
@@ -20,7 +16,7 @@ login_manager.init_app(app)
 
 @login_manager.user_loader
 def load_user(user_id):
-    return get_user_by_user_id(user_id)
+    return login_register_helpers.get_user_by_user_id(user_id)
 
 
 @app.route("/")
@@ -39,11 +35,11 @@ def logout():
 @app.route('/login', methods=['POST'])
 def login():
     user_email = request.get_json()["email"]
-    if not email_already_existed(user_email):
+    if not login_register_helpers.email_already_existed(user_email):
         return "Email does not exists"
-    if verify_password_by_email(email=user_email,
+    if login_register_helpers.verify_password_by_email(email=user_email,
                                 password=request.get_json()["password"]):
-        login_user(get_user_by_email(email=user_email))
+        login_user(login_register_helpers.get_user_by_email(email=user_email))
         return "Login successfully"
     else:
         return "Incorrect Password"
@@ -51,10 +47,10 @@ def login():
 
 @app.route('/signup', methods=['POST'])
 def signup():
-    if email_already_existed(request.get_json()["email"]):
+    if login_register_helpers.email_already_existed(request.get_json()["email"]):
         return "Email already exists."
     else:
-        return create_new_user(email=request.get_json()["email"],
+        return login_register_helpers.create_new_user(email=request.get_json()["email"],
                                password=request.get_json()["password"])
 
 
