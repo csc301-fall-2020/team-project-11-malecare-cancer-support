@@ -1,15 +1,11 @@
 import mongoengine as db
 from flask_login import UserMixin
-import string
-import random
 
 MONGO_URL = "mongodb+srv://user1:user1@cluster0.gjkej.mongodb.net/test"
 
-
-
-    # "mongodb+srv://dbUser:CancerChat@cluster0.4ppll." \
-    #         "mongodb.net/test?authSource=admin&replicaSet=atlas-n77zyo-shard-0&read" \
-    #         "Preference=primary&appname=MongoDB%20Compass&ssl=true"
+# "mongodb+srv://dbUser:CancerChat@cluster0.4ppll." \
+#         "mongodb.net/test?authSource=admin&replicaSet=atlas-n77zyo-shard-0&read" \
+#         "Preference=primary&appname=MongoDB%20Compass&ssl=true"
 
 db.connect('malecare-dev', host=MONGO_URL, username='dbUser',
            password='CancerChat', authentication_source='admin',
@@ -50,12 +46,12 @@ class User(db.Document, UserMixin):
     def get_sex_orientation(self):
         return self.get_sex_orientation()
 
-    def filter_cancer(self,cancer_type):
+    def filter_cancer(self, cancer_type):
         if cancer_type in self.cancer:
             return True
         return False
 
-    def filter_purpose(self,purpose):
+    def filter_purpose(self, purpose):
         if purpose in self.purpose:
             return True
         return False
