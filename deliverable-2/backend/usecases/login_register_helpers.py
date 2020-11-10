@@ -1,7 +1,9 @@
-from ..models.user import User
-import string
 import random
+import string
+
 from passlib.context import CryptContext
+
+from ..models.user import User
 
 pwd_context = CryptContext(schemes=['bcrypt'], deprecated="auto")
 
@@ -32,13 +34,7 @@ def get_user_by_email(email):
 
 def create_new_user(email, password, date_of_birth, gender, cancer, purpose,
                     sex_orientation):
-    # date_of_birth = db.DateField()
-    # gender = db.StringField()
-    # cancer = db.ListField(db.StringField())
-    # purpose = db.ListField(db.StringField())
-    # sex_orientation
-
-    if not email or not password or not date_of_birth or not gender or not cancer\
+    if not email or not password or not date_of_birth or not gender or not cancer \
             or not purpose or not sex_orientation:
         return "Can not be empty"
     hashed_password = hash(password)
@@ -48,7 +44,7 @@ def create_new_user(email, password, date_of_birth, gender, cancer, purpose,
                     gender=gender,
                     cancer=cancer,
                     purpose=purpose,
-                    sex_orientation = sex_orientation)
+                    sex_orientation=sex_orientation)
     new_user.save()
     return "Create new user successfully"
 
@@ -59,5 +55,3 @@ def get_user_by_user_id(user_id):
 
 def is_user_id_existed(user_id):
     return User.objects(user_id=user_id) is not None
-
-
