@@ -48,5 +48,3 @@ def is_user_id_existed(user_id):
     return User.objects(user_id=user_id) is not None
 
 
-if __name__ == "__main__":
-    print("aaaaa")
