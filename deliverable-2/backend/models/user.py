@@ -1,22 +1,22 @@
 from flask_login import UserMixin
 
-MONGO_URL = "mongodb+srv://user1:user1@cluster0.gjkej.mongodb.net/test"
+# MONGO_URL = "mongodb+srv://user1:user1@cluster0.gjkej.mongodb.net/test"
 from .mongoengine_connect import db
+
 
 # "mongodb+srv://dbUser:CancerChat@cluster0.4ppll." \
 #         "mongodb.net/test?authSource=admin&replicaSet=atlas-n77zyo-shard-0&read" \
 #         "Preference=primary&appname=MongoDB%20Compass&ssl=true"
 
-db.connect('malecare-dev', host=MONGO_URL, username='dbUser',
-           password='CancerChat', authentication_source='admin',
-           ssl=True, ssl_cert_reqs='CERT_NONE')
-
+# db.connect('malecare-dev', host=MONGO_URL, username='dbUser',
+#            password='CancerChat', authentication_source='admin',
+#            ssl=True, ssl_cert_reqs='CERT_NONE')
 
 class User(db.Document, UserMixin):
     user_id = db.StringField()
     email = db.StringField()
     password = db.StringField()
-    date_of_birth = db.StringField()
+    date_of_birth = db.DateField()
     gender = db.StringField()
     cancer = db.ListField(db.StringField())
     purpose = db.ListField(db.StringField())
