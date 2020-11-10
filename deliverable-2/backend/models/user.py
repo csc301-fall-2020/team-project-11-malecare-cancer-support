@@ -1,13 +1,5 @@
-import mongoengine as db
 from flask_login import UserMixin
-
-# MONGO_URL = "mongodb+srv://user1:user1@cluster0.gjkej.mongodb.net/test"
-
-MONGO_URL = "mongodb+srv://dbUser:CancerChat@cluster0.4ppll.mongodb.net/test"
-
-db.connect('malecare-dev', host=MONGO_URL, username='dbUser',
-           password='CancerChat', authentication_source='admin',
-           ssl=True, ssl_cert_reqs='CERT_NONE')
+from .mongoengine_connect import db
 
 
 class User(db.Document, UserMixin):
