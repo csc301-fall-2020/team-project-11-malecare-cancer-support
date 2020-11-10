@@ -2,10 +2,10 @@ from .mongoengine_connect import db
 
 
 class PreLoads(db.Document):
-    cancer_types = db.ListField(db.StringField())
+    cancer_types = db.DictField()
     sexual_orientations = db.ListField(db.StringField())
     genders = db.ListField(db.StringField())
-    medications = db.ListField(db.StringField())
+    medications = db.DictField()
     treatment_types = db.ListField(db.StringField())
 
     def get_cancer_types(self):
