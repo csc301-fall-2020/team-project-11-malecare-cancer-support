@@ -1,5 +1,5 @@
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from ..usecases import login_register_helpers
 from ..usecases import cancer_types_helpers
 
@@ -22,6 +22,11 @@ login_manager.init_app(app)
 def load_cancer_types():
     return cancer_types_helpers \
         .load_to_cancer_type_db(request.get_json()["cancer_types"])
+
+
+@app.route('/load_from_db/cancer_types')
+def get_cancer_types():
+    return jsonify(cancer_types_helpers.get_cancer_types())
 
 
 @login_manager.user_loader
