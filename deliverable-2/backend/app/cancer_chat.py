@@ -1,32 +1,51 @@
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from flask import Flask, request, jsonify
 from ..usecases import login_register_helpers
-from ..usecases import cancer_types_helpers
+from ..usecases import preload_data_helpers
 
 login_manager = LoginManager()
 app = Flask(__name__)
-# app.config['MONGODB_SETTINGS'] = {
-#     "db": "malecare-dev",
-#     'host': 'localhost',
-#     'port': 27017
-# }
 app.config["SECRET_KEY"] = 'my secret'
-# db = MongoEngine()
-# db.init_app(app)
+
 login_manager.init_app(app)
 
 
 # this is only for initializing empty database,
-# data can be found under backend/app/database_backup/
-@app.route('/load_to_db/cancer_types', methods=['POST'])
-def load_cancer_types():
-    return cancer_types_helpers \
-        .load_to_cancer_type_db(request.get_json()["cancer_types"])
+# data can be found under backend/app/database_preload_backup/
+@app.route('/load_to_db', methods=['POST'])
+def load_to_db():
+    return preload_data_helpers \
+        .load_to_cancer_type_db(cancer_type_lst=request.get_json()["cancer_types"],
+                                treatment_lst=request.get_json()["treatment_types"],
+                                sexual_orientation_lst=request.get_json()["sexual_orientations"],
+                                gender_lst=request.get_json()["genders"],
+                                medication_lst=request.get_json()["medications"]
+                                )
 
 
 @app.route('/load_from_db/cancer_types')
 def get_cancer_types():
-    return jsonify(cancer_types_helpers.get_cancer_types())
+    return jsonify(preload_data_helpers.get_cancer_types())
+
+
+@app.route('/load_from_db/treatment_types')
+def get_treatment_types():
+    return jsonify(preload_data_helpers.get_treatment_types())
+
+
+@app.route('/load_from_db/genders')
+def get_genders():
+    return jsonify(preload_data_helpers.get_genders())
+
+
+@app.route('/load_from_db/sexual_orientations')
+def get_sexual_orientations():
+    return jsonify(preload_data_helpers.get_sexual_orientations())
+
+
+@app.route('/load_from_db/medications')
+def get_medications():
+    return jsonify(preload_data_helpers.get_medications())
 
 
 @login_manager.user_loader
