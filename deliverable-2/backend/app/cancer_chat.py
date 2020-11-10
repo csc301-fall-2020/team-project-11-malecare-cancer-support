@@ -1,7 +1,7 @@
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from flask import Flask, request, jsonify
-from ..usecases import login_register_helpers
-from ..usecases import preload_data_helpers
+from ..usecases import login_register_helpers, preload_data_helpers, message_handle_helper
+
 
 login_manager = LoginManager()
 app = Flask(__name__)
@@ -91,6 +91,26 @@ def signup():
     else:
         return login_register_helpers.create_new_user(email=request.get_json()["email"],
                                                       password=request.get_json()["password"])
+
+
+@app.route('/chat/new_message', methods=['POST'])
+def create_new_msg():
+    my_json = request.get_json()
+    return message_handle_helper.create_new_text_msg(sender_uid=my_json["sender"],
+                                                     receiver_uid=my_json["receiver"],
+                                                     text=my_json["text"])
+
+
+@app.route('/chat/unread_message', methods=['GET'])
+def get_unread_msg_by_receiver():
+    return message_handle_helper.get_unread_msg_by_receiver(request.get_json()["receiver"])
+
+
+@app.route('/chat/update_message', methods=['POST'])
+def mark_as_read():
+    my_json = request.get_json()
+    return message_handle_helper.mark_as_read_by_sender_receiver(sender_uid=my_json['sender'],
+                                                                 receiver_uid=my_json['receiver'])
 
 
 if __name__ == '__main__':
