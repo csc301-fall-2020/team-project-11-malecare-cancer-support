@@ -2,7 +2,7 @@ from .mongoengine_connect import db
 import datetime
 
 
-class Message(db.document):
+class Message(db.Document):
     sender_uid = db.StringField(max_length=10)
     receiver_uid = db.StringField(max_length=10)
     text = db.StringField()
