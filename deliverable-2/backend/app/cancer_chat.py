@@ -1,13 +1,24 @@
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from flask import Flask, request, jsonify
 from ..usecases import login_register_helpers, preload_data_helpers, message_handle_helper
-
+import functools
 
 login_manager = LoginManager()
 app = Flask(__name__)
 app.config["SECRET_KEY"] = 'my secret'
 
 login_manager.init_app(app)
+
+
+# decorator for limiting access of admin-only api
+def admin_only(f):
+    @functools.wraps(f)
+    def wrapped(*args, **kwargs):
+        if not current_user.is_administrator():
+            return "Need to be admin", 401
+        return f(*args, **kwargs)
+
+    return wrapped
 
 
 # this is only for initializing empty database,
@@ -110,7 +121,15 @@ def get_unread_msg_by_receiver():
 def mark_as_read():
     my_json = request.get_json()
     return message_handle_helper.mark_as_read_by_sender_receiver(sender_uid=my_json['sender'],
+
                                                                  receiver_uid=my_json['receiver'])
+
+
+@app.route('/admin')
+@login_required
+@admin_only
+def get_admin_only_page():
+    return "Yes you are admin"
 
 
 if __name__ == '__main__':
