@@ -1,7 +1,8 @@
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from flask import Flask, request, jsonify
-from ..usecases import login_register_helpers, preload_data_helpers, message_handle_helper
+from ..usecases import login_register_helpers, preload_data_helpers, message_handle_helper, handle_session_info_helpers
 import functools
+from flask_socketio import SocketIO, emit
 
 login_manager = LoginManager()
 app = Flask(__name__)
@@ -9,7 +10,7 @@ app.config["SECRET_KEY"] = 'my secret'
 
 login_manager.init_app(app)
 
-
+socketio = SocketIO(app)
 # decorator for limiting access of admin-only api
 def admin_only(f):
     @functools.wraps(f)
@@ -132,5 +133,26 @@ def get_admin_only_page():
     return "Yes you are admin"
 
 
+@socketio.on('chat', namespace='/private')
+def receive_msg(input_json):
+    msg = input_json["msg"]
+    receiver = input_json["receiver_uid"]
+    sender = input_json["sender_uid"]
+    session_id = handle_session_info_helpers.get_session_id_by_user_id(receiver)
+    create_new_msg(sender, receiver, msg)
+    socketio.emit('chat', "receiver need to read", room=session_id)
+
+
+@socketio.on('chat', namespace='/save_session')
+def save_session(input_json):
+    user_id = input_json["user_id"]
+    session_id = input_json["session_id"]
+    result = handle_session_info_helpers.save_session_id_to_user_id(user_id,session_id)
+    socketio.emit('chat', result)
+
+
+
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    # app.run(debug=True)
+    socketio.run(app, host='0.0.0.0',port=5000,debug=True)
