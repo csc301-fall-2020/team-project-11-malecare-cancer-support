@@ -1,5 +1,4 @@
 from .mongoengine_connect import db
-import datetime
 
 
 class Session(db.Document):

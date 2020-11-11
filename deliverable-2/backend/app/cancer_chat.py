@@ -1,8 +1,12 @@
-from flask_login import LoginManager, login_user, login_required, logout_user, current_user
-from flask import Flask, request, jsonify
-from ..usecases import login_register_helpers, preload_data_helpers, message_handle_helper, handle_session_info_helpers
 import functools
-from flask_socketio import SocketIO, emit
+
+from flask import Flask, jsonify, request
+from flask_login import LoginManager, current_user, login_required, login_user, \
+    logout_user
+from flask_socketio import SocketIO
+
+from ..usecases import handle_session_info_helpers, login_register_helpers, \
+    message_handle_helper, preload_data_helpers
 
 login_manager = LoginManager()
 app = Flask(__name__)
@@ -11,6 +15,8 @@ app.config["SECRET_KEY"] = 'my secret'
 login_manager.init_app(app)
 
 socketio = SocketIO(app)
+
+
 # decorator for limiting access of admin-only api
 def admin_only(f):
     @functools.wraps(f)
@@ -27,12 +33,13 @@ def admin_only(f):
 @app.route('/load_to_db', methods=['POST'])
 def load_to_db():
     return preload_data_helpers \
-        .load_to_cancer_type_db(cancer_type_lst=request.get_json()["cancer_types"],
-                                treatment_lst=request.get_json()["treatment_types"],
-                                sexual_orientation_lst=request.get_json()["sexual_orientations"],
-                                gender_lst=request.get_json()["genders"],
-                                medication_lst=request.get_json()["medications"]
-                                )
+        .load_to_cancer_type_db(
+        cancer_type_lst=request.get_json()["cancer_types"],
+        treatment_lst=request.get_json()["treatment_types"],
+        sexual_orientation_lst=request.get_json()["sexual_orientations"],
+        gender_lst=request.get_json()["genders"],
+        medication_lst=request.get_json()["medications"]
+        )
 
 
 @app.route('/load_from_db/cancer_types')
@@ -89,7 +96,9 @@ def login():
     if not login_register_helpers.email_already_existed(user_email):
         return "Email does not exists"
     if login_register_helpers.verify_password_by_email(email=user_email,
-                                                       password=request.get_json()["password"]):
+                                                       password=
+                                                       request.get_json()[
+                                                           "password"]):
         login_user(login_register_helpers.get_user_by_email(email=user_email))
         return "Login successfully"
     else:
@@ -98,32 +107,37 @@ def login():
 
 @app.route('/signup', methods=['POST'])
 def signup():
-    if login_register_helpers.email_already_existed(request.get_json()["email"]):
+    if login_register_helpers.email_already_existed(
+            request.get_json()["email"]):
         return "Email already exists."
     else:
-        return login_register_helpers.create_new_user(email=request.get_json()["email"],
-                                                      password=request.get_json()["password"])
+        return login_register_helpers.create_new_user(
+            email=request.get_json()["email"],
+            password=request.get_json()["password"])
 
 
 @app.route('/chat/new_message', methods=['POST'])
 def create_new_msg():
     my_json = request.get_json()
-    return message_handle_helper.create_new_text_msg(sender_uid=my_json["sender"],
-                                                     receiver_uid=my_json["receiver"],
-                                                     text=my_json["text"])
+    return message_handle_helper.create_new_text_msg(
+        sender_uid=my_json["sender"],
+        receiver_uid=my_json["receiver"],
+        text=my_json["text"])
 
 
 @app.route('/chat/unread_message', methods=['GET'])
 def get_unread_msg_by_receiver():
-    return message_handle_helper.get_unread_msg_by_receiver(request.get_json()["receiver"])
+    return message_handle_helper.get_unread_msg_by_receiver(
+        request.get_json()["receiver"])
 
 
 @app.route('/chat/update_message', methods=['POST'])
 def mark_as_read():
     my_json = request.get_json()
-    return message_handle_helper.mark_as_read_by_sender_receiver(sender_uid=my_json['sender'],
+    return message_handle_helper.mark_as_read_by_sender_receiver(
+        sender_uid=my_json['sender'],
 
-                                                                 receiver_uid=my_json['receiver'])
+        receiver_uid=my_json['receiver'])
 
 
 @app.route('/admin')
@@ -147,12 +161,11 @@ def receive_msg(input_json):
 def save_session(input_json):
     user_id = input_json["user_id"]
     session_id = input_json["session_id"]
-    result = handle_session_info_helpers.save_session_id_to_user_id(user_id,session_id)
+    result = handle_session_info_helpers.save_session_id_to_user_id(user_id,
+                                                                    session_id)
     socketio.emit('chat', result)
-
-
 
 
 if __name__ == '__main__':
     # app.run(debug=True)
-    socketio.run(app, host='0.0.0.0',port=5000,debug=True)
+    socketio.run(app, host='0.0.0.0', port=5000, debug=True)
