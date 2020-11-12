@@ -3,7 +3,7 @@ import pymongo
 from flask import Flask, jsonify, request
 from flask_login import LoginManager, current_user, login_required, login_user, \
     logout_user
-from flask_socketio import SocketIO
+from flask_socketio import SocketIO, disconnect
 
 
 from ..usecases import administrator_filter_helpers, \
@@ -17,7 +17,7 @@ app.config["SECRET_KEY"] = 'my secret'
 
 login_manager.init_app(app)
 
-socketio = SocketIO(app)
+socketio = SocketIO(app, manage_session=False)
 
 
 # decorator for limiting access of admin-only api
@@ -28,6 +28,16 @@ def admin_only(f):
             return "Need to be admin", 401
         return f(*args, **kwargs)
 
+    return wrapped
+
+
+def authenticated_only(f):
+    @functools.wraps(f)
+    def wrapped(*args, **kwargs):
+        if not current_user.is_authenticated:
+            disconnect()
+        else:
+            return f(*args, **kwargs)
     return wrapped
 
 
@@ -179,6 +189,7 @@ def get_admin_only_page():
 
 
 @socketio.on('receive_msg')
+@authenticated_only
 def receive_msg(input_json):
     msg = input_json["msg"]
     receiver = input_json["receiver_uid"]
@@ -189,6 +200,7 @@ def receive_msg(input_json):
 
 
 @socketio.on('save_session')
+@authenticated_only
 def save_session(input_json):
     user_id = input_json["user_id"]
     session_id = request.sid
@@ -198,6 +210,8 @@ def save_session(input_json):
 
 
 @socketio.on('admin_send_msg')
+@admin_only
+@authenticated_only
 def admin_send_msg(input_json):
     msg = input_json["msg"]
     treatments = input_json["treatments"]
@@ -225,6 +239,7 @@ def admin_send_msg(input_json):
 
 
 @socketio.on('new_friend_request')
+@authenticated_only
 def new_friend_request(payload):
     receiver_id = payload['receiver']
     session_id = handle_session_info_helpers.get_session_id_by_user_id(receiver_id)
@@ -238,6 +253,7 @@ def new_friend_request(payload):
 #     _friend_request_helper(request.get_json(), friend_handler_helpers.accept_friend_request)
 #     return "accepted", 200
 @socketio.on('accept_friend_request')
+@authenticated_only
 def accept_friend_request(payload):
     sender_id = payload['sender']
     session_id = handle_session_info_helpers.get_session_id_by_user_id(sender_id)
