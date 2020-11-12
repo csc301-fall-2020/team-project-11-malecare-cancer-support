@@ -52,6 +52,7 @@ def create_new_user(email, password, date_of_birth, gender, cancer, purpose,
 def get_user_by_user_id(user_id):
     return User.objects(user_id=user_id).first()
 
-
+def get_user_by_email(email):
+    return User.objects(email=email).first()
 def is_user_id_existed(user_id):
     return User.objects(user_id=user_id) is not None
