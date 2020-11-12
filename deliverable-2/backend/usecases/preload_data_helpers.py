@@ -63,5 +63,6 @@ def get_treatment_types():
 def get_medications():
     return _get_preload_data(MEDICATION_STR)
 
+
 def get_profile_picture():
     return _get_preload_data(PROFILE_PICTURE_STR)

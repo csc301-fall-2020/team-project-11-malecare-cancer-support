@@ -62,7 +62,7 @@ class User(db.Document, UserMixin):
     def get_sex_orientation(self):
         return self.sex_orientation
 
-    #read()
+    # read()
     def get_profile_picture(self):
         return self.profile_picture
 

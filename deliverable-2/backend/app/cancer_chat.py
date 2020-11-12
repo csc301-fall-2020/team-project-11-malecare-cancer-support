@@ -53,7 +53,7 @@ def load_to_db():
         sexual_orientation_lst=request.get_json()["sexual_orientations"],
         gender_lst=request.get_json()["genders"],
         medication_lst=request.get_json()["medications"],
-        profile_picture = request.get_json()["profile_picture"]
+        profile_picture=request.get_json()["profile_picture"]
     )
 
 
@@ -80,13 +80,17 @@ def get_sexual_orientations():
 @app.route('/load_from_db/medications')
 def get_medications():
     return jsonify(preload_data_helpers.get_medications())
+
+
 @login_manager.user_loader
 def load_user(user_id):
     return login_register_helpers.get_user_by_user_id(user_id)
 
+
 @app.route('/load_from_db/profile_picture')
 def get_profile_picture():
     return jsonify(preload_data_helpers.get_profile_picture())
+
 
 @app.route("/")
 @login_required
