@@ -52,7 +52,8 @@ def load_to_db():
         treatment_lst=request.get_json()["treatment_types"],
         sexual_orientation_lst=request.get_json()["sexual_orientations"],
         gender_lst=request.get_json()["genders"],
-        medication_lst=request.get_json()["medications"]
+        medication_lst=request.get_json()["medications"],
+        profile_picture = request.get_json()["profile_picture"]
     )
 
 
@@ -79,12 +80,13 @@ def get_sexual_orientations():
 @app.route('/load_from_db/medications')
 def get_medications():
     return jsonify(preload_data_helpers.get_medications())
-
-
 @login_manager.user_loader
 def load_user(user_id):
     return login_register_helpers.get_user_by_user_id(user_id)
 
+@app.route('/load_from_db/profile_picture')
+def get_profile_picture():
+    return jsonify(preload_data_helpers.get_profile_picture())
 
 @app.route("/")
 @login_required
@@ -114,7 +116,7 @@ def login():
                                                        request.get_json()[
                                                            "password"]):
         login_user(login_register_helpers.get_user_by_email(email=user_email))
-        return current_user.get_json()
+        return jsonify(current_user.get_json())
     else:
         return "Incorrect Password", 412
 
@@ -132,6 +134,15 @@ def change_current_user_sex_orientation():
                                            sex_orientation=request.get_json()[
                                                "sex_orientation"])
     return current_user.get_json()
+
+
+@app.route('/current_user/profile/picture', methods=['POST'])
+def change_current_user_picture():
+    picture = open(str(request.get_json()["picture"]), 'rb')
+    print(current_user.get_id())
+    customize_user_profile_helpers \
+        .set_picture_by_user_id(user_id=current_user.get_id(), picture=picture)
+    return "Success"
 
 
 @app.route('/signup', methods=['POST'])
