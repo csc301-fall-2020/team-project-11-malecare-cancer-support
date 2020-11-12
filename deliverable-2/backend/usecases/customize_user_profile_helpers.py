@@ -35,3 +35,6 @@ def set_purpose_by_user_id(user_id, purpose_list):
 
 def set_username_by_user_id(user_id, username):
     User.objects(user_id=user_id).update(set__username=username)
+
+def set_picture_by_user_id(user_id, picture):
+    User.objects(user_id=user_id).update(ser__picture=picture)
