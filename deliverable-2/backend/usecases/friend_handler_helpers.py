@@ -24,7 +24,6 @@ def get_all_undecided_friend_requests_by_receiver_uid(receiver_uid):
     return FriendRequest.objects(receiver_uid=receiver_uid,
                                  is_accepted__exists=False).to_json()
 
-
 # def is_undecided_friend_request_existing(sender_uid, receiver_uid):
 #     return FriendRequest.objects(receiver_uid=receiver_uid,
 #                                  sender_uid=sender_uid,

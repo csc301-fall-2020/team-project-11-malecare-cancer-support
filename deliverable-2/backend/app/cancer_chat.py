@@ -1,15 +1,15 @@
 import functools
+
 import pymongo
 from flask import Flask, jsonify, request
 from flask_login import LoginManager, current_user, login_required, login_user, \
     logout_user
 from flask_socketio import SocketIO, disconnect
 
-
 from ..usecases import administrator_filter_helpers, \
-    customize_user_profile_helpers, handle_session_info_helpers, \
-    login_register_helpers, message_handle_helper, preload_data_helpers, friend_handler_helpers
-
+    customize_user_profile_helpers, friend_handler_helpers, \
+    handle_session_info_helpers, login_register_helpers, message_handle_helper, \
+    preload_data_helpers
 
 login_manager = LoginManager()
 app = Flask(__name__)
@@ -38,6 +38,7 @@ def authenticated_only(f):
             disconnect()
         else:
             return f(*args, **kwargs)
+
     return wrapped
 
 
@@ -151,7 +152,8 @@ def signup():
                 purpose=my_json['purpose'],
                 sex_orientation=my_json['sex_orientation']
             )
-            login_user(login_register_helpers.get_user_by_email(my_json["email"]))
+            login_user(
+                login_register_helpers.get_user_by_email(my_json["email"]))
             return current_user.get_json()
     except pymongo.errors.AutoReconnect as e:
         print("Try again maybe?", e)
@@ -242,8 +244,10 @@ def admin_send_msg(input_json):
 @authenticated_only
 def new_friend_request(payload):
     receiver_id = payload['receiver']
-    session_id = handle_session_info_helpers.get_session_id_by_user_id(receiver_id)
-    _friend_request_helper(payload, friend_handler_helpers.create_new_friend_request)
+    session_id = handle_session_info_helpers.get_session_id_by_user_id(
+        receiver_id)
+    _friend_request_helper(payload,
+                           friend_handler_helpers.create_new_friend_request)
     socketio.emit('get_friend_request', room=session_id)
 
 
@@ -256,22 +260,26 @@ def new_friend_request(payload):
 @authenticated_only
 def accept_friend_request(payload):
     sender_id = payload['sender']
-    session_id = handle_session_info_helpers.get_session_id_by_user_id(sender_id)
-    _friend_request_helper(payload, friend_handler_helpers.accept_friend_request)
+    session_id = handle_session_info_helpers.get_session_id_by_user_id(
+        sender_id)
+    _friend_request_helper(payload,
+                           friend_handler_helpers.accept_friend_request)
     socketio.emit('friend_request_accepted', room=session_id)
 
 
 @app.route('/friend_requests/decline', methods=['POST'])
 @login_required
 def decline_friend_request():
-    _friend_request_helper(request.get_json(), friend_handler_helpers.decline_friend_request)
+    _friend_request_helper(request.get_json(),
+                           friend_handler_helpers.decline_friend_request)
     return "declined", 200
 
 
 @app.route('/friend_requests')
 @login_required
 def get_undecided_requests():
-    return friend_handler_helpers.get_all_undecided_friend_requests_by_receiver_uid(request.get_json()["receiver"])
+    return friend_handler_helpers.get_all_undecided_friend_requests_by_receiver_uid(
+        request.get_json()["receiver"])
 
 
 def _friend_request_helper(user_dict, func):
