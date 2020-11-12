@@ -33,13 +33,12 @@ def admin_only(f):
 @app.route('/load_to_db', methods=['POST'])
 def load_to_db():
     return preload_data_helpers \
-        .load_to_cancer_type_db(
-        cancer_type_lst=request.get_json()["cancer_types"],
-        treatment_lst=request.get_json()["treatment_types"],
-        sexual_orientation_lst=request.get_json()["sexual_orientations"],
-        gender_lst=request.get_json()["genders"],
-        medication_lst=request.get_json()["medications"]
-    )
+        .load_to_cancer_type_db(cancer_type_lst=request.get_json()["cancer_types"],
+                                treatment_lst=request.get_json()["treatment_types"],
+                                sexual_orientation_lst=request.get_json()["sexual_orientations"],
+                                gender_lst=request.get_json()["genders"],
+                                medication_lst=request.get_json()["medications"]
+                                )
 
 
 @app.route('/load_from_db/cancer_types')
@@ -100,9 +99,15 @@ def login():
                                                        request.get_json()[
                                                            "password"]):
         login_user(login_register_helpers.get_user_by_email(email=user_email))
-        return login_register_helpers.get_user_by_email(user_email)
+        return current_user.get_json()
     else:
         return "Incorrect Password"
+
+
+@app.route('/current_user')
+@login_required
+def get_current_user():
+    return current_user.get_json()
 
 
 @app.route('/signup', methods=['POST'])

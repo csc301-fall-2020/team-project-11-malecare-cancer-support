@@ -14,6 +14,18 @@ class User(db.Document, UserMixin):
     sex_orientation = db.StringField()
     is_admin = db.BooleanField(default=False)
 
+    def get_json(self):
+        return {
+            "user_id": self.user_id,
+            "email": self.email,
+            "date_of_birth": self.date_of_birth,
+            "gender": self.gender,
+            "cancer": self.cancer,
+            "purpose": self.purpose,
+            "sex_orientation": self.sex_orientation,
+
+        }
+
     def get_id(self):
         return self.user_id
 
