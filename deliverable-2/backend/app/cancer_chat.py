@@ -147,7 +147,7 @@ def get_admin_only_page():
     return "Yes you are admin"
 
 
-@socketio.on('chat', namespace='/private')
+@socketio.on('receive_msg')
 def receive_msg(input_json):
     msg = input_json["msg"]
     receiver = input_json["receiver_uid"]
@@ -157,7 +157,7 @@ def receive_msg(input_json):
     socketio.emit('chat', "receiver need to read", room=session_id)
 
 
-@socketio.on('chat', namespace='/save_session')
+@socketio.on('save_session')
 def save_session(input_json):
     user_id = input_json["user_id"]
     session_id = input_json["session_id"]
