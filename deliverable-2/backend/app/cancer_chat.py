@@ -39,7 +39,7 @@ def load_to_db():
         sexual_orientation_lst=request.get_json()["sexual_orientations"],
         gender_lst=request.get_json()["genders"],
         medication_lst=request.get_json()["medications"]
-        )
+    )
 
 
 @app.route('/load_from_db/cancer_types')
@@ -113,7 +113,13 @@ def signup():
     else:
         return login_register_helpers.create_new_user(
             email=request.get_json()["email"],
-            password=request.get_json()["password"])
+            password=request.get_json()["password"],
+            date_of_birth=request.get_json()["date_of_birth"],
+            gender=request.get_json()['gender'],
+            cancer=request.get_json()['cancer'],
+            purpose=request.get_json()['purpose'],
+            sex_orientation=request.get_json()['sex_orientation']
+        )
 
 
 @app.route('/chat/new_message', methods=['POST'])
