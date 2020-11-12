@@ -6,7 +6,7 @@ from flask_login import LoginManager, current_user, login_required, login_user, 
 from flask_socketio import SocketIO
 
 from ..usecases import handle_session_info_helpers, login_register_helpers, \
-    message_handle_helper, preload_data_helpers, customize_user_profile_helpers
+    message_handle_helper, preload_data_helpers, customize_user_profile_helpers, administrator_filter_helpers
 
 login_manager = LoginManager()
 app = Flask(__name__)
@@ -183,11 +183,23 @@ def receive_msg(input_json):
 @socketio.on('save_session')
 def save_session(input_json):
     user_id = input_json["user_id"]
-    session_id = input_json["session_id"]
+    session_id = request.sid
     result = handle_session_info_helpers.save_session_id_to_user_id(user_id,
                                                                     session_id)
-    socketio.emit('chat', result)
+    socketio.emit('save_session', result)
 
+@socketio.on('admin_send_msg')
+def admin_send_msg(input_json):
+    treatments = input_json["treatments"]
+    cancertypes = input_json["cancertypes"]
+    medications = input_json["medications"]
+    sex = input_json["sex"]
+    age_min = input_json["age_min"]
+    age_max = input_json["age_max"]
+    sid_list = administrator_filter_helpers.filter_users(treatments, cancertypes, medications,
+                                                          sex, age_min, age_max)
+    for sid in sid_list:
+        socketio.emit('admin_send_msg', "send to all filter users", room=sid)
 
 if __name__ == '__main__':
     # app.run(debug=True)
