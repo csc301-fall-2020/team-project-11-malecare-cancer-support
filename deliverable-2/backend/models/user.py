@@ -13,6 +13,10 @@ class User(db.Document, UserMixin):
     purpose = db.ListField(db.StringField())
     sex_orientation = db.StringField()
     is_admin = db.BooleanField(default=False)
+    short_intro = db.StringField(default='')
+    friends = db.ListField(db.StringField(default=[]))
+    medications = db.ListField(db.StringField(default=[]))
+    treatments = db.ListField(db.StringField(default=[]))
 
     def get_json(self):
         return {
@@ -23,6 +27,10 @@ class User(db.Document, UserMixin):
             "cancer": self.cancer,
             "purpose": self.purpose,
             "sex_orientation": self.sex_orientation,
+            "short_intro": self.short_intro,
+            "friends": self.friends,
+            "medications": self.medications,
+            "treatments": self.treatments
 
         }
 
