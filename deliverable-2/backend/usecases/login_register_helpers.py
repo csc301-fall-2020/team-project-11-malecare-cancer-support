@@ -34,9 +34,9 @@ def get_user_by_email(email):
 
 def create_new_user(email, password, date_of_birth, gender, cancer, purpose,
                     sex_orientation):
-    if not email or not password or not date_of_birth or not gender or not cancer \
-            or not purpose or not sex_orientation:
-        return "Can not be empty"
+    # if not email or not password or not date_of_birth or not gender or not cancer \
+    #         or not purpose or not sex_orientation:
+    #     return "Can not be empty", 412
     hashed_password = hash(password)
     new_user = User(email=email, password=hashed_password,
                     user_id=generate_random_user_id(6),
@@ -46,7 +46,7 @@ def create_new_user(email, password, date_of_birth, gender, cancer, purpose,
                     purpose=purpose,
                     sex_orientation=sex_orientation)
     new_user.save()
-    return "Create new user successfully"
+    # return "Create new user successfully"
 
 
 def get_user_by_user_id(user_id):

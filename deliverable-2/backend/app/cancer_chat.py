@@ -93,7 +93,7 @@ def logout():
 def login():
     user_email = request.get_json()["email"]
     if not login_register_helpers.email_already_existed(user_email):
-        return "Email does not exists"
+        return "Email does not exists", 412
     if login_register_helpers.verify_password_by_email(email=user_email,
                                                        password=
                                                        request.get_json()[
@@ -101,7 +101,7 @@ def login():
         login_user(login_register_helpers.get_user_by_email(email=user_email))
         return current_user.get_json()
     else:
-        return "Incorrect Password"
+        return "Incorrect Password", 412
 
 
 @app.route('/current_user')
@@ -112,19 +112,22 @@ def get_current_user():
 
 @app.route('/signup', methods=['POST'])
 def signup():
+    my_json = request.get_json()
     if login_register_helpers.email_already_existed(
-            request.get_json()["email"]):
-        return "Email already exists."
+            my_json["email"]):
+        return "Email already exists.", 412
     else:
-        return login_register_helpers.create_new_user(
-            email=request.get_json()["email"],
-            password=request.get_json()["password"],
-            date_of_birth=request.get_json()["date_of_birth"],
-            gender=request.get_json()['gender'],
-            cancer=request.get_json()['cancer'],
-            purpose=request.get_json()['purpose'],
-            sex_orientation=request.get_json()['sex_orientation']
+        login_register_helpers.create_new_user(
+            email=my_json["email"],
+            password=my_json["password"],
+            date_of_birth=my_json["date_of_birth"],
+            gender=my_json['gender'],
+            cancer=my_json['cancer'],
+            purpose=my_json['purpose'],
+            sex_orientation=my_json['sex_orientation']
         )
+        login_user(login_register_helpers.get_user_by_email(my_json["email"]))
+        return current_user.get_json()
 
 
 @app.route('/chat/new_message', methods=['POST'])
