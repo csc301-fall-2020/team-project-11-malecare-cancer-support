@@ -6,7 +6,8 @@ from flask_login import LoginManager, current_user, login_required, login_user, 
 from flask_socketio import SocketIO
 
 from ..usecases import handle_session_info_helpers, login_register_helpers, \
-    message_handle_helper, preload_data_helpers, customize_user_profile_helpers
+    message_handle_helper, preload_data_helpers, customize_user_profile_helpers, \
+    friend_handler_helpers
 
 login_manager = LoginManager()
 app = Flask(__name__)
@@ -190,6 +191,52 @@ def save_session(input_json):
     result = handle_session_info_helpers.save_session_id_to_user_id(user_id,
                                                                     session_id)
     socketio.emit('chat', result)
+
+
+# @app.route('/friend_requests/add', methods=['POST'])
+# @login_required
+# def new_friend_request():
+#     _friend_request_helper(request.get_json(), friend_handler_helpers.create_new_friend_request)
+#     return "added", 200
+
+
+@socketio.on('new_friend_request')
+def new_friend_request(payload):
+    receiver_id = payload['receiver']
+    session_id = handle_session_info_helpers.get_session_id_by_user_id(receiver_id)
+    _friend_request_helper(payload, friend_handler_helpers.create_new_friend_request)
+    socketio.emit('get_friend_request', room=session_id)
+
+
+# @app.route('/friend_requests/accept', methods=['POST'])
+# @login_required
+# def accept_friend_request():
+#     _friend_request_helper(request.get_json(), friend_handler_helpers.accept_friend_request)
+#     return "accepted", 200
+@socketio.on('accept_friend_request')
+def accept_friend_request(payload):
+    sender_id = payload['sender']
+    session_id = handle_session_info_helpers.get_session_id_by_user_id(sender_id)
+    _friend_request_helper(payload, friend_handler_helpers.accept_friend_request)
+    socketio.emit('friend_request_accepted', room=session_id)
+
+
+@app.route('/friend_requests/decline', methods=['POST'])
+@login_required
+def decline_friend_request():
+    _friend_request_helper(request.get_json(), friend_handler_helpers.decline_friend_request)
+    return "declined", 200
+
+
+@app.route('/friend_requests')
+@login_required
+def get_undecided_requests():
+    return friend_handler_helpers.get_all_undecided_friend_requests_by_receiver_uid(request.get_json()["receiver"])
+
+
+def _friend_request_helper(user_dict, func):
+    func(user_dict["sender"],
+         user_dict["receiver"])
 
 
 if __name__ == '__main__':
