@@ -20,7 +20,7 @@ def load_to_cancer_type_db(treatment_lst,
                                 genders=gender_lst,
                                 medications=medication_lst,
                                 treatment_types=treatment_lst,
-                                profile_picture=profile_picture
+                                profile_picture=profile_picture.read()
                                 )
     new_preload_data.save()
     return "added preload data"
