@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import _ from "lodash";
 import styled from "styled-components";
 
@@ -7,13 +7,7 @@ import DatePicker from "../../component-library/DatePicker";
 import Checkbox from "../../component-library/Checkbox";
 import SingleCardSelection from "../../component-library/SingleCardSelection";
 import MultiCardSelection from "../../component-library/MultiCardSelection";
-
-import {
-  genderOptions,
-  sexualOrientationOptions,
-  treatmentTypeOptions,
-  purposeOptions,
-} from "./constant";
+import MultiSelectionDropdown from "../../component-library/MultiSelectionDropdown";
 
 import {
   Space,
@@ -22,6 +16,8 @@ import {
   PrimaryButton,
   ErrorMessageContainer,
 } from "../../share-styled-component";
+
+import { getUserDetailOptions, signUpUser } from "./helper";
 
 const SignUpPageContainer = styled.div`
   margin: auto;
@@ -41,20 +37,35 @@ const SignUp = () => {
   const [dateOfBirth, setDateOfBirth] = useState(new Date());
   const [gender, setGender] = useState("");
   const [purposes, setPurposes] = useState([]);
+  const [cancerTypes, setCancerTypes] = useState([]);
   const [sexOrientation, setSexOrientation] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-
   const [agreeTerms, setAgreeTerms] = useState(false);
+  const [userDetailSelections, setUserDetailSelections] = useState({});
 
-  const handleRegister = () => {
+  useEffect(() => {
+    const fetchUserDetailSelections = async () => {
+      setUserDetailSelections(await getUserDetailOptions());
+    };
+
+    fetchUserDetailSelections();
+  }, []);
+
+  const handleRegister = async () => {
     if (
       _.isEmpty(username) ||
       _.isEmpty(email) ||
       _.isEmpty(password) ||
       _.isEmpty(confirmPassword) ||
-      _.isNil(dateOfBirth)
+      _.isNil(dateOfBirth) ||
+      _.isEmpty(gender) ||
+      _.isEmpty(cancerTypes) ||
+      _.isEmpty(purposes) ||
+      _.isEmpty(sexOrientation)
     ) {
-      return setErrorMessage("Please fill in all the required fields.");
+      return setErrorMessage(
+        "Please fill in all the fields and selections above."
+      );
     }
 
     if (password !== confirmPassword) {
@@ -68,17 +79,23 @@ const SignUp = () => {
         "Please agree with our terms and policy in order to register."
       );
     }
+
     // Initiate Signup Request
-    console.log({
-      username,
+    const requestBody = {
       email,
       password,
-      dateOfBirth,
+      date_of_birth: dateOfBirth.toUTCString(), // Date
       gender,
-      purposes,
-      sexOrientation,
-      agreeTerms,
+      cancer: cancerTypes, // Array
+      purpose: purposes, // Array
+      sex_orientation: [sexOrientation], //Array
+    };
+
+    console.log({
+      requestBody,
     });
+
+    await signUpUser(requestBody);
   };
 
   return (
@@ -139,21 +156,28 @@ const SignUp = () => {
           label="Gender:"
           selection={gender}
           updateSelection={setGender}
-          options={genderOptions}
+          options={userDetailSelections.genderOptions || []}
+        />
+        <Space height="12px" />
+        <MultiSelectionDropdown
+          label="Types of Cancer:"
+          selections={cancerTypes}
+          updateSelections={setCancerTypes}
+          options={userDetailSelections.cancerTypeOptions}
         />
         <Space height="12px" />
         <MultiCardSelection
           label="Are you a mentor, mentee, looking for love or all of them?"
           selections={purposes}
           updateSelections={setPurposes}
-          options={purposeOptions}
+          options={userDetailSelections.purposeOptions || []}
         />
         <Space height="12px" />
         <SingleCardSelection
           label="Sex orientation:"
           selection={sexOrientation}
           updateSelection={setSexOrientation}
-          options={sexualOrientationOptions}
+          options={userDetailSelections.sexualOrientationOptions || []}
         />
       </SectionContainer>
       <Space height="36px" />
