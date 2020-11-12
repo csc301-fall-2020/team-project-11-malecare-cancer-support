@@ -4,6 +4,7 @@ from .mongoengine_connect import db
 
 
 class User(db.Document, UserMixin):
+    username = db.StringField()
     user_id = db.StringField()
     email = db.StringField()
     password = db.StringField()
@@ -22,6 +23,7 @@ class User(db.Document, UserMixin):
         return {
             "user_id": self.user_id,
             "email": self.email,
+            "username": self.username,
             "date_of_birth": self.date_of_birth,
             "gender": self.gender,
             "cancer": self.cancer,

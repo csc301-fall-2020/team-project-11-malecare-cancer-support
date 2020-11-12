@@ -126,6 +126,7 @@ def signup():
         return "Email already exists.", 412
     else:
         login_register_helpers.create_new_user(
+            username=my_json["username"],
             email=my_json["email"],
             password=my_json["password"],
             date_of_birth=my_json["date_of_birth"],
