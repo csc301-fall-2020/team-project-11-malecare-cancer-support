@@ -1,5 +1,6 @@
-from .mongoengine_connect import db
 import datetime
+
+from .mongoengine_connect import db
 
 
 class Message(db.Document):
