@@ -20,14 +20,18 @@ def set_gender_by_user_id(user_id, gender):
 def set_short_intro_by_user_id(user_id, short_intro):
     User.objects(user_id=user_id).update(set__short_intro=short_intro)
 
+
 def set_medications_by_user_id(user_id, medication_list):
     User.objects(user_id=user_id).update(set__medications=medication_list)
+
 
 def set_treatments_by_user_id(user_id, treatments_list):
     User.objects(user_id=user_id).update(set__treatments=treatments_list)
 
+
 def set_purpose_by_user_id(user_id, purpose_list):
     User.objects(user_id=user_id).update(set__purpose=purpose_list)
+
 
 def set_username_by_user_id(user_id, username):
     User.objects(user_id=user_id).update(set__username=username)
