@@ -38,4 +38,4 @@ def set_username_by_user_id(user_id, username):
 
 
 def set_picture_by_user_id(user_id, picture):
-    User.objects(user_id=user_id).update(ser__picture=picture)
+    User.objects(user_id=user_id).update(set__picture=picture)
