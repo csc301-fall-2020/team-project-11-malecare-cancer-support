@@ -7,6 +7,7 @@ class PreLoads(db.Document):
     genders = db.ListField(db.StringField())
     medications = db.DictField()
     treatment_types = db.ListField(db.StringField())
+    profile_picture = db.ImageField()
 
     def get_cancer_types(self):
         return self.cancer_types
@@ -22,3 +23,6 @@ class PreLoads(db.Document):
 
     def get_treatment_types(self):
         return self.treatment_types
+
+    def get_profile_picture(self):
+        return self.profile_picture
