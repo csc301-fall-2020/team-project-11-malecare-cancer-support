@@ -100,7 +100,7 @@ def login():
                                                        request.get_json()[
                                                            "password"]):
         login_user(login_register_helpers.get_user_by_email(email=user_email))
-        return "Login successfully"
+        return login_register_helpers.get_user_by_email(user_email)
     else:
         return "Incorrect Password"
 
