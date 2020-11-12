@@ -6,7 +6,7 @@ from flask_login import LoginManager, current_user, login_required, login_user, 
 from flask_socketio import SocketIO
 
 from ..usecases import handle_session_info_helpers, login_register_helpers, \
-    message_handle_helper, preload_data_helpers
+    message_handle_helper, preload_data_helpers, customize_user_profile_helpers
 
 login_manager = LoginManager()
 app = Flask(__name__)
@@ -107,6 +107,14 @@ def login():
 @app.route('/current_user')
 @login_required
 def get_current_user():
+    return current_user.get_json()
+
+
+@app.route('/current_user/profile/sex_orientation', methods=['POST'])
+def change_current_user_sex_orientation():
+    customize_user_profile_helpers \
+        .set_sexual_orientation_by_user_id(user_id=current_user.get_id(),
+                                           sex_orientation=request.get_json()["sex_orientation"])
     return current_user.get_json()
 
 
