@@ -33,12 +33,14 @@ def get_user_by_email(email):
 
 
 def create_new_user(email, password, date_of_birth, gender, cancer, purpose,
-                    sex_orientation):
-    if not email or not password or not date_of_birth or not gender or not cancer \
-            or not purpose or not sex_orientation:
-        return "Can not be empty"
+                    sex_orientation, username):
+    # if not email or not password or not date_of_birth or not gender or not cancer \
+    #         or not purpose or not sex_orientation:
+    #     return "Can not be empty", 412
     hashed_password = hash(password)
-    new_user = User(email=email, password=hashed_password,
+    new_user = User(email=email,
+                    password=hashed_password,
+                    username=username,
                     user_id=generate_random_user_id(6),
                     date_of_birth=date_of_birth,
                     gender=gender,
@@ -46,11 +48,15 @@ def create_new_user(email, password, date_of_birth, gender, cancer, purpose,
                     purpose=purpose,
                     sex_orientation=sex_orientation)
     new_user.save()
-    return "Create new user successfully"
+    # return "Create new user successfully"
 
 
 def get_user_by_user_id(user_id):
     return User.objects(user_id=user_id).first()
+
+
+def get_user_by_email(email):
+    return User.objects(email=email).first()
 
 
 def is_user_id_existed(user_id):

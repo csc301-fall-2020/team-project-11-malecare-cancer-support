@@ -1,12 +1,15 @@
 import functools
 
+import pymongo
 from flask import Flask, jsonify, request
 from flask_login import LoginManager, current_user, login_required, login_user, \
     logout_user
-from flask_socketio import SocketIO
+from flask_socketio import SocketIO, disconnect
 
-from ..usecases import handle_session_info_helpers, login_register_helpers, \
-    message_handle_helper, preload_data_helpers
+from ..usecases import administrator_filter_helpers, \
+    customize_user_profile_helpers, friend_handler_helpers, \
+    handle_session_info_helpers, login_register_helpers, message_handle_helper, \
+    preload_data_helpers, match_helpers
 
 login_manager = LoginManager()
 app = Flask(__name__)
@@ -14,7 +17,7 @@ app.config["SECRET_KEY"] = 'my secret'
 
 login_manager.init_app(app)
 
-socketio = SocketIO(app)
+socketio = SocketIO(app, manage_session=False)
 
 
 # decorator for limiting access of admin-only api
@@ -24,6 +27,17 @@ def admin_only(f):
         if not current_user.is_administrator():
             return "Need to be admin", 401
         return f(*args, **kwargs)
+
+    return wrapped
+
+
+def authenticated_only(f):
+    @functools.wraps(f)
+    def wrapped(*args, **kwargs):
+        if not current_user.is_authenticated:
+            disconnect()
+        else:
+            return f(*args, **kwargs)
 
     return wrapped
 
@@ -38,7 +52,8 @@ def load_to_db():
         treatment_lst=request.get_json()["treatment_types"],
         sexual_orientation_lst=request.get_json()["sexual_orientations"],
         gender_lst=request.get_json()["genders"],
-        medication_lst=request.get_json()["medications"]
+        medication_lst=request.get_json()["medications"],
+        profile_picture=request.get_json()["profile_picture"]
     )
 
 
@@ -72,6 +87,11 @@ def load_user(user_id):
     return login_register_helpers.get_user_by_user_id(user_id)
 
 
+@app.route('/load_from_db/profile_picture')
+def get_profile_picture():
+    return jsonify(preload_data_helpers.get_profile_picture())
+
+
 @app.route("/")
 @login_required
 def index():
@@ -80,7 +100,7 @@ def index():
 
 @login_manager.unauthorized_handler
 def unauthorized():
-    return "user is not logged in"
+    return "user is not logged in", 401
 
 
 @app.route("/logout")
@@ -94,32 +114,64 @@ def logout():
 def login():
     user_email = request.get_json()["email"]
     if not login_register_helpers.email_already_existed(user_email):
-        return "Email does not exists"
+        return "Email does not exists", 412
     if login_register_helpers.verify_password_by_email(email=user_email,
                                                        password=
                                                        request.get_json()[
                                                            "password"]):
         login_user(login_register_helpers.get_user_by_email(email=user_email))
-        return "Login successfully"
+        return jsonify(current_user.get_json())
     else:
-        return "Incorrect Password"
+        return "Incorrect Password", 412
+
+
+@app.route('/current_user')
+@login_required
+def get_current_user():
+    return current_user.get_json()
+
+
+@app.route('/current_user/profile/sex_orientation', methods=['POST'])
+def change_current_user_sex_orientation():
+    customize_user_profile_helpers \
+        .set_sexual_orientation_by_user_id(user_id=current_user.get_id(),
+                                           sex_orientation=request.get_json()[
+                                               "sex_orientation"])
+    return current_user.get_json()
+
+
+@app.route('/current_user/profile/picture', methods=['POST'])
+def change_current_user_picture():
+    picture = open(str(request.get_json()["picture"]), 'rb')
+    print(current_user.get_id())
+    customize_user_profile_helpers \
+        .set_picture_by_user_id(user_id=current_user.get_id(), picture=picture)
+    return "Success"
 
 
 @app.route('/signup', methods=['POST'])
 def signup():
-    if login_register_helpers.email_already_existed(
-            request.get_json()["email"]):
-        return "Email already exists."
-    else:
-        return login_register_helpers.create_new_user(
-            email=request.get_json()["email"],
-            password=request.get_json()["password"],
-            date_of_birth=request.get_json()["date_of_birth"],
-            gender=request.get_json()['gender'],
-            cancer=request.get_json()['cancer'],
-            purpose=request.get_json()['purpose'],
-            sex_orientation=request.get_json()['sex_orientation']
-        )
+    try:
+        my_json = request.get_json()
+        if login_register_helpers.email_already_existed(
+                my_json["email"]):
+            return "Email already exists.", 412
+        else:
+            login_register_helpers.create_new_user(
+                username=my_json["username"],
+                email=my_json["email"],
+                password=my_json["password"],
+                date_of_birth=my_json["date_of_birth"],
+                gender=my_json['gender'],
+                cancer=my_json['cancer'],
+                purpose=my_json['purpose'],
+                sex_orientation=my_json['sex_orientation']
+            )
+            login_user(
+                login_register_helpers.get_user_by_email(my_json["email"]))
+            return current_user.get_json()
+    except pymongo.errors.AutoReconnect as e:
+        print("Try again maybe?", e)
 
 
 @app.route('/chat/new_message', methods=['POST'])
@@ -153,7 +205,8 @@ def get_admin_only_page():
     return "Yes you are admin"
 
 
-@socketio.on('chat', namespace='/private')
+@socketio.on('receive_msg')
+@authenticated_only
 def receive_msg(input_json):
     msg = input_json["msg"]
     receiver = input_json["receiver_uid"]
@@ -163,13 +216,101 @@ def receive_msg(input_json):
     socketio.emit('chat', "receiver need to read", room=session_id)
 
 
-@socketio.on('chat', namespace='/save_session')
+@socketio.on('save_session')
+@authenticated_only
 def save_session(input_json):
     user_id = input_json["user_id"]
-    session_id = input_json["session_id"]
+    session_id = request.sid
     result = handle_session_info_helpers.save_session_id_to_user_id(user_id,
                                                                     session_id)
-    socketio.emit('chat', result)
+    socketio.emit('save_session', result)
+
+
+@socketio.on('admin_send_msg')
+@admin_only
+@authenticated_only
+def admin_send_msg(input_json):
+    msg = input_json["msg"]
+    treatments = input_json["treatments"]
+    cancer_types = input_json["cancer_types"]
+    medications = input_json["medications"]
+    sex = input_json["sex"]
+    age_min = input_json["age_min"]
+    age_max = input_json["age_max"]
+    session_info = administrator_filter_helpers.filter_users(treatments,
+                                                             cancer_types,
+                                                             medications,
+                                                             sex, age_min,
+                                                             age_max)
+    for uid in session_info:
+        create_new_msg(current_user.get_id(), uid, msg)
+        socketio.emit('admin_send_msg', "send to all filter users",
+                      room=session_info[uid])
+
+
+# @app.route('/friend_requests/add', methods=['POST'])
+# @login_required
+# def new_friend_request():
+#     _friend_request_helper(request.get_json(), friend_handler_helpers.create_new_friend_request)
+#     return "added", 200
+
+
+@socketio.on('new_friend_request')
+@authenticated_only
+def new_friend_request(payload):
+    receiver_id = payload['receiver']
+    session_id = handle_session_info_helpers.get_session_id_by_user_id(
+        receiver_id)
+    _friend_request_helper(payload,
+                           friend_handler_helpers.create_new_friend_request)
+    socketio.emit('get_friend_request', room=session_id)
+
+
+# @app.route('/friend_requests/accept', methods=['POST'])
+# @login_required
+# def accept_friend_request():
+#     _friend_request_helper(request.get_json(), friend_handler_helpers.accept_friend_request)
+#     return "accepted", 200
+@socketio.on('accept_friend_request')
+@authenticated_only
+def accept_friend_request(payload):
+    sender_id = payload['sender']
+    session_id = handle_session_info_helpers.get_session_id_by_user_id(
+        sender_id)
+    _friend_request_helper(payload,
+                           friend_handler_helpers.accept_friend_request)
+    socketio.emit('friend_request_accepted', room=session_id)
+
+
+@app.route('/friend_requests/decline', methods=['POST'])
+@login_required
+def decline_friend_request():
+    _friend_request_helper(request.get_json(),
+                           friend_handler_helpers.decline_friend_request)
+    return "declined", 200
+
+
+@app.route('/friend_requests')
+@login_required
+def get_undecided_requests():
+    return friend_handler_helpers.get_all_undecided_friend_requests_by_receiver_uid(
+        request.get_json()["receiver"])
+
+
+def _friend_request_helper(user_dict, func):
+    func(user_dict["sender"],
+         user_dict["receiver"])
+
+
+@app.route('/match')
+@login_required
+def find_matches():
+    my_json = request.get_json()
+    return match_helpers.find_match(sex_orientation_lst=my_json["sex_orientation"],
+                                    gender_lst=my_json["gender"],
+                                    purpose_lst=my_json["purpose"],
+                                    cancer_type_lst=my_json["cancer"],
+                                    current_uid=current_user.get_id())
 
 
 if __name__ == '__main__':

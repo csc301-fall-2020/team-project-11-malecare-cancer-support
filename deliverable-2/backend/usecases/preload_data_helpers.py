@@ -6,18 +6,21 @@ TREATMENT_TYPE_STR = "treatment_types"
 GENDER_STR = "genders"
 SEXUAL_ORIENTATION_STR = "sexual_orientations"
 MEDICATION_STR = "medications"
+PROFILE_PICTURE_STR = "profile_picture"
 
 
 def load_to_cancer_type_db(treatment_lst,
                            cancer_type_lst,
                            sexual_orientation_lst,
                            gender_lst,
-                           medication_lst):
+                           medication_lst,
+                           profile_picture):
     new_preload_data = PreLoads(cancer_types=cancer_type_lst,
                                 sexual_orientations=sexual_orientation_lst,
                                 genders=gender_lst,
                                 medications=medication_lst,
-                                treatment_types=treatment_lst
+                                treatment_types=treatment_lst,
+                                profile_picture=profile_picture.read()
                                 )
     new_preload_data.save()
     return "added preload data"
@@ -59,3 +62,7 @@ def get_treatment_types():
 
 def get_medications():
     return _get_preload_data(MEDICATION_STR)
+
+
+def get_profile_picture():
+    return _get_preload_data(PROFILE_PICTURE_STR)
