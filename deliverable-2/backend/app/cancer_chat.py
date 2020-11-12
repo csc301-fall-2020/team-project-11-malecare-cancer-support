@@ -194,18 +194,22 @@ def save_session(input_json):
 
 @socketio.on('admin_send_msg')
 def admin_send_msg(input_json):
+    msg = input_json["msg"]
     treatments = input_json["treatments"]
     cancer_types = input_json["cancert_ypes"]
     medications = input_json["medications"]
     sex = input_json["sex"]
     age_min = input_json["age_min"]
     age_max = input_json["age_max"]
-    sid_list = administrator_filter_helpers.filter_users(treatments,
-                                                         cancer_types,
-                                                         medications,
-                                                         sex, age_min, age_max)
-    for sid in sid_list:
-        socketio.emit('admin_send_msg', "send to all filter users", room=sid)
+    session_info = administrator_filter_helpers.filter_users(treatments,
+                                                             cancer_types,
+                                                             medications,
+                                                             sex, age_min,
+                                                             age_max)
+    for uid in session_info:
+        create_new_msg(current_user.get_id(), uid, msg)
+        socketio.emit('admin_send_msg', "send to all filter users",
+                      room=session_info[uid])
 
 
 if __name__ == '__main__':
