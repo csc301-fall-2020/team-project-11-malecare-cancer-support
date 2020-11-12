@@ -38,4 +38,7 @@ def set_username_by_user_id(user_id, username):
 
 
 def set_picture_by_user_id(user_id, picture):
-    User.objects(user_id=user_id).update(set__picture=picture)
+    user = User.objects(user_id=user_id).first()
+    print(user)
+    print(user.profile_picture)
+    user.profile_picture.replace(picture)
