@@ -3,7 +3,7 @@ from .mongoengine_connect import db
 
 class PreLoads(db.Document):
     cancer_types = db.DictField()
-    sexual_orientations = db.ListField(db.StringField())
+    sexual_orientations = db.StringField()
     genders = db.ListField(db.StringField())
     medications = db.DictField()
     treatment_types = db.ListField(db.StringField())

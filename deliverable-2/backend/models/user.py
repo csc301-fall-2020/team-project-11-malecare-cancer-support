@@ -11,7 +11,7 @@ class User(db.Document, UserMixin):
     gender = db.StringField()
     cancer = db.ListField(db.StringField())
     purpose = db.ListField(db.StringField())
-    sex_orientation = db.ListField(db.StringField())
+    sex_orientation = db.StringField()
     is_admin = db.BooleanField(default=False)
 
     def get_id(self):
@@ -48,10 +48,10 @@ class User(db.Document, UserMixin):
             return True
         return False
 
-    def filter_sex_orientation(self, sex_orientation):
-        if sex_orientation in self.sex_orientation:
-            return True
-        return False
+    # def filter_sex_orientation(self, sex_orientation):
+    #     if sex_orientation in self.sex_orientation:
+    #         return True
+    #     return False
 
     def is_administrator(self):
         return self.is_admin
