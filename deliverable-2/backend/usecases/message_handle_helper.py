@@ -1,5 +1,5 @@
-from ..models.message import Message
 from .login_register_helpers import is_user_id_existed
+from ..models.message import Message
 
 SENDER_DNE_MSG = "Create new message failed, sender does not exist."
 RECEIVER_DNE_MSG = "Create new message failed, receiver does not exist."
@@ -27,6 +27,9 @@ def get_unread_msg_by_receiver(receiver_uid):
 
 
 def mark_as_read_by_sender_receiver(sender_uid, receiver_uid):
-    number_unread_msg = len(Message.objects(sender_uid=sender_uid, receiver_uid=receiver_uid, if_read=False))
-    Message.objects(sender_uid=sender_uid, receiver_uid=receiver_uid, if_read=False).update(set__if_read=True)
+    number_unread_msg = len(
+        Message.objects(sender_uid=sender_uid, receiver_uid=receiver_uid,
+                        if_read=False))
+    Message.objects(sender_uid=sender_uid, receiver_uid=receiver_uid,
+                    if_read=False).update(set__if_read=True)
     return SUCCESS_MARK_AS_READ_MSG.format(number_unread_msg)

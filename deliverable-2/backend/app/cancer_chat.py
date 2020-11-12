@@ -5,9 +5,11 @@ from flask_login import LoginManager, current_user, login_required, login_user, 
     logout_user
 from flask_socketio import SocketIO
 
-from ..usecases import handle_session_info_helpers, login_register_helpers, \
-    message_handle_helper, preload_data_helpers, customize_user_profile_helpers, \
-    friend_handler_helpers
+
+from ..usecases import administrator_filter_helpers, \
+    customize_user_profile_helpers, handle_session_info_helpers, \
+    login_register_helpers, message_handle_helper, preload_data_helpers, friend_handler_helpers
+
 
 login_manager = LoginManager()
 app = Flask(__name__)
@@ -34,12 +36,13 @@ def admin_only(f):
 @app.route('/load_to_db', methods=['POST'])
 def load_to_db():
     return preload_data_helpers \
-        .load_to_cancer_type_db(cancer_type_lst=request.get_json()["cancer_types"],
-                                treatment_lst=request.get_json()["treatment_types"],
-                                sexual_orientation_lst=request.get_json()["sexual_orientations"],
-                                gender_lst=request.get_json()["genders"],
-                                medication_lst=request.get_json()["medications"]
-                                )
+        .load_to_cancer_type_db(
+        cancer_type_lst=request.get_json()["cancer_types"],
+        treatment_lst=request.get_json()["treatment_types"],
+        sexual_orientation_lst=request.get_json()["sexual_orientations"],
+        gender_lst=request.get_json()["genders"],
+        medication_lst=request.get_json()["medications"]
+    )
 
 
 @app.route('/load_from_db/cancer_types')
@@ -115,7 +118,8 @@ def get_current_user():
 def change_current_user_sex_orientation():
     customize_user_profile_helpers \
         .set_sexual_orientation_by_user_id(user_id=current_user.get_id(),
-                                           sex_orientation=request.get_json()["sex_orientation"])
+                                           sex_orientation=request.get_json()[
+                                               "sex_orientation"])
     return current_user.get_json()
 
 
@@ -187,10 +191,30 @@ def receive_msg(input_json):
 @socketio.on('save_session')
 def save_session(input_json):
     user_id = input_json["user_id"]
-    session_id = input_json["session_id"]
+    session_id = request.sid
     result = handle_session_info_helpers.save_session_id_to_user_id(user_id,
                                                                     session_id)
-    socketio.emit('chat', result)
+    socketio.emit('save_session', result)
+
+
+@socketio.on('admin_send_msg')
+def admin_send_msg(input_json):
+    msg = input_json["msg"]
+    treatments = input_json["treatments"]
+    cancer_types = input_json["cancer_types"]
+    medications = input_json["medications"]
+    sex = input_json["sex"]
+    age_min = input_json["age_min"]
+    age_max = input_json["age_max"]
+    session_info = administrator_filter_helpers.filter_users(treatments,
+                                                             cancer_types,
+                                                             medications,
+                                                             sex, age_min,
+                                                             age_max)
+    for uid in session_info:
+        create_new_msg(current_user.get_id(), uid, msg)
+        socketio.emit('admin_send_msg', "send to all filter users",
+                      room=session_info[uid])
 
 
 # @app.route('/friend_requests/add', methods=['POST'])
