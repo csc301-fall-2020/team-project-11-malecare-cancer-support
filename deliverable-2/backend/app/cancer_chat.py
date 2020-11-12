@@ -1,5 +1,5 @@
 import functools
-
+import pymongo
 from flask import Flask, jsonify, request
 from flask_login import LoginManager, current_user, login_required, login_user, \
     logout_user
@@ -81,7 +81,7 @@ def index():
 
 @login_manager.unauthorized_handler
 def unauthorized():
-    return "user is not logged in"
+    return "user is not logged in", 401
 
 
 @app.route("/logout")
@@ -123,23 +123,26 @@ def change_current_user_sex_orientation():
 
 @app.route('/signup', methods=['POST'])
 def signup():
-    my_json = request.get_json()
-    if login_register_helpers.email_already_existed(
-            my_json["email"]):
-        return "Email already exists.", 412
-    else:
-        login_register_helpers.create_new_user(
-            username=my_json["username"],
-            email=my_json["email"],
-            password=my_json["password"],
-            date_of_birth=my_json["date_of_birth"],
-            gender=my_json['gender'],
-            cancer=my_json['cancer'],
-            purpose=my_json['purpose'],
-            sex_orientation=my_json['sex_orientation']
-        )
-        login_user(login_register_helpers.get_user_by_email(my_json["email"]))
-        return current_user.get_json()
+    try:
+        my_json = request.get_json()
+        if login_register_helpers.email_already_existed(
+                my_json["email"]):
+            return "Email already exists.", 412
+        else:
+            login_register_helpers.create_new_user(
+                username=my_json["username"],
+                email=my_json["email"],
+                password=my_json["password"],
+                date_of_birth=my_json["date_of_birth"],
+                gender=my_json['gender'],
+                cancer=my_json['cancer'],
+                purpose=my_json['purpose'],
+                sex_orientation=my_json['sex_orientation']
+            )
+            login_user(login_register_helpers.get_user_by_email(my_json["email"]))
+            return current_user.get_json()
+    except pymongo.errors.AutoReconnect as e:
+        print("Try again maybe?", e)
 
 
 @app.route('/chat/new_message', methods=['POST'])
