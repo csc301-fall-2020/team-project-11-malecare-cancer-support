@@ -19,7 +19,7 @@ def email_already_existed(email):
     return User.objects(email=email).first() is not None
 
 
-def hash(content):
+def hash_str(content):
     return pwd_context.hash(content)
 
 
@@ -37,7 +37,7 @@ def create_new_user(email, password, date_of_birth, gender, cancer, purpose,
     # if not email or not password or not date_of_birth or not gender or not cancer \
     #         or not purpose or not sex_orientation:
     #     return "Can not be empty", 412
-    hashed_password = hash(password)
+    hashed_password = hash_str(password)
     new_user = User(email=email,
                     password=hashed_password,
                     username=username,
@@ -55,8 +55,8 @@ def get_user_by_user_id(user_id):
     return User.objects(user_id=user_id).first()
 
 
-def get_user_by_email(email):
-    return User.objects(email=email).first()
+# def get_user_by_email(email):
+#     return User.objects(email=email).first()
 
 
 def is_user_id_existed(user_id):
