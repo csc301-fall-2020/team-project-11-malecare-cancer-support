@@ -131,12 +131,36 @@ def get_current_user():
     return current_user.get_json()
 
 
-@app.route('/current_user/profile/sex_orientation', methods=['POST'])
-def change_current_user_sex_orientation():
-    customize_user_profile_helpers \
-        .set_sexual_orientation_by_user_id(user_id=current_user.get_id(),
-                                           sex_orientation=request.get_json()[
-                                               "sex_orientation"])
+@app.route('/current_user/profile/text', methods=['POST'])
+def change_current_user_profile_text():
+    my_json = request.get_json()
+    my_id = current_user.get_id()
+    my_functions = [customize_user_profile_helpers.set_cancer_types_by_user_id,
+                    customize_user_profile_helpers.set_sexual_orientation_by_user_id,
+                    customize_user_profile_helpers.set_gender_by_user_id,
+                    customize_user_profile_helpers.set_purpose_by_user_id,
+                    customize_user_profile_helpers.set_date_of_birth_by_user_id,
+                    customize_user_profile_helpers.set_medications_by_user_id,
+                    customize_user_profile_helpers.set_treatments_by_user_id,
+                    customize_user_profile_helpers.set_short_intro_by_user_id,
+                    customize_user_profile_helpers.set_username_by_user_id]
+
+    my_new_profile_fields = [my_json["cancer"],
+                             my_json["sex_orientation"],
+                             my_json["gender"],
+                             my_json["purpose"],
+                             my_json["date_of_birth"],
+                             my_json["medications"],
+                             my_json["treatments"],
+                             my_json["short_intro"],
+                             my_json["username"]]
+    for func, field in zip(my_functions, my_new_profile_fields):
+        func(my_id, field)
+    # customize_user_profile_helpers \
+    #     .set_sexual_orientation_by_user_id(user_id=my_id,
+    #                                        sex_orientation=my_json["sex_orientation"])
+
+
     return current_user.get_json()
 
 
