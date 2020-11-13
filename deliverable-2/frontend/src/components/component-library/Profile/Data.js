@@ -1,32 +1,45 @@
-const data = require("../../../contexts/preloads.json");
+// import {
+//   getMedications,
+//   getUserDetailOptions,
+// } from "../../pages/signup-page/helper";
 
-var cancers = [];
-var treatmenets = data.treatment_types;
-var medications = [];
-var genderOptions = data.genders;
-var sexualOrientationOptions = data.sexual_orientations;
-var purposeOptions = ["male", "female", "other", "prefer not to respond"];
+// export const cancers = userDetailSelections.cancerTypeOptions;
+// export const medications = userDetailSelections.cancerTypeOptions;
+// export const treatmenets = userDetailSelections.treatmentTypeOptions;
+// export const genderOptions = userDetailSelections.genderOptions;
+// export const sexualOrientationOptions =
+//   userDetailSelections.sexualOrientationOptions;
+// export const purposeOptions = userDetailSelections.purposeOptions;
 
-function parseCancerFromJson() {
-  for (const [key, value] of Object.entries(data.cancer_types)) {
-    cancers = [...cancers, ...value];
-  }
-}
+// const data = require("../../../contexts/preloads.json");
 
-function parseMedicationrFromJson() {
-  for (const [key, value] of Object.entries(data.medications)) {
-    medications = [...medications, ...value];
-  }
-}
+// var cancers = [];
+// var treatmenets = data.treatment_types;
+// var medications = [];
+// var genderOptions = data.genders;
+// var sexualOrientationOptions = data.sexual_orientations;
+// var purposeOptions = ["mentor", "mentee", "looking for love"];
 
-parseCancerFromJson();
-parseMedicationrFromJson();
+// function parseCancerFromJson() {
+//   for (const [key, value] of Object.entries(data.cancer_types)) {
+//     cancers = [...cancers, ...value];
+//   }
+// }
 
-export {
-  cancers,
-  medications,
-  treatmenets,
-  genderOptions,
-  sexualOrientationOptions,
-  purposeOptions,
-};
+// function parseMedicationrFromJson() {
+//   for (const [key, value] of Object.entries(data.medications)) {
+//     medications = [...medications, ...value];
+//   }
+// }
+
+// parseCancerFromJson();
+// parseMedicationrFromJson();
+
+// export {
+//   cancers,
+//   medications,
+//   treatmenets,
+//   genderOptions,
+//   sexualOrientationOptions,
+//   purposeOptions,
+// };

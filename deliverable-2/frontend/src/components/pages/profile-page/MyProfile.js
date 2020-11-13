@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Col, Typography, Layout } from "antd";
 import styles from "./MyProfile.module.css";
 import "antd/dist/antd.css";
@@ -10,14 +10,15 @@ import DropDownSelect from "../../component-library/Profile/DropDownSelect";
 import MultiSelect from "../../component-library/Profile/MultiSelect";
 import Greeting from "../../component-library/Profile/Greeting";
 import PhotoWall from "../../component-library/Profile/PhotoWall";
-import {
-  cancers,
-  medications,
-  treatmenets,
-  genderOptions,
-  sexualOrientationOptions,
-  purposeOptions,
-} from "../../component-library/Profile/Data";
+// import {
+//   cancers,
+//   medications,
+//   treatmenets,
+//   genderOptions,
+//   sexualOrientationOptions,
+//   purposeOptions,
+// } from "../../component-library/Profile/Data";
+import { getUserDetailOptions } from "../../pages/signup-page/helper";
 
 const { Header, Content, Footer } = Layout;
 
@@ -35,6 +36,16 @@ const MyProfile = () => {
   const [greetMsg, setGreetMsg] = useState("Hello World!");
   const [medication, setMed] = useState([]);
   const [treatment, setTreat] = useState([]);
+  const [userDetailSelections, setUserDetailSelections] = useState({});
+
+  useEffect(() => {
+    const fetchUserDetailSelections = async () => {
+      setUserDetailSelections(await getUserDetailOptions());
+    };
+
+    fetchUserDetailSelections();
+    console.log("sucess", userDetailSelections.genderOptions);
+  }, []);
 
   return (
     <Layout>
@@ -56,25 +67,25 @@ const MyProfile = () => {
               select={gender}
               setSelect={setGender}
               lintTitle={"Gender:"}
-              data={genderOptions}
+              data={userDetailSelections.genderOptions}
             ></DropDownSelect>
             <DropDownSelect
               select={sex}
               setSelect={setSex}
               lintTitle={"Sex-Orientation:"}
-              data={sexualOrientationOptions}
+              data={userDetailSelections.sexualOrientationOptions}
             ></DropDownSelect>
             <MultiSelect
               List={purposeList}
               setList={setPurposeList}
               lineTitle={"Purpose"}
-              data={purposeOptions}
+              data={userDetailSelections.purposeOptions}
             ></MultiSelect>
             <MultiSelect
               List={cancerList}
               setList={setCancerList}
               lineTitle={"Type(s) of cancer:"}
-              data={cancers}
+              data={userDetailSelections.cancerTypeOptions}
             ></MultiSelect>
             <Greeting greetMsg={greetMsg} setGreetMsg={setGreetMsg}></Greeting>
           </Col>
@@ -99,13 +110,13 @@ const MyProfile = () => {
               List={medication}
               setList={setMed}
               lineTitle={"Medication:"}
-              data={medications}
+              data={userDetailSelections.medicationOptions}
             ></MultiSelect>
             <MultiSelect
               List={treatment}
               setList={setTreat}
               lineTitle={"Treatment:"}
-              data={treatmenets}
+              data={userDetailSelections.treatmentTypeOptions}
             ></MultiSelect>
           </Col>
         </Row>
