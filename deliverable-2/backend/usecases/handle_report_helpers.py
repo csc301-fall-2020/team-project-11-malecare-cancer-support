@@ -25,6 +25,7 @@ def create_new_report(reporter_uid, reported_uid, report_detail):
     new_report.save()
     return CREATE_SUCCESS
 
+
 def get_all_undecided_report():
     all_undecided_report = ReportHistory.objects(is_handle=False)
     return all_undecided_report.to_json()

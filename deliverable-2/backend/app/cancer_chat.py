@@ -8,8 +8,8 @@ from flask_socketio import SocketIO, disconnect
 
 from ..usecases import administrator_filter_helpers, \
     customize_user_profile_helpers, friend_handler_helpers, \
-    handle_session_info_helpers, login_register_helpers, match_helpers, \
-    message_handle_helper, preload_data_helpers, handle_report_helpers
+    handle_report_helpers, handle_session_info_helpers, login_register_helpers, \
+    match_helpers, message_handle_helper, preload_data_helpers
 
 login_manager = LoginManager()
 app = Flask(__name__)
@@ -336,10 +336,12 @@ def find_matches():
         cancer_type_lst=my_json["cancer"],
         current_uid=current_user.get_id())
 
+
 @app.route('/report/history')
 @login_required
 def get_all_undecided_report_history():
     return handle_report_helpers.get_all_undecided_report()
+
 
 @app.route('/report/accept')
 @login_required
@@ -348,6 +350,7 @@ def accept_report():
     report_id = my_json["report_id"]
     return handle_report_helpers.accept_report(report_id)
 
+
 @app.route('/report/decline')
 @login_required
 def decline_report():
@@ -355,7 +358,8 @@ def decline_report():
     report_id = my_json["report_id"]
     return handle_report_helpers.decline_report(report_id)
 
-@app.route('new_report')
+
+@app.route('/new_report')
 @login_required
 def new_report():
     my_json = request.get_json()
@@ -365,6 +369,8 @@ def new_report():
     return handle_report_helpers.create_new_report(reporter_uid,
                                                    reported_uid,
                                                    report_detail)
+
+
 if __name__ == '__main__':
     # app.run(debug=True)
     socketio.run(app, host='0.0.0.0', port=5000, debug=True)
