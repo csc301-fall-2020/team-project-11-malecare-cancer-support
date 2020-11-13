@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import _ from "lodash";
+import axios from "axios";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
 import Input from "../../component-library/Input";
@@ -13,6 +15,8 @@ import {
   ErrorMessageContainer,
 } from "../../share-styled-component";
 
+import { UserContext } from "../../../contexts/UserContext";
+
 const LoginPageContainer = styled.div`
   position: absolute;
   width: 600px;
@@ -23,17 +27,36 @@ const LoginPageContainer = styled.div`
 `;
 
 const Login = () => {
+  const { user, setUser } = useContext(UserContext);
+  const history = useHistory();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberUser, setRememberUser] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    if (user) {
+      history.push("/matches");
+    }
+  }, [user, history]);
 
   const handleLogin = () => {
     if (_.isEmpty(email) || _.isEmpty(password)) {
       return setErrorMessage("Your email and password cannot be empty.");
     }
     //   Initiate Login Request
-    console.log({ email, password });
+    const requestBody = { email, password };
+    axios
+      .post("/login", requestBody)
+      .then((response) => {
+        if (!_.isNil(response, "data.user_id")) {
+          setUser(response.data);
+        }
+      })
+      .catch((err) => {
+        setErrorMessage(err.message);
+      });
   };
 
   return (

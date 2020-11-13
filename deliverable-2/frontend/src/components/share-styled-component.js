@@ -37,7 +37,10 @@ export const PrimaryButton = styled.button`
   color: #ffffff;
   font-size: 30px;
   width: 320px;
-  height: 50px;
+  outline: none;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const SecondaryButton = styled.button`
@@ -47,7 +50,10 @@ export const SecondaryButton = styled.button`
   color: #d54e54;
   font-size: 30px;
   width: 320px;
-  height: 50px;
+  outline: none;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const NavBarContainer = styled.nav`
@@ -59,6 +65,9 @@ export const NavBarContainer = styled.nav`
   color: #ffffff;
   padding: 0 12px;
   font-size: 24px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const NavLinkContainer = styled.ul`
@@ -67,11 +76,24 @@ export const NavLinkContainer = styled.ul`
   justify-content: space-evenly;
   align-items: center;
   list-style: none;
+  margin: 0;
 `;
 
 export const NavLink = styled(Link)`
   color: #ffffff;
   text-decoration: none;
+  &:hover {
+    cursor: pointer;
+    color: #ffffff;
+  }
+`;
+
+export const LogoutSection = styled.a`
+  color: #ffffff;
+  text-decoration: none;
+  &:hover {
+    color: #ffffff;
+  }
 `;
 
 export const ErrorMessageContainer = styled.div`

@@ -25,6 +25,10 @@ const OptionCardConatiner = styled.div`
   border-radius: 4px;
   margin: 0 8px 8px 0;
 
+  &:hover {
+    cursor: pointer;
+  }
+
   ${({ isSelected }) =>
     isSelected
       ? `

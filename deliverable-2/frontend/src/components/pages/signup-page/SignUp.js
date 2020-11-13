@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import _ from "lodash";
+import axios from "axios";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
 import Input from "../../component-library/Input";
-import DatePicker from "../../component-library/DatePicker";
+import DatePickerInput from "../../component-library/DatePickerInput";
 import Checkbox from "../../component-library/Checkbox";
 import SingleCardSelection from "../../component-library/SingleCardSelection";
 import MultiCardSelection from "../../component-library/MultiCardSelection";
@@ -17,7 +19,10 @@ import {
   ErrorMessageContainer,
 } from "../../share-styled-component";
 
-import { getUserDetailOptions, signUpUser } from "./helper";
+import { getUserDetailOptions } from "./helper";
+import { formatDate } from "../../utils/helpers";
+
+import { UserContext } from "../../../contexts/UserContext";
 
 const SignUpPageContainer = styled.div`
   margin: auto;
@@ -30,6 +35,9 @@ const SectionContainer = styled.div`
 `;
 
 const SignUp = () => {
+  const { user, setUser } = useContext(UserContext);
+  const history = useHistory();
+
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -44,14 +52,18 @@ const SignUp = () => {
   const [userDetailSelections, setUserDetailSelections] = useState({});
 
   useEffect(() => {
+    if (user) {
+      history.push("/matches");
+    }
     const fetchUserDetailSelections = async () => {
       setUserDetailSelections(await getUserDetailOptions());
     };
 
     fetchUserDetailSelections();
-  }, []);
+  }, [user, history]);
 
   const handleRegister = async () => {
+    setErrorMessage("");
     if (
       _.isEmpty(username) ||
       _.isEmpty(email) ||
@@ -82,20 +94,27 @@ const SignUp = () => {
 
     // Initiate Signup Request
     const requestBody = {
+      username,
       email,
       password,
-      date_of_birth: dateOfBirth.toUTCString(), // Date
+      // date_of_birth: formatDate(dateOfBirth), // Date
+      date_of_birth: dateOfBirth, // Date
       gender,
       cancer: cancerTypes, // Array
       purpose: purposes, // Array
-      sex_orientation: [sexOrientation], //Array
+      sex_orientation: sexOrientation,
     };
 
-    console.log({
-      requestBody,
-    });
-
-    await signUpUser(requestBody);
+    axios
+      .post("/signup", requestBody)
+      .then((response) => {
+        if (!_.isNil(response, "data.user_id")) {
+          setUser(response.data);
+        }
+      })
+      .catch((err) => {
+        setErrorMessage(err.message);
+      });
   };
 
   return (
@@ -146,7 +165,7 @@ const SignUp = () => {
       <SectionContainer>
         <MainTitle>More about you ..</MainTitle>
         <Space height="24px" />
-        <DatePicker
+        <DatePickerInput
           label="Date of birth (yyyy-mm-dd):"
           onChange={setDateOfBirth}
           date={dateOfBirth}

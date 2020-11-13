@@ -1,15 +1,5 @@
 import axios from "axios";
 
-export const signUpUser = async (requestBody) => {
-  try {
-    const response = await axios.post("/signup", requestBody);
-    console.log(response.data);
-  } catch (err) {
-    // Handle Error Here
-    console.error(err);
-  }
-};
-
 export const getUserDetailOptions = async () => {
   const [
     cancerTypeOptions,
