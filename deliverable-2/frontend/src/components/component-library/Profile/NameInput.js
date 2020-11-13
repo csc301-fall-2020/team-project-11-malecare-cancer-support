@@ -8,7 +8,7 @@ const NameInput = ({ name, setName }) => {
     <div>
       <Row>
         <Col span={4}>Names:</Col>
-        <Col>
+        <Col span={8}>
           <Input
             style={{ width: 250 }}
             allowClear
