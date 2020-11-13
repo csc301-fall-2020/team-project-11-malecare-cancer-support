@@ -11,6 +11,9 @@ const CheckboxContainer = styled.div`
 const CheckboxInput = styled.input`
   width: 24px;
   height: 24px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const CheckboxLabelContainer = styled.span`

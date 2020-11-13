@@ -39,21 +39,23 @@ const Welcome = () => {
   };
 
   return (
-    <WelcomePageContainer>
-      <MainTitleLarge>Cancerchat</MainTitleLarge>
-      <Space height="24px" />
-      <MainSubTitleLarge>
-        Meet &amp; chat to someone just like you
-      </MainSubTitleLarge>
-      <Space height="72px" />
-      <div>
-        <PrimaryButton onClick={handleSignup}>Create account</PrimaryButton>
-      </div>
-      <Space height="24px" />
-      <div>
-        <SecondaryButton onClick={handleLogin}>Login</SecondaryButton>
-      </div>
-    </WelcomePageContainer>
+    !user && (
+      <WelcomePageContainer>
+        <MainTitleLarge>Cancerchat</MainTitleLarge>
+        <Space height="24px" />
+        <MainSubTitleLarge>
+          Meet &amp; chat to someone just like you
+        </MainSubTitleLarge>
+        <Space height="72px" />
+        <div>
+          <PrimaryButton onClick={handleSignup}>Create account</PrimaryButton>
+        </div>
+        <Space height="24px" />
+        <div>
+          <SecondaryButton onClick={handleLogin}>Login</SecondaryButton>
+        </div>
+      </WelcomePageContainer>
+    )
   );
 };
 

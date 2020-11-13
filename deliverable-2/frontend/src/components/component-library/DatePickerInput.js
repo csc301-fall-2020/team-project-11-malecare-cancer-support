@@ -1,5 +1,5 @@
 import React from "react";
-import DateTimePicker from "react-datetime-picker";
+import DatePicker from "react-date-picker";
 import styled from "styled-components";
 
 const DatePickerContainer = styled.div`
@@ -12,7 +12,7 @@ const DateLabelContainer = styled.div`
   font-size: 24px;
 `;
 
-const StyledDatePicker = styled(DateTimePicker)`
+const StyledDatePicker = styled(DatePicker)`
   width: 160px;
   height: 40px;
   border: 3px solid #ccc;
@@ -21,17 +21,11 @@ const StyledDatePicker = styled(DateTimePicker)`
   margin: 12px 0;
 `;
 
-const DatePicker = ({ label, date, onChange }) => (
+const DatePickerInput = ({ label, date, onChange }) => (
   <DatePickerContainer>
     <DateLabelContainer>{label}</DateLabelContainer>
-    <StyledDatePicker
-      onChange={onChange}
-      value={date}
-      format="y-MM-dd"
-      disableClock
-      style={{ width: "50px" }}
-    />
+    <StyledDatePicker onChange={onChange} value={date} />
   </DatePickerContainer>
 );
 
-export default DatePicker;
+export default DatePickerInput;
