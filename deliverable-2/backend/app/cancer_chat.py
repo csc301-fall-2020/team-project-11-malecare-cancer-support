@@ -294,7 +294,7 @@ def find_matches():
     return match_helpers.find_match(sex_orientation_lst=my_json["sex_orientation"],
                                     gender_lst=my_json["gender"],
                                     purpose_lst=my_json["purpose"],
-                                    cancer_type_lst=my_json["cancer"],
+                                    cancer_type_lst=current_user.get_json()['cancer'],
                                     current_uid=current_user.get_id())
 
 
