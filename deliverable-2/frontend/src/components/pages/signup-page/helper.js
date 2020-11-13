@@ -7,12 +7,14 @@ export const getUserDetailOptions = async () => {
     genderOptions,
     sexualOrientationOptions,
     purposeOptions,
+    medicationOptions,
   ] = await Promise.all([
     getCancerTypes(),
     getTreatmentTypes(),
     getGenders(),
     getSexualOrientations(),
     getPurposes(),
+    getMedications(),
   ]);
 
   return {
@@ -21,6 +23,7 @@ export const getUserDetailOptions = async () => {
     genderOptions,
     sexualOrientationOptions,
     purposeOptions,
+    medicationOptions,
   };
 };
 
@@ -55,7 +58,7 @@ export const getSexualOrientations = async () => {
 
 export const getMedications = async () => {
   const response = await axios.get("/load_from_db/medications");
-  return response.data;
+  return buildAllCancerTypesList(response.data);
 };
 
 export const getPurposes = async () => {
