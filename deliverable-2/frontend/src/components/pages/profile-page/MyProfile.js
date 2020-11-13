@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { Row, Col, Typography, Input, Space, DatePicker } from "antd";
+import { Row, Col, Typography, Layout } from "antd";
 import styles from "./MyProfile.module.css";
-import { Layout, Menu, Breadcrumb, Image } from "antd";
 import "antd/dist/antd.css";
 import moment from "moment";
 import ProfilePhoto from "../../component-library/Profile/ProfilePhoto";
