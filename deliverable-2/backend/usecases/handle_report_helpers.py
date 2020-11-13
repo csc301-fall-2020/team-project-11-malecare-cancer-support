@@ -6,7 +6,7 @@ from ..models.report_history import ReportHistory
 
 ACCEPT_REPORT = \
     "the report has been accepted, user {} has been added to black list"
-DECLINE_REPORT = "the report has been declied"
+DECLINE_REPORT = "the report has been declined"
 CREATE_SUCCESS = "the report has been created successfully"
 
 
