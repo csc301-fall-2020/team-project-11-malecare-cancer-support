@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Row, Col, Typography, Layout, message } from "antd";
 import styles from "./MyProfile.module.css";
 import "antd/dist/antd.css";
@@ -14,6 +14,7 @@ import Greeting from "../../component-library/Profile/Greeting";
 import PhotoWall from "../../component-library/Profile/PhotoWall";
 import { getUserDetailOptions } from "../../pages/signup-page/helper";
 import { UpdateButton } from "../../share-styled-component";
+import { UserContext } from "../../../contexts/UserContext";
 
 const { Header, Content, Footer } = Layout;
 
@@ -40,6 +41,7 @@ const MyProfile = ({ user }) => {
   const [greetMsg, setGreetMsg] = useState(user.short_intro);
   const [medication, setMed] = useState(user.medications);
   const [treatment, setTreat] = useState(user.treatments);
+  const { setUser } = useContext(UserContext);
 
   const handleUpdate = () => {
     if (
@@ -64,14 +66,15 @@ const MyProfile = ({ user }) => {
       };
 
       axios
-        .post("current_user/profile", requestBody)
+        .post("current_user/profile/text", requestBody)
         .then((response) => {
           if (response.status == 200) {
             message.success("success update");
+            // setUser(response.data);
           }
         })
         .catch((err) => {
-          // setErrorMessage(err.message);
+          console.log(err);
           message.error("Error accurs");
         });
     }

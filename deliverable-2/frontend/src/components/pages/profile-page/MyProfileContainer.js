@@ -14,7 +14,7 @@ const MyProfileContainer = () => {
     }
   }, [user, history]);
   console.log(user);
-  return user && <MyProfile user={user}></MyProfile>;
+  return user && <MyProfile user={user} setUser={setUser}></MyProfile>;
 };
 
 export default MyProfileContainer;
