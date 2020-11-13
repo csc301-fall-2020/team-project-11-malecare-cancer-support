@@ -1,5 +1,6 @@
 from .mongoengine_connect import db
 
+
 class BlackList(db.Document):
     uid = db.StringField()
 

@@ -1,5 +1,6 @@
 from .mongoengine_connect import db
 
+
 class ReportHistory(db.Document):
     report_id = db.StringField()
     reporter_uid = db.StringField()

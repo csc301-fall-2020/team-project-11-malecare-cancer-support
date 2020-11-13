@@ -8,8 +8,8 @@ from flask_socketio import SocketIO, disconnect
 
 from ..usecases import administrator_filter_helpers, \
     customize_user_profile_helpers, friend_handler_helpers, \
-    handle_session_info_helpers, login_register_helpers, message_handle_helper, \
-    preload_data_helpers, match_helpers
+    handle_session_info_helpers, login_register_helpers, match_helpers, \
+    message_handle_helper, preload_data_helpers
 
 login_manager = LoginManager()
 app = Flask(__name__)
@@ -159,7 +159,6 @@ def change_current_user_profile_text():
     # customize_user_profile_helpers \
     #     .set_sexual_orientation_by_user_id(user_id=my_id,
     #                                        sex_orientation=my_json["sex_orientation"])
-
 
     return current_user.get_json()
 
@@ -330,11 +329,12 @@ def _friend_request_helper(user_dict, func):
 @login_required
 def find_matches():
     my_json = request.get_json()
-    return match_helpers.find_match(sex_orientation_lst=my_json["sex_orientation"],
-                                    gender_lst=my_json["gender"],
-                                    purpose_lst=my_json["purpose"],
-                                    cancer_type_lst=my_json["cancer"],
-                                    current_uid=current_user.get_id())
+    return match_helpers.find_match(
+        sex_orientation_lst=my_json["sex_orientation"],
+        gender_lst=my_json["gender"],
+        purpose_lst=my_json["purpose"],
+        cancer_type_lst=my_json["cancer"],
+        current_uid=current_user.get_id())
 
 
 if __name__ == '__main__':
