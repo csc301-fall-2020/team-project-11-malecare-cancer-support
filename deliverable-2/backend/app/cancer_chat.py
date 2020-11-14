@@ -344,6 +344,12 @@ def find_matches():
                                     cancer_type_lst=my_json["cancer"],
                                     current_uid=current_user.get_id())
 
+@app.route('/admin_sign_up', methods=["POST"])
+def create_admin():
+    my_json=request.get_json()
+    login_register_helpers.create_admin(email=my_json["email"],
+                                        password=my_json["password"])
+    return "Create admin successfully"
 
 if __name__ == '__main__':
     # app.run(debug=True)

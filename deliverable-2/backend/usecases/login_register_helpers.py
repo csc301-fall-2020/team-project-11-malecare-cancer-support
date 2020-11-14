@@ -55,8 +55,14 @@ def get_user_by_user_id(user_id):
     return User.objects(user_id=user_id).first()
 
 
-# def get_user_by_email(email):
-#     return User.objects(email=email).first()
+def create_admin(email, password):
+    hashed_password = hash_str(password)
+    new_user = User(email=email,
+                    password=hashed_password,
+                    user_id=generate_random_user_id(6),
+                    is_admin=True
+                    )
+    new_user.save()
 
 
 def is_user_id_existed(user_id):
