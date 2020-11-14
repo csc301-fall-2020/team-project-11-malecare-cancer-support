@@ -3,7 +3,6 @@ import string
 
 from ..models.black_list import BlackList
 from ..models.report_history import ReportHistory
-from ..models.user import User
 from ..usecases import login_register_helpers
 
 ACCEPT_REPORT = \
@@ -45,8 +44,10 @@ def decline_report(report_id):
     ReportHistory.objects(report_id=report_id).update(is_handle=True)
     return DECLINE_REPORT
 
+
 def get_all_black_list():
     return BlackList.objects().to_json()
+
 
 # return True if user in black_list
 def check_user_in_black_list_by_email(email):
