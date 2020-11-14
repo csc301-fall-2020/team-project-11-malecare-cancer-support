@@ -10,6 +10,14 @@ const MultiSelect = ({ List, setList, lineTitle, data }) => {
     setList([...List, value]);
   }
 
+  const valider = (l) => {
+    if (!l) {
+      return [];
+    }
+    console.log("duoxuan", lineTitle, Array.from(l));
+    return Array.from(l);
+  };
+
   return (
     <div>
       <Row>
@@ -23,7 +31,7 @@ const MultiSelect = ({ List, setList, lineTitle, data }) => {
             defaultValue={List}
             onChange={handleChange}
           >
-            {data.map((value, key) => (
+            {valider(data).map((value, key) => (
               <Option value={value} key={key}>
                 {value}
               </Option>
