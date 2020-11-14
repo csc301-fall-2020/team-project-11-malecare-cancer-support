@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { Row, Col, Typography, Layout } from "antd";
+import React, { useState, useEffect, useContext } from "react";
+import { Row, Col, Typography, Layout, message } from "antd";
 import styles from "./MyProfile.module.css";
 import "antd/dist/antd.css";
 import moment from "moment";
+import _ from "lodash";
+import axios from "axios";
 import ProfilePhoto from "../../component-library/Profile/ProfilePhoto";
 import NameInput from "../../component-library/Profile/NameInput";
 import DateInput from "../../component-library/Profile/DateInput";
@@ -12,6 +14,7 @@ import Greeting from "../../component-library/Profile/Greeting";
 import PhotoWall from "../../component-library/Profile/PhotoWall";
 import { getUserDetailOptions } from "../../pages/signup-page/helper";
 import { UpdateButton } from "../../share-styled-component";
+import { UserContext } from "../../../contexts/UserContext";
 
 const { Header, Content, Footer } = Layout;
 
@@ -19,29 +22,70 @@ const { Title } = Typography;
 
 const dateFormat = "YYYY-MM-DD";
 
-const handleUpdate = () => {
-  console.log("update");
+const timeFormat = (inputString) => {
+  const d = new Date(inputString);
+  var month = (d.getMonth() + 1).toString().padStart(2, "0");
+  var day = d.getDate().toString().padStart(2, "0");
+  var result = d.getFullYear() + "-" + month + "-" + day;
+  return moment(result, dateFormat);
 };
 
-const MyProfile = () => {
-  const [name, setName] = useState("User name");
-  const [date, setDate] = useState(moment("2020-11-11", dateFormat));
-  const [gender, setGender] = useState("other");
-  const [sex, setSex] = useState("prefer not to respond");
-  const [cancerList, setCancerList] = useState(["lung cancer"]);
-  const [purposeList, setPurposeList] = useState(["mentor"]);
-  const [greetMsg, setGreetMsg] = useState("Hello World!");
-  const [medication, setMed] = useState([]);
-  const [treatment, setTreat] = useState([]);
+const MyProfile = ({ user }) => {
   const [userDetailSelections, setUserDetailSelections] = useState({});
+  const [name, setName] = useState(user.username);
+  const [date, setDate] = useState(timeFormat(user.date_of_birth));
+  const [gender, setGender] = useState(user.gender);
+  const [sex, setSex] = useState(user.sex_orientation);
+  const [cancerList, setCancerList] = useState(user.cancer);
+  const [purposeList, setPurposeList] = useState(user.purpose);
+  const [greetMsg, setGreetMsg] = useState(user.short_intro);
+  const [medication, setMed] = useState(user.medications);
+  const [treatment, setTreat] = useState(user.treatments);
+  const { setUser } = useContext(UserContext);
+
+  const handleUpdate = () => {
+    if (
+      _.isEmpty(name) ||
+      _.isEmpty(date) ||
+      _.isEmpty(gender) ||
+      _.isEmpty(sex)
+    ) {
+      message.warning("You cannot set your profile to empty");
+    } else {
+      //   Initiate Login Request
+      const requestBody = {
+        username: name,
+        cancer: cancerList,
+        date_of_birth: date.format(dateFormat),
+        gender: gender,
+        medications: medication,
+        purpose: purposeList,
+        sex_orientation: sex,
+        short_intro: greetMsg,
+        treatments: treatment,
+      };
+
+      axios
+        .post("current_user/profile/text", requestBody)
+        .then((response) => {
+          if (response.status == 200) {
+            message.success("success update");
+            // setUser(response.data);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          message.error("Error accurs");
+        });
+    }
+    console.log("update");
+  };
 
   useEffect(() => {
     const fetchUserDetailSelections = async () => {
       setUserDetailSelections(await getUserDetailOptions());
     };
-
     fetchUserDetailSelections();
-    console.log("sucess", userDetailSelections.genderOptions);
   }, []);
 
   return (

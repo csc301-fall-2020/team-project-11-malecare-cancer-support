@@ -87,6 +87,14 @@ def load_user(user_id):
     return login_register_helpers.get_user_by_user_id(user_id)
 
 
+@app.route('/get_user', methods=['POST'])
+@login_required
+def get_user_by_id():
+    my_json = request.get_json()
+    user_id = my_json["user_id"]
+    return login_register_helpers.get_user_by_user_id(user_id).get_json()
+
+
 @app.route('/load_from_db/profile_picture')
 def get_profile_picture():
     return jsonify(preload_data_helpers.get_profile_picture())
@@ -159,8 +167,7 @@ def change_current_user_profile_text():
     # customize_user_profile_helpers \
     #     .set_sexual_orientation_by_user_id(user_id=my_id,
     #                                        sex_orientation=my_json["sex_orientation"])
-
-    return current_user.get_json()
+    return login_register_helpers.get_user_by_user_id(my_id).get_json()
 
 
 @app.route('/current_user/profile/picture', methods=['POST'])
