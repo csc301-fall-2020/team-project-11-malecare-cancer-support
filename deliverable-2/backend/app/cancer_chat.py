@@ -169,7 +169,7 @@ def change_current_user_profile_text():
     #                                        sex_orientation=my_json["sex_orientation"])
 
 
-    return current_user.get_json()
+    return login_register_helpers.get_user_by_user_id(my_id).get_json()
 
 
 @app.route('/current_user/profile/picture', methods=['POST'])
