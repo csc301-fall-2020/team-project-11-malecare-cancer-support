@@ -8,8 +8,8 @@ from flask_socketio import SocketIO, disconnect
 
 from ..usecases import administrator_filter_helpers, \
     customize_user_profile_helpers, friend_handler_helpers, \
-    handle_session_info_helpers, login_register_helpers, message_handle_helper, \
-    preload_data_helpers, match_helpers
+    handle_report_helpers, handle_session_info_helpers, login_register_helpers, \
+    match_helpers, message_handle_helper, preload_data_helpers
 
 login_manager = LoginManager()
 app = Flask(__name__)
@@ -123,6 +123,8 @@ def login():
     user_email = request.get_json()["email"]
     if not login_register_helpers.email_already_existed(user_email):
         return "Email does not exists", 412
+    if handle_report_helpers.check_user_in_black_list_by_email(user_email):
+        return "This account has been locked", 412
     if login_register_helpers.verify_password_by_email(email=user_email,
                                                        password=
                                                        request.get_json()[
@@ -167,8 +169,6 @@ def change_current_user_profile_text():
     # customize_user_profile_helpers \
     #     .set_sexual_orientation_by_user_id(user_id=my_id,
     #                                        sex_orientation=my_json["sex_orientation"])
-
-
     return login_register_helpers.get_user_by_user_id(my_id).get_json()
 
 
@@ -338,11 +338,62 @@ def _friend_request_helper(user_dict, func):
 @login_required
 def find_matches():
     my_json = request.get_json()
-    return match_helpers.find_match(sex_orientation_lst=my_json["sex_orientation"],
-                                    gender_lst=my_json["gender"],
-                                    purpose_lst=my_json["purpose"],
-                                    cancer_type_lst=my_json["cancer"],
-                                    current_uid=current_user.get_id())
+    return match_helpers.find_match(
+        sex_orientation_lst=my_json["sex_orientation"],
+        gender_lst=my_json["gender"],
+        purpose_lst=my_json["purpose"],
+        cancer_type_lst=my_json["cancer"],
+        current_uid=current_user.get_id())
+
+
+@app.route('/report/history')
+@login_required
+def get_all_undecided_report_history():
+    return handle_report_helpers.get_all_undecided_report()
+
+
+@app.route('/report/accept', methods=['POST'])
+@login_required
+def accept_report():
+    my_json = request.get_json()
+    report_id = my_json["report_id"]
+    return handle_report_helpers.accept_report(report_id)
+
+
+@app.route('/report/decline', methods=['POST'])
+@login_required
+def decline_report():
+    my_json = request.get_json()
+    report_id = my_json["report_id"]
+    return handle_report_helpers.decline_report(report_id)
+
+
+@app.route('/new_report', methods=['POST'])
+@login_required
+def new_report():
+    my_json = request.get_json()
+    reported_uid = my_json["reported_uid"]
+    report_detail = my_json["report_detail"]
+    reporter_uid = current_user.get_id()
+    return handle_report_helpers.create_new_report(reporter_uid,
+                                                   reported_uid,
+                                                   report_detail)
+
+
+@app.route('/report/black_list')
+@login_required
+def get_all_black_list():
+    return handle_report_helpers.get_all_black_list()
+
+
+@app.route('/report/check_reported_user', methods=['POST'])
+@login_required
+def get_reported_user_message():
+    my_json = request.get_json()
+    reported_uid = my_json["reported_uid"]
+    reporter_uid = my_json["reporter_uid"]
+    return message_handle_helper.get_message_by_sender_and_receiver_id(
+        reported_uid, reporter_uid)
 
 @app.route('/admin_sign_up', methods=["POST"])
 def create_admin():

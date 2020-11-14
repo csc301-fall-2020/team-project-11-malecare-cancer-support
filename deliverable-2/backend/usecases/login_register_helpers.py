@@ -64,6 +64,9 @@ def create_admin(email, password):
                     )
     new_user.save()
 
+def get_user_id_by_user_email(email):
+    return get_user_by_email(email).get_id()
+
 
 def is_user_id_existed(user_id):
     return User.objects(user_id=user_id) is not None
