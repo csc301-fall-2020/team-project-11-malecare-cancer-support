@@ -123,6 +123,8 @@ def login():
     user_email = request.get_json()["email"]
     if not login_register_helpers.email_already_existed(user_email):
         return "Email does not exists", 412
+    if handle_report_helpers.check_user_in_black_list_by_email(user_email):
+        return "This account has been locked", 412
     if login_register_helpers.verify_password_by_email(email=user_email,
                                                        password=
                                                        request.get_json()[
@@ -350,7 +352,7 @@ def get_all_undecided_report_history():
     return handle_report_helpers.get_all_undecided_report()
 
 
-@app.route('/report/accept')
+@app.route('/report/accept', methods=['POST'])
 @login_required
 def accept_report():
     my_json = request.get_json()
@@ -358,7 +360,7 @@ def accept_report():
     return handle_report_helpers.accept_report(report_id)
 
 
-@app.route('/report/decline')
+@app.route('/report/decline', methods=['POST'])
 @login_required
 def decline_report():
     my_json = request.get_json()
@@ -366,7 +368,7 @@ def decline_report():
     return handle_report_helpers.decline_report(report_id)
 
 
-@app.route('/new_report')
+@app.route('/new_report', methods=['POST'])
 @login_required
 def new_report():
     my_json = request.get_json()
@@ -377,7 +379,18 @@ def new_report():
                                                    reported_uid,
                                                    report_detail)
 
+@app.route('/report/black_list')
+@login_required
+def get_all_black_list():
+    return handle_report_helpers.get_all_black_list()
 
+@app.route('/report/check_reported_user', methods=['POST'])
+@login_required
+def get_reported_user_message():
+    my_json = request.get_json()
+    reported_uid = my_json["reported_uid"]
+    reporter_uid = my_json["reporter_uid"]
+    return message_handle_helper.get_message_by_sender_and_receiver_id(reported_uid,reporter_uid)
 if __name__ == '__main__':
     # app.run(debug=True)
     socketio.run(app, host='0.0.0.0', port=5000, debug=True)
