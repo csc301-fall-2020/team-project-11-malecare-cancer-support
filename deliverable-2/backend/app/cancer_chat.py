@@ -122,7 +122,7 @@ def login():
     user_email = request.get_json()["email"]
     if not login_register_helpers.email_already_existed(user_email):
         return "Email does not exists", 412
-    if handle_report_helpers.check_user_in_black_list_by_email(user_email):
+    if not handle_report_helpers.check_user_in_black_list_by_email(user_email):
         return "This account has been locked", 412
     if login_register_helpers.verify_password_by_email(email=user_email,
                                                        password=
