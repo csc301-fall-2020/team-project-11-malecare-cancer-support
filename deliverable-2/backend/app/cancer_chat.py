@@ -17,7 +17,7 @@ app.config["SECRET_KEY"] = 'my secret'
 
 login_manager.init_app(app)
 
-socketio = SocketIO(app, manage_session=False)
+socketio = SocketIO(app, manage_session=False,  cors_allowed_origins="*")
 
 
 # decorator for limiting access of admin-only api

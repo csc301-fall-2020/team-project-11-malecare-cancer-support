@@ -166,21 +166,28 @@ const Messages = () => {
     }, 0);
   };
   useEffect(() => {
-    const socket = io("http://localhost:5000");
+    const socket = io.connect("http://localhost:5000");
     console.log(socket);
     // socket.on("chat", (data) => {
     //   console.log("11111111111111111111111");
     //   console.log(data);
     //   setChatList([...chatList, ...data]);
     // });
-    socket.open();
+    // socket.open();
     setSocket(socket);
-
-    get("/current_user").then((res) => {
-      setUserId(res.user_id);
-      setUserList(res.friends);
-      socket.emit("save_session", { user_id: res.user_id });
-    });
+    socket.on("connect", function(){
+      get("/current_user").then((res) => {
+        setUserId(res.user_id);
+        setUserList(res.friends);
+        console.log(userId)
+        socket.emit("save_session", { user_id: res.user_id });
+      });
+    })
+//    get("/current_user").then((res) => {
+//      setUserId(res.user_id);
+//      setUserList(res.friends);
+//      socket.emit("save_session", { user_id: res.user_id });
+//    });
     return () => {
       socket.close();
       setSocket(undefined);
