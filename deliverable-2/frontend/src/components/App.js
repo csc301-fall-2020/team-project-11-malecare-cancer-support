@@ -11,6 +11,8 @@ import MyProfile from "./pages/profile-page/MyProfile";
 import Requests from "./pages/requests-page/Requests";
 import Login from "./pages/login-page/Login";
 import SignUp from "./pages/signup-page/SignUp";
+import AdminSendMessage from "./pages/admin-page/adminSendMessage";
+import AdminHandleReports from "./pages/admin-page/adminHandleReports";
 
 import { UserContext } from "../contexts/UserContext";
 
@@ -25,6 +27,7 @@ const App = () => {
         <MainPageContainer>
           <Nav />
           <Switch>
+            {/* Regular User */}
             <Route path="/" component={Welcome} exact />
             <Route path="/matches" component={Matches} />
             <Route path="/messages" component={Messages} />
@@ -33,6 +36,10 @@ const App = () => {
             <Route path="/profile/:id" component={UserProfile} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={SignUp} />
+
+            {/* Admin User */}
+            <Route path="/adminHandleReports" component={AdminHandleReports} />
+            <Route path="/adminSendMessages" component={AdminSendMessage} />
           </Switch>
         </MainPageContainer>
       </UserContext.Provider>
