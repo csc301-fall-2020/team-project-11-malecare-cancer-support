@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import axios from "axios";
 import { UserContext } from "../contexts/UserContext";
+import { useHistory } from "react-router-dom";
 
 import {
   NavBarContainer,
@@ -11,6 +12,7 @@ import {
 
 const Nav = () => {
   const { user, setUser } = useContext(UserContext);
+  const history = useHistory();
 
   const logoutUser = async (event) => {
     event.preventDefault();
@@ -19,6 +21,7 @@ const Nav = () => {
       // placeholder - Adding some error messages here?
     }
     setUser(null);
+    history.push("/login");
   };
 
   const renderNavBarItems = () => {

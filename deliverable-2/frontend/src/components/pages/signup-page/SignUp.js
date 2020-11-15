@@ -4,8 +4,10 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
+import moment from "moment";
 import Input from "../../component-library/Input";
 import DatePickerInput from "../../component-library/DatePickerInput";
+import DateInput from "../../component-library/Profile/DateInput";
 import Checkbox from "../../component-library/Checkbox";
 import SingleCardSelection from "../../component-library/SingleCardSelection";
 import MultiCardSelection from "../../component-library/MultiCardSelection";
@@ -42,7 +44,7 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [dateOfBirth, setDateOfBirth] = useState(new Date());
+  const [dateOfBirth, setDateOfBirth] = useState(new moment());
   const [gender, setGender] = useState("");
   const [purposes, setPurposes] = useState([]);
   const [cancerTypes, setCancerTypes] = useState([]);
@@ -170,6 +172,10 @@ const SignUp = () => {
           onChange={setDateOfBirth}
           date={dateOfBirth}
         />
+        {/* <DatePickerInput
+          date={dateOfBirth}
+          setDate={setDateOfBirth}
+        ></DatePickerInput> */}
         <Space height="12px" />
         <SingleCardSelection
           label="Gender:"
