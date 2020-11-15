@@ -33,3 +33,10 @@ def mark_as_read_by_sender_receiver(sender_uid, receiver_uid):
     Message.objects(sender_uid=sender_uid, receiver_uid=receiver_uid,
                     if_read=False).update(set__if_read=True)
     return SUCCESS_MARK_AS_READ_MSG.format(number_unread_msg)
+
+
+def get_message_by_sender_and_receiver_id(sender_uid, receiver_uid):
+    query_result = Message.objects(sender_uid=sender_uid,
+                                   receiver_uid=receiver_uid). \
+        order_by('send_at').to_json()
+    return query_result

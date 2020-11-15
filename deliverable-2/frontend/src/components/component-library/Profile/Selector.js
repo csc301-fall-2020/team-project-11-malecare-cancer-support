@@ -21,6 +21,14 @@ const Selector = ({ placeholder, setSelect, selectList }) => {
   function onSearch(val) {
     console.log("search:", val);
   }
+
+  const valider = (l) => {
+    if (!l) {
+      return [];
+    }
+    return Array.from(l);
+  };
+
   return (
     <Select
       showSearch
@@ -35,7 +43,7 @@ const Selector = ({ placeholder, setSelect, selectList }) => {
         option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
       }
     >
-      {selectList.map((value, key) => (
+      {valider(selectList).map((value, key) => (
         <Option value={value} key={key}>
           {value}
         </Option>

@@ -100,3 +100,16 @@ export const ErrorMessageContainer = styled.div`
   color: #eb901a;
   font-size: 24px;
 `;
+
+export const UpdateButton = styled.button`
+  border: 2px solid #d54e54;
+  border-radius: 50px;
+  background-color: #d54e54;
+  color: #ffffff;
+  font-size: 20px;
+  width: 320px;
+  outline: none;
+  &:hover {
+    cursor: pointer;
+  }
+`;
