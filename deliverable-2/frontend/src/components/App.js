@@ -11,7 +11,7 @@ import MyProfileContainer from "./pages/profile-page/MyProfileContainer";
 import Requests from "./pages/requests-page/Requests";
 import Login from "./pages/login-page/Login";
 import SignUp from "./pages/signup-page/SignUp";
-import AdminSendMessage from "./pages/admin-page/adminSendMessage";
+import AdminSendMessages from "./pages/admin-page/adminSendMessage";
 import AdminHandleReports from "./pages/admin-page/adminHandleReports";
 
 import { UserContext } from "../contexts/UserContext";
@@ -39,7 +39,7 @@ const App = () => {
 
             {/* Admin User */}
             <Route path="/adminHandleReports" component={AdminHandleReports} />
-            <Route path="/adminSendMessages" component={AdminSendMessage} />
+            <Route path="/adminSendMessages" component={AdminSendMessages} />
           </Switch>
         </MainPageContainer>
       </UserContext.Provider>

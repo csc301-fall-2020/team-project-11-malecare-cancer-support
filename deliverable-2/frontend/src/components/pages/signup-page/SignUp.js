@@ -175,6 +175,7 @@ const SignUp = () => {
           label="Gender:"
           selection={gender}
           updateSelection={setGender}
+          roundedCard
           options={userDetailSelections.genderOptions || []}
         />
         <Space height="12px" />
@@ -189,6 +190,7 @@ const SignUp = () => {
           label="Are you a mentor, mentee, looking for love or all of them?"
           selections={purposes}
           updateSelections={setPurposes}
+          roundedCard
           options={userDetailSelections.purposeOptions || []}
         />
         <Space height="12px" />
@@ -196,6 +198,7 @@ const SignUp = () => {
           label="Sex orientation:"
           selection={sexOrientation}
           updateSelection={setSexOrientation}
+          roundedCard
           options={userDetailSelections.sexualOrientationOptions || []}
         />
       </SectionContainer>

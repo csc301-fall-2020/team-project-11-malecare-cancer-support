@@ -1,6 +1,5 @@
-import React, { useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
 
 import {
@@ -12,11 +11,6 @@ import {
 
 const Nav = () => {
   const { user, setUser } = useContext(UserContext);
-  const history = useHistory();
-
-  useEffect(() => {
-    history.push("/");
-  }, [user, history]);
 
   const logoutUser = async (event) => {
     event.preventDefault();
@@ -28,7 +22,7 @@ const Nav = () => {
   };
 
   const renderNavBarItems = () => {
-    if (user.isAdmin) {
+    if (user.is_admin) {
       return (
         <>
           <NavLink to="/adminHandleReports">

@@ -65,9 +65,6 @@ export const NavBarContainer = styled.nav`
   color: #ffffff;
   padding: 0 12px;
   font-size: 24px;
-  &:hover {
-    cursor: pointer;
-  }
 `;
 
 export const NavLinkContainer = styled.ul`

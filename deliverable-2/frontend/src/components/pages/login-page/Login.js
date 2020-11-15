@@ -37,7 +37,7 @@ const Login = () => {
 
   useEffect(() => {
     if (user) {
-      history.push(user.isAdmin ? '/admin' : "/matches");
+      history.push(user.is_admin ? "/adminSendMessages" : "/matches");
     }
   }, [user, history]);
 
@@ -55,7 +55,7 @@ const Login = () => {
         }
       })
       .catch((err) => {
-        setErrorMessage(err.message);
+        setErrorMessage(err.response.data);
       });
   };
 

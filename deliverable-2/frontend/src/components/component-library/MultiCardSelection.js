@@ -14,16 +14,16 @@ const CardListContainer = styled.div`
 const SelectionLabelContainer = styled.div`
   text-align: start;
   color: #3c1014;
-  font-size: 24px;
+  font-size: ${({ labelSize }) => (labelSize ? `${labelSize}` : "24px")};
 `;
 
 const OptionCardConatiner = styled.div`
   display: flex;
   align-items: center;
   text-align: center;
-  font-size: 24px;
+  font-size: ${({ labelSize }) => (labelSize ? `${labelSize}` : "24px")};
   padding: 6px 12px;
-  border-radius: 4px;
+  border-radius: ${({ roundedCard }) => (roundedCard ? "50px" : "4px")};
   margin: 0 8px 8px 0;
 
   &:hover {
@@ -46,7 +46,13 @@ const CardSelectedIcon = styled(FaCheck)`
   color: #fff;
 `;
 
-const OptionCard = ({ selections, updateSelections, optionValue }) => {
+const OptionCard = ({
+  selections,
+  updateSelections,
+  optionValue,
+  roundedCard,
+  cardLabelSize,
+}) => {
   const isSelected = _.includes(selections, optionValue);
 
   const handleCardSelection = () => {
@@ -60,7 +66,12 @@ const OptionCard = ({ selections, updateSelections, optionValue }) => {
   };
 
   return (
-    <OptionCardConatiner isSelected={isSelected} onClick={handleCardSelection}>
+    <OptionCardConatiner
+      isSelected={isSelected}
+      onClick={handleCardSelection}
+      roundedCard={roundedCard}
+      labelSize={cardLabelSize}
+    >
       {isSelected && <CardSelectedIcon />}
       <span>{optionValue}</span>
     </OptionCardConatiner>
@@ -72,10 +83,15 @@ const MultiCardSelection = ({
   selections,
   updateSelections,
   options,
+  roundedCard = false,
+  sectionLabelSize,
+  cardLabelSize,
 }) => {
   return (
     <MultiCardSelectionContainer>
-      <SelectionLabelContainer>{label}</SelectionLabelContainer>
+      <SelectionLabelContainer labelSize={sectionLabelSize}>
+        {label}
+      </SelectionLabelContainer>
       <CardListContainer>
         {options.map((optionValue) => (
           <OptionCard
@@ -83,6 +99,8 @@ const MultiCardSelection = ({
             optionValue={optionValue}
             selections={selections}
             updateSelections={updateSelections}
+            roundedCard={roundedCard}
+            cardLabelSize={cardLabelSize}
           />
         ))}
       </CardListContainer>

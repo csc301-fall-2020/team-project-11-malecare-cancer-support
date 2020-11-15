@@ -5,7 +5,7 @@ import Select from "react-select";
 const SelectionLabelContainer = styled.div`
   text-align: start;
   color: #3c1014;
-  font-size: 24px;
+  font-size: ${({ labelSize }) => (labelSize ? `${labelSize}` : "24px")};
 `;
 
 const SelectionDropdownContainer = styled.div`
@@ -24,16 +24,21 @@ const MultiSelectionDropdown = ({
   selections,
   updateSelections,
   options,
+  sectionLabelSize,
 }) => (
   <div>
-    <SelectionLabelContainer>{label}</SelectionLabelContainer>
+    <SelectionLabelContainer labelSize={sectionLabelSize}>
+      {label}
+    </SelectionLabelContainer>
     <SelectionDropdownContainer>
       <Select
         isMulti
         name="colors"
+        placeholder="Start typing..."
         options={optionsFormatter(options)}
         onChange={(selectedOptions) => {
-          updateSelections(selectedOptions.map((option) => option.value));
+          selectedOptions &&
+            updateSelections(selectedOptions.map((option) => option.value));
         }}
       />
     </SelectionDropdownContainer>
