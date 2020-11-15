@@ -64,6 +64,7 @@ def create_admin(email, password):
                     )
     new_user.save()
 
+
 def get_user_id_by_user_email(email):
     return get_user_by_email(email).get_id()
 

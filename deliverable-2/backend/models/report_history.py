@@ -18,4 +18,4 @@ class ReportHistory(db.Document):
         return self.report_detail
 
     def get_if_handle(self):
-        return self.ifs_handle
+        return self.is_handle
