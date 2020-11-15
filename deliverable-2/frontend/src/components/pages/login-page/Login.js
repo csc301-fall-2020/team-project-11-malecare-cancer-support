@@ -37,7 +37,7 @@ const Login = () => {
 
   useEffect(() => {
     if (user) {
-      history.push("/matches");
+      history.push(user.isAdmin ? '/admin' : "/matches");
     }
   }, [user, history]);
 

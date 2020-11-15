@@ -71,7 +71,7 @@ export const NavBarContainer = styled.nav`
 `;
 
 export const NavLinkContainer = styled.ul`
-  width: 30%;
+  width: 700px;
   display: flex;
   justify-content: space-evenly;
   align-items: center;

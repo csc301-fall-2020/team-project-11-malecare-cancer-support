@@ -27,28 +27,44 @@ const Nav = () => {
     setUser(null);
   };
 
+  const renderNavBarItems = () => {
+    if (user.isAdmin) {
+      return (
+        <>
+          <NavLink to="/adminHandleReports">
+            <li>Reports</li>
+          </NavLink>
+          <NavLink to="/adminSendMessages">
+            <li>Send Messages</li>
+          </NavLink>
+          <LogoutSection onClick={logoutUser}>Logout</LogoutSection>
+        </>
+      );
+    }
+
+    return (
+      <>
+        <NavLink to="/">
+          <li>Matches</li>
+        </NavLink>
+        <NavLink to="/messages">
+          <li>Messages</li>
+        </NavLink>
+        <NavLink to="/me">
+          <li>My Profile</li>
+        </NavLink>
+        <NavLink to="/requests">
+          <li>Requests</li>
+        </NavLink>
+        <LogoutSection onClick={logoutUser}>Logout</LogoutSection>
+      </>
+    );
+  };
+
   return (
     <NavBarContainer>
       <NavLink to="/">Cancerchat</NavLink>
-      <NavLinkContainer>
-        {user && (
-          <>
-            <NavLink to="/">
-              <li>Matches</li>
-            </NavLink>
-            <NavLink to="/messages">
-              <li>Messages</li>
-            </NavLink>
-            <NavLink to="/me">
-              <li>My Profile</li>
-            </NavLink>
-            <NavLink to="/requests">
-              <li>Requests</li>
-            </NavLink>
-            <LogoutSection onClick={logoutUser}>Logout</LogoutSection>
-          </>
-        )}
-      </NavLinkContainer>
+      <NavLinkContainer>{user && renderNavBarItems()}</NavLinkContainer>
     </NavBarContainer>
   );
 };

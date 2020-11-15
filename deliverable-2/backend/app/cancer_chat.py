@@ -47,14 +47,13 @@ def authenticated_only(f):
 @app.route('/load_to_db', methods=['POST'])
 def load_to_db():
     return preload_data_helpers \
-        .load_to_cancer_type_db(
-        cancer_type_lst=request.get_json()["cancer_types"],
-        treatment_lst=request.get_json()["treatment_types"],
-        sexual_orientation_lst=request.get_json()["sexual_orientations"],
-        gender_lst=request.get_json()["genders"],
-        medication_lst=request.get_json()["medications"],
-        profile_picture=request.get_json()["profile_picture"]
-    )
+        .load_to_cancer_type_db(cancer_type_lst=request.get_json()["cancer_types"],
+                                treatment_lst=request.get_json()["treatment_types"],
+                                sexual_orientation_lst=request.get_json()["sexual_orientations"],
+                                gender_lst=request.get_json()["genders"],
+                                medication_lst=request.get_json()["medications"],
+                                profile_picture=request.get_json()["profile_picture"]
+                                )
 
 
 @app.route('/load_from_db/cancer_types')
@@ -338,12 +337,12 @@ def _friend_request_helper(user_dict, func):
 @login_required
 def find_matches():
     my_json = request.get_json()
-    return match_helpers.find_match(
-        sex_orientation_lst=my_json["sex_orientation"],
-        gender_lst=my_json["gender"],
-        purpose_lst=my_json["purpose"],
-        cancer_type_lst=my_json["cancer"],
-        current_uid=current_user.get_id())
+
+    return match_helpers.find_match(sex_orientation_lst=my_json["sex_orientation"],
+                                    gender_lst=my_json["gender"],
+                                    purpose_lst=my_json["purpose"],
+                                    cancer_type_lst=current_user.get_json()['cancer'],
+                                    current_uid=current_user.get_id())
 
 
 @app.route('/report/history')
