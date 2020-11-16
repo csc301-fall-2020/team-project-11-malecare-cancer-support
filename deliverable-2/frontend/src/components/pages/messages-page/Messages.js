@@ -171,7 +171,7 @@ const Messages = () => {
       sender_uid: userId,
       receiver_uid: currentUser,
       msg: inputText,
-    })
+    });
     socket.emit("receive_msg", {
       sender_uid: userId,
       receiver_uid: currentUser,
@@ -189,10 +189,13 @@ const Messages = () => {
 
     socket.emit("index");
     console.log(socket);
-    // socket.on('chat', data => {
-    //   console.log(data);
-    //   setChatList([...chatList, ...data])
-    // })
+    socket.on("chat", (data) => {
+      console.log(data);
+      post("/chat/all_messages_by_user").then((res) => {
+        console.log("195 行的unread message", res);
+        setChatList(res);
+      });
+    });
     socket.open();
     setSocket(socket);
 
@@ -202,9 +205,8 @@ const Messages = () => {
       setUserList(res.friends);
       console.log("userid", res.user_id);
       console.log("userfriends", res.friends);
+      socket.emit("save_session", { user_id: res.user_id });
     });
-
-    socket.emit("save_session", { user_id: userId });
 
     return () => {
       console.log(socket);
@@ -215,8 +217,8 @@ const Messages = () => {
 
   useEffect(() => {
     if (!currentUser) return;
-    post("/chat/unread_message", { receiver: userId }).then((res) => {
-      console.log("unread", res);
+    post("/chat/all_messages_by_user").then((res) => {
+      console.log("221 行的unread", res);
       setChatList(res);
     });
   }, [currentUser]);
