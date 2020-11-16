@@ -257,7 +257,8 @@ def receive_msg(input_json):
 @socketio.on('save_session')
 # @authenticated_only
 def save_session(input_json):
-    user_id = input_json["user_id"]
+    user_id = current_user.get_id()
+    # user_id = input_json["user_id"]
     session_id = request.sid
     print(input_json)
     result = handle_session_info_helpers.save_session_id_to_user_id(user_id,
