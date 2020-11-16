@@ -141,7 +141,6 @@ function get(url, params = {}) {
       });
   });
 }
-
 const Messages = () => {
   const [currentUser, setCurrentUser] = useState("");
   const [userId, setUserId] = useState("");
@@ -166,7 +165,8 @@ const Messages = () => {
     }, 0);
   };
   useEffect(() => {
-    const socket = io.connect("http://localhost:5000");
+    let socket = io.connect("http://localhost:5000", {reconnection:true});
+    socket.emit('index')
     console.log(socket);
     // socket.on("chat", (data) => {
     //   console.log("11111111111111111111111");
@@ -174,21 +174,35 @@ const Messages = () => {
     //   setChatList([...chatList, ...data]);
     // });
     // socket.open();
+
+    get("/current_user").then((res) => {
+      setUserId(res.user_id);
+      setUserList(res.friends);
+      console.log(userId)
+      console.log(userList)
+    });
+
     setSocket(socket);
-    socket.on("connect", function(){
-      get("/current_user").then((res) => {
-        setUserId(res.user_id);
-        setUserList(res.friends);
-        console.log(userId)
-        socket.emit("save_session", { user_id: res.user_id });
-      });
-    })
+    socket.emit("save_session", {user_id: userId})
+    // socket.on("connect", function(){
+    //   get("/current_user").then((res) => {
+    //     setUserId(res.user_id);
+    //     setUserList(res.friends);
+    //     console.log(userId)
+    //     console.log(userList)
+    //     socket.emit("save_session", { user_id: res.user_id });
+    //   });
+    //   console.log("try to connect")
+    //   console.log(userId)
+    //   socket.emit("save_session", { user_id: userId });
+    // })
 //    get("/current_user").then((res) => {
 //      setUserId(res.user_id);
 //      setUserList(res.friends);
 //      socket.emit("save_session", { user_id: res.user_id });
 //    });
     return () => {
+      console.log(socket)
       socket.close();
       setSocket(undefined);
     };
@@ -206,7 +220,7 @@ const Messages = () => {
         <PageContainerLeft>
           <MessageTitle>Message</MessageTitle>
           <UserList>
-            {userList.map((item) => (
+            {userList&&userList.map((item) => (
               <div
                 className={item === currentUser ? "check" : ""}
                 onClick={() => setCurrentUser(item)}
@@ -222,7 +236,7 @@ const Messages = () => {
             <a>report</a>
           </LinkOut>
           <ChatWrap ref={chatRef}>
-            {chatList.map((item) => (
+            {chatList&&chatList.map((item) => (
               <div
                 className={
                   item.sender_uid === userId ? "chatItemR" : "chatItemL"
