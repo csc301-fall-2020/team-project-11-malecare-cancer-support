@@ -229,6 +229,11 @@ def mark_as_read():
 
         receiver_uid=my_json['receiver'])
 
+@login_required
+@app.route('/chat/all_messages_by_user', methods=['POST'])
+def get_all_messages_relate_to_current_user():
+    return message_handle_helper.get_all_messages_by_user_id(current_user.get_id())
+
 
 @app.route('/admin')
 @login_required
@@ -282,11 +287,6 @@ def admin_send_msg(input_json):
                       room=session_info[uid])
 
 
-# @app.route('/friend_requests/add', methods=['POST'])
-# @login_required
-# def new_friend_request():
-#     _friend_request_helper(request.get_json(), friend_handler_helpers.create_new_friend_request)
-#     return "added", 200
 
 
 @socketio.on('new_friend_request')
@@ -299,12 +299,6 @@ def new_friend_request(payload):
                            friend_handler_helpers.create_new_friend_request)
     socketio.emit('get_friend_request', room=session_id)
 
-
-# @app.route('/friend_requests/accept', methods=['POST'])
-# @login_required
-# def accept_friend_request():
-#     _friend_request_helper(request.get_json(), friend_handler_helpers.accept_friend_request)
-#     return "accepted", 200
 @socketio.on('accept_friend_request')
 @authenticated_only
 def accept_friend_request(payload):
