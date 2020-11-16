@@ -37,7 +37,7 @@ const MultiSelectionDropdown = ({
         placeholder="Start typing..."
         options={optionsFormatter(options)}
         onChange={(selectedOptions) => {
-          selectedOptions &&
+          selectedOptions !== null &&
             updateSelections(selectedOptions.map((option) => option.value));
         }}
       />

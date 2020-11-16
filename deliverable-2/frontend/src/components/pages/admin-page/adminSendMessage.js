@@ -82,6 +82,45 @@ const AdminSendMessages = () => {
     fetchUserDetailSelections();
   }, [user, history]);
 
+  const setIncludeCancerTypesWithDuplicationCheck = (
+    updatedIncludeCancerTypes
+  ) => {
+    const latestAdded =
+      updatedIncludeCancerTypes[updatedIncludeCancerTypes.length - 1];
+    if (excludeCancerTypes.includes(latestAdded)) {
+      window.alert(
+        latestAdded +
+          "has been excluded in the filter. Please remove it and try again. "
+      );
+      console.log(includeCancerTypes);
+    } else {
+      setIncludeCancerTypes(updatedIncludeCancerTypes);
+    }
+  };
+
+  const handleSendMessage = async () => {
+    // Initiate Signup Request
+    const requestBody = {
+      includeGenders,
+      includeAges,
+      includeCancerTypes,
+      excludeCancerTypes,
+      includeMedications,
+      excludeMedications,
+      includeTreatments,
+      excludeTreatments,
+      message,
+    };
+
+    axios
+      .post("/adminSendMessage", requestBody)
+      .then((response) => {
+        if (!_.isNil(response, "data.user_id")) {
+        }
+      })
+      .catch((err) => {});
+  };
+
   return (
     <MainContainer>
       <FiltersContainer>
@@ -109,7 +148,7 @@ const AdminSendMessages = () => {
           <MultiSelectionDropdown
             label="Types of Cancer:"
             selections={includeCancerTypes}
-            updateSelections={setIncludeCancerTypes}
+            updateSelections={setIncludeCancerTypesWithDuplicationCheck}
             options={userDetailSelections.cancerTypeOptions}
             sectionLabelSize="18px"
           />
@@ -165,7 +204,7 @@ const AdminSendMessages = () => {
         />
         <Space height="12px" />
         <ButtonGroupContainer>
-          <UpdateButton>Send message</UpdateButton>
+          <UpdateButton onClick={handleSendMessage}>Send message</UpdateButton>
         </ButtonGroupContainer>
       </MessagesContainer>
     </MainContainer>
