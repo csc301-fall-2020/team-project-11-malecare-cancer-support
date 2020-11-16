@@ -244,7 +244,7 @@ def receive_msg(input_json):
     receiver = input_json["receiver_uid"]
     sender = input_json["sender_uid"]
     session_id = handle_session_info_helpers.get_session_id_by_user_id(receiver)
-    create_new_msg(sender, receiver, msg)
+    message_handle_helper.create_new_text_msg(sender, receiver, msg)
     socketio.emit('chat', "receiver need to read", room=session_id)
 
 
@@ -276,7 +276,7 @@ def admin_send_msg(input_json):
                                                              sex, age_min,
                                                              age_max)
     for uid in session_info:
-        create_new_msg(current_user.get_id(), uid, msg)
+        message_handle_helper.create_new_text_msg(current_user.get_id(), uid, msg)
         socketio.emit('admin_send_msg', "send to all filter users",
                       room=session_info[uid])
 
