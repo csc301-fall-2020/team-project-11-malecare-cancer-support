@@ -78,7 +78,7 @@ const ChatWrap = styled.div`
     margin-right: 100px;
   }
   .chatItemR {
-    align-self: end;
+    align-self: flex-end;
     margin-left: 100px;
   }
 `;
@@ -141,6 +141,20 @@ function get(url, params = {}) {
       });
   });
 }
+
+function post(url, data = {}) {
+  return new Promise((resolve, reject) => {
+    axios.post(url, data).then(
+      (response) => {
+        resolve(response.data);
+      },
+      (err) => {
+        reject(err);
+      }
+    );
+  });
+}
+
 const Messages = () => {
   const [currentUser, setCurrentUser] = useState("");
   const [userId, setUserId] = useState("");
@@ -152,6 +166,7 @@ const Messages = () => {
   const inputRef = useRef();
   const send = () => {
     if (!inputText || !currentUser) return;
+    console.log(inputText);
     socket.emit("receive_msg", {
       sender_uid: userId,
       receiver_uid: currentUser,
@@ -165,44 +180,29 @@ const Messages = () => {
     }, 0);
   };
   useEffect(() => {
-    let socket = io.connect("http://localhost:5000", {reconnection:true});
-    socket.emit('index')
+    let socket = io.connect("http://localhost:5000", { reconnection: true });
+
+    socket.emit("index");
     console.log(socket);
-    // socket.on("chat", (data) => {
-    //   console.log("11111111111111111111111");
+    // socket.on('chat', data => {
     //   console.log(data);
-    //   setChatList([...chatList, ...data]);
-    // });
-    // socket.open();
+    //   setChatList([...chatList, ...data])
+    // })
+    socket.open();
+    setSocket(socket);
 
     get("/current_user").then((res) => {
+      console.log("user res", res);
       setUserId(res.user_id);
       setUserList(res.friends);
-      console.log(userId)
-      console.log(userList)
+      console.log("userid", res.user_id);
+      console.log("userfriends", res.friends);
     });
 
-    setSocket(socket);
-    socket.emit("save_session", {user_id: userId})
-    // socket.on("connect", function(){
-    //   get("/current_user").then((res) => {
-    //     setUserId(res.user_id);
-    //     setUserList(res.friends);
-    //     console.log(userId)
-    //     console.log(userList)
-    //     socket.emit("save_session", { user_id: res.user_id });
-    //   });
-    //   console.log("try to connect")
-    //   console.log(userId)
-    //   socket.emit("save_session", { user_id: userId });
-    // })
-//    get("/current_user").then((res) => {
-//      setUserId(res.user_id);
-//      setUserList(res.friends);
-//      socket.emit("save_session", { user_id: res.user_id });
-//    });
+    socket.emit("save_session", { user_id: userId });
+
     return () => {
-      console.log(socket)
+      console.log(socket);
       socket.close();
       setSocket(undefined);
     };
@@ -210,7 +210,8 @@ const Messages = () => {
 
   useEffect(() => {
     if (!currentUser) return;
-    get("/chat/unread_message", { receiver: userId }).then((res) => {
+    post("/chat/unread_message", { receiver: userId }).then((res) => {
+      console.log("unread", res);
       setChatList(res);
     });
   }, [currentUser]);
@@ -220,14 +221,15 @@ const Messages = () => {
         <PageContainerLeft>
           <MessageTitle>Message</MessageTitle>
           <UserList>
-            {userList&&userList.map((item) => (
-              <div
-                className={item === currentUser ? "check" : ""}
-                onClick={() => setCurrentUser(item)}
-              >
-                {item}
-              </div>
-            ))}
+            {userList &&
+              userList.map((item) => (
+                <div
+                  className={item === currentUser ? "check" : ""}
+                  onClick={() => setCurrentUser(item)}
+                >
+                  {item}
+                </div>
+              ))}
           </UserList>
         </PageContainerLeft>
         <PageContainerRight>
@@ -236,15 +238,16 @@ const Messages = () => {
             <a>report</a>
           </LinkOut>
           <ChatWrap ref={chatRef}>
-            {chatList&&chatList.map((item) => (
-              <div
-                className={
-                  item.sender_uid === userId ? "chatItemR" : "chatItemL"
-                }
-              >
-                {item.text}
-              </div>
-            ))}
+            {chatList &&
+              chatList.map((item) => (
+                <div
+                  className={
+                    item.sender_uid === userId ? "chatItemR" : "chatItemL"
+                  }
+                >
+                  {item.text}
+                </div>
+              ))}
           </ChatWrap>
           <Send>
             <InputField
