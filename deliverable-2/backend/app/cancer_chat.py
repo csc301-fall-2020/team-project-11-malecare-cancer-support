@@ -17,7 +17,7 @@ app.config["SECRET_KEY"] = 'my secret'
 
 login_manager.init_app(app)
 
-socketio = SocketIO(app, manage_session=False)
+socketio = SocketIO(app, manage_session=False,  cors_allowed_origins="*")
 
 
 # decorator for limiting access of admin-only api
@@ -215,7 +215,7 @@ def create_new_msg():
         text=my_json["text"])
 
 
-@app.route('/chat/unread_message', methods=['GET'])
+@app.route('/chat/unread_message', methods=['POST'])
 def get_unread_msg_by_receiver():
     return message_handle_helper.get_unread_msg_by_receiver(
         request.get_json()["receiver"])
@@ -229,6 +229,11 @@ def mark_as_read():
 
         receiver_uid=my_json['receiver'])
 
+@login_required
+@app.route('/chat/all_messages_by_user', methods=['POST'])
+def get_all_messages_relate_to_current_user():
+    return message_handle_helper.get_all_messages_by_user_id(current_user.get_id())
+
 
 @app.route('/admin')
 @login_required
@@ -240,19 +245,22 @@ def get_admin_only_page():
 @socketio.on('receive_msg')
 @authenticated_only
 def receive_msg(input_json):
+    print(input_json)
     msg = input_json["msg"]
     receiver = input_json["receiver_uid"]
     sender = input_json["sender_uid"]
     session_id = handle_session_info_helpers.get_session_id_by_user_id(receiver)
-    create_new_msg(sender, receiver, msg)
+    message_handle_helper.create_new_text_msg(sender, receiver, msg)
     socketio.emit('chat', "receiver need to read", room=session_id)
 
 
 @socketio.on('save_session')
-@authenticated_only
+# @authenticated_only
 def save_session(input_json):
-    user_id = input_json["user_id"]
+    user_id = current_user.get_id()
+    # user_id = input_json["user_id"]
     session_id = request.sid
+    print(input_json)
     result = handle_session_info_helpers.save_session_id_to_user_id(user_id,
                                                                     session_id)
     socketio.emit('save_session', result)
@@ -275,16 +283,11 @@ def admin_send_msg(input_json):
                                                              sex, age_min,
                                                              age_max)
     for uid in session_info:
-        create_new_msg(current_user.get_id(), uid, msg)
+        message_handle_helper.create_new_text_msg(current_user.get_id(), uid, msg)
         socketio.emit('admin_send_msg', "send to all filter users",
                       room=session_info[uid])
 
 
-# @app.route('/friend_requests/add', methods=['POST'])
-# @login_required
-# def new_friend_request():
-#     _friend_request_helper(request.get_json(), friend_handler_helpers.create_new_friend_request)
-#     return "added", 200
 
 
 @socketio.on('new_friend_request')
@@ -297,12 +300,6 @@ def new_friend_request(payload):
                            friend_handler_helpers.create_new_friend_request)
     socketio.emit('get_friend_request', room=session_id)
 
-
-# @app.route('/friend_requests/accept', methods=['POST'])
-# @login_required
-# def accept_friend_request():
-#     _friend_request_helper(request.get_json(), friend_handler_helpers.accept_friend_request)
-#     return "accepted", 200
 @socketio.on('accept_friend_request')
 @authenticated_only
 def accept_friend_request(payload):
@@ -404,6 +401,9 @@ def create_admin():
                                         password=my_json["password"])
     return "Create admin successfully"
 
+@socketio.on('index')
+def index():
+    print("123123")
 
 if __name__ == '__main__':
     # app.run(debug=True)

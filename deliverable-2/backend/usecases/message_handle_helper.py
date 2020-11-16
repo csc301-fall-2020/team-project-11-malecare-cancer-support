@@ -1,5 +1,6 @@
 from .login_register_helpers import is_user_id_existed
 from ..models.message import Message
+from mongoengine.queryset.visitor import Q
 
 SENDER_DNE_MSG = "Create new message failed, sender does not exist."
 RECEIVER_DNE_MSG = "Create new message failed, receiver does not exist."
@@ -39,4 +40,10 @@ def get_message_by_sender_and_receiver_id(sender_uid, receiver_uid):
     query_result = Message.objects(sender_uid=sender_uid,
                                    receiver_uid=receiver_uid). \
         order_by('send_at').to_json()
+    return query_result
+
+def get_all_messages_by_user_id(user_id):
+    query_result = Message.objects\
+        .filter(Q(sender_uid=user_id) | Q(receiver_uid=user_id))\
+        .order_by('send_at').to_json()
     return query_result
