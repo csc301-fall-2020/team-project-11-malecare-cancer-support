@@ -215,7 +215,7 @@ def create_new_msg():
         text=my_json["text"])
 
 
-@app.route('/chat/unread_message', methods=['GET'])
+@app.route('/chat/unread_message', methods=['POST'])
 def get_unread_msg_by_receiver():
     return message_handle_helper.get_unread_msg_by_receiver(
         request.get_json()["receiver"])
@@ -240,6 +240,7 @@ def get_admin_only_page():
 @socketio.on('receive_msg')
 @authenticated_only
 def receive_msg(input_json):
+    print(input_json)
     msg = input_json["msg"]
     receiver = input_json["receiver_uid"]
     sender = input_json["sender_uid"]

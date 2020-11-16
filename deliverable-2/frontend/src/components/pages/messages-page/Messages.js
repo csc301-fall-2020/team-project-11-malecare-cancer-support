@@ -167,6 +167,11 @@ const Messages = () => {
   const send = () => {
     if (!inputText || !currentUser) return;
     console.log(inputText);
+    console.log({
+      sender_uid: userId,
+      receiver_uid: currentUser,
+      msg: inputText,
+    })
     socket.emit("receive_msg", {
       sender_uid: userId,
       receiver_uid: currentUser,
