@@ -3,12 +3,16 @@ import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { UserContext } from "../../../contexts/UserContext";
 import { getAge, getCurrentUser } from "../../utils/helpers";
+import { filterMatches } from "./helper";
 
 const Matches = () => {
   // const { user, setUser } = useContext(UserContext);
   const history = useHistory();
   const [user, setUser] = useState();
-
+  const [filteredSexOrientation, setFilteredSexOrientation] = useState(['homosexual'])
+  const [filteredGender, setFilteredGender] = useState(['male'])
+  const [filteredPurpose, setFilteredPurpose] = useState(['looking for love'])
+  const [matches, setMatches] = useState([])
   useEffect(() => {
     const fetchUser = async () => {
       const fetchedUser = await getCurrentUser();
@@ -20,7 +24,20 @@ const Matches = () => {
       }
     };
 
+    const findMatches = async () => {
+      const myMatches = await filterMatches(
+        filteredSexOrientation,
+        filteredGender,
+        filteredPurpose)
+      console.log(myMatches)
+      if (myMatches){
+        setMatches(myMatches)
+      }
+
+    }
+
     fetchUser();
+    findMatches();
   }, [history]);
   // return user ? <div>username: {user.username}
   //   <br></br> cancer: {user.cancer}
@@ -34,8 +51,8 @@ const Matches = () => {
       age: {getAge(user.date_of_birth)}<br></br>
       {user.short_intro}<br></br>
       labels: {user.purpose}
-      
-    </div>:null;
+
+    </div> : null;
 }
 
 export default Matches;
