@@ -13,14 +13,12 @@ def load_to_cancer_type_db(treatment_lst,
                            cancer_type_lst,
                            sexual_orientation_lst,
                            gender_lst,
-                           medication_lst,
-                           profile_picture):
+                           medication_lst):
     new_preload_data = PreLoads(cancer_types=cancer_type_lst,
                                 sexual_orientations=sexual_orientation_lst,
                                 genders=gender_lst,
                                 medications=medication_lst,
-                                treatment_types=treatment_lst,
-                                profile_picture=profile_picture.read()
+                                treatment_types=treatment_lst
                                 )
     new_preload_data.save()
     return "added preload data"

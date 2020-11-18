@@ -28,7 +28,6 @@
     "gay",
     "lesbian",
     "bisexual",
-    "transgender",
     "pansexual",
     "free spirit",
     "prefer not to respond"
@@ -36,6 +35,9 @@
   "genders": [
     "male",
     "female",
+    "transgender-female",
+    "transgender-male",
+    "non-binary",
     "other",
     "prefer not to respond"
   ],

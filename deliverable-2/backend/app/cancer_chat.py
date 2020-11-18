@@ -52,8 +52,7 @@ def load_to_db():
         treatment_lst=request.get_json()["treatment_types"],
         sexual_orientation_lst=request.get_json()["sexual_orientations"],
         gender_lst=request.get_json()["genders"],
-        medication_lst=request.get_json()["medications"],
-        profile_picture=request.get_json()["profile_picture"]
+        medication_lst=request.get_json()["medications"],\
     )
 
 
