@@ -354,7 +354,7 @@ def _friend_request_helper(user_dict, func):
          user_dict["receiver"])
 
 
-@app.route('/match')
+@app.route('/match', methods=['POST'])
 @login_required
 def find_matches():
     my_json = request.get_json()
