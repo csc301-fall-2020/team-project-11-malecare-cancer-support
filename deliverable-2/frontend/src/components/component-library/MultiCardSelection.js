@@ -33,18 +33,49 @@ const OptionCardConatiner = styled.div`
   ${({ isSelected }) =>
     isSelected
       ? `
-        color: #fff;
-        border: 3px solid #d54e54;
-        background-color: #d54e54`
+      color: #fff;
+      border: 3px solid #d54e54;
+      background-color: #d54e54;`
       : `
-        color: #3c1014; 
-        border: 3px solid #ccc;`}
+      color: #3c1014; 
+      border: 3px solid #a8a8a8;`}
 `;
 
 const CardSelectedIcon = styled(FaCheck)`
   margin-right: 6px;
   color: #fff;
 `;
+
+const SelectAllCard = ({
+  roundedCard,
+  cardLabelSize,
+  selections,
+  updateSelections,
+  options,
+}) => {
+  const isSelected =
+    selections && options && selections.length === options.length;
+
+  const handleSelectAll = () => {
+    if (isSelected) {
+      updateSelections([]);
+    } else {
+      updateSelections(options);
+    }
+  };
+
+  return (
+    <OptionCardConatiner
+      isSelected={isSelected}
+      onClick={handleSelectAll}
+      roundedCard={roundedCard}
+      labelSize={cardLabelSize}
+    >
+      {isSelected && <CardSelectedIcon />}
+      <span>select all</span>
+    </OptionCardConatiner>
+  );
+};
 
 const OptionCard = ({
   selections,
@@ -83,9 +114,10 @@ const MultiCardSelection = ({
   selections,
   updateSelections,
   options,
-  roundedCard = false,
   sectionLabelSize,
   cardLabelSize,
+  roundedCard = false,
+  allowSelectAll = false,
 }) => {
   return (
     <MultiCardSelectionContainer>
@@ -93,6 +125,16 @@ const MultiCardSelection = ({
         {label}
       </SelectionLabelContainer>
       <CardListContainer>
+        {allowSelectAll && (
+          <SelectAllCard
+            optionValue="Select All"
+            roundedCard={roundedCard}
+            cardLabelSize={cardLabelSize}
+            selections={selections}
+            updateSelections={updateSelections}
+            options={options}
+          />
+        )}
         {options.map((optionValue) => (
           <OptionCard
             key={optionValue}

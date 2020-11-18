@@ -8,6 +8,8 @@ import { getUserDetailOptions } from "./helper";
 import MultiCardSelection from "../../component-library/MultiCardSelection";
 import MultiSelectionDropdown from "../../component-library/MultiSelectionDropdown";
 import { getCurrentUser } from "../../utils/helpers";
+import { Collapse } from "react-collapse";
+import { UnmountClosed } from "react-collapse";
 
 import {
   Space,
@@ -69,7 +71,7 @@ const AdminSendMessages = () => {
   const [includeTreatments, setIncludeTreatments] = useState([]);
   const [excludeTreatments, setExcludeTreatments] = useState([]);
   const [userDetailSelections, setUserDetailSelections] = useState({});
-
+  const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
 
   useEffect(() => {
@@ -90,23 +92,23 @@ const AdminSendMessages = () => {
     fetchUser();
   }, [history]);
 
-  const setIncludeCancerTypesWithDuplicationCheck = (
-    updatedIncludeCancerTypes
-  ) => {
-    const latestAdded =
-      updatedIncludeCancerTypes[updatedIncludeCancerTypes.length - 1];
-    if (excludeCancerTypes.includes(latestAdded)) {
-      window.alert(
-        latestAdded +
-          "has been excluded in the filter. Please remove it and try again. "
-      );
-      console.log(includeCancerTypes);
-    } else {
-      setIncludeCancerTypes(updatedIncludeCancerTypes);
-    }
-  };
-
   const handleSendMessage = async () => {
+    setErrorMessage("");
+    if (
+      _.isEmpty(includeGenders) ||
+      _.isEmpty(includeAges) ||
+      _.isEmpty(includeCancerTypes) ||
+      _.isEmpty(includeMedications) ||
+      _.isEmpty(includeTreatments)
+    ) {
+      return setErrorMessage(
+        "Please fill in all the filters in the Filters(include) section."
+      );
+    }
+    if (_.isEmpty(message)) {
+      return setErrorMessage("The message cannot be empty.");
+    }
+
     // Initiate Signup Request
     const requestBody = {
       includeGenders,
@@ -134,10 +136,12 @@ const AdminSendMessages = () => {
       <FiltersContainer>
         <SectionContainer>
           <SectionTitle>Filters(include):</SectionTitle>
+
           <Space height="12px" />
           <MultiCardSelection
             label="Genders:"
             selections={includeGenders}
+            allowSelectAll
             updateSelections={setIncludeGenders}
             options={userDetailSelections.genderOptions || []}
             roundedCard
@@ -147,6 +151,7 @@ const AdminSendMessages = () => {
           <MultiCardSelection
             label="Ages:"
             selections={includeAges}
+            allowSelectAll
             updateSelections={setIncludeAges}
             options={userDetailSelections.ageOptions || []}
             roundedCard
@@ -156,13 +161,15 @@ const AdminSendMessages = () => {
           <MultiSelectionDropdown
             label="Types of Cancer:"
             selections={includeCancerTypes}
-            updateSelections={setIncludeCancerTypesWithDuplicationCheck}
+            allowSelectAll
+            updateSelections={setIncludeCancerTypes}
             options={userDetailSelections.cancerTypeOptions}
             sectionLabelSize="18px"
           />
           <MultiSelectionDropdown
             label="Types of Treatments:"
             selections={includeTreatments}
+            allowSelectAll
             updateSelections={setIncludeTreatments}
             options={userDetailSelections.treatmentTypeOptions}
             sectionLabelSize="18px"
@@ -170,6 +177,7 @@ const AdminSendMessages = () => {
           <MultiSelectionDropdown
             label="Types of Medications:"
             selections={includeMedications}
+            allowSelectAll
             updateSelections={setIncludeMedications}
             options={userDetailSelections.medicationOptions}
             sectionLabelSize="18px"
@@ -210,6 +218,12 @@ const AdminSendMessages = () => {
             setMessage(event.target.value);
           }}
         />
+        {!_.isEmpty(errorMessage) && (
+          <>
+            <ErrorMessageContainer>{errorMessage}</ErrorMessageContainer>
+            <Space height="24px" />
+          </>
+        )}
         <Space height="12px" />
         <ButtonGroupContainer>
           <UpdateButton onClick={handleSendMessage}>Send message</UpdateButton>
