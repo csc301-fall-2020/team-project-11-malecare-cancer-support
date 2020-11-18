@@ -70,7 +70,7 @@ const MyProfile = ({ user }) => {
         .then((response) => {
           if (response.status == 200) {
             message.success("success update");
-            // setUser(response.data);
+            setUser(response.data);
           }
         })
         .catch((err) => {
