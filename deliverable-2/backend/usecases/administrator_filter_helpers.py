@@ -1,3 +1,7 @@
+import datetime
+
+from mongoengine.queryset.visitor import Q
+
 from ..models.session import Session
 from ..models.user import User
 
@@ -11,3 +15,24 @@ def filter_users(treatments, cancer_types, medications, sex, age_min, age_max):
         sid = Session.objects(user_id=uid)
         session_info[uid] = sid
     return session_info
+
+
+def get_user_id_from_admin_filter(include_cancer, exclude_cancer, include_treatment, exclude_treatment,
+                                  include_medication, exclude_medication, gender, age_min, age_max):
+    start_year = datetime.datetime(datetime.datetime.utcnow().year - age_min, 1, 1)
+    end_year = datetime.datetime(datetime.datetime.utcnow().year - age_max, 12, 31)
+    query_result = User.objects(Q(cancer__in=include_cancer) &
+                                Q(cancer__nin=exclude_cancer) &
+                                Q(treatments__ne=[]) &
+                                Q(treatments__exists=True) &
+                                Q(treatments__in=include_treatment) &
+                                Q(treatment__nin=exclude_treatment) &
+                                Q(medications__ne=[]) &
+                                Q(medications__exists=True) &
+                                Q(medication__in=include_medication) &
+                                Q(medication__nin=exclude_medication) &
+                                Q(gender__in=gender) &
+                                Q(date_of_birth__exists=True) &
+                                Q(date_of_birth__gte=start_year) &
+                                Q(date_of_birth__lte=end_year)).only('user_id')
+    return query_result.to_json()

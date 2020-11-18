@@ -15,3 +15,12 @@ def save_session_id_to_user_id(user_id, session_id):
 
 def get_session_id_by_user_id(user_id):
     return Session.objects(user_id=user_id).first().get_session_id()
+
+
+def get_lst_session_id_by_user_ids(user_id_dict):
+    session_info = []
+    for user_json in user_id_dict:
+        uid = user_json["user_id"]
+        sid = Session.objects(user_id=uid).first()
+        session_info.append(sid)
+    return session_info

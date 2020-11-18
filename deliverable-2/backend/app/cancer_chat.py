@@ -17,7 +17,7 @@ app.config["SECRET_KEY"] = 'my secret'
 
 login_manager.init_app(app)
 
-socketio = SocketIO(app, manage_session=False,  cors_allowed_origins="*")
+socketio = SocketIO(app, manage_session=False, cors_allowed_origins="*")
 
 
 # decorator for limiting access of admin-only api
@@ -54,7 +54,7 @@ def load_to_db():
         gender_lst=request.get_json()["genders"],
         medication_lst=request.get_json()["medications"],
         profile_picture=request.get_json()["profile_picture"]
-        )
+    )
 
 
 @app.route('/load_from_db/cancer_types')
@@ -229,6 +229,7 @@ def mark_as_read():
 
         receiver_uid=my_json['receiver'])
 
+
 @login_required
 @app.route('/chat/all_messages_by_user', methods=['POST'])
 def get_all_messages_relate_to_current_user():
@@ -270,24 +271,45 @@ def save_session(input_json):
 @admin_only
 @authenticated_only
 def admin_send_msg(input_json):
-    msg = input_json["msg"]
-    treatments = input_json["treatments"]
-    cancer_types = input_json["cancer_types"]
-    medications = input_json["medications"]
-    sex = input_json["sex"]
-    age_min = input_json["age_min"]
-    age_max = input_json["age_max"]
-    session_info = administrator_filter_helpers.filter_users(treatments,
-                                                             cancer_types,
-                                                             medications,
-                                                             sex, age_min,
-                                                             age_max)
+    # msg = input_json["msg"]
+    # treatments = input_json["treatments"]
+    # cancer_types = input_json["cancer_types"]
+    # medications = input_json["medications"]
+    # sex = input_json["sex"]
+    # age_min = input_json["age_min"]
+    # age_max = input_json["age_max"]
+    # session_info = administrator_filter_helpers.filter_users(treatments,
+    #                                                          cancer_types,
+    #                                                          medications,
+    #                                                          sex, age_min,
+    #                                                          age_max)
+    gender = input_json['includeGender']
+    age_range = input_json['includeAges']
+    age_min, age_max = age_range.split('-')
+    include_cancer = input_json['includeCancerTypes']
+    exclude_cancer = input_json['excludeCancerTypes']
+    include_medication = input_json['includeMedications']
+    exclude_medication = input_json['excludeMedications']
+    include_treatment = input_json['includeTreatments']
+    exclude_treatment = input_json['excludeTreatments']
+    message = input_json["message"]
+    uid_dict = administrator_filter_helpers.get_user_id_from_admin_filter(
+        include_cancer=include_cancer,
+        include_medication=include_medication,
+        include_treatment=include_treatment,
+        exclude_cancer=exclude_cancer,
+        exclude_medication=exclude_medication,
+        exclude_treatment=exclude_treatment,
+        age_min=age_min,
+        age_max=age_max,
+        gender=gender
+    )
+    print(uid_dict)
+    session_info = handle_session_info_helpers.get_lst_session_id_by_user_ids(uid_dict)
     for uid in session_info:
-        message_handle_helper.create_new_text_msg(current_user.get_id(), uid, msg)
+        message_handle_helper.create_new_text_msg(current_user.get_id(), uid, message)
         socketio.emit('admin_send_msg', "send to all filter users",
                       room=session_info[uid])
-
-
 
 
 @socketio.on('new_friend_request')
@@ -299,6 +321,7 @@ def new_friend_request(payload):
     _friend_request_helper(payload,
                            friend_handler_helpers.create_new_friend_request)
     socketio.emit('get_friend_request', room=session_id)
+
 
 @socketio.on('accept_friend_request')
 @authenticated_only
@@ -401,9 +424,16 @@ def create_admin():
                                         password=my_json["password"])
     return "Create admin successfully"
 
+
 @socketio.on('index')
 def index():
     print("123123")
+
+
+@app.route('/test')
+def test():
+    return administrator_filter_helpers.test()
+
 
 if __name__ == '__main__':
     # app.run(debug=True)
