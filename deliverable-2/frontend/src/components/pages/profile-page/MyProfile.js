@@ -64,7 +64,7 @@ const MyProfile = ({ user }) => {
         short_intro: greetMsg,
         treatments: treatment,
       };
-
+      console.log(requestBody)
       axios
         .post("current_user/profile/text", requestBody)
         .then((response) => {
@@ -84,6 +84,7 @@ const MyProfile = ({ user }) => {
   useEffect(() => {
     const fetchUserDetailSelections = async () => {
       setUserDetailSelections(await getUserDetailOptions());
+      console.log("called")
     };
     fetchUserDetailSelections();
   }, []);
