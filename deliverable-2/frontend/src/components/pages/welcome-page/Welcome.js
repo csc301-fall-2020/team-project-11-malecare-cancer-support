@@ -27,10 +27,16 @@ const Welcome = () => {
   const history = useHistory();
 
   useEffect(() => {
-    const user = getCurrentUser();
-    if (user) {
-      history.push(user.is_admin ? "/adminSendMessages" : "/matches");
-    }
+    const fetchUser = async () => {
+      const fetchedUser = await getCurrentUser();
+      if (!fetchedUser.is_admin) {
+        history.push("/matches");
+      } else {
+        history.push("/adminSendMessages");
+      }
+    };
+
+    fetchUser();
   }, [history]);
 
   const handleSignup = () => {

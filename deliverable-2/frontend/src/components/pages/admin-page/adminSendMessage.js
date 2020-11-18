@@ -75,7 +75,6 @@ const AdminSendMessages = () => {
   useEffect(() => {
     const fetchUser = async () => {
       const fetchedUser = await getCurrentUser();
-      console.log(fetchedUser);
       if (!fetchedUser.is_admin) {
         history.push("/matches");
       } else {
