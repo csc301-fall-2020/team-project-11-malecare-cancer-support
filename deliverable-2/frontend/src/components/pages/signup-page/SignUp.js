@@ -26,6 +26,8 @@ import { formatDate } from "../../utils/helpers";
 
 import { UserContext } from "../../../contexts/UserContext";
 
+const dateFormat = "YYYY-MM-DD";
+
 const SignUpPageContainer = styled.div`
   margin: auto;
   width: 600px;
@@ -100,7 +102,8 @@ const SignUp = () => {
       email,
       password,
       // date_of_birth: formatDate(dateOfBirth), // Date
-      date_of_birth: dateOfBirth, // Date
+      // date_of_birth: dateOfBirth, // Date
+      date_of_birth: dateOfBirth.format(dateFormat),
       gender,
       cancer: cancerTypes, // Array
       purpose: purposes, // Array
