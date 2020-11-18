@@ -137,7 +137,7 @@ def login():
 @app.route('/current_user')
 @login_required
 def get_current_user():
-    return current_user.get_json()
+    return jsonify(friend_handler_helpers.augment_user_dict_with_friends_user_name(current_user.get_id()))
 
 
 @app.route('/current_user/profile/text', methods=['POST'])
