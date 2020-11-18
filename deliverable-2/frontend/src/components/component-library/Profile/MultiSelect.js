@@ -7,7 +7,7 @@ const { Option } = Select;
 const MultiSelect = ({ List, setList, lineTitle, data }) => {
   function handleChange(value) {
     console.log(`selected ${value}`);
-    setList([...List, value]);
+    setList([...value]);
   }
 
   const valider = (l) => {
