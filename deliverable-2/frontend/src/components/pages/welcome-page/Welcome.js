@@ -1,7 +1,9 @@
 import React, { useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
+import axios from "axios";
 import { UserContext } from "../../../contexts/UserContext";
+import { getCurrentUser } from "../../utils/helpers";
 
 import {
   Space,
@@ -21,14 +23,15 @@ const WelcomePageContainer = styled.div`
 `;
 
 const Welcome = () => {
-  const { user } = useContext(UserContext);
+  // const { user } = useContext(UserContext);
   const history = useHistory();
 
   useEffect(() => {
+    const user = getCurrentUser();
     if (user) {
-      history.push("/matches");
+      history.push(user.is_admin ? "/adminSendMessages" : "/matches");
     }
-  }, [user, history]);
+  }, [history]);
 
   const handleSignup = () => {
     history.push("/signup");
@@ -39,23 +42,21 @@ const Welcome = () => {
   };
 
   return (
-    !user && (
-      <WelcomePageContainer>
-        <MainTitleLarge>Cancerchat</MainTitleLarge>
-        <Space height="24px" />
-        <MainSubTitleLarge>
-          Meet &amp; chat to someone just like you
-        </MainSubTitleLarge>
-        <Space height="72px" />
-        <div>
-          <PrimaryButton onClick={handleSignup}>Create account</PrimaryButton>
-        </div>
-        <Space height="24px" />
-        <div>
-          <SecondaryButton onClick={handleLogin}>Login</SecondaryButton>
-        </div>
-      </WelcomePageContainer>
-    )
+    <WelcomePageContainer>
+      <MainTitleLarge>Cancerchat</MainTitleLarge>
+      <Space height="24px" />
+      <MainSubTitleLarge>
+        Meet &amp; chat to someone just like you
+      </MainSubTitleLarge>
+      <Space height="72px" />
+      <div>
+        <PrimaryButton onClick={handleSignup}>Create account</PrimaryButton>
+      </div>
+      <Space height="24px" />
+      <div>
+        <SecondaryButton onClick={handleLogin}>Login</SecondaryButton>
+      </div>
+    </WelcomePageContainer>
   );
 };
 

@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export const formatDate = (date) => {
   const parsedDate = new Date(date);
   let month = "" + (parsedDate.getMonth() + 1);
@@ -8,4 +10,13 @@ export const formatDate = (date) => {
   if (day.length < 2) day = "0" + day;
 
   return [year, month, day].join("-");
+};
+
+export const getCurrentUser = async () => {
+  try {
+    const response = await axios.get("/current_user");
+    return response ? response.data : null;
+  } catch (err) {
+    return null;
+  }
 };

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { UserContext } from "../contexts/UserContext";
 import { useHistory } from "react-router-dom";
@@ -10,9 +10,24 @@ import {
   LogoutSection,
 } from "./share-styled-component";
 
+import { getCurrentUser } from "./utils/helpers";
+
 const Nav = () => {
-  const { user, setUser } = useContext(UserContext);
+  // const { user, setUser } = useContext(UserContext);
   const history = useHistory();
+
+  const [user, setUser] = useState();
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const fetchedUser = await getCurrentUser();
+      fetchedUser && setUser(fetchedUser);
+    };
+
+    if (!user) {
+      fetchUser();
+    }
+  }, []);
 
   const logoutUser = async (event) => {
     event.preventDefault();
@@ -25,6 +40,10 @@ const Nav = () => {
   };
 
   const renderNavBarItems = () => {
+    if (!user) {
+      return null;
+    }
+
     if (user.is_admin) {
       return (
         <>
@@ -61,7 +80,7 @@ const Nav = () => {
   return (
     <NavBarContainer>
       <NavLink to="/">Cancerchat</NavLink>
-      <NavLinkContainer>{user && renderNavBarItems()}</NavLinkContainer>
+      <NavLinkContainer>{renderNavBarItems()}</NavLinkContainer>
     </NavBarContainer>
   );
 };

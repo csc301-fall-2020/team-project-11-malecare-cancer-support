@@ -6,6 +6,7 @@ import styled from "styled-components";
 
 import Input from "../../component-library/Input";
 import Checkbox from "../../component-library/Checkbox";
+import { getCurrentUser } from "../../utils/helpers";
 
 import {
   Space,
@@ -27,7 +28,6 @@ const LoginPageContainer = styled.div`
 `;
 
 const Login = () => {
-  const { user, setUser } = useContext(UserContext);
   const history = useHistory();
 
   const [email, setEmail] = useState("");
@@ -36,10 +36,14 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
-    if (user) {
-      history.push(user.is_admin ? "/adminSendMessages" : "/matches");
-    }
-  }, [user, history]);
+    const fetchUser = async () => {
+      const fetchedUser = await getCurrentUser();
+      fetchedUser &&
+        history.push(fetchedUser.is_admin ? "/adminSendMessages" : "/matches");
+    };
+
+    fetchUser();
+  }, [history]);
 
   const handleLogin = () => {
     if (_.isEmpty(email) || _.isEmpty(password)) {
@@ -50,9 +54,9 @@ const Login = () => {
     axios
       .post("/login", requestBody)
       .then((response) => {
-        if (!_.isNil(response, "data.user_id")) {
-          setUser(response.data);
-        }
+        history.push(
+          response.data.is_admin ? "/adminSendMessages" : "/matches"
+        );
       })
       .catch((err) => {
         setErrorMessage(err.response.data);

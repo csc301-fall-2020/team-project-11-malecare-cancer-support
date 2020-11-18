@@ -7,6 +7,7 @@ import { UserContext } from "../../../contexts/UserContext";
 import { getUserDetailOptions } from "./helper";
 import MultiCardSelection from "../../component-library/MultiCardSelection";
 import MultiSelectionDropdown from "../../component-library/MultiSelectionDropdown";
+import { getCurrentUser } from "../../utils/helpers";
 
 import {
   Space,
@@ -72,15 +73,22 @@ const AdminSendMessages = () => {
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    if (!user) {
-      history.push("/login");
-    }
-    const fetchUserDetailSelections = async () => {
-      setUserDetailSelections(await getUserDetailOptions());
+    const fetchUser = async () => {
+      const fetchedUser = await getCurrentUser();
+      console.log(fetchedUser);
+      if (!fetchedUser.is_admin) {
+        history.push("/matches");
+      } else {
+        const fetchUserDetailSelections = async () => {
+          setUserDetailSelections(await getUserDetailOptions());
+        };
+
+        fetchUserDetailSelections();
+      }
     };
 
-    fetchUserDetailSelections();
-  }, [user, history]);
+    fetchUser();
+  }, [history]);
 
   const setIncludeCancerTypesWithDuplicationCheck = (
     updatedIncludeCancerTypes
