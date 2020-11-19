@@ -30,7 +30,7 @@ def augment_user_dict_with_friends_user_name(user_id):
     friends_id_lst = user_dict['friends']
     friend_username_dict = {}
     for id in friends_id_lst:
-        username = User.objects(user_id=user_id).only('username').first().get_json()['username']
+        username = User.objects(user_id=id).only('username').first().get_json()['username']
         friend_username_dict[id] = username
     user_dict['friend_username'] = friend_username_dict
     return user_dict
