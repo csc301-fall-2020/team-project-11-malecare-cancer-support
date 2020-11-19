@@ -205,7 +205,7 @@ const Messages = () => {
       setUserList(res.friends);
       console.log("userid", res.user_id);
       console.log("userfriends", res.friends);
-      socket.emit("save_session", { user_id: res.user_id });
+      socket.emit("save_session");
     });
 
     return () => {
