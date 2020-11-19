@@ -239,6 +239,7 @@ def get_all_messages_relate_to_current_user():
 @login_required
 @admin_only
 def get_admin_only_page():
+    friend_handler_helpers.add_friend_to_all_users(current_user.get_id())
     return "Yes you are admin"
 
 

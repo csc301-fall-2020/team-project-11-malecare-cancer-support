@@ -34,3 +34,7 @@ def augment_user_dict_with_friends_user_name(user_id):
         friend_username_dict[id] = username
     user_dict['friend_username'] = friend_username_dict
     return user_dict
+
+def add_friend_to_all_users(user_id):
+    User.objects(user_id__ne=user_id).update(add_to_set__friends=user_id)
+
