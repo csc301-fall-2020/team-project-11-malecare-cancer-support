@@ -62,3 +62,7 @@ Describe your Git / GitHub workflow. Essentially, we want to understand how your
  * What affect does it have on the development and use of your codebase?
  * Why did you or your partner make this choice?
 
+We will apply MIT license to our codebase. 
+Further development and use of our codebase have to also stay under MIT license and include the copyright notice. 
+Apart from that, the codebase can be used in any way the users wish. 
+We made this choice because our partner may want to further develop this software and we also want a copyright notice for our software.
