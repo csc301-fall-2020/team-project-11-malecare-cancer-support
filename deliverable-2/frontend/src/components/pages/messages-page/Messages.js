@@ -13,7 +13,7 @@ const PageWrap = styled.div`
   overflow: auto;
 `;
 const PageContainer = styled.div`
-  width: 800px;
+  width: 80%;
   display: flex;
   margin: 24px auto;
   flex-direction: row;
@@ -21,7 +21,7 @@ const PageContainer = styled.div`
   border-radius: 4px;
 `;
 const PageContainerLeft = styled.div`
-  width: 200px;
+  width: 300px;
   text-align: center;
   background: white;
 `;
@@ -32,13 +32,13 @@ const PageContainerRight = styled.div`
   background: rgb(230, 230, 230);
 `;
 const MessageTitle = styled.div`
-  font-size: 25px;
+  font-size: 45px;
   font-weight: bold;
   color: rgb(172, 102, 104);
   margin: 20px 0;
 `;
 const UserList = styled.div`
-  font-size: 16px;
+  font-size: 25px;
   color: rgb(172, 172, 172);
   line-height: 40px;
   text-align: left;
@@ -59,14 +59,14 @@ const LinkOut = styled.span`
   a {
     margin: 0 12px;
   }
-  font-size: 14px;
+  font-size: 20px;
 `;
 const ChatWrap = styled.div`
   overflow: auto;
   display: flex;
   flex-direction: column;
   flex: 1;
-  font-size: 16px;
+  font-size: 20px;
   padding: 10px 24px;
   text-align: left;
   & > div {
@@ -94,7 +94,7 @@ const Send = styled.div`
   }
   & > div:last-child {
     color: white;
-    font-size: 20px;
+    font-size: 25px;
     cursor: pointer;
     text-align: center;
     background: #d54e54;
@@ -219,7 +219,7 @@ const Messages = () => {
     <PageWrap>
       <PageContainer>
         <PageContainerLeft>
-          <MessageTitle>Message</MessageTitle>
+          <MessageTitle>Fridends</MessageTitle>
           <UserList>
             {userList &&
               Object.keys(userList).map((keyName, index) => (

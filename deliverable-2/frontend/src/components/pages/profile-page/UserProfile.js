@@ -1,31 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { Row, Col, Typography, Layout, Image } from "antd";
+import { Row, Col, Typography, Image } from "antd";
 import styles from "./MyProfile.module.css";
 import "antd/dist/antd.css";
 import _ from "lodash";
 import axios from "axios";
-import moment from "moment";
-import ProfilePhoto from "../../component-library/Profile/ProfilePhoto";
-import NameInput from "../../component-library/Profile/NameInput";
-import DateInput from "../../component-library/Profile/DateInput";
-import DropDownSelect from "../../component-library/Profile/DropDownSelect";
-import MultiSelect from "../../component-library/Profile/MultiSelect";
-import Greeting from "../../component-library/Profile/Greeting";
-import PhotoWall from "../../component-library/Profile/PhotoWall";
-import {
-  cancers,
-  medications,
-  treatmenets,
-  genderOptions,
-  sexualOrientationOptions,
-  purposeOptions,
-} from "../../component-library/Profile/Data";
+import styled from "styled-components";
+import UserPhoto from "../../../assets/UserPhoto.png";
 
-const { Header, Content, Footer } = Layout;
+// const dateFormat = "YYYY-MM-DD";
 
-const { Title } = Typography;
-
-const dateFormat = "YYYY-MM-DD";
+const ProfileTitle = styled.div`
+  font-size: 38px;
+  font-weight: bold;
+  color: #4d222a;
+`;
 
 const timeFormat = (inputString) => {
   const d = new Date(inputString);
@@ -56,18 +44,14 @@ const UserProfile = ({ match }) => {
       <Row gutter={[16, 16]}>
         <Col span={2}></Col>
         <Col>
-          <Title level={2}>User profile</Title>
-          <p>User id: {match.params.id} </p>
+          <ProfileTitle>User profile</ProfileTitle>
         </Col>
       </Row>
       <Row gutter={[16, 16]}>
         <Col span={2}></Col>
 
         <Col span={8}>
-          <Image
-            width={250}
-            src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-          />
+          <Image width={250} src={UserPhoto} />
         </Col>
         <Col span={14}>
           <Row>
@@ -114,7 +98,7 @@ const UserProfile = ({ match }) => {
       <Row gutter={[16, 16]}>
         <Col span={2}></Col>
         <Col>
-          <Title level={2}>User's album</Title>
+          <ProfileTitle>User's album</ProfileTitle>
           <p></p>
           <Row gutter={16}>
             <Col>
@@ -146,50 +130,3 @@ const UserProfile = ({ match }) => {
 };
 
 export default UserProfile;
-
-// const initProfile = (currentUser) => {
-//   // if (!_.isEmpty(currentUser)) {
-//   console.log("currentuser", currentUser);
-//   setName(currentUser.username);
-//   setDate(timeFormat(currentUser.date_of_birth));
-//   setGender(currentUser.gender);
-//   setSex(currentUser.sex_orientation);
-//   setCancerList([...cancerList, ...currentUser.cancer]);
-//   setPurposeList([...purposeList, ...currentUser.purpose]);
-//   setGreetMsg(currentUser.short_intro);
-//   setMed([medication, ...currentUser.medications]);
-//   setTreat([treatment, ...currentUser.treatments]);
-//   console.log(date);
-//   console.log("cancerlist", cancerList);
-//   console.log("pplist", purposeList);
-// }
-// if (!_.isNil(currentUser, "username")) {
-//   console.log("Get db", currentUser);
-//   setName(currentUser.username);
-// }
-// if (!_.isNil(currentUser, "date_of_birth")) {
-//   setDate(timeFormat(currentUser.date_of_birth));
-//   console.log(typeof date, "date", date);
-// }
-// if (!_.isNil(currentUser, "gender")) {
-//   setGender(currentUser.gender);
-// }
-// if (!_.isNil(currentUser, "sex_orientation")) {
-//   setSex(currentUser.sex_orientation);
-// }
-// if (!_.isNil(currentUser, "cancer")) {
-//   setCancerList(currentUser.cancer);
-// }
-// if (!_.isNil(currentUser, "purpose")) {
-//   setPurposeList(currentUser.purpose);
-// }
-// if (!_.isNil(currentUser, "short_intro")) {
-//   setGreetMsg(currentUser.short_intro);
-// }
-// if (!_.isNil(currentUser, "medications")) {
-//   setMed(currentUser.medications);
-// }
-// if (!_.isNil(currentUser, "treatments")) {
-//   setTreat(currentUser.treatments);
-// }
-// };

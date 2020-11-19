@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Row, Col, Typography, Layout, message } from "antd";
 import styles from "./MyProfile.module.css";
+import styled from "styled-components";
+
 import "antd/dist/antd.css";
 import moment from "moment";
 import _ from "lodash";
@@ -16,9 +18,18 @@ import { getUserDetailOptions } from "../../pages/signup-page/helper";
 import { UpdateButton } from "../../share-styled-component";
 import { UserContext } from "../../../contexts/UserContext";
 
-const { Header, Content, Footer } = Layout;
+// const { Header, Content, Footer } = Layout;
 
-const { Title } = Typography;
+const ProfileTitle = styled.div`
+  font-size: 38px;
+  font-weight: bold;
+  color: #4d222a;
+`;
+
+const SmallTitle = styled.div`
+  font-size: 20px;
+  color: #4d222a;
+`;
 
 const dateFormat = "YYYY-MM-DD";
 
@@ -64,7 +75,7 @@ const MyProfile = ({ user }) => {
         short_intro: greetMsg,
         treatments: treatment,
       };
-      console.log(requestBody)
+      console.log(requestBody);
       axios
         .post("current_user/profile/text", requestBody)
         .then((response) => {
@@ -84,7 +95,7 @@ const MyProfile = ({ user }) => {
   useEffect(() => {
     const fetchUserDetailSelections = async () => {
       setUserDetailSelections(await getUserDetailOptions());
-      console.log("called")
+      console.log("called");
     };
     fetchUserDetailSelections();
   }, []);
@@ -96,8 +107,9 @@ const MyProfile = ({ user }) => {
       <Row gutter={[16, 16]}>
         <Col span={2}></Col>
         <Col>
-          <Title level={2}>Your profile</Title>
-          <p>For matching</p>
+          {/* <Title level={2}>Your profile</Title> */}
+          <ProfileTitle>Your profile</ProfileTitle>
+          <SmallTitle>For matching</SmallTitle>
         </Col>
       </Row>
       <Row gutter={[16, 16]}>
@@ -131,15 +143,15 @@ const MyProfile = ({ user }) => {
             data={userDetailSelections.cancerTypeOptions}
           ></MultiSelect>
           <Greeting greetMsg={greetMsg} setGreetMsg={setGreetMsg}></Greeting>
-          <UpdateButton onClick={handleUpdate}>update profile</UpdateButton>
         </Col>
       </Row>
 
       <Row gutter={[16, 16]}>
         <Col span={2}></Col>
         <Col>
-          <Title level={2}>Your album</Title>
-          <p>Let's make your profile looks more attracting</p>
+          {/* <Title level={2}>Your album</Title> */}
+          <ProfileTitle>Your album</ProfileTitle>
+          <SmallTitle>Let's make your profile looks more attracting</SmallTitle>
           <p></p>
           <PhotoWall></PhotoWall>
         </Col>
@@ -147,8 +159,11 @@ const MyProfile = ({ user }) => {
       <Row gutter={[16, 16]}>
         <Col span={2}></Col>
         <Col span={14}>
-          <Title level={2}>Detailed Information</Title>
-          <p>Only for receiving latest news regarding your cancer</p>
+          {/* <Title level={2}>Detailed Information</Title> */}
+          <ProfileTitle>Detailed Information</ProfileTitle>
+          <SmallTitle>
+            Only for receiving latest news regarding your cancer
+          </SmallTitle>
           <p></p>
           <MultiSelect
             List={medication}
@@ -163,6 +178,12 @@ const MyProfile = ({ user }) => {
             data={userDetailSelections.treatmentTypeOptions}
           ></MultiSelect>
         </Col>
+      </Row>
+      <Row gutter={[16, 16]}>
+        {" "}
+        <Col span={10}></Col>
+        <UpdateButton onClick={handleUpdate}>update profile</UpdateButton>
+        <p></p>
       </Row>
     </div>
     //   </Content>
