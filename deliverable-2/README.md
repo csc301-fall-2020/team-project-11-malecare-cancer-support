@@ -6,6 +6,12 @@
  * Provide a high-level description of your application and it's value from an end-user's perspective
  * What is the problem you're trying to solve?
  * Is there any context required to understand **why** the application solves this problem?
+ 
+ CancerChat is a Tinder-like app that serves as a platform, on which the cancer patients can be matched to other cancer patients that meet their requirements.
+ 
+ Our app focuses on a social issue that has long been ignored -- the social problem of cancer patients. Because of their cancer, it could be difficult for them to find dates on other social platforms. As cancer patients, they have more social needs than many people may have, to help them through the difficult cancer treatment, and to relieve their inner loneliness.
+ 
+ To address this problem, our app provides a platform where the cancer patients can meet other cancer patients, either they want to date or find themselves a mentor or mentee. There is no such app on the market currently that does what our app does. We will match users who are close to each other and having the same type(s) of cancer since they may be interested in meeting each other in reality to expand their social circles and significantly improve their life quality.
 
 ## Key Features
  * Described the key features in the application that the user can access
@@ -17,6 +23,21 @@
  * How do you access it? Are accounts pre-created or does a user register? Where do you start? etc. 
  * Provide clear steps for using each feature described above
  * This section is critical to testing your application and must be done carefully and thoughtfully
+ 
+ A user can visit our app at [TODO:url]
+ 
+ Our app has two types of users: normal users and administrators.
+ 
+ As a normal user, one can either register a new account or log in as an existing user. [TODO: add a demo user] 
+ 
+ After logging in, the user will see this page[TODO: a matches page screen shot].
+ 
+ As an admin, we have provided a pre-set admin account: 
+ 
+ email: CancerChatAdmin@gmail.com
+ password: Admin
+ 
+  After logging in, the user will see this page[TODO: a send message page screen shot].
  
  ## Development requirements
  * If a developer were to set this up on their machine or a remote server, what are the technical requirements (e.g. OS, libraries, etc.)?
