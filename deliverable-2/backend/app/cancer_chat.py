@@ -121,7 +121,7 @@ def logout():
 def login():
     user_email = request.get_json()["email"]
     if not login_register_helpers.email_already_existed(user_email):
-        return "Email does not exists", 412
+        return "Email or password is not correct", 412
     if not handle_report_helpers.check_user_in_black_list_by_email(user_email):
         return "This account has been locked", 412
     if login_register_helpers.verify_password_by_email(email=user_email,
@@ -131,7 +131,7 @@ def login():
         login_user(login_register_helpers.get_user_by_email(email=user_email))
         return jsonify(current_user.get_json())
     else:
-        return "Incorrect Password", 412
+        return "Email or password is not correct", 412
 
 
 @app.route('/current_user')
