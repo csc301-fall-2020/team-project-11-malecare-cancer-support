@@ -31,8 +31,9 @@ List **process-related** (i.e. team organization and how you work) decisions tha
 
 List **process-related** (i.e. team organization and how you work) decisions that, in retrospect, were not as successful as you thought they would be.
 
-1. We underestimated the time needed to finish D2 and started late. In the end, everyone was exhausted in order to implement the functionalities. 
-2. Decide to start without designing input/output of  API before start, in order to save time
+1. We underestimated the time needed to finish D2 and started late. In the end, everyone was exhausted in order to implement the functionalities before the deadline. 
+
+2. In order to save time, the team has decided to not spending time designing the parameters of APIs and start directly. Because the frontend and backend were implemented asynchronously, sometimes we had to change the API that has been written to meet the needs of the frontend, which wasted a lot of time, and also produced some hard-to-find bugs.
 
  * 2 - 4 decisions.
  * Ordered from most to least important.
