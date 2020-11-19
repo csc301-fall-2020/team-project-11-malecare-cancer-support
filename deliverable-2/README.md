@@ -18,31 +18,31 @@
  * Provide a breakdown or detail for each feature that is most appropriate for your application
  * This section will be used to assess the value of the features built
  
-Create Account/ Signup: 
+Create Account/ Signup:  
 For the first time, the users who visit CanerChat can use the button on the front page to create an account for them.
 At the signup page, users will be asked to enter some basic account information (enter email, user name, birth date and password) and also choose the purpose of using this app as well as the cancer type. After register accounts, it will be automatically directed to the app main page.
 
-Login:
+Login:  
 On the front page, Users can login with their email and password. Besides, users can click on the checkbox and let CancerChat app to remember your email account.
 
-Navigation bar:
+Navigation bar:  
 After logging in, there is a navigation bar on the top, users can click on them and users will be redirected to the chosen page.
 
-Browse matches:
+Browse matches:  
 On the main page, there will be matches provided by CancerChat app which shows another user's profile. Users can choose to view the full profile of the matched user or request to have a chat with this user.
 Since CancerChat app will provide multiple matches for users, they can make decisions to either view previous matches or the next matches.
 Moreover, next to the match, users can change the filter setting(for ideal match user) to ask for matches that meet their requirements.
 
-Chat:
+Chat:  
 On the message page, users can find their friends on the left. (after both users agree on the chat request, they are friends, unless one of them has been blocked). Users can click on a friend's user name and start a chat by sending texts to friends.
 
-Update Profile:
+Update Profile:  
 On the profile page, users can modify their profile here. Profile not only includes the basic information but also includes some extra information such as the greeting message users want to show on the match, adding detailed information such as cancer's medication and treatment. (For receiving latest news)
 
-Admin sends news:
+Admin sends news:  
 Administrators can send cancer news to target users. [TODO]
 
-Admin handle report:
+Admin handle report:  
 Administrators can handle reports for users, and make decisions. [TODO]
 
  
