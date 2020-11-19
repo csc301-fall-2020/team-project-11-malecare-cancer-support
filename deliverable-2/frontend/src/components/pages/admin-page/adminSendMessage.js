@@ -68,6 +68,7 @@ const AdminSendMessages = () => {
   const [userDetailSelections, setUserDetailSelections] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
+  const [loaded, setLoaded] = useState(null)
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -82,6 +83,7 @@ const AdminSendMessages = () => {
         // User fetched and updated
         setUser(fetchedUser);
         setUserDetailSelections(await getUserDetailOptions());
+        setLoaded("loaded")
       }
     };
 
@@ -127,7 +129,7 @@ const AdminSendMessages = () => {
       .catch((err) => {});
   };
 
-  return (
+  return (loaded ?
     <MainContainer>
       <FiltersContainer>
         <SectionContainer>
@@ -225,7 +227,7 @@ const AdminSendMessages = () => {
           <UpdateButton onClick={handleSendMessage}>Send message</UpdateButton>
         </ButtonGroupContainer>
       </MessagesContainer>
-    </MainContainer>
+    </MainContainer>:<div>loading...</div>
   );
 };
 
