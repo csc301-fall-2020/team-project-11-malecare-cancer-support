@@ -137,21 +137,21 @@ Administrators can handle reports for users, and make decisions. [TODO]
  
  Instructions for setting up and running the application:
  Open the deliverable-2 folder
- Open one terminal for backend:
- Step 1:
-    if your system is Mac/Linux, please 
-    export FLASK_APP=backend/app/cancer_chat.py
-    if your system is Windows, please
-    set FLASK_APP=backend/app/cancer_chat.py
- Step 2:
-    flask run
- Open another terminal for frontend:
- Step 1:
-    cd frontend
- Step 2:
-    npm i
- Step 3:
-    npm start
+     Open one terminal for backend:
+     Step 1:
+        if your system is Mac/Linux, please 
+        export FLASK_APP=backend/app/cancer_chat.py
+        if your system is Windows, please
+        set FLASK_APP=backend/app/cancer_chat.py
+     Step 2:
+        flask run
+     Open another terminal for frontend:
+     Step 1:
+        cd frontend
+     Step 2:
+        npm i
+     Step 3:
+        npm start
  
  ## Deployment and Github Workflow
 
