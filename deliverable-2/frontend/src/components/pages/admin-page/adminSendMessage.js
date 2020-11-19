@@ -54,7 +54,7 @@ const ButtonGroupContainer = styled.div`
 `;
 
 const AdminSendMessages = () => {
-  const { user, setUser } = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
   const history = useHistory();
 
   const [includeGenders, setIncludeGenders] = useState([]);

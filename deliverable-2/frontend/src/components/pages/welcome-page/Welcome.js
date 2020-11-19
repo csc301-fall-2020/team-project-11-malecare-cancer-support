@@ -1,7 +1,6 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
-import { UserContext } from "../../../contexts/UserContext";
 import { getCurrentUser } from "../../utils/helpers";
 
 import {
@@ -22,7 +21,6 @@ const WelcomePageContainer = styled.div`
 `;
 
 const Welcome = () => {
-  const { user } = useContext(UserContext);
   const history = useHistory();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -33,8 +31,10 @@ const Welcome = () => {
       setIsLoading(false);
       if (!fetchedUser) return;
       if (fetchedUser.is_admin) {
+        // User logged in as Admin
         history.push("/adminSendMessages");
       } else {
+        // User logged in
         history.push("/matches");
       }
     };

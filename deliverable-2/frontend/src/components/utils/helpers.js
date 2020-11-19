@@ -15,9 +15,9 @@ export const formatDate = (date) => {
 export const getAge = (date) => {
   const parsedDate = new Date(date);
   let year = parsedDate.getFullYear();
-  const thisYear = new Date().getFullYear()
-  return thisYear - year
-}
+  const thisYear = new Date().getFullYear();
+  return thisYear - year;
+};
 
 export const getCurrentUser = async () => {
   try {
