@@ -20,12 +20,14 @@ const App = () => {
   const [user, setUser] = useState(null);
 
   const providerValue = useMemo(() => ({ user, setUser }), [user, setUser]);
+  // const providerValue = { user, setUser };
+  console.log(user);
 
   return (
     <Router>
       <UserContext.Provider value={providerValue}>
         <MainPageContainer>
-          <Nav />
+          {user && <Nav />}
           <Switch>
             {/* Regular User */}
             <Route path="/" component={Welcome} exact />

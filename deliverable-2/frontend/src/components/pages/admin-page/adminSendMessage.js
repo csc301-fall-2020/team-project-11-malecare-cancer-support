@@ -8,14 +8,9 @@ import { getUserDetailOptions } from "./helper";
 import MultiCardSelection from "../../component-library/MultiCardSelection";
 import MultiSelectionDropdown from "../../component-library/MultiSelectionDropdown";
 import { getCurrentUser } from "../../utils/helpers";
-import { Collapse } from "react-collapse";
-import { UnmountClosed } from "react-collapse";
 
 import {
   Space,
-  MainTitle,
-  MainSubTitle,
-  SecondaryButton,
   ErrorMessageContainer,
   UpdateButton,
 } from "../../share-styled-component";
@@ -77,19 +72,21 @@ const AdminSendMessages = () => {
   useEffect(() => {
     const fetchUser = async () => {
       const fetchedUser = await getCurrentUser();
-      if (!fetchedUser.is_admin) {
+      if (!fetchUser) {
+        // User not logged in
+        history.push("/");
+      } else if (!fetchedUser.is_admin) {
+        // User is not admin
         history.push("/matches");
       } else {
-        const fetchUserDetailSelections = async () => {
-          setUserDetailSelections(await getUserDetailOptions());
-        };
-
-        fetchUserDetailSelections();
+        // User fetched and updated
+        setUser(fetchedUser);
+        setUserDetailSelections(await getUserDetailOptions());
       }
     };
 
     fetchUser();
-  }, [history]);
+  }, [history, setUser]);
 
   const handleSendMessage = async () => {
     setErrorMessage("");

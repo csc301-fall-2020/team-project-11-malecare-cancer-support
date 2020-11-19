@@ -28,6 +28,7 @@ const LoginPageContainer = styled.div`
 `;
 
 const Login = () => {
+  const { setUser } = useContext(UserContext);
   const history = useHistory();
 
   const [email, setEmail] = useState("");
@@ -38,29 +39,28 @@ const Login = () => {
   useEffect(() => {
     const fetchUser = async () => {
       const fetchedUser = await getCurrentUser();
-      fetchedUser &&
+      if (fetchedUser) {
         history.push(fetchedUser.is_admin ? "/adminSendMessages" : "/matches");
+      }
     };
 
     fetchUser();
   }, [history]);
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (_.isEmpty(email) || _.isEmpty(password)) {
       return setErrorMessage("Your email and password cannot be empty.");
     }
     //   Initiate Login Request
     const requestBody = { email, password };
-    axios
-      .post("/login", requestBody)
-      .then((response) => {
-        history.push(
-          response.data.is_admin ? "/adminSendMessages" : "/matches"
-        );
-      })
-      .catch((err) => {
-        setErrorMessage(err.response.data);
-      });
+    try {
+      const response = await axios.post("/login", requestBody);
+      const fetchedUser = response.data;
+      setUser(fetchedUser);
+      history.push(fetchedUser.is_admin ? "/adminSendMessages" : "/matches");
+    } catch (err) {
+      setErrorMessage(err.response.data);
+    }
   };
 
   return (
