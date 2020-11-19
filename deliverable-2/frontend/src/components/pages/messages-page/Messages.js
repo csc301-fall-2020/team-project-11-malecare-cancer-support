@@ -156,7 +156,7 @@ function post(url, data = {}) {
 const Messages = () => {
   const [currentUser, setCurrentUser] = useState("");
   const [userId, setUserId] = useState("");
-  const [userList, setUserList] = useState([]);
+  const [userList, setUserList] = useState({});
   const [socket, setSocket] = useState();
   const [chatList, setChatList] = useState([]);
   const [inputText, setInputText] = useState();
@@ -183,7 +183,7 @@ const Messages = () => {
     let socket = io.connect("http://localhost:5000", { reconnection: true });
 
     socket.emit("index");
-    socket.on("chat", (data) => {
+    socket.on("chat", () => {
       post("/chat/all_messages_by_user").then((res) => {
         setChatList(res);
         setTimeout(() => {
@@ -196,7 +196,7 @@ const Messages = () => {
 
     get("/current_user").then((res) => {
       setUserId(res.user_id);
-      setUserList(res.friends);
+      setUserList(res.friend_username);
       socket.emit("save_session");
     });
 
@@ -222,12 +222,13 @@ const Messages = () => {
           <MessageTitle>Message</MessageTitle>
           <UserList>
             {userList &&
-              userList.map((item) => (
+              Object.keys(userList).map((keyName, index) => (
                 <div
-                  className={item === currentUser ? "check" : ""}
-                  onClick={() => setCurrentUser(item)}
+                  className={keyName === currentUser ? "check" : ""}
+                  onClick={() => setCurrentUser(keyName)}
+                  key={index}
                 >
-                  {item}
+                  {userList[keyName]}
                 </div>
               ))}
           </UserList>
