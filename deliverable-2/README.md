@@ -46,13 +46,13 @@
  ## Deployment and Github Workflow
 
 Describe your Git / GitHub workflow. Essentially, we want to understand how your team members shares a codebase, avoid conflicts and deploys the application.
-1. Name: Backend: snake case, Frontend: Camel case
-2. Deployment tools: AWS EC2, code deploy
  * Be concise, yet precise. For example, "we use pull-requests" is not a precise statement since it leaves too many open questions - Pull-requests from where to where? Who reviews the pull-requests? Who is responsible for merging them? etc.
  * If applicable, specify any naming conventions or standards you decide to adopt.
- * Describe your overall deployment process from writing code to viewing a live applicatioon
+ * Describe your overall deployment process from writing code to viewing a live application
  * What deployment tool(s) are you using and how
  * Don't forget to **briefly explain why** you chose this workflow or particular aspects of it!
+The main part of the development take place in the develop branch, preventing from contaiminating the master branch. We use pull-requests to merge develop branch to the master branch once we have a bug-less, testable and working app. We have a taskboard assigning tasks to members, it already reduces conflicts. Also, when someone is going to make big changes to codebase and it has the potential of contaminated the whole codebase, they start a new branch from develop. Then they do a pull-request when finished and tested that change to the develop branch. They usually invites some other group members who is available at the time to do a review. After the review, the person who does the review would merge the branch. Most of the time, back-end developers stays on the develop branch to stay sync with front-end and made quick response to their suggestions. Before every push and pull-request, we deploy our app at local machine to make sure it can run. Finally, we deploy our app through AWS EC2. We push our app to AWS EC2 and run pre-written scripted to deploy it there. <br><br/>
+We are using snake case for back-end and camel case for front-end.
 
  ## Licenses 
 
