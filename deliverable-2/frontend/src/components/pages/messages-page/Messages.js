@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import io from "socket.io-client";
 import axios from "axios";
+import face from "../../../assets/face.png";
+import image from "../../../assets/image.png";
 
 // import { get } from "../../utils/request";
 
@@ -85,7 +87,6 @@ const ChatWrap = styled.div`
 const Send = styled.div`
   display: flex;
   flex-direction: row;
-  height: 45px;
   padding: 20px 24px 0;
   align-items: center;
   & > div:first-child {
@@ -108,13 +109,10 @@ const Btns = styled.div`
   flex-direction: row-reverse;
   gap: 20px;
   margin: 10px 180px;
-  & > div {
+  & > img {
     cursor: pointer;
-    text-align: center;
-    background: white;
-    line-height: 24px;
-    padding: 0 16px;
-    border-radius: 20px;
+    width: 32px;
+    height: 32px;
   }
 `;
 const InputField = styled.input`
@@ -158,7 +156,7 @@ function post(url, data = {}) {
 const Messages = () => {
   const [currentUser, setCurrentUser] = useState("");
   const [userId, setUserId] = useState("");
-  const [userList, setUserList] = useState([]);
+  const [userList, setUserList] = useState({});
   const [socket, setSocket] = useState();
   const [chatList, setChatList] = useState([]);
   const [inputText, setInputText] = useState();
@@ -166,18 +164,15 @@ const Messages = () => {
   const inputRef = useRef();
   const send = () => {
     if (!inputText || !currentUser) return;
-    console.log(inputText);
-    console.log({
-      sender_uid: userId,
-      receiver_uid: currentUser,
-      msg: inputText,
-    });
     socket.emit("receive_msg", {
       sender_uid: userId,
       receiver_uid: currentUser,
       msg: inputText,
     });
-    setChatList([...chatList, { text: inputText, sender_uid: userId }]);
+    setChatList([
+      ...chatList,
+      { text: inputText, sender_uid: userId, receiver_uid: currentUser },
+    ]);
     setInputText("");
     inputRef.current.focus();
     setTimeout(() => {
@@ -188,28 +183,24 @@ const Messages = () => {
     let socket = io.connect("http://localhost:5000", { reconnection: true });
 
     socket.emit("index");
-    console.log(socket);
-    socket.on("chat", (data) => {
-      console.log(data);
+    socket.on("chat", () => {
       post("/chat/all_messages_by_user").then((res) => {
-        console.log("195 行的unread message", res);
         setChatList(res);
+        setTimeout(() => {
+          chatRef.current.scrollTop = 100000;
+        }, 0);
       });
     });
     socket.open();
     setSocket(socket);
 
     get("/current_user").then((res) => {
-      console.log("user res", res);
       setUserId(res.user_id);
-      setUserList(res.friends);
-      console.log("userid", res.user_id);
-      console.log("userfriends", res.friends);
+      setUserList(res.friend_username);
       socket.emit("save_session");
     });
 
     return () => {
-      console.log(socket);
       socket.close();
       setSocket(undefined);
     };
@@ -218,8 +209,10 @@ const Messages = () => {
   useEffect(() => {
     if (!currentUser) return;
     post("/chat/all_messages_by_user").then((res) => {
-      console.log("221 行的unread", res);
       setChatList(res);
+      setTimeout(() => {
+        chatRef.current.scrollTop = 100000;
+      }, 0);
     });
   }, [currentUser]);
   return (
@@ -229,12 +222,13 @@ const Messages = () => {
           <MessageTitle>Message</MessageTitle>
           <UserList>
             {userList &&
-              userList.map((item) => (
+              Object.keys(userList).map((keyName, index) => (
                 <div
-                  className={item === currentUser ? "check" : ""}
-                  onClick={() => setCurrentUser(item)}
+                  className={keyName === currentUser ? "check" : ""}
+                  onClick={() => setCurrentUser(keyName)}
+                  key={index}
                 >
-                  {item}
+                  {userList[keyName]}
                 </div>
               ))}
           </UserList>
@@ -246,15 +240,24 @@ const Messages = () => {
           </LinkOut>
           <ChatWrap ref={chatRef}>
             {chatList &&
-              chatList.map((item) => (
-                <div
-                  className={
-                    item.sender_uid === userId ? "chatItemR" : "chatItemL"
-                  }
-                >
-                  {item.text}
-                </div>
-              ))}
+              chatList
+                .filter((item) => {
+                  return (
+                    (item.sender_uid === userId &&
+                      item.receiver_uid === currentUser) ||
+                    (item.sender_uid === currentUser &&
+                      item.receiver_uid === userId)
+                  );
+                })
+                .map((item) => (
+                  <div
+                    className={
+                      item.sender_uid === userId ? "chatItemR" : "chatItemL"
+                    }
+                  >
+                    {item.text}
+                  </div>
+                ))}
           </ChatWrap>
           <Send>
             <InputField
@@ -265,8 +268,8 @@ const Messages = () => {
             <div onClick={send}>send</div>
           </Send>
           <Btns>
-            <div>图片</div>
-            <div>表情</div>
+            <img src={image} />
+            <img src={face} />
           </Btns>
         </PageContainerRight>
       </PageContainer>
