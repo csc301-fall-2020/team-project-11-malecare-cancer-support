@@ -31,7 +31,7 @@ List **process-related** (i.e. team organization and how you work) decisions tha
 
 List **process-related** (i.e. team organization and how you work) decisions that, in retrospect, were not as successful as you thought they would be.
 
-1. start late
+1. We underestimated the time needed to finish D2 and started late. In the end, everyone was exhausted in order to implement the functionalities. 
 2. Decide to start without designing input/output of  API before start, in order to save time
 
  * 2 - 4 decisions.
