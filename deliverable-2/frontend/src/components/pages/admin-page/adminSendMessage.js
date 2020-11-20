@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 import _ from "lodash";
-import axios from "axios";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { UserContext } from "../../../contexts/UserContext";
@@ -8,6 +7,7 @@ import { getUserDetailOptions } from "./helper";
 import MultiCardSelection from "../../component-library/MultiCardSelection";
 import MultiSelectionDropdown from "../../component-library/MultiSelectionDropdown";
 import { getCurrentUser } from "../../utils/helpers";
+import io from "socket.io-client";
 
 import {
   Space,
@@ -68,12 +68,14 @@ const AdminSendMessages = () => {
   const [userDetailSelections, setUserDetailSelections] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
+  const [socket, setSocket] = useState(null);
   const [loaded, setLoaded] = useState(false)
+
 
   useEffect(() => {
     const fetchUser = async () => {
       const fetchedUser = await getCurrentUser();
-      if (!fetchUser) {
+      if (!fetchedUser) {
         // User not logged in
         history.push("/");
       } else if (!fetchedUser.is_admin) {
@@ -89,6 +91,18 @@ const AdminSendMessages = () => {
 
     fetchUser();
   }, [history, setUser]);
+
+  useEffect(() => {
+    let socket = io.connect("http://localhost:5000", { reconnection: true });
+    socket.emit("index");
+    socket.emit("save_session");
+    setSocket(socket);
+
+    return () => {
+      socket.close();
+      setSocket(undefined);
+    };
+  }, []);
 
   const handleSendMessage = async () => {
     setErrorMessage("");
@@ -120,13 +134,15 @@ const AdminSendMessages = () => {
       message,
     };
 
-    axios
-      .post("/adminSendMessage", requestBody)
-      .then((response) => {
-        if (!_.isNil(response, "data.user_id")) {
-        }
-      })
-      .catch((err) => {});
+    socket.emit("admin_send_msg", requestBody);
+    socket.on("to_admin", (res) => {
+      if (res === "Successfully sent") {
+        alert("Message has been sent.");
+        setMessage("");
+      } else {
+        setErrorMessage(res);
+      }
+    });
   };
 
   return (loaded ?

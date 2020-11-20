@@ -13,10 +13,41 @@
  
  To address this problem, our app provides a platform where the cancer patients can meet other cancer patients, either they want to date or find themselves a mentor or mentee. There is no such app on the market currently that does what our app does. We will match users who are close to each other and having the same type(s) of cancer since they may be interested in meeting each other in reality to expand their social circles and significantly improve their life quality.
 
+What's more, because the administrators from Malecare can send news about new treatments on CancerChat, it's also a great platform where the patients can receive the latest information about their cancer. Patients used to get information about new treatments when they met their doctors， while this app allows them to directly access this piece of information. They can then contact the doctor and ask if the new treatment can be applied to them. It can make cancer patients’ lives better and even save their lives.
+
 ## Key Features
  * Described the key features in the application that the user can access
  * Provide a breakdown or detail for each feature that is most appropriate for your application
  * This section will be used to assess the value of the features built
+ 
+Create Account/ Signup:  
+For the first time, the users who visit CanerChat can use the button on the front page to create an account for them.
+At the signup page, users will be asked to enter some basic account information (enter email, user name, birth date and password) and also choose the purpose of using this app as well as the cancer type. After register accounts, it will be automatically directed to the app main page.
+
+Login:  
+On the front page, Users can login with their email and password. Besides, users can click on the checkbox and let CancerChat app to remember your email account.
+
+Navigation bar:  
+After logging in, there is a navigation bar on the top, users can click on them and users will be redirected to the chosen page.
+
+Browse matches:  
+On the main page, there will be matches provided by CancerChat app which shows another user's profile. Users can choose to view the full profile of the matched user or request to have a chat with this user.
+Since CancerChat app will provide multiple matches for users, they can make decisions to either view previous matches or the next matches.
+Moreover, next to the match, users can change the filter setting(for ideal match user) to ask for matches that meet their requirements.
+
+Chat:  
+On the message page, users can find their friends on the left. (after both users agree on the chat request, they are friends, unless one of them has been blocked). Users can click on a friend's user name and start a chat by sending texts to friends.
+
+Update Profile:  
+On the profile page, users can modify their profile here. Profile not only includes the basic information but also includes some extra information such as the greeting message users want to show on the match, adding detailed information such as cancer's medication and treatment. (For receiving latest news)
+
+Admin sends news:  
+Administrators can send news to target users using the filters including ages, genders, types of cancer, types of treatment, and types of medication. For example, administrators can send a news about the lastest lung cancer treatment to users with lung cancer aged 20-50.
+
+Admin handle report:  
+Administrators can handle reports for users, and make decisions. [TODO]
+
+ 
 
 ## Instructions
  * Clear instructions for how to use the application from the end-user's perspective
@@ -43,6 +74,23 @@
  * If a developer were to set this up on their machine or a remote server, what are the technical requirements (e.g. OS, libraries, etc.)?
  * Briefly describe instructions for setting up and running the application (think a true README).
  
+ - Technical requirements has shown in requirements.txt.
+ - Instructions for setting up and running the application:
+   - Open the deliverable-2 folder:
+     - Open one terminal for backend:
+     - Step 1:
+        - if your system is Mac/Linux, please export FLASK_APP=backend/app/cancer_chat.py
+        - if your system is Windows, please set FLASK_APP=backend/app/cancer_chat.py
+     - Step 2:
+        - flask run
+     - Open another terminal for frontend:
+     - Step 1:
+        - cd frontend
+     - Step 2:
+        - npm i
+     - Step 3:
+        - npm start
+        
  ## Deployment and Github Workflow
 
 Describe your Git / GitHub workflow. Essentially, we want to understand how your team members shares a codebase, avoid conflicts and deploys the application.

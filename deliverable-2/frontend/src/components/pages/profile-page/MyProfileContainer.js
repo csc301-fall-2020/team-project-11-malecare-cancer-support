@@ -8,39 +8,23 @@ const MyProfileContainer = () => {
   const { user, setUser } = useContext(UserContext);
   const history = useHistory();
 
-  // useEffect(() => {
-  //   // if (!user) {
-  //   //   history.push("/login");
-  //   // }
-  //   const fetchUser = async () => {
-  //     const fetchedUser = await getCurrentUser();
-  //     console.log(fetchedUser);
-  //     if (fetchedUser) {
-  //       console.log(fetchedUser)
-  //       setUser(fetchedUser);
-  //     } else {
-  //       history.push("/login");
-  //     }
-  //   };
-  //   fetchUser();
-  // }, [user, history]);
   useEffect(() => {
-    // if (!user) {
-    //   history.push("/login");
-    // }
     const fetchUser = async () => {
       const fetchedUser = await getCurrentUser();
-      console.log(fetchedUser);
-      if (fetchedUser) {
-        console.log(fetchedUser)
-        setUser(fetchedUser);
+      if (!fetchedUser) {
+        // User not logged in
+        history.push("/");
+      } else if (fetchedUser.is_admin) {
+        // User is admin
+        history.push("/adminSendMessages");
       } else {
-        history.push("/login");
+        // User fetched and updated
+        setUser(fetchedUser);
       }
     };
     fetchUser();
-  }, []);
-  console.log(user);
+  }, [setUser, history]);
+
   return user && <MyProfile user={user} setUser={setUser}></MyProfile>;
 };
 

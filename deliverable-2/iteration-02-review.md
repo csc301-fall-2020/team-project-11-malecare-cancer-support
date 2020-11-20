@@ -17,15 +17,16 @@
 
 List **process-related** (i.e. team organization and how you work) decisions that, in retrospect, turned out to be successful.
 
-1. from node js to flask
-2. devide feature to D2 and D3, 
+1. Rather than follow the plan of deliverable 1 strictly, our team decided to be more viable. It does bring some chaos to our team organization and planning, but it also lets us develop more quickly. The trade-off is happening here. Developing quickly meaning that we can see our progress in a short amount of time, which can be inspiring to us. An example of being viable is that we discard the plan of using node and use flask for back-end instead. 
+2. We decide to divide features into things to be done in D2 and D3 before we started. 
     D2: register/login, profile, match, chat(only text), admin notification, main page, request page
-    D3: block, report, send picture, AWS S3, geo
-3. task board https://docs.google.com/spreadsheets/d/1IbYSnSneb-Hv0m9sljIn_qT3puhcViF-GEtengPN3bk/edit#gid=0
+    D3: block, report, rich text editor for chat, geolocation, storing pictures on AWS S3
+3. We are having a task board to assign work to each other. This enables us to have less conflicts when working on one codebase. Also, the goals are trackable and everyone can see the concrete progress of our team. https://docs.google.com/spreadsheets/d/1IbYSnSneb-Hv0m9sljIn_qT3puhcViF-GEtengPN3bk/edit#gid=0
  * 2 - 4 decisions.
  * Ordered from most to least important.
  * Explain why (i.e. give a supporting argument) you consider a decision to be successful.
  * Feel free to refer/link to process artifact(s).
+
 
 #### Q2. Decisions that did not turn out as well as we hoped
 
@@ -45,9 +46,14 @@ List **process-related** (i.e. team organization and how you work) decisions tha
 
 List any **process-related** (i.e. team organization and how you work) changes you are planning to make (if there are any)
 
-1. share deadline of outher work, organize well
-2. agree on API before developing new feature
-3. more meeting, more comunication, weekly meeting not enough
+1. Share deadlines, organize better:  
+Though in the past few months, we are doing fine organizing and splitting the work, we have an opinion that we can organize our group work better if we share our deadlines and our time schedule ahead. Since our group members are in different time zones and we have different course works, 
+we are planning to consider every member's schedule and project deadlines to have better plans for our project work. Divide the work into several small milestones might also be beneficial for us. We will plan to do this, too.
+2. Agree on API before developing new features:  
+At deliverable-2, we start our coding work before we designing complete APIs. This means overtimes, members who work at the front-end will need to communicate with back-end members on deciding APIs. This is more time consuming than we thought due to the timezone issue. It will be efficient if we can agree on complete APIs before doing our work.
+3. More meetings, more communication:  
+At deliverable-2, we have weekly meetings with MaleCare and have a lot of group meetings. But we still think this is not enough. We need to have more communication with group members as well as MaleCare. We can easily be aware of our group members' work process and if some of the group members need help, we can help them.
+
  * Ordered from most to least important.
  * Explain why you are making a change.
 
