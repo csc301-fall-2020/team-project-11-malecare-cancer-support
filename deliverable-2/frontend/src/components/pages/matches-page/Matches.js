@@ -6,16 +6,29 @@ import { getAge, getCurrentUser } from "../../utils/helpers";
 import { filterMatches } from "./helper";
 import styled from "styled-components";
 import img from "../../../assets/UserPhoto.png";
+import { FaFileExcel } from "react-icons/fa";
 
 const MatchesPageContainer = styled.div`
+  width: 80%;
+  height: 100%;
+  display: flex;
+  margin: 24px auto;
+  flex-direction: row;
   padding: 10px 0px;
+  border-radius: 4px;
 `;
-
 const FilterContainer = styled.div`
-  float:left;
-  width: 180px;
+  flex-direction: column;
+  width: 300px;
   text-align: left;
   padding: 0px 10px;
+`;
+
+const MatchContainer = styled.div`
+  margin: 20px auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 `;
 
 const SmallButton = styled.button`
@@ -44,35 +57,34 @@ const BigButton = styled.button`
   }
 `;
 
-const MatchContainer = styled.div`
-  float: left;
-  margin: 20px 0px;
-`;
-
 const BorderContainer = styled.div`
-  display: block;
+  display: flex;
   border-radius: 15px;
   border: 6px solid #d54e54;
   padding: 20px;
-  width: 600px;
-  height: 400px;
+  width: 720px;
+  height: 480px;
 `;
 
 const PhotoContainer = styled.div`
-  float: left;
+  flex: 1;
+  flex-direction: column;
+  margin-right: 20px;
 `;
 
 const InfoContainer = styled.div`
-  float: left;
+  flex: 1;
+  flex-direction: column;
+  float: right;
   padding: 0px 15px;
-  position:relative;
-  height: 330px;
-  width: 335px;
+  position: relative;
+  height: 420px;
+  width: 350px;
 `;
 
 const picStyle = {
-  float: "left",
-  width: "200px",
+  height: "320px",
+  margin: "10px",
 };
 
 const info = {
@@ -86,27 +98,28 @@ const label = {
   display: "block",
   fontSize: "20px",
   background: "#F5F5F5",
-}
+};
 
 const profileButton = {
   position: "absolute",
   right: "0px",
   bottom: "0px",
-}
+};
 
 const buttons = {
-  display: "block",
-  margin: "10px 0px"
-}
+  position: "relative",
+  margin: "10px",
+  right: "180px",
+};
 
 const alignedButton = {
   display: "inline-block",
   margin: "0px 20px",
-}
+};
 
 const filterTitle = {
   fontSize: "30px",
-}
+};
 
 const Matches = () => {
   const { user, setUser } = useContext(UserContext);
@@ -156,20 +169,20 @@ const Matches = () => {
   ]);
 
   const handleViewProfile = () => {
-    history.push("/profile/" + user.user_id)
-  }
+    history.push("/profile/" + user.user_id);
+  };
 
   const handleGotoPrevious = () => {
-    history.push("/profile/" + user.user_id)
-  }
+    history.push("/profile/" + user.user_id);
+  };
 
   const handleGotoNext = () => {
-    history.push("/profile/" + user.user_id)
-  }
+    history.push("/profile/" + user.user_id);
+  };
 
   const handleSendRequest = () => {
-    history.push("/profile/" + user.user_id)
-  }
+    history.push("/profile/" + user.user_id);
+  };
 
   return user ? (
     <MatchesPageContainer>
@@ -188,13 +201,22 @@ const Matches = () => {
             <span style={info}>Gender: {user.gender}</span>
             <span style={info}>Cancer Type(s): {user.cancer}</span>
             <span style={info}>{user.short_intro}</span>
-            <SmallButton style={profileButton} onClick={handleViewProfile}>full profile</SmallButton>
+            <SmallButton style={profileButton} onClick={handleViewProfile}>
+              full profile
+            </SmallButton>
           </InfoContainer>
         </BorderContainer>
         <div style={buttons}>
-          <SmallButton style={alignedButton} onClick={handleViewProfile}>previous</SmallButton>
-          <BigButton style={alignedButton} onClick={handleViewProfile}>request to chat</BigButton>
-          <SmallButton style={alignedButton} onClick={handleViewProfile}>next</SmallButton></div>
+          <SmallButton style={alignedButton} onClick={handleViewProfile}>
+            previous
+          </SmallButton>
+          <BigButton style={alignedButton} onClick={handleViewProfile}>
+            request to chat
+          </BigButton>
+          <SmallButton style={alignedButton} onClick={handleViewProfile}>
+            next
+          </SmallButton>
+        </div>
       </MatchContainer>
     </MatchesPageContainer>
   ) : null;
