@@ -73,7 +73,7 @@ Administrators can handle reports for users, and make decisions. [TODO]
  * Briefly describe instructions for setting up and running the application (think a true README).
  
  Technical requirements:
-    astroid           2.4.2
+    astroid           2.4.2\n
     atomicwrites      1.4.0
     attrs             20.2.0
     bcrypt            3.2.0
