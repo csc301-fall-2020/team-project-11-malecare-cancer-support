@@ -72,10 +72,10 @@ Administrators can handle reports for users, and make decisions. [TODO]
  * If a developer were to set this up on their machine or a remote server, what are the technical requirements (e.g. OS, libraries, etc.)?
  * Briefly describe instructions for setting up and running the application (think a true README).
  
- -Technical requirements has shown in requirements.txt.
- -Instructions for setting up and running the application:
- -Open the deliverable-2 folder
-     -Open one terminal for backend:
+ -Technical requirements has shown in requirements.txt.\n
+ -Instructions for setting up and running the application:\n
+ -Open the deliverable-2 folder\n
+     -Open one terminal for backend:\n
      -Step 1:
         if your system is Mac/Linux, please<br/> 
         export FLASK_APP=backend/app/cancer_chat.py<br/>
