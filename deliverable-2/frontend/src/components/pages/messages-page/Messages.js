@@ -1,9 +1,12 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import styled from "styled-components";
 import io from "socket.io-client";
 import axios from "axios";
 import face from "../../../assets/face.png";
 import image from "../../../assets/image.png";
+import { useHistory } from "react-router-dom";
+import { getCurrentUser } from "../../utils/helpers";
+import { UserContext } from "../../../contexts/UserContext";
 
 // import { get } from "../../utils/request";
 
@@ -179,6 +182,27 @@ const Messages = () => {
       chatRef.current.scrollTop = 100000;
     }, 0);
   };
+
+  const { user, setUser } = useContext(UserContext);
+  const history = useHistory();
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const fetchedUser = await getCurrentUser();
+      if (!fetchedUser) {
+        // User not logged in
+        history.push("/");
+      } else if (fetchedUser.is_admin) {
+        // User is admin
+        history.push("/adminSendMessages");
+      } else {
+        // User fetched and updated
+        setUser(fetchedUser);
+      }
+    };
+    fetchUser();
+  }, [user, history]);
+
   useEffect(() => {
     let socket = io.connect("http://localhost:5000", { reconnection: true });
 
