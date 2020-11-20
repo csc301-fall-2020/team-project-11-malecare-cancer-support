@@ -53,7 +53,9 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [dateOfBirth, setDateOfBirth] = useState(new moment());
+  const [dateOfBirth, setDateOfBirth] = useState(
+    new moment("2000-01-01", dateFormat)
+  );
   const [gender, setGender] = useState("");
   const [purposes, setPurposes] = useState([]);
   const [cancerTypes, setCancerTypes] = useState([]);
@@ -103,6 +105,10 @@ const SignUp = () => {
       return setErrorMessage(
         "Please agree with our terms and policy in order to register."
       );
+    }
+
+    if (moment().diff(dateOfBirth.format(dateFormat), "years") < 18) {
+      return setErrorMessage("You must be at least 18 years of old to join.");
     }
 
     // Initiate Signup Request
@@ -189,10 +195,6 @@ const SignUp = () => {
           onChange={setDateOfBirth}
           date={dateOfBirth}
         />
-        {/* <DatePickerInput
-          date={dateOfBirth}
-          setDate={setDateOfBirth}
-        ></DatePickerInput> */}
         <Space height="12px" />
         <SingleCardSelection
           label="Gender:"
