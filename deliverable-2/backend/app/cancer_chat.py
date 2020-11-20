@@ -5,7 +5,7 @@ from flask import Flask, jsonify, request
 from flask_login import LoginManager, current_user, login_required, login_user, \
     logout_user
 from flask_socketio import SocketIO, disconnect
-
+from ..util.helpers import age_list_parser
 from ..usecases import administrator_filter_helpers, \
     customize_user_profile_helpers, friend_handler_helpers, \
     handle_report_helpers, handle_session_info_helpers, login_register_helpers, \
@@ -269,21 +269,8 @@ def save_session():
 @admin_only
 @authenticated_only
 def admin_send_msg(input_json):
-    # msg = input_json["msg"]
-    # treatments = input_json["treatments"]
-    # cancer_types = input_json["cancer_types"]
-    # medications = input_json["medications"]
-    # sex = input_json["sex"]
-    # age_min = input_json["age_min"]
-    # age_max = input_json["age_max"]
-    # session_info = administrator_filter_helpers.filter_users(treatments,
-    #                                                          cancer_types,
-    #                                                          medications,
-    #                                                          sex, age_min,
-    #                                                          age_max)
     gender = input_json['includeGender']
-    age_range = input_json['includeAges']
-    age_min, age_max = age_range.split('-')
+    age_range = age_list_parser(input_json['includeAges'])
     include_cancer = input_json['includeCancerTypes']
     exclude_cancer = input_json['excludeCancerTypes']
     include_medication = input_json['includeMedications']
@@ -291,23 +278,24 @@ def admin_send_msg(input_json):
     include_treatment = input_json['includeTreatments']
     exclude_treatment = input_json['excludeTreatments']
     message = input_json["message"]
-    uid_dict = administrator_filter_helpers.get_user_id_from_admin_filter(
-        include_cancer=include_cancer,
-        include_medication=include_medication,
-        include_treatment=include_treatment,
-        exclude_cancer=exclude_cancer,
-        exclude_medication=exclude_medication,
-        exclude_treatment=exclude_treatment,
-        age_min=age_min,
-        age_max=age_max,
-        gender=gender
-    )
-    print(uid_dict)
-    session_info = handle_session_info_helpers.get_lst_session_id_by_user_ids(uid_dict)
-    for uid in session_info:
-        message_handle_helper.create_new_text_msg(current_user.get_id(), uid, message)
-        socketio.emit('admin_send_msg', "send to all filter users",
-                      room=session_info[uid])
+    for age_min, age_max in age_range:
+        uid_dict = administrator_filter_helpers.get_user_id_from_admin_filter(
+            include_cancer=include_cancer,
+            include_medication=include_medication,
+            include_treatment=include_treatment,
+            exclude_cancer=exclude_cancer,
+            exclude_medication=exclude_medication,
+            exclude_treatment=exclude_treatment,
+            age_min=age_min,
+            age_max=age_max,
+            gender=gender
+        )
+        print(uid_dict)
+        session_info = handle_session_info_helpers.get_lst_session_id_by_user_ids(uid_dict)
+        for uid in session_info:
+            message_handle_helper.create_new_text_msg(current_user.get_id(), uid, message)
+            socketio.emit('admin_send_msg', "send to all filter users",
+                          room=session_info[uid])
 
 
 @socketio.on('new_friend_request')
