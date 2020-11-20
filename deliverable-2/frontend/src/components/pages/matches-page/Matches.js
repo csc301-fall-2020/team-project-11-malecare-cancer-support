@@ -6,26 +6,40 @@ import { getAge, getCurrentUser } from "../../utils/helpers";
 import { filterMatches } from "./helper";
 import styled from "styled-components";
 import img from "../../../assets/UserPhoto.png";
-import { FaFileExcel } from "react-icons/fa";
+import MultiCardSelection from "../../component-library/MultiCardSelection";
+import { Space, PrimaryButton } from "../../share-styled-component";
+import { getUserDetailOptions } from "../signup-page/helper";
+import _ from "lodash";
+import { message } from "antd";
+
+import { PulseLoader } from "react-spinners";
+import { css } from "@emotion/react";
+
+const loaderCSS = css`
+  margin-top: 300px;
+  margin-bottom: 50px;
+  flex: 1;
+`;
 
 const MatchesPageContainer = styled.div`
   width: 80%;
   height: 100%;
   display: flex;
-  margin: 24px auto;
+  margin: 0px auto;
   flex-direction: row;
   padding: 10px 0px;
   border-radius: 4px;
 `;
 const FilterContainer = styled.div`
   flex-direction: column;
-  width: 300px;
+  width: 600px;
+  height: 750px;
   text-align: left;
   padding: 0px 10px;
 `;
 
 const MatchContainer = styled.div`
-  margin: 20px auto;
+  margin: 50px 50px 50px;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -109,7 +123,7 @@ const profileButton = {
 const buttons = {
   position: "relative",
   margin: "10px",
-  right: "180px",
+  left: "15px",
 };
 
 const alignedButton = {
@@ -117,19 +131,60 @@ const alignedButton = {
   margin: "0px 20px",
 };
 
-const filterTitle = {
-  fontSize: "30px",
-};
+// const filterTitle = {
+//   fontSize: "30px",
+// };
+
+const Title = styled.div`
+  font-size: 38px;
+  font-weight: bold;
+  color: #4d222a;
+`;
 
 const Matches = () => {
   const { user, setUser } = useContext(UserContext);
   const history = useHistory();
-  const [filteredSexOrientation, setFilteredSexOrientation] = useState([
-    "homosexual",
+  const [filterSexOrientation, setFilteredSexOrientation] = useState([
+    "bisexual",
   ]);
-  const [filteredGender, setFilteredGender] = useState(["male"]);
-  const [filteredPurpose, setFilteredPurpose] = useState(["looking for love"]);
+  const [filterGender, setFilterGender] = useState(["male"]);
+  const [filterPurpose, setFilterPurpose] = useState(["looking for love"]);
+  // const [filterCanerType, setFilterCanerType] = useState([]);
+  // const [filterDistance, setFilteredDistance] = useState([]);
   const [matches, setMatches] = useState([]);
+  const [userDetailSelections, setUserDetailSelections] = useState({});
+  const [loading, setLoading] = useState(true);
+
+  const handleApply = () => {
+    if (
+      _.isEmpty(filterGender) ||
+      _.isEmpty(filterPurpose) ||
+      _.isEmpty(filterSexOrientation)
+    ) {
+      message.warning("Empty filter");
+      // TODO: Maybe fill the filter item? Make it filter nothing?
+    } else {
+      //   TODO
+      const requestBody = {
+        gender: filterGender,
+        purpose: filterPurpose,
+        sex_orientation: filterSexOrientation,
+      };
+      axios
+        .post("", requestBody) //TODO missing url here.
+        .then((response) => {
+          if (response.status === 200) {
+            message.success("success apply");
+            // TODO;
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          message.error("Error occurs");
+        });
+    }
+    console.log("update");
+  };
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -146,11 +201,16 @@ const Matches = () => {
       }
     };
 
+    const fetchUserDetailSelections = async () => {
+      setUserDetailSelections(await getUserDetailOptions());
+      setLoading(false);
+    };
+
     const findMatches = async () => {
       const myMatches = await filterMatches(
-        filteredSexOrientation,
-        filteredGender,
-        filteredPurpose
+        filterSexOrientation,
+        filterGender,
+        filterPurpose
       );
       console.log(myMatches);
       if (myMatches) {
@@ -160,13 +220,8 @@ const Matches = () => {
 
     fetchUser();
     findMatches();
-  }, [
-    filteredGender,
-    filteredPurpose,
-    filteredSexOrientation,
-    history,
-    setUser,
-  ]);
+    fetchUserDetailSelections();
+  }, [filterGender, filterPurpose, filterSexOrientation, history, setUser]);
 
   const handleViewProfile = () => {
     history.push("/profile/" + user.user_id);
@@ -184,10 +239,43 @@ const Matches = () => {
     history.push("/profile/" + user.user_id);
   };
 
-  return user ? (
+  return loading ? (
+    <PulseLoader
+      css={loaderCSS}
+      size={40}
+      loading={loading}
+      color="rgb(172, 102, 104)"
+    ></PulseLoader>
+  ) : (
     <MatchesPageContainer>
       <FilterContainer>
-        <span style={filterTitle}>Filter</span>
+        <Title>Filter</Title>
+        <MultiCardSelection
+          label="Gender:"
+          selections={filterGender}
+          updateSelections={setFilterGender}
+          roundedCard
+          options={userDetailSelections.genderOptions || []}
+        />
+        <Space height="12px" />
+        <MultiCardSelection
+          label="Target:"
+          selections={filterPurpose}
+          updateSelections={setFilterPurpose}
+          roundedCard
+          options={userDetailSelections.purposeOptions || []}
+        />
+        <Space height="12px" />
+        <MultiCardSelection
+          label="Sex orientation:"
+          selections={filterSexOrientation}
+          updateSelections={setFilteredSexOrientation}
+          roundedCard
+          options={userDetailSelections.sexualOrientationOptions || []}
+        />
+        <Space height="24px" />
+        <PrimaryButton onClick={handleApply}>Apply</PrimaryButton>
+        <Space height="24px" />
       </FilterContainer>
       <MatchContainer>
         <BorderContainer>
@@ -219,7 +307,7 @@ const Matches = () => {
         </div>
       </MatchContainer>
     </MatchesPageContainer>
-  ) : null;
+  );
 };
 
 export default Matches;
