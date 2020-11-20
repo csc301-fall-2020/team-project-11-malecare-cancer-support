@@ -154,6 +154,7 @@ const Matches = () => {
   const [matches, setMatches] = useState([]);
   const [userDetailSelections, setUserDetailSelections] = useState({});
   const [loading, setLoading] = useState(true);
+  const [matchesIndex, setMatchesIndex] = useState(0)
 
   const handleApply = async () => {
     if (
@@ -220,11 +221,17 @@ const Matches = () => {
   };
 
   const handleGotoPrevious = () => {
-    history.push("/profile/" + user.user_id);
+    if (matches.length !==0 && matchesIndex !== 0){
+      console.log("match index: ", matchesIndex)
+      setMatchesIndex(matchesIndex-1)
+    }
   };
 
   const handleGotoNext = () => {
-    history.push("/profile/" + user.user_id);
+    if (matches.length !==0 && matchesIndex !== (matches.length-1)){
+      console.log("match index: ", matchesIndex)
+      setMatchesIndex(matchesIndex+1)
+    }
   };
 
   const handleSendRequest = () => {
@@ -271,29 +278,29 @@ const Matches = () => {
       </FilterContainer>
       <MatchContainer>
         <BorderContainer>
-          <PhotoContainer>
+          {(matches.length!==0)&&(<PhotoContainer>
             <img style={picStyle} src={img} alt="user picture" />
-            <span style={label}>{user.purpose} </span>
-          </PhotoContainer>
-          <InfoContainer>
-            <span style={info}>Name: {user.username} </span>
-            <span style={info}>Age: {getAge(user.date_of_birth)}</span>
-            <span style={info}>Gender: {user.gender}</span>
-            <span style={info}>Cancer Type(s): {user.cancer}</span>
-            <span style={info}>{user.short_intro}</span>
+            <span style={label}>{matches[matchesIndex].purpose} </span>
+          </PhotoContainer>)}
+          {(matches.length!==0)?(<InfoContainer>
+            <span style={info}>Name: {matches[matchesIndex].username} </span>
+            <span style={info}>Age: {getAge(matches[matchesIndex].date_of_birth)}</span>
+            <span style={info}>Gender: {matches[matchesIndex].gender}</span>
+            <span style={info}>Cancer Type(s): {matches[matchesIndex].cancer}</span>
+            <span style={info}>{matches[matchesIndex].short_intro}</span>
             <SmallButton style={profileButton} onClick={handleViewProfile}>
               full profile
             </SmallButton>
-          </InfoContainer>
+          </InfoContainer>):<div>It is sad but no one is here. Maybe try another filter?</div>}
         </BorderContainer>
         <div style={buttons}>
-          <SmallButton style={alignedButton} onClick={handleViewProfile}>
+          <SmallButton style={alignedButton} onClick={handleGotoPrevious}>
             previous
           </SmallButton>
           <BigButton style={alignedButton} onClick={handleViewProfile}>
             request to chat
           </BigButton>
-          <SmallButton style={alignedButton} onClick={handleViewProfile}>
+          <SmallButton style={alignedButton} onClick={handleGotoNext}>
             next
           </SmallButton>
         </div>
