@@ -74,8 +74,8 @@ Administrators can handle reports for users, and make decisions. [TODO]
  
  * Technical requirements has shown in requirements.txt.
  * Instructions for setting up and running the application:
- -Open the deliverable-2 folder\n
-     -Open one terminal for backend:\n
+   * Open the deliverable-2 folder:
+ *     Open one terminal for backend:
      -Step 1:
         if your system is Mac/Linux, please<br/> 
         export FLASK_APP=backend/app/cancer_chat.py<br/>
