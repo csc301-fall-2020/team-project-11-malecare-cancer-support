@@ -74,7 +74,6 @@ const AdminSendMessages = () => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      console.log("from adminMsg");
       const fetchedUser = await getCurrentUser();
       if (!fetchedUser) {
         // User not logged in
