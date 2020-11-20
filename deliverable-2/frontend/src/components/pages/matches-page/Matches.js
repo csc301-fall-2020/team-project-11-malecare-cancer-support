@@ -225,7 +225,9 @@ const Matches = () => {
   }, [history, setUser]);
 
   const handleViewProfile = () => {
-    history.push("/profile/" + user.user_id);
+    if (matches.length !== 0) {
+      history.push("/profile/" + matches[matchesIndex].user_id);
+    }
   };
 
   const handleGotoPrevious = () => {
