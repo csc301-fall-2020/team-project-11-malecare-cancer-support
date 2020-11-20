@@ -72,6 +72,87 @@ Administrators can handle reports for users, and make decisions. [TODO]
  * If a developer were to set this up on their machine or a remote server, what are the technical requirements (e.g. OS, libraries, etc.)?
  * Briefly describe instructions for setting up and running the application (think a true README).
  
+ Technical requirements:
+    astroid           2.4.2
+    atomicwrites      1.4.0
+    attrs             20.2.0
+    bcrypt            3.2.0
+    certifi           2020.6.20
+    cffi              1.14.3
+    chardet           3.0.4
+    click             7.1.2
+    colorama          0.4.3
+    coverage          5.3
+    dnspython         2.0.0
+    Flask             1.1.2
+    Flask-Cors        3.0.9
+    Flask-Excel       0.0.7
+    Flask-Ext         0.1
+    Flask-Login       0.5.0
+    flask-mongoengine 0.9.5
+    Flask-SocketIO    4.3.1
+    Flask-WTF         0.14.3
+    gevent            20.9.0
+    gevent-websocket  0.10.1
+    greenlet          0.4.17
+    idna              2.10
+    iniconfig         1.1.1
+    isort             5.5.3
+    itsdangerous      1.1.0
+    Jinja2            2.11.2
+    lazy-object-proxy 1.4.3
+    lml               0.1.0
+    MarkupSafe        1.1.1
+    mccabe            0.6.1
+    mongoengine       0.20.0
+    packaging         20.4
+    passlib           1.7.4
+    Pillow            8.0.1
+    pip               20.2.4
+    pluggy            0.13.1
+    py                1.9.0
+    pycparser         2.20
+    pyexcel           0.6.5
+    pyexcel-io        0.6.4
+    pyexcel-webio     0.1.4
+    pylint            2.6.0
+    pymongo           3.11.0
+    pyparsing         2.4.7
+    pytest            6.1.1
+    pytest-cov        2.10.1
+    python-engineio   3.13.2
+    python-socketio   4.6.0
+    requests          2.24.0
+    setuptools        47.1.0
+    six               1.15.0
+    texttable         1.6.3
+    toml              0.10.1
+    urllib3           1.25.11
+    Werkzeug          1.0.1
+    wheel             0.35.1
+    wrapt             1.12.1
+    WTForms           2.3.3
+    zope.event        4.5.0
+    zope.interface    5.2.0
+ 
+ Instructions for setting up and running the application:
+ Open the deliverable-2 folder
+     Open one terminal for backend:
+     Step 1:
+        if your system is Mac/Linux, please 
+        export FLASK_APP=backend/app/cancer_chat.py
+        if your system is Windows, please
+        set FLASK_APP=backend/app/cancer_chat.py
+     Step 2:
+        flask run
+     Open another terminal for frontend:
+     Step 1:
+        cd frontend
+     Step 2:
+        npm i
+     Step 3:
+        npm start
+ 
  ## Deployment and Github Workflow
 
 Describe your Git / GitHub workflow. Essentially, we want to understand how your team members shares a codebase, avoid conflicts and deploys the application.
