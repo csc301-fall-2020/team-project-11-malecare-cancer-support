@@ -11,7 +11,7 @@ const DropDownSelect = ({ select, setSelect, lintTitle, data }) => {
         <Col span={8}>
           <Selector
             setSelect={setSelect}
-            placeholder={select}
+            defaultValue={select}
             selectList={data}
           ></Selector>
         </Col>

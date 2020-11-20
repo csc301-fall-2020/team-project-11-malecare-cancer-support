@@ -20,7 +20,7 @@ const App = () => {
   const [user, setUser] = useState(null);
 
   const providerValue = useMemo(() => ({ user, setUser }), [user, setUser]);
-  console.log(user);
+  // console.log(user);
 
   return (
     <Router>

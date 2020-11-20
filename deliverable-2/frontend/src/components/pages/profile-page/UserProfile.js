@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Row, Col, Typography, Image } from "antd";
 import styles from "./MyProfile.module.css";
 import "antd/dist/antd.css";
@@ -6,6 +6,9 @@ import _ from "lodash";
 import axios from "axios";
 import styled from "styled-components";
 import UserPhoto from "../../../assets/UserPhoto.png";
+import { useHistory } from "react-router-dom";
+import { getCurrentUser } from "../../utils/helpers";
+import { UserContext } from "../../../contexts/UserContext";
 
 // const dateFormat = "YYYY-MM-DD";
 
@@ -24,16 +27,35 @@ const timeFormat = (inputString) => {
 };
 
 const UserProfile = ({ match }) => {
-  const requestBody = { user_id: match.params.id };
+  const { user, setUser } = useContext(UserContext);
+  const history = useHistory();
 
-  const [user, setUser] = useState({});
+  useEffect(() => {
+    const fetchUser = async () => {
+      const fetchedUser = await getCurrentUser();
+      if (!fetchedUser) {
+        // User not logged in
+        history.push("/");
+      } else if (fetchedUser.is_admin) {
+        // User is admin
+        history.push("/adminSendMessages");
+      } else {
+        // User fetched and updated
+        setUser(fetchedUser);
+      }
+    };
+    fetchUser();
+  }, [user, history]);
+
+  const requestBody = { user_id: match.params.id };
+  const [profileUser, setProfileUser] = useState({});
   const getProfileInfo = async () => {
     const response = await axios.post("/get_user", requestBody);
     return response.data;
   };
   useEffect(() => {
     const fetchUser = async () => {
-      setUser(await getProfileInfo());
+      setProfileUser(await getProfileInfo());
     };
 
     fetchUser();
@@ -56,39 +78,51 @@ const UserProfile = ({ match }) => {
         <Col span={14}>
           <Row>
             <Col span={4}>Names:</Col>
-            <Col span={8}>{user && user.username ? user.username : null}</Col>
+            <Col span={8}>
+              {profileUser && profileUser.username
+                ? profileUser.username
+                : null}
+            </Col>
           </Row>
           <p></p>
           <Row>
             <Col span={4}>Day of birth:</Col>
             <Col span={8}>
-              {user && user.date_of_birth
-                ? timeFormat(user.date_of_birth)
+              {profileUser && profileUser.date_of_birth
+                ? timeFormat(profileUser.date_of_birth)
                 : null}
             </Col>
           </Row>
           <p></p>
           <Row>
             <Col span={4}>Gender:</Col>
-            <Col span={8}>{user && user.gender ? user.gender : null}</Col>
+            <Col span={8}>
+              {profileUser && profileUser.gender ? profileUser.gender : null}
+            </Col>
           </Row>
           <p></p>
           <Row>
             <Col span={4}>Sex-Orientation:</Col>
             <Col span={8}>
-              {user && user.sex_orientation ? user.sex_orientation : null}
+              {profileUser && profileUser.sex_orientation
+                ? profileUser.sex_orientation
+                : null}
             </Col>
           </Row>
           <p></p>
           <Row>
             <Col span={4}>Type(s) of cancer:</Col>
-            <Col span={8}>{user && user.cancer ? user.cancer : null}</Col>
+            <Col span={8}>
+              {profileUser && profileUser.cancer ? profileUser.cancer : null}
+            </Col>
           </Row>
           <p></p>
           <Row>
             <Col span={4}>Greeting message:</Col>
             <Col span={8}>
-              {user && user.short_intro ? user.short_intro : null}
+              {profileUser && profileUser.short_intro
+                ? profileUser.short_intro
+                : null}
             </Col>
           </Row>
           <p></p>
