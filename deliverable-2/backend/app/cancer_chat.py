@@ -280,6 +280,7 @@ def admin_send_msg(input_json):
         include_treatment = input_json['includeTreatments']
         exclude_treatment = input_json['excludeTreatments']
         message = input_json["message"]
+        print("got socket")
         for age_min, age_max in age_range:
             uid_lst = administrator_filter_helpers.get_user_id_from_admin_filter(
                 include_cancer=include_cancer,
@@ -292,8 +293,6 @@ def admin_send_msg(input_json):
                 age_max=age_max,
                 gender=gender
             )
-            print(uid_lst)
-
             for uid in uid_lst:
                 sid = handle_session_info_helpers.get_session_id_by_user_id(uid)
                 print(sid)

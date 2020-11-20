@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 import _ from "lodash";
-import { message } from "antd";
-import axios from "axios";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { UserContext } from "../../../contexts/UserContext";
@@ -93,7 +91,6 @@ const AdminSendMessages = () => {
 
   useEffect(() => {
     let socket = io.connect("http://localhost:5000", { reconnection: true });
-
     socket.emit("index");
     socket.emit("save_session");
     setSocket(socket);
