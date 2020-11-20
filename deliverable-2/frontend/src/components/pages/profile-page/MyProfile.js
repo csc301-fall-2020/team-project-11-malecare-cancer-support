@@ -50,6 +50,7 @@ const MyProfile = ({ user, setUser }) => {
   const [greetMsg, setGreetMsg] = useState(user.short_intro);
   const [medication, setMed] = useState(user.medications);
   const [treatment, setTreat] = useState(user.treatments);
+  const [loaded, setLoaded] = useState(false)
 
   const handleUpdate = () => {
     if (
@@ -94,12 +95,13 @@ const MyProfile = ({ user, setUser }) => {
   useEffect(() => {
     const fetchUserDetailSelections = async () => {
       setUserDetailSelections(await getUserDetailOptions());
+      setLoaded(true)
       console.log("called");
     };
     fetchUserDetailSelections();
   }, []);
 
-  return (
+  return (loaded?
     // <Layout>
     //   <Content className={styles.ProfileContainer}>
     <div className={styles.ProfileContainer}>
@@ -184,7 +186,7 @@ const MyProfile = ({ user, setUser }) => {
         <UpdateButton onClick={handleUpdate}>update profile</UpdateButton>
         <p></p>
       </Row>
-    </div>
+    </div>:<div>loading...</div>
     //   </Content>
     // </Layout>
   );
