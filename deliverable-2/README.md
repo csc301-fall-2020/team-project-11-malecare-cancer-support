@@ -74,25 +74,23 @@ Administrators can handle reports for users, and make decisions. [TODO]
  * If a developer were to set this up on their machine or a remote server, what are the technical requirements (e.g. OS, libraries, etc.)?
  * Briefly describe instructions for setting up and running the application (think a true README).
  
- * Technical requirements has shown in requirements.txt.
- * Instructions for setting up and running the application:
-   * Open the deliverable-2 folder:
- *     Open one terminal for backend:
-     -Step 1:
-        if your system is Mac/Linux, please<br/> 
-        export FLASK_APP=backend/app/cancer_chat.py<br/>
-        if your system is Windows, please<br/>
-        set FLASK_APP=backend/app/cancer_chat.py<br/>
-     Step 2:<br/>
-        flask run<br/>
-     Open another terminal for frontend:<br/>
-     Step 1:<br/>
-        cd frontend<br/>
-     Step 2:<br/>
-        npm i<br/>
-     Step 3:<br/>
-        npm start<br/>
- 
+ - Technical requirements has shown in requirements.txt.
+ - Instructions for setting up and running the application:
+   - Open the deliverable-2 folder:
+     - Open one terminal for backend:
+     - Step 1:
+        - if your system is Mac/Linux, please export FLASK_APP=backend/app/cancer_chat.py
+        - if your system is Windows, please set FLASK_APP=backend/app/cancer_chat.py
+     - Step 2:
+        - flask run
+     - Open another terminal for frontend:
+     - Step 1:
+        - cd frontend
+     - Step 2:
+        - npm i
+     - Step 3:
+        - npm start
+        
  ## Deployment and Github Workflow
 
 Describe your Git / GitHub workflow. Essentially, we want to understand how your team members shares a codebase, avoid conflicts and deploys the application.
