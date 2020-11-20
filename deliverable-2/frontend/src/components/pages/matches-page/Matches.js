@@ -155,7 +155,7 @@ const Matches = () => {
   const [userDetailSelections, setUserDetailSelections] = useState({});
   const [loading, setLoading] = useState(true);
 
-  const handleApply = () => {
+  const handleApply = async () => {
     if (
       _.isEmpty(filterGender) ||
       _.isEmpty(filterPurpose) ||
@@ -164,24 +164,16 @@ const Matches = () => {
       message.warning("Empty filter");
       // TODO: Maybe fill the filter item? Make it filter nothing?
     } else {
-      //   TODO
-      const requestBody = {
-        gender: filterGender,
-        purpose: filterPurpose,
-        sex_orientation: filterSexOrientation,
-      };
-      axios
-        .post("", requestBody) //TODO missing url here.
-        .then((response) => {
-          if (response.status === 200) {
-            message.success("success apply");
-            // TODO;
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-          message.error("Error occurs");
-        });
+      const myMatches = await filterMatches(
+        filterSexOrientation,
+        filterGender,
+        filterPurpose
+      );
+      console.log(myMatches);
+      if (myMatches) {
+        setMatches(myMatches);
+      }
+
     }
     console.log("update");
   };
@@ -221,7 +213,7 @@ const Matches = () => {
     fetchUser();
     findMatches();
     fetchUserDetailSelections();
-  }, [filterGender, filterPurpose, filterSexOrientation, history, setUser]);
+  }, [history, setUser]);
 
   const handleViewProfile = () => {
     history.push("/profile/" + user.user_id);
