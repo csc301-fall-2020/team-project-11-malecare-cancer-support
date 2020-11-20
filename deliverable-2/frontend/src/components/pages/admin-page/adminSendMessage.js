@@ -75,7 +75,7 @@ const AdminSendMessages = () => {
   useEffect(() => {
     const fetchUser = async () => {
       const fetchedUser = await getCurrentUser();
-      if (!fetchUser) {
+      if (!fetchedUser) {
         // User not logged in
         history.push("/");
       } else if (!fetchedUser.is_admin) {

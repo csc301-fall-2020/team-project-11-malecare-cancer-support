@@ -16,7 +16,8 @@ const Greeting = ({ greetMsg, setGreetMsg }) => {
             style={{ width: 250, height: 100 }}
             allowClear
             size={"middle"}
-            placeholder={greetMsg}
+            placeholder="Enter your message..."
+            defaultValue={greetMsg}
             value={greetMsg}
             onChange={(event) => {
               setGreetMsg(event.target.value);

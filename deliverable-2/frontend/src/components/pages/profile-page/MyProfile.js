@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Row, Col, Typography, Layout, message } from "antd";
+import React, { useState, useEffect } from "react";
+import { Row, Col, Layout, message } from "antd";
 import styles from "./MyProfile.module.css";
 import styled from "styled-components";
-
 import "antd/dist/antd.css";
 import moment from "moment";
 import _ from "lodash";
@@ -16,7 +15,6 @@ import Greeting from "../../component-library/Profile/Greeting";
 import PhotoWall from "../../component-library/Profile/PhotoWall";
 import { getUserDetailOptions } from "../../pages/signup-page/helper";
 import { UpdateButton } from "../../share-styled-component";
-import { UserContext } from "../../../contexts/UserContext";
 
 // const { Header, Content, Footer } = Layout;
 
@@ -41,7 +39,7 @@ const timeFormat = (inputString) => {
   return moment(result, dateFormat);
 };
 
-const MyProfile = ({ user }) => {
+const MyProfile = ({ user, setUser }) => {
   const [userDetailSelections, setUserDetailSelections] = useState({});
   const [name, setName] = useState(user.username);
   const [date, setDate] = useState(timeFormat(user.date_of_birth));
@@ -52,16 +50,17 @@ const MyProfile = ({ user }) => {
   const [greetMsg, setGreetMsg] = useState(user.short_intro);
   const [medication, setMed] = useState(user.medications);
   const [treatment, setTreat] = useState(user.treatments);
-  const { setUser } = useContext(UserContext);
 
   const handleUpdate = () => {
     if (
       _.isEmpty(name) ||
       _.isEmpty(date) ||
       _.isEmpty(gender) ||
-      _.isEmpty(sex)
+      _.isEmpty(sex) ||
+      _.isEmpty(purposeList) ||
+      _.isEmpty(cancerList)
     ) {
-      message.warning("You cannot set your profile to empty");
+      message.warning("You cannot submit unfinished form");
     } else {
       //   Initiate Login Request
       const requestBody = {
@@ -79,7 +78,7 @@ const MyProfile = ({ user }) => {
       axios
         .post("current_user/profile/text", requestBody)
         .then((response) => {
-          if (response.status == 200) {
+          if (response.status === 200) {
             message.success("success update");
             setUser(response.data);
           }

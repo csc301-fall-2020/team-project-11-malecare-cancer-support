@@ -12,7 +12,7 @@ const SexSelect = ({ sex, setSex }) => {
         <Col span={8}>
           <Selector
             setSelect={setSex}
-            placeholder={sex}
+            defaultValue={sex}
             selectList={sexualOrientationOptions}
           ></Selector>
         </Col>

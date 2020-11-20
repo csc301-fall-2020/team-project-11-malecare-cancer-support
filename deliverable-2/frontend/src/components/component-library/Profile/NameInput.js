@@ -13,7 +13,8 @@ const NameInput = ({ name, setName }) => {
             style={{ width: 250 }}
             allowClear
             size={"middle"}
-            placeholder={name}
+            defaultValue={name}
+            placeholder="Enter your name"
             value={name}
             onChange={(event) => {
               setName(event.target.value);
