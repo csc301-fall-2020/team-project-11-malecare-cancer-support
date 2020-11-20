@@ -72,68 +72,7 @@ Administrators can handle reports for users, and make decisions. [TODO]
  * If a developer were to set this up on their machine or a remote server, what are the technical requirements (e.g. OS, libraries, etc.)?
  * Briefly describe instructions for setting up and running the application (think a true README).
  
- Technical requirements:
-    <br>astroid           2.4.2<br/>
-    <br>atomicwrites      1.4.0<br/>
-    <br>attrs             20.2.0<br/>
-    <br>bcrypt            3.2.0<br/>
-    <br>certifi           2020.6.20<br/>
-    <br>cffi              1.14.3<br/>
-    <br>chardet           3.0.4<br/>
-    <br>click             7.1.2<br/>
-    <br>colorama          0.4.3<br/>
-    <br>coverage          5.3<br/>
-    <br>dnspython         2.0.0<br/>
-    <br>Flask             1.1.2<br/>
-    <br>Flask-Cors        3.0.9<br/>
-    <br>Flask-Excel       0.0.7<br/>
-    <br>Flask-Ext         0.1<br/>
-    <br>Flask-Login       0.5.0<br/>
-    <br>flask-mongoengine 0.9.5<br/>
-    <br>Flask-SocketIO    4.3.1<br/>
-    <br>Flask-WTF         0.14.3<br/>
-    <br>gevent            20.9.0<br/>
-    <br>gevent-websocket  0.10.1<br/>
-    <br>greenlet          0.4.17<br/>
-    <br>idna              2.10<br/>
-    <br>iniconfig         1.1.1<br/>
-    <br>isort             5.5.3<br/>
-    <br>itsdangerous      1.1.0<br/>
-    <br>Jinja2            2.11.2<br/>
-    <br>lazy-object-proxy 1.4.3<br/>
-    <br>lml               0.1.0<br/>
-    <br>MarkupSafe        1.1.1<br/>
-    <br>mccabe            0.6.1<br/>
-    <br>mongoengine       0.20.0<br/>
-    <br>packaging         20.4<br/>
-    <br>passlib           1.7.4<br/>
-    <br>Pillow            8.0.1<br/>
-    <br>pip               20.2.4<br/>
-    <br>pluggy            0.13.1<br/>
-    <br>py                1.9.0<br/>
-    <br>pycparser         2.20<br/>
-    <br>pyexcel           0.6.5<br/>
-    <br>pyexcel-io        0.6.4<br/>
-    <br>pyexcel-webio     0.1.4<br/>
-    <br>pylint            2.6.0<br/>
-    <br>pymongo           3.11.0<br/>
-    <br>pyparsing         2.4.7<br/>
-    <br>pytest            6.1.1<br/>
-    <br>pytest-cov        2.10.1<br/>
-    <br>python-engineio   3.13.2<br/>
-    <br>python-socketio   4.6.0<br/>
-    <br>requests          2.24.0<br/>
-    <br>setuptools        47.1.0<br/>
-    <br>six               1.15.0<br/>
-    <br>texttable         1.6.3<br/>
-    <br>toml              0.10.1<br/>
-    <br>urllib3           1.25.11<br/>
-    <br>Werkzeug          1.0.1<br/>
-    <br>wheel             0.35.1<br/>
-    <br>wrapt             1.12.1<br/>
-    <br>WTForms           2.3.3<br/>
-    <br>zope.event        4.5.0<br/>
-    <br>zope.interface    5.2.0<br/>
+ Technical requirements has shown in requirements.txt.
  
  <br>Instructions for setting up and running the application:<br/>
  <br>Open the deliverable-2 folder<br/>
