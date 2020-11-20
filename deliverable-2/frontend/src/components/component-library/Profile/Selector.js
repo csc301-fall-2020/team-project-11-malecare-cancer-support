@@ -4,7 +4,7 @@ import "antd/dist/antd.css";
 
 const { Option } = Select;
 
-const Selector = ({ placeholder, setSelect, selectList }) => {
+const Selector = ({ defaultValue, setSelect, selectList }) => {
   function onChange(value) {
     console.log(`selected ${value}`);
     setSelect(value);
@@ -33,7 +33,7 @@ const Selector = ({ placeholder, setSelect, selectList }) => {
     <Select
       showSearch
       style={{ width: 250 }}
-      placeholder={placeholder}
+      defaultValue={defaultValue}
       optionFilterProp="children"
       onChange={onChange}
       onFocus={onFocus}
