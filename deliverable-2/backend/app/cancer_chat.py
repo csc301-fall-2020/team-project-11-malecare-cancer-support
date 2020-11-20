@@ -353,12 +353,12 @@ def _friend_request_helper(user_dict, func):
 def find_matches():
     my_json = request.get_json()
 
-    return match_helpers.find_match(
+    return jsonify(match_helpers.find_match(
         sex_orientation_lst=my_json["sex_orientation"],
         gender_lst=my_json["gender"],
         purpose_lst=my_json["purpose"],
         cancer_type_lst=current_user.get_json()['cancer'],
-        current_uid=current_user.get_id())
+        current_uid=current_user.get_id()))
 
 
 @app.route('/report/history')
