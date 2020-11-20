@@ -72,8 +72,8 @@ Administrators can handle reports for users, and make decisions. [TODO]
  * If a developer were to set this up on their machine or a remote server, what are the technical requirements (e.g. OS, libraries, etc.)?
  * Briefly describe instructions for setting up and running the application (think a true README).
  
- -Technical requirements has shown in requirements.txt.\n
- -Instructions for setting up and running the application:\n
+ * Technical requirements has shown in requirements.txt.
+ * Instructions for setting up and running the application:
  -Open the deliverable-2 folder\n
      -Open one terminal for backend:\n
      -Step 1:
