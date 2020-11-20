@@ -63,9 +63,9 @@ const BigButton = styled.button`
   background-color: #d54e54;
   color: #ffffff;
   border: 2px solid #d54e54;
-  font-size: 18px;
-  width: 180px;
-  height: 40px;
+  font-size: 20px;
+  width: 200px;
+  height: 50px;
   &:hover {
     cursor: pointer;
   }
@@ -122,13 +122,13 @@ const profileButton = {
 
 const buttons = {
   position: "relative",
-  margin: "10px",
+  margin: "20px",
   left: "15px",
 };
 
 const alignedButton = {
   display: "inline-block",
-  margin: "0px 20px",
+  margin: "0px 30px",
 };
 
 // const filterTitle = {
