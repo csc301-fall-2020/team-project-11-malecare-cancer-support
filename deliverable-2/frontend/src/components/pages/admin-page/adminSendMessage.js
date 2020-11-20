@@ -69,12 +69,12 @@ const AdminSendMessages = () => {
   const [userDetailSelections, setUserDetailSelections] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
-  const [socket, setSocket] = useState(null)
+  const [socket, setSocket] = useState(null);
 
   useEffect(() => {
     const fetchUser = async () => {
       const fetchedUser = await getCurrentUser();
-      if (!fetchUser) {
+      if (!fetchedUser) {
         // User not logged in
         history.push("/");
       } else if (!fetchedUser.is_admin) {
@@ -140,7 +140,7 @@ const AdminSendMessages = () => {
     //     }
     //   })
     //   .catch((err) => {});
-    socket.emit("admin_send_msg", requestBody)
+    socket.emit("admin_send_msg", requestBody);
   };
 
   return (
