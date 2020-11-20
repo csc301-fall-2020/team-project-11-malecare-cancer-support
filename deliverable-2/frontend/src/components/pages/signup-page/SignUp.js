@@ -24,6 +24,15 @@ import { getUserDetailOptions } from "./helper";
 
 import { UserContext } from "../../../contexts/UserContext";
 
+import { PulseLoader } from "react-spinners";
+import { css } from "@emotion/react";
+
+const loaderCSS = css`
+  margin-top: 300px;
+  margin-bottom: 50px;
+  flex: 1;
+`;
+
 const dateFormat = "YYYY-MM-DD";
 
 const SignUpPageContainer = styled.div`
@@ -52,6 +61,7 @@ const SignUp = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [agreeTerms, setAgreeTerms] = useState(false);
   const [userDetailSelections, setUserDetailSelections] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (user) {
@@ -59,6 +69,7 @@ const SignUp = () => {
     }
     const fetchUserDetailSelections = async () => {
       setUserDetailSelections(await getUserDetailOptions());
+      setLoading(false);
     };
 
     fetchUserDetailSelections();
@@ -118,7 +129,14 @@ const SignUp = () => {
       });
   };
 
-  return (
+  return loading ? (
+    <PulseLoader
+      css={loaderCSS}
+      size={40}
+      loading={loading}
+      color="rgb(172, 102, 104)"
+    ></PulseLoader>
+  ) : (
     <SignUpPageContainer>
       {/* Login Info */}
       <SectionContainer>

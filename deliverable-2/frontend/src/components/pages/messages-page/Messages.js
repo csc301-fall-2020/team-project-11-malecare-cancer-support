@@ -7,9 +7,15 @@ import image from "../../../assets/image.png";
 import { useHistory } from "react-router-dom";
 import { getCurrentUser } from "../../utils/helpers";
 import { UserContext } from "../../../contexts/UserContext";
-
+import { PulseLoader } from "react-spinners";
+import { css } from "@emotion/react";
 // import { get } from "../../utils/request";
 
+const loaderCSS = css`
+  margin-top: 300px;
+  margin-bottom: 50px;
+  flex: 1;
+`;
 const PageWrap = styled.div`
   background: rgb(237, 237, 237);
   height: calc(100vh - 60px);
@@ -157,13 +163,14 @@ function post(url, data = {}) {
 }
 
 const Messages = () => {
+  const [loading, setLoading] = useState(true);
   const [currentUser, setCurrentUser] = useState("");
   const [userId, setUserId] = useState("");
   const [userList, setUserList] = useState({});
   const [socket, setSocket] = useState();
   const [chatList, setChatList] = useState([]);
   const [inputText, setInputText] = useState();
-  const [loaded, setLoaded] = useState(false)
+  const [loaded, setLoaded] = useState(false);
   const chatRef = useRef();
   const inputRef = useRef();
   const send = () => {
@@ -223,13 +230,13 @@ const Messages = () => {
       setUserId(res.user_id);
       setUserList(res.friend_username);
       socket.emit("save_session");
-      setLoaded(true)
+      setLoading(false);
     });
 
     return () => {
       socket.close();
       setSocket(undefined);
-      setLoaded(false)
+      setLoading(false);
     };
   }, []);
 
@@ -243,7 +250,14 @@ const Messages = () => {
     });
   }, [currentUser]);
 
-  return (loaded?
+  return loading ? (
+    <PulseLoader
+      css={loaderCSS}
+      size={40}
+      loading={loading}
+      color="rgb(172, 102, 104)"
+    ></PulseLoader>
+  ) : (
     <PageWrap>
       <PageContainer>
         <PageContainerLeft>
@@ -301,7 +315,7 @@ const Messages = () => {
           </Btns>
         </PageContainerRight>
       </PageContainer>
-    </PageWrap>:<div>loading...</div>
+    </PageWrap>
   );
 };
 

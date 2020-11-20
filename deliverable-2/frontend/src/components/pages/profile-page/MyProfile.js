@@ -16,6 +16,15 @@ import PhotoWall from "../../component-library/Profile/PhotoWall";
 import { getUserDetailOptions } from "../../pages/signup-page/helper";
 import { UpdateButton } from "../../share-styled-component";
 
+import { PulseLoader } from "react-spinners";
+import { css } from "@emotion/react";
+
+const loaderCSS = css`
+  margin-top: 300px;
+  margin-bottom: 50px;
+  flex: 1;
+`;
+
 // const { Header, Content, Footer } = Layout;
 
 const ProfileTitle = styled.div`
@@ -50,7 +59,7 @@ const MyProfile = ({ user, setUser }) => {
   const [greetMsg, setGreetMsg] = useState(user.short_intro);
   const [medication, setMed] = useState(user.medications);
   const [treatment, setTreat] = useState(user.treatments);
-  const [loaded, setLoaded] = useState(false)
+  const [loading, setLoading] = useState(true);
 
   const handleUpdate = () => {
     if (
@@ -95,15 +104,23 @@ const MyProfile = ({ user, setUser }) => {
   useEffect(() => {
     const fetchUserDetailSelections = async () => {
       setUserDetailSelections(await getUserDetailOptions());
-      setLoaded(true)
+      setLoading(false);
       console.log("called");
     };
     fetchUserDetailSelections();
   }, []);
 
-  return (loaded?
-    // <Layout>
-    //   <Content className={styles.ProfileContainer}>
+  // <Layout>
+  //   <Content className={styles.ProfileContainer}>
+
+  return loading ? (
+    <PulseLoader
+      css={loaderCSS}
+      size={40}
+      loading={loading}
+      color="rgb(172, 102, 104)"
+    ></PulseLoader>
+  ) : (
     <div className={styles.ProfileContainer}>
       <Row gutter={[16, 16]}>
         <Col span={2}></Col>
@@ -186,10 +203,10 @@ const MyProfile = ({ user, setUser }) => {
         <UpdateButton onClick={handleUpdate}>update profile</UpdateButton>
         <p></p>
       </Row>
-    </div>:<div>loading...</div>
-    //   </Content>
-    // </Layout>
+    </div>
   );
 };
+//   </Content>
+// </Layout>
 
 export default MyProfile;

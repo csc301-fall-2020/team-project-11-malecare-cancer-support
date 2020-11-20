@@ -15,6 +15,15 @@ import {
   UpdateButton,
 } from "../../share-styled-component";
 
+import { PulseLoader } from "react-spinners";
+import { css } from "@emotion/react";
+
+const loaderCSS = css`
+  margin-top: 300px;
+  margin-bottom: 50px;
+  flex: 1;
+`;
+
 const MainContainer = styled.div`
   display: flex;
 `;
@@ -69,8 +78,7 @@ const AdminSendMessages = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
   const [socket, setSocket] = useState(null);
-  const [loaded, setLoaded] = useState(false)
-
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -85,7 +93,7 @@ const AdminSendMessages = () => {
         // User fetched and updated
         setUser(fetchedUser);
         setUserDetailSelections(await getUserDetailOptions());
-        setLoaded(true)
+        setLoading(false);
       }
     };
 
@@ -145,7 +153,14 @@ const AdminSendMessages = () => {
     });
   };
 
-  return (loaded ?
+  return loading ? (
+    <PulseLoader
+      css={loaderCSS}
+      size={40}
+      loading={loading}
+      color="rgb(172, 102, 104)"
+    ></PulseLoader>
+  ) : (
     <MainContainer>
       <FiltersContainer>
         <SectionContainer>
@@ -243,7 +258,7 @@ const AdminSendMessages = () => {
           <UpdateButton onClick={handleSendMessage}>Send message</UpdateButton>
         </ButtonGroupContainer>
       </MessagesContainer>
-    </MainContainer>:<div>loading...</div>
+    </MainContainer>
   );
 };
 
