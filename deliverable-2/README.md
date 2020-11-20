@@ -73,7 +73,6 @@ Administrators can handle reports for users, and make decisions. [TODO]
  * Briefly describe instructions for setting up and running the application (think a true README).
  
  Technical requirements:
-<<<<<<< HEAD
     <br>astroid           2.4.2<br/>
     <br>atomicwrites      1.4.0<br/>
     <br>attrs             20.2.0<br/>
