@@ -86,6 +86,14 @@ const PhotoContainer = styled.div`
   margin-right: 20px;
 `;
 
+const EmptyMatch = styled.div`
+  font-size: 25px;
+  margin-left: 25px;
+  margin-top: 180px;
+  font-weight: bold;
+  color: #4d222a;
+`;
+
 const InfoContainer = styled.div`
   flex: 1;
   flex-direction: column;
@@ -154,7 +162,7 @@ const Matches = () => {
   const [matches, setMatches] = useState([]);
   const [userDetailSelections, setUserDetailSelections] = useState({});
   const [loading, setLoading] = useState(true);
-  const [matchesIndex, setMatchesIndex] = useState(0)
+  const [matchesIndex, setMatchesIndex] = useState(0);
 
   const handleApply = async () => {
     if (
@@ -173,8 +181,8 @@ const Matches = () => {
       console.log(myMatches);
       if (myMatches) {
         setMatches(myMatches);
+        console.log("match", myMatches);
       }
-
     }
     console.log("update");
   };
@@ -205,7 +213,7 @@ const Matches = () => {
         filterGender,
         filterPurpose
       );
-      console.log(myMatches);
+      console.log("match", myMatches);
       if (myMatches) {
         setMatches(myMatches);
       }
@@ -223,16 +231,16 @@ const Matches = () => {
   };
 
   const handleGotoPrevious = () => {
-    if (matches.length !==0 && matchesIndex !== 0){
-      console.log("match index: ", matchesIndex)
-      setMatchesIndex(matchesIndex-1)
+    if (matches.length !== 0 && matchesIndex !== 0) {
+      console.log("match index: ", matchesIndex);
+      setMatchesIndex(matchesIndex - 1);
     }
   };
 
   const handleGotoNext = () => {
-    if (matches.length !==0 && matchesIndex !== (matches.length-1)){
-      console.log("match index: ", matchesIndex)
-      setMatchesIndex(matchesIndex+1)
+    if (matches.length !== 0 && matchesIndex !== matches.length - 1) {
+      console.log("match index: ", matchesIndex);
+      setMatchesIndex(matchesIndex + 1);
     }
   };
 
@@ -280,20 +288,33 @@ const Matches = () => {
       </FilterContainer>
       <MatchContainer>
         <BorderContainer>
-          {(matches.length!==0)&&(<PhotoContainer>
-            <img style={picStyle} src={img} alt="user picture" />
-            <span style={label}>{matches[matchesIndex].purpose} </span>
-          </PhotoContainer>)}
-          {(matches.length!==0)?(<InfoContainer>
-            <span style={info}>Name: {matches[matchesIndex].username} </span>
-            <span style={info}>Age: {getAge(matches[matchesIndex].date_of_birth)}</span>
-            <span style={info}>Gender: {matches[matchesIndex].gender}</span>
-            <span style={info}>Cancer Type(s): {matches[matchesIndex].cancer}</span>
-            <span style={info}>{matches[matchesIndex].short_intro}</span>
-            <SmallButton style={profileButton} onClick={handleViewProfile}>
-              full profile
-            </SmallButton>
-          </InfoContainer>):<div>It is sad but no one is here. Maybe try another filter?</div>}
+          {matches.length !== 0 && (
+            <PhotoContainer>
+              <img style={picStyle} src={img} alt="user picture" />
+              <span style={label}>{matches[matchesIndex].purpose} </span>
+            </PhotoContainer>
+          )}
+          {matches.length !== 0 ? (
+            <InfoContainer>
+              <span style={info}>Name: {matches[matchesIndex].username} </span>
+              <span style={info}>
+                Age: 
+                {getAge(matches[matchesIndex].date_of_birth)}
+              </span>
+              <span style={info}>Gender: {matches[matchesIndex].gender}</span>
+              <span style={info}>
+                Cancer Type(s): {matches[matchesIndex].cancer}
+              </span>
+              <span style={info}>{matches[matchesIndex].short_intro}</span>
+              <SmallButton style={profileButton} onClick={handleViewProfile}>
+                full profile
+              </SmallButton>
+            </InfoContainer>
+          ) : (
+            <EmptyMatch>
+              It is sad but no one is here. Maybe try another filter?
+            </EmptyMatch>
+          )}
         </BorderContainer>
         <div style={buttons}>
           <SmallButton style={alignedButton} onClick={handleGotoPrevious}>

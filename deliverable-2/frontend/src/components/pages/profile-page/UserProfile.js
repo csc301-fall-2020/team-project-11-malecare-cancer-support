@@ -57,7 +57,7 @@ const UserProfile = ({ match }) => {
       }
     };
     fetchUser();
-  }, [user, history]);
+  }, [setUser, history]);
 
   const requestBody = { user_id: match.params.id };
   const [profileUser, setProfileUser] = useState({});
