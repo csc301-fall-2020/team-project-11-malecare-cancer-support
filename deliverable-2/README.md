@@ -135,23 +135,23 @@ Administrators can handle reports for users, and make decisions. [TODO]
     <br>zope.event        4.5.0<br/>
     <br>zope.interface    5.2.0<br/>
  
- Instructions for setting up and running the application:
- Open the deliverable-2 folder
-     Open one terminal for backend:
-     Step 1:
-        if your system is Mac/Linux, please 
-        export FLASK_APP=backend/app/cancer_chat.py
-        if your system is Windows, please
-        set FLASK_APP=backend/app/cancer_chat.py
-     Step 2:
-        flask run
-     Open another terminal for frontend:
-     Step 1:
-        cd frontend
-     Step 2:
-        npm i
-     Step 3:
-        npm start
+ <br>Instructions for setting up and running the application:<br/>
+ <br>Open the deliverable-2 folder<br/>
+     <br>Open one terminal for backend:<br/>
+     <br>Step 1:<br/>
+        <br>if your system is Mac/Linux, please<br/> 
+        <br>export FLASK_APP=backend/app/cancer_chat.py<br/>
+        <br>if your system is Windows, please<br/>
+        <br>set FLASK_APP=backend/app/cancer_chat.py<br/>
+     <br>Step 2:<br/>
+        <br>flask run<br/>
+     <br>Open another terminal for frontend:<br/>
+     <br>Step 1:<br/>
+        <br>cd frontend<br/>
+     <br>Step 2:<br/>
+        <br>npm i<br/>
+     <br>Step 3:<br/>
+        <br>npm start<br/>
  
  ## Deployment and Github Workflow
 
