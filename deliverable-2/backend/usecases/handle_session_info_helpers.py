@@ -18,9 +18,9 @@ def get_session_id_by_user_id(user_id):
 
 
 def get_lst_session_id_by_user_ids(user_id_dict):
-    session_info = []
-    for user_json in user_id_dict:
-        uid = user_json["user_id"]
+    session_info = {}
+    print(user_id_dict)
+    for uid in user_id_dict:
         sid = Session.objects(user_id=uid).first()
-        session_info.append(sid)
+        session_info[uid] = sid
     return session_info

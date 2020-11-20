@@ -8,6 +8,7 @@ import { getUserDetailOptions } from "./helper";
 import MultiCardSelection from "../../component-library/MultiCardSelection";
 import MultiSelectionDropdown from "../../component-library/MultiSelectionDropdown";
 import { getCurrentUser } from "../../utils/helpers";
+import io from "socket.io-client";
 
 import {
   Space,
@@ -68,6 +69,7 @@ const AdminSendMessages = () => {
   const [userDetailSelections, setUserDetailSelections] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
+  const [socket, setSocket] = useState(null)
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -87,6 +89,19 @@ const AdminSendMessages = () => {
 
     fetchUser();
   }, [history, setUser]);
+
+  useEffect(() => {
+    let socket = io.connect("http://localhost:5000", { reconnection: true });
+
+    socket.emit("index");
+    socket.emit("save_session");
+    setSocket(socket);
+
+    return () => {
+      socket.close();
+      setSocket(undefined);
+    };
+  }, []);
 
   const handleSendMessage = async () => {
     setErrorMessage("");
@@ -118,13 +133,14 @@ const AdminSendMessages = () => {
       message,
     };
 
-    axios
-      .post("/adminSendMessage", requestBody)
-      .then((response) => {
-        if (!_.isNil(response, "data.user_id")) {
-        }
-      })
-      .catch((err) => {});
+    // axios
+    //   .post("/adminSendMessage", requestBody)
+    //   .then((response) => {
+    //     if (!_.isNil(response, "data.user_id")) {
+    //     }
+    //   })
+    //   .catch((err) => {});
+    socket.emit("admin_send_msg", requestBody)
   };
 
   return (

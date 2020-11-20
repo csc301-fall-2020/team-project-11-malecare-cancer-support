@@ -269,7 +269,7 @@ def save_session():
 @admin_only
 @authenticated_only
 def admin_send_msg(input_json):
-    gender = input_json['includeGender']
+    gender = input_json['includeGenders']
     age_range = age_list_parser(input_json['includeAges'])
     include_cancer = input_json['includeCancerTypes']
     exclude_cancer = input_json['excludeCancerTypes']
@@ -279,7 +279,7 @@ def admin_send_msg(input_json):
     exclude_treatment = input_json['excludeTreatments']
     message = input_json["message"]
     for age_min, age_max in age_range:
-        uid_dict = administrator_filter_helpers.get_user_id_from_admin_filter(
+        uid_lst = administrator_filter_helpers.get_user_id_from_admin_filter(
             include_cancer=include_cancer,
             include_medication=include_medication,
             include_treatment=include_treatment,
@@ -290,12 +290,15 @@ def admin_send_msg(input_json):
             age_max=age_max,
             gender=gender
         )
-        print(uid_dict)
-        session_info = handle_session_info_helpers.get_lst_session_id_by_user_ids(uid_dict)
-        for uid in session_info:
-            message_handle_helper.create_new_text_msg(current_user.get_id(), uid, message)
-            socketio.emit('admin_send_msg', "send to all filter users",
-                          room=session_info[uid])
+        print(uid_lst)
+
+        for uid in uid_lst:
+            sid = handle_session_info_helpers.get_session_id_by_user_id(uid)
+            print(sid)
+            message_handle_helper.create_new_text_msg(sender_uid=current_user.get_id(),
+                                                      receiver_uid=uid, text=message)
+            socketio.emit('chat', "send to all filter users",
+                          room=sid)
 
 
 @socketio.on('new_friend_request')
@@ -418,7 +421,10 @@ def index():
 
 @app.route('/test')
 def test():
-    return administrator_filter_helpers.test()
+    administrator_filter_helpers.age(age_min=0, age_max=100, include_treatment=['Clinical Trial(s)','Antibody'],
+                                            include_cancer=['Anal cancer','Acute myeloid leukemia'],
+                                            include_medication=['ABVE',"Abiraterone Acetate"],gender=['male'])
+    return '111'
 
 
 if __name__ == '__main__':
