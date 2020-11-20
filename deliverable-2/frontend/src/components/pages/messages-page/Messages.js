@@ -219,7 +219,7 @@ const Messages = () => {
     <PageWrap>
       <PageContainer>
         <PageContainerLeft>
-          <MessageTitle>Fridends</MessageTitle>
+          <MessageTitle>Friends</MessageTitle>
           <UserList>
             {userList &&
               Object.keys(userList).map((keyName, index) => (
