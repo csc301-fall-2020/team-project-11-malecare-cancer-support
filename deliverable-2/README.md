@@ -13,6 +13,8 @@
  
  To address this problem, our app provides a platform where the cancer patients can meet other cancer patients, either they want to date or find themselves a mentor or mentee. There is no such app on the market currently that does what our app does. We will match users who are close to each other and having the same type(s) of cancer since they may be interested in meeting each other in reality to expand their social circles and significantly improve their life quality.
 
+What's more, because the administrators from Malecare can send news about new treatments on CancerChat, it's also a great platform where the patients can receive the latest information about their cancer. Patients used to get information about new treatments when they met their doctors， while this app allows them to directly access this piece of information. They can then contact the doctor and ask if the new treatment can be applied to them. It can make cancer patients’ lives better and even save their lives.
+
 ## Key Features
  * Described the key features in the application that the user can access
  * Provide a breakdown or detail for each feature that is most appropriate for your application
@@ -72,26 +74,23 @@ Administrators can handle reports for users, and make decisions. [TODO]
  * If a developer were to set this up on their machine or a remote server, what are the technical requirements (e.g. OS, libraries, etc.)?
  * Briefly describe instructions for setting up and running the application (think a true README).
  
- Technical requirements has shown in requirements.txt.
- 
- <br>Instructions for setting up and running the application:<br/>
- <br>Open the deliverable-2 folder<br/>
- <br>    Open one terminal for backend:<br/>
- <br>    Step 1:<br/>
- <br>       if your system is Mac/Linux, please<br/> 
- <br>       export FLASK_APP=backend/app/cancer_chat.py<br/>
- <br>       if your system is Windows, please<br/>
- <br>       <br>set FLASK_APP=backend/app/cancer_chat.py<br/>
- <br>    Step 2:<br/>
- <br>       flask run<br/>
- <br>    Open another terminal for frontend:<br/>
- <br>    Step 1:<br/>
- <br>       cd frontend<br/>
- <br>    Step 2:<br/>
- <br>       npm i<br/>
- <br>    Step 3:<br/>
- <br>       npm start<br/>
- 
+ - Technical requirements has shown in requirements.txt.
+ - Instructions for setting up and running the application:
+   - Open the deliverable-2 folder:
+     - Open one terminal for backend:
+     - Step 1:
+        - if your system is Mac/Linux, please export FLASK_APP=backend/app/cancer_chat.py
+        - if your system is Windows, please set FLASK_APP=backend/app/cancer_chat.py
+     - Step 2:
+        - flask run
+     - Open another terminal for frontend:
+     - Step 1:
+        - cd frontend
+     - Step 2:
+        - npm i
+     - Step 3:
+        - npm start
+        
  ## Deployment and Github Workflow
 
 Describe your Git / GitHub workflow. Essentially, we want to understand how your team members shares a codebase, avoid conflicts and deploys the application.
