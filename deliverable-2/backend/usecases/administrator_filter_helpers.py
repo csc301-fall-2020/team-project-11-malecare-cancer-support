@@ -24,11 +24,11 @@ def get_user_id_from_admin_filter(include_cancer, exclude_cancer, include_treatm
     query_result = User.objects(Q(cancer__in=include_cancer) &
                                 Q(cancer__nin=exclude_cancer) &
                                 Q(treatments__exists=True) &
-                                Q(treatments__ne=[]) &
+                                # Q(treatments__ne=[]) &
                                 Q(treatments__in=include_treatment) &
                                 Q(treatments__nin=exclude_treatment) &
                                 Q(medications__exists=True) &
-                                Q(medications__ne=[]) &
+                                # Q(medications__ne=[]) &
                                 Q(medications__in=include_medication) &
                                 Q(medications__nin=exclude_medication) &
                                 Q(gender__in=gender) &

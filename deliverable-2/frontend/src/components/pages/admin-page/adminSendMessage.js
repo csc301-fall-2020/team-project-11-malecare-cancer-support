@@ -138,9 +138,10 @@ const AdminSendMessages = () => {
     socket.emit("admin_send_msg", requestBody);
     socket.on("to_admin", (res) => {
       if (res === "Successfully sent") {
-        message.success("Message has been sent.");
+        alert("Message has been sent.");
+        setMessage("");
       } else {
-        message.error(res);
+        setErrorMessage(res);
       }
     });
   };
