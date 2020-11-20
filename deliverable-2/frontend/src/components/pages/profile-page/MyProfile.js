@@ -86,7 +86,7 @@ const MyProfile = ({ user }) => {
         })
         .catch((err) => {
           console.log(err);
-          message.error("Error accurs");
+          message.error("Error occurs");
         });
     }
     console.log("update");
