@@ -201,7 +201,7 @@ const Messages = () => {
       }
     };
     fetchUser();
-  }, [user, history]);
+  }, [setUser, history]);
 
   useEffect(() => {
     let socket = io.connect("http://localhost:5000", { reconnection: true });
@@ -239,6 +239,7 @@ const Messages = () => {
       }, 0);
     });
   }, [currentUser]);
+
   return (
     <PageWrap>
       <PageContainer>

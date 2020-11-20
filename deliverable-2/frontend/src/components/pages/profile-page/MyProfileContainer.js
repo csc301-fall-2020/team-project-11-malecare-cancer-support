@@ -23,7 +23,7 @@ const MyProfileContainer = () => {
       }
     };
     fetchUser();
-  }, [user, history]);
+  }, [setUser, history]);
 
   return user && <MyProfile user={user} setUser={setUser}></MyProfile>;
 };
