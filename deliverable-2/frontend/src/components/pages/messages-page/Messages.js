@@ -170,7 +170,7 @@ const Messages = () => {
   const [socket, setSocket] = useState();
   const [chatList, setChatList] = useState([]);
   const [inputText, setInputText] = useState();
-  const [loaded, setLoaded] = useState(false)
+  const [loaded, setLoaded] = useState(false);
   const chatRef = useRef();
   const inputRef = useRef();
   const send = () => {
@@ -315,7 +315,7 @@ const Messages = () => {
           </Btns>
         </PageContainerRight>
       </PageContainer>
-    </PageWrap>:<div>loading...</div>
+    </PageWrap>
   );
 };
 

@@ -80,7 +80,6 @@ const AdminSendMessages = () => {
   const [socket, setSocket] = useState(null);
   const [loading, setLoading] = useState(true);
 
-
   useEffect(() => {
     const fetchUser = async () => {
       const fetchedUser = await getCurrentUser();
@@ -259,7 +258,7 @@ const AdminSendMessages = () => {
           <UpdateButton onClick={handleSendMessage}>Send message</UpdateButton>
         </ButtonGroupContainer>
       </MessagesContainer>
-    </MainContainer>:<div>loading...</div>
+    </MainContainer>
   );
 };
 

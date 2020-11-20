@@ -21,7 +21,7 @@ const Nav = () => {
       // placeholder - Adding some error messages here?
     }
     setUser(null);
-    history.push("/login");
+    history.push("/");
   };
 
   const renderNavBarItems = () => {
