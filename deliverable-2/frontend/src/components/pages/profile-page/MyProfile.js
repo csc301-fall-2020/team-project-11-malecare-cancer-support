@@ -16,6 +16,15 @@ import PhotoWall from "../../component-library/Profile/PhotoWall";
 import { getUserDetailOptions } from "../../pages/signup-page/helper";
 import { UpdateButton } from "../../share-styled-component";
 
+import { PulseLoader } from "react-spinners";
+import { css } from "@emotion/react";
+
+const loaderCSS = css`
+  margin-top: 300px;
+  margin-bottom: 50px;
+  flex: 1;
+`;
+
 // const { Header, Content, Footer } = Layout;
 
 const ProfileTitle = styled.div`
@@ -50,7 +59,7 @@ const MyProfile = ({ user, setUser }) => {
   const [greetMsg, setGreetMsg] = useState(user.short_intro);
   const [medication, setMed] = useState(user.medications);
   const [treatment, setTreat] = useState(user.treatments);
-  const [loaded, setLoaded] = useState(false)
+  const [loading, setLoading] = useState(true);
 
   const handleUpdate = () => {
     if (
@@ -95,7 +104,7 @@ const MyProfile = ({ user, setUser }) => {
   useEffect(() => {
     const fetchUserDetailSelections = async () => {
       setUserDetailSelections(await getUserDetailOptions());
-      setLoaded(true)
+      setLoading(false);
       console.log("called");
     };
     fetchUserDetailSelections();
@@ -104,89 +113,100 @@ const MyProfile = ({ user, setUser }) => {
   return (loaded?
     // <Layout>
     //   <Content className={styles.ProfileContainer}>
-    <div className={styles.ProfileContainer}>
-      <Row gutter={[16, 16]}>
-        <Col span={2}></Col>
-        <Col>
-          {/* <Title level={2}>Your profile</Title> */}
-          <ProfileTitle>Your profile</ProfileTitle>
-          <SmallTitle>For matching</SmallTitle>
-        </Col>
-      </Row>
-      <Row gutter={[16, 16]}>
-        <Col span={2}></Col>
-        <ProfilePhoto></ProfilePhoto>
-        <Col span={14}>
-          <NameInput name={name} setName={setName}></NameInput>
-          <DateInput date={date} setDate={setDate}></DateInput>
-          <DropDownSelect
-            select={gender}
-            setSelect={setGender}
-            lintTitle={"Gender:"}
-            data={userDetailSelections.genderOptions}
-          ></DropDownSelect>
-          <DropDownSelect
-            select={sex}
-            setSelect={setSex}
-            lintTitle={"Sex-Orientation:"}
-            data={userDetailSelections.sexualOrientationOptions}
-          ></DropDownSelect>
-          <MultiSelect
-            List={purposeList}
-            setList={setPurposeList}
-            lineTitle={"Purpose"}
-            data={userDetailSelections.purposeOptions}
-          ></MultiSelect>
-          <MultiSelect
-            List={cancerList}
-            setList={setCancerList}
-            lineTitle={"Type(s) of cancer:"}
-            data={userDetailSelections.cancerTypeOptions}
-          ></MultiSelect>
-          <Greeting greetMsg={greetMsg} setGreetMsg={setGreetMsg}></Greeting>
-        </Col>
-      </Row>
+    loading ? (
+      <PulseLoader
+        css={loaderCSS}
+        size={40}
+        loading={loading}
+        color="rgb(172, 102, 104)"
+      ></PulseLoader>
+    ) : (
+      <div className={styles.ProfileContainer}>
+        <Row gutter={[16, 16]}>
+          <Col span={2}></Col>
+          <Col>
+            {/* <Title level={2}>Your profile</Title> */}
+            <ProfileTitle>Your profile</ProfileTitle>
+            <SmallTitle>For matching</SmallTitle>
+          </Col>
+        </Row>
+        <Row gutter={[16, 16]}>
+          <Col span={2}></Col>
+          <ProfilePhoto></ProfilePhoto>
+          <Col span={14}>
+            <NameInput name={name} setName={setName}></NameInput>
+            <DateInput date={date} setDate={setDate}></DateInput>
+            <DropDownSelect
+              select={gender}
+              setSelect={setGender}
+              lintTitle={"Gender:"}
+              data={userDetailSelections.genderOptions}
+            ></DropDownSelect>
+            <DropDownSelect
+              select={sex}
+              setSelect={setSex}
+              lintTitle={"Sex-Orientation:"}
+              data={userDetailSelections.sexualOrientationOptions}
+            ></DropDownSelect>
+            <MultiSelect
+              List={purposeList}
+              setList={setPurposeList}
+              lineTitle={"Purpose"}
+              data={userDetailSelections.purposeOptions}
+            ></MultiSelect>
+            <MultiSelect
+              List={cancerList}
+              setList={setCancerList}
+              lineTitle={"Type(s) of cancer:"}
+              data={userDetailSelections.cancerTypeOptions}
+            ></MultiSelect>
+            <Greeting greetMsg={greetMsg} setGreetMsg={setGreetMsg}></Greeting>
+          </Col>
+        </Row>
 
-      <Row gutter={[16, 16]}>
-        <Col span={2}></Col>
-        <Col>
-          {/* <Title level={2}>Your album</Title> */}
-          <ProfileTitle>Your album</ProfileTitle>
-          <SmallTitle>Let's make your profile looks more attracting</SmallTitle>
+        <Row gutter={[16, 16]}>
+          <Col span={2}></Col>
+          <Col>
+            {/* <Title level={2}>Your album</Title> */}
+            <ProfileTitle>Your album</ProfileTitle>
+            <SmallTitle>
+              Let's make your profile looks more attracting
+            </SmallTitle>
+            <p></p>
+            <PhotoWall></PhotoWall>
+          </Col>
+        </Row>
+        <Row gutter={[16, 16]}>
+          <Col span={2}></Col>
+          <Col span={14}>
+            {/* <Title level={2}>Detailed Information</Title> */}
+            <ProfileTitle>Detailed Information</ProfileTitle>
+            <SmallTitle>
+              Only for receiving latest news regarding your cancer
+            </SmallTitle>
+            <p></p>
+            <MultiSelect
+              List={medication}
+              setList={setMed}
+              lineTitle={"Medication:"}
+              data={userDetailSelections.medicationOptions}
+            ></MultiSelect>
+            <MultiSelect
+              List={treatment}
+              setList={setTreat}
+              lineTitle={"Treatment:"}
+              data={userDetailSelections.treatmentTypeOptions}
+            ></MultiSelect>
+          </Col>
+        </Row>
+        <Row gutter={[16, 16]}>
+          {" "}
+          <Col span={10}></Col>
+          <UpdateButton onClick={handleUpdate}>update profile</UpdateButton>
           <p></p>
-          <PhotoWall></PhotoWall>
-        </Col>
-      </Row>
-      <Row gutter={[16, 16]}>
-        <Col span={2}></Col>
-        <Col span={14}>
-          {/* <Title level={2}>Detailed Information</Title> */}
-          <ProfileTitle>Detailed Information</ProfileTitle>
-          <SmallTitle>
-            Only for receiving latest news regarding your cancer
-          </SmallTitle>
-          <p></p>
-          <MultiSelect
-            List={medication}
-            setList={setMed}
-            lineTitle={"Medication:"}
-            data={userDetailSelections.medicationOptions}
-          ></MultiSelect>
-          <MultiSelect
-            List={treatment}
-            setList={setTreat}
-            lineTitle={"Treatment:"}
-            data={userDetailSelections.treatmentTypeOptions}
-          ></MultiSelect>
-        </Col>
-      </Row>
-      <Row gutter={[16, 16]}>
-        {" "}
-        <Col span={10}></Col>
-        <UpdateButton onClick={handleUpdate}>update profile</UpdateButton>
-        <p></p>
-      </Row>
-    </div>:<div>loading...</div>
+        </Row>
+      </div>
+    )
     //   </Content>
     // </Layout>
   );

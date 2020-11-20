@@ -12,6 +12,15 @@ import { UserContext } from "../../../contexts/UserContext";
 
 // const dateFormat = "YYYY-MM-DD";
 
+import { PulseLoader } from "react-spinners";
+import { css } from "@emotion/react";
+
+const loaderCSS = css`
+  margin-top: 300px;
+  margin-bottom: 50px;
+  flex: 1;
+`;
+
 const ProfileTitle = styled.div`
   font-size: 38px;
   font-weight: bold;
@@ -29,6 +38,8 @@ const timeFormat = (inputString) => {
 const UserProfile = ({ match }) => {
   const { user, setUser } = useContext(UserContext);
   const history = useHistory();
+  const [loading, setLoading] = useState(true);
+  const [navLoading, setNavLoading] = useState(true);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -42,6 +53,7 @@ const UserProfile = ({ match }) => {
       } else {
         // User fetched and updated
         setUser(fetchedUser);
+        setNavLoading(false);
       }
     };
     fetchUser();
@@ -56,12 +68,20 @@ const UserProfile = ({ match }) => {
   useEffect(() => {
     const fetchUser = async () => {
       setProfileUser(await getProfileInfo());
+      setLoading(false);
     };
 
     fetchUser();
   }, []);
 
-  return (
+  return loading || navLoading ? (
+    <PulseLoader
+      css={loaderCSS}
+      size={40}
+      loading={loading || navLoading}
+      color="rgb(172, 102, 104)"
+    ></PulseLoader>
+  ) : (
     <div className={styles.ProfileContainer}>
       <Row gutter={[16, 16]}>
         <Col span={2}></Col>
