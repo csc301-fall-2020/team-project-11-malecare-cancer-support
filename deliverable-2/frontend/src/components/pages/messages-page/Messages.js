@@ -160,6 +160,7 @@ const Messages = () => {
   const [socket, setSocket] = useState();
   const [chatList, setChatList] = useState([]);
   const [inputText, setInputText] = useState();
+  const [loaded, setLoaded] = useState(false)
   const chatRef = useRef();
   const inputRef = useRef();
   const send = () => {
@@ -198,11 +199,13 @@ const Messages = () => {
       setUserId(res.user_id);
       setUserList(res.friend_username);
       socket.emit("save_session");
+      setLoaded(true)
     });
 
     return () => {
       socket.close();
       setSocket(undefined);
+      setLoaded(false)
     };
   }, []);
 
@@ -215,7 +218,7 @@ const Messages = () => {
       }, 0);
     });
   }, [currentUser]);
-  return (
+  return (loaded?
     <PageWrap>
       <PageContainer>
         <PageContainerLeft>
@@ -273,7 +276,7 @@ const Messages = () => {
           </Btns>
         </PageContainerRight>
       </PageContainer>
-    </PageWrap>
+    </PageWrap>:<div>loading...</div>
   );
 };
 

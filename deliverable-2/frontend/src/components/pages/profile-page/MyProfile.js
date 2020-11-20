@@ -53,6 +53,7 @@ const MyProfile = ({ user }) => {
   const [medication, setMed] = useState(user.medications);
   const [treatment, setTreat] = useState(user.treatments);
   const { setUser } = useContext(UserContext);
+  const [loaded, setLoaded] = useState(false)
 
   const handleUpdate = () => {
     if (
@@ -79,7 +80,7 @@ const MyProfile = ({ user }) => {
       axios
         .post("current_user/profile/text", requestBody)
         .then((response) => {
-          if (response.status == 200) {
+          if (response.status === 200) {
             message.success("success update");
             setUser(response.data);
           }
@@ -95,12 +96,13 @@ const MyProfile = ({ user }) => {
   useEffect(() => {
     const fetchUserDetailSelections = async () => {
       setUserDetailSelections(await getUserDetailOptions());
+      setLoaded(true)
       console.log("called");
     };
     fetchUserDetailSelections();
   }, []);
 
-  return (
+  return (loaded?
     // <Layout>
     //   <Content className={styles.ProfileContainer}>
     <div className={styles.ProfileContainer}>
@@ -185,7 +187,7 @@ const MyProfile = ({ user }) => {
         <UpdateButton onClick={handleUpdate}>update profile</UpdateButton>
         <p></p>
       </Row>
-    </div>
+    </div>:<div>loading...</div>
     //   </Content>
     // </Layout>
   );

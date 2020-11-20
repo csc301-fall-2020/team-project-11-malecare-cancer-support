@@ -68,7 +68,7 @@ const AdminSendMessages = () => {
   const [userDetailSelections, setUserDetailSelections] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
-  const [loaded, setLoaded] = useState(null)
+  const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -83,7 +83,7 @@ const AdminSendMessages = () => {
         // User fetched and updated
         setUser(fetchedUser);
         setUserDetailSelections(await getUserDetailOptions());
-        setLoaded("loaded")
+        setLoaded(true)
       }
     };
 
