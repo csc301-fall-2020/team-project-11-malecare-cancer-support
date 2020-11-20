@@ -79,17 +79,17 @@ Administrators can handle reports for users, and make decisions. [TODO]
    - Open the deliverable-2 folder:
      - Open one terminal for backend:
      - Step 1:
-        - if your system is Mac/Linux, please export FLASK_APP=backend/app/cancer_chat.py
-        - if your system is Windows, please set FLASK_APP=backend/app/cancer_chat.py
+        - if your operation system is MacOS/Linux, please `export FLASK_APP=backend/app/cancer_chat.py`
+        - if your operation system is Windows, please `set FLASK_APP=backend/app/cancer_chat.py`
      - Step 2:
-        - flask run
+        - `flask run`
      - Open another terminal for frontend:
      - Step 1:
-        - cd frontend
+        - `cd frontend`
      - Step 2:
-        - npm i
+        - `npm i`
      - Step 3:
-        - npm start
+        - `npm start`
         
  ## Deployment and Github Workflow
 
@@ -99,8 +99,40 @@ Describe your Git / GitHub workflow. Essentially, we want to understand how your
  * Describe your overall deployment process from writing code to viewing a live application
  * What deployment tool(s) are you using and how
  * Don't forget to **briefly explain why** you chose this workflow or particular aspects of it!
-The main part of the development take place in the develop branch, preventing from contaiminating the master branch. We use pull-requests to merge develop branch to the master branch once we have a bug-less, testable and working app. We have a taskboard assigning tasks to members, it already reduces conflicts. Also, when someone is going to make big changes to codebase and it has the potential of contaminated the whole codebase, they start a new branch from develop. Then they do a pull-request when finished and tested that change to the develop branch. They usually invites some other group members who is available at the time to do a review. After the review, the person who does the review would merge the branch. Most of the time, back-end developers stays on the develop branch to stay sync with front-end and made quick response to their suggestions. Before every push and pull-request, we deploy our app at local machine to make sure it can run. Finally, we deploy our app through AWS EC2. We push our app to AWS EC2 and run pre-written scripted to deploy it there. <br><br/>
-We are using snake case for back-end and camel case for front-end.
+ 
+
+- Main development process happens on the `develop` branch. This is for preventing from contaminating the master branch. https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/tree/develop
+
+- If changes that are risky and may contaminate the whole codebase are needed...
+   - Start a new branch from the `develop` branch, examples:
+      - `tell_user_loading` branch. It adds the functionality to every webpage to tell the user that the resources are being loaded. https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/tree/tell_user_loading
+      - `import_bug_fix` branch. It changes the file structure of the back-end to resolve some of python's import errors. https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/tree/import_bug_fix
+      - ...and some more branches can be found under https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/branches
+   - Do a pull-request when finish fixing the bug/adding new functionalities
+      - If an automerge to develop branch is available, do the automerge
+      - If a manually merging is needed, merge `develop` branch to the new branch manually. Test the merged code at the local machine and make sure it is stable. Then do a pull-request to merge the new branch back to the `develop` branch. The reason for this is that we do not want any unstable code in the `develop` branch.
+      - Examples of the pull-requests can be found here: https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/pulls?q=is%3Apr+is%3Aclosed
+      - we did not enforce this practice at first. We are adapting to it since we believe that it helps to maintain a cleaner codebase.
+   - Invite someone who is available at the time or someone who is in charge of the changed code to do a code review. Sometimes we have to change to the code which was not the part that was assigned to us, thus it is necessary to consult the person who was in charge of the code. However, this does not often happen, since our first instinct is to ask the person who is in charge of the piece of the code to make the change. If this does happen, then the review is definitely needed. The reason is that we do not want our code to be changed without being notified, which could result in hard-to-find bugs.
+   - Once the pull-request is approved, go ahead to merge it to the `develop` branch. Usually, the person who creates the pull-requests is responsible for merging the branch, but it does not matter, since the conflicts are resolved earlier and the changes are approved by others.
+
+- Most of the time, developers stay on the develop branch to stay in sync with each other and made quick responses to others' suggestions.
+
+- Once we reach a big milestone(a working MVP for D2 would be considered as a milestone), we use pull-requests to merge the `develop` branch to the `master` branch.
+
+### How and when to test
+- Every push and pull-request, we deploy our app at our local machines to test it. 
+- UI tests are done by manually clicking on the UI to make sure they are reliable to use and won't crash easily. 
+- Postman is used to test the back-end. It is an API testing tool. It is used to manually send requests to the API and see if the correct responses are sent back.
+- MongoDBCompass, a GUI for MongoDB, is used to monitoring the changes happen in the database, since some of API test and UI test may result in changes in our database.
+
+### Deployment
+- Deploy to AWS EC2.
+- AWS console is used to help us deploy the app.
+- Deployment process:
+   - Create a new EC2 instance
+   - Clone our project from Github to the instance
+   - Follow the instructions in the development requirement described above to manually run the app in the EC2 instance
 
  ## Licenses 
 
