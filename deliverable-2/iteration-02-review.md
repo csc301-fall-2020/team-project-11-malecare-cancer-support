@@ -1,4 +1,4 @@
-# MaleCare/Team 11
+# CancerChat/Team 11
 
  > _Note:_ This document is meant to be written during (or shortly after) your review meeting, which should happen fairly close to the due date.      
  >      
@@ -18,8 +18,11 @@
 List **process-related** (i.e. team organization and how you work) decisions that, in retrospect, turned out to be successful.
  
 1. We decide to divide features into things to be done in D2 and D3 before we started. This gives us a set of more concrete goals of what we need to accomplish for D2. 
+
     D2: register/login, profile, match, chat(only text), admin notification, main page, request page
+
     D3: block, report, rich text editor for chat, geolocation, storing pictures on AWS S3
+
 2. 
     - We are having a task board to assign work to each other. This enables us to have fewer conflicts when working on one codebase. For instance, if someone finds a bug when running other team member's code, they can find out who is in charge of that part and ask them for fixing the bug, instead of trying to fix it on their own. That would result in conflicts and other bugs when other is working on their code. 
     - Also, the goals are trackable and everyone can see the concrete progress of our team. https://docs.google.com/spreadsheets/d/1IbYSnSneb-Hv0m9sljIn_qT3puhcViF-GEtengPN3bk/edit#gid=0 
