@@ -1,4 +1,4 @@
-# MaleCare/Team 11
+# CancerChat/Team 11
 
  > _Note:_ This document is meant to be written during (or shortly after) your review meeting, which should happen fairly close to the due date.      
  >      
@@ -7,7 +7,7 @@
 
 ## Iteration XX - Review & Retrospect
 
- * When: FILL IN THE DATE WHEN YOU ACTUALLY HAD YOUR REVIEW MEETING
+ * When: November 19
  * Where: Online
 
 ## Process - Reflection
@@ -16,12 +16,17 @@
 #### Q1. Decisions that turned out well
 
 List **process-related** (i.e. team organization and how you work) decisions that, in retrospect, turned out to be successful.
+ 
+1. We decide to divide features into things to be done in D2 and D3 before we started. This gives us a set of more concrete goals of what we need to accomplish for D2. 
 
-1. Rather than follow the plan of deliverable 1 strictly, our team decided to be more viable. It does bring some chaos to our team organization and planning, but it also lets us develop more quickly. The trade-off is happening here. Developing quickly meaning that we can see our progress in a short amount of time, which can be inspiring to us. An example of being viable is that we discard the plan of using node and use flask for back-end instead. 
-2. We decide to divide features into things to be done in D2 and D3 before we started. 
     D2: register/login, profile, match, chat(only text), admin notification, main page, request page
+
     D3: block, report, rich text editor for chat, geolocation, storing pictures on AWS S3
-3. We are having a task board to assign work to each other. This enables us to have less conflicts when working on one codebase. Also, the goals are trackable and everyone can see the concrete progress of our team. https://docs.google.com/spreadsheets/d/1IbYSnSneb-Hv0m9sljIn_qT3puhcViF-GEtengPN3bk/edit#gid=0
+
+2. 
+    - We are having a task board to assign work to each other. This enables us to have fewer conflicts when working on one codebase. For instance, if someone finds a bug when running other team member's code, they can find out who is in charge of that part and ask them for fixing the bug, instead of trying to fix it on their own. That would result in conflicts and other bugs when other is working on their code. 
+    - Also, the goals are trackable and everyone can see the concrete progress of our team. https://docs.google.com/spreadsheets/d/1IbYSnSneb-Hv0m9sljIn_qT3puhcViF-GEtengPN3bk/edit#gid=0 
+    - We chose to use a google sharing spreadsheet for the task board because some other task tracker apps, such as JIRA and Asana, require set-ups or learning processes, whereas we can just jump in and use google spreadsheet without any prior preparation. 
  * 2 - 4 decisions.
  * Ordered from most to least important.
  * Explain why (i.e. give a supporting argument) you consider a decision to be successful.
@@ -61,7 +66,6 @@ At deliverable-2, we have weekly meetings with MaleCare and have a lot of group 
 ## Product - Review
 
 #### Q4. How was your product demo?
-## TODO: after feedback
  * How did you prepare your demo?
  * What did you manage to demo to your partner?
  * Did your partner accept the features?
@@ -69,3 +73,8 @@ At deliverable-2, we have weekly meetings with MaleCare and have a lot of group 
  * What did you learn from the demo from either a process or product perspective?
  * *This section will be marked very leniently so keep it brief and just make sure the points are addressed*
 
+We prepared our demo by practicing going through the whole demo process several times. We did not prepare any slides but just showing the product itself. 
+
+We did the demo by sharing a screen on Zoom meeting with our partner. We managed to demo some basic functionalities of our product. We showed our partner how a non-admin user uses our app to chat, to find matches, and to customize personal profiles. We also showed him how an administrator sends messages to selected users. Our partner accepted the features. He also gave some suggestions on how to improve the product to make it more user-friendly.
+
+We learned from this demo that it is important to have a stable version of the product to do the demo. We did not encounter any technical issues while doing the demo since we had our product well prepared. Also, from our customer's suggestions, we learned how to make our UI more user-friendly.
