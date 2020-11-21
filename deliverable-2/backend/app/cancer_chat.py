@@ -169,7 +169,7 @@ def change_current_user_profile_text():
     # customize_user_profile_helpers \
     #     .set_sexual_orientation_by_user_id(user_id=my_id,
     #                                        sex_orientation=my_json["sex_orientation"])
-    return login_register_helpers.get_user_by_user_id(my_id).get_json()
+    return jsonify(login_register_helpers.get_user_by_user_id(my_id).get_json())
 
 
 @app.route('/current_user/profile/picture', methods=['POST'])
@@ -272,7 +272,7 @@ def save_session():
 def admin_send_msg(input_json):
     try:
         gender = input_json['includeGenders']
-        age_range = age_list_parser(input_json['includeAges'])
+        age_min, age_max = input_json['includeAges']
         include_cancer = input_json['includeCancerTypes']
         exclude_cancer = input_json['excludeCancerTypes']
         include_medication = input_json['includeMedications']
@@ -281,9 +281,6 @@ def admin_send_msg(input_json):
         exclude_treatment = input_json['excludeTreatments']
         message = input_json["message"]
         print("got socket")
-        age_min = age_range[0]
-        age_max = age_range[1]
-        # for age_min, age_max in age_range:
         uid_lst = administrator_filter_helpers.get_user_id_from_admin_filter(
             include_cancer=include_cancer,
             include_medication=include_medication,
