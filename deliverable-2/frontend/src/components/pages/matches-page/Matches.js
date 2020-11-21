@@ -226,7 +226,8 @@ const Matches = () => {
 
   const handleViewProfile = () => {
     if (matches.length !== 0) {
-      history.push("/profile/" + matches[matchesIndex].user_id);
+      const w = window.open("about:blank");
+      w.location.href = "/profile/" + matches[matchesIndex].user_id;
     }
   };
 

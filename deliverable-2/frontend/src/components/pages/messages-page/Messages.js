@@ -251,9 +251,8 @@ const Messages = () => {
   }, [currentUser]);
 
   const handleSeeFullProfile = () => {
-    if (currentUser) {
-      history.push("/profile/" + currentUser);
-    }
+    const w = window.open("about:blank");
+    w.location.href = "profile/" + currentUser;
   };
 
   return loading ? (
