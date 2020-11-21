@@ -10,6 +10,7 @@ import SliderSelection from "../../component-library/SliderSelection";
 import { getCurrentUser } from "../../utils/helpers";
 import io from "socket.io-client";
 import Slider from "@material-ui/core/Slider";
+import { message as alertMessage } from "antd"
 
 import {
   Space,
@@ -121,6 +122,18 @@ const AdminSendMessages = () => {
     socket.emit("save_session");
     setSocket(socket);
 
+    socket.on("to_admin", (res) => {
+      setTextBoxLoading(false)
+      if (res === "Successfully sent") {
+        console.log("success")
+        // alert("Message has been sent.");
+        alertMessage.success("Message has been sent.")
+        setMessage("");
+      } else {
+        setErrorMessage(res);
+      }
+    });
+
     return () => {
       socket.close();
       setSocket(undefined);
@@ -128,6 +141,9 @@ const AdminSendMessages = () => {
   }, []);
 
   const handleSendMessage = async () => {
+    if (textBoxLoading) {
+      return setErrorMessage("Please wait until current message is sent.")
+    }
     setTextBoxLoading(true)
     setErrorMessage("");
     if (
@@ -161,17 +177,9 @@ const AdminSendMessages = () => {
     };
     console.log(requestBody)
     socket.emit("admin_send_msg", requestBody);
-    socket.on("to_admin", (res) => {
-      setTextBoxLoading(false)
-      if (res === "Successfully sent") {
-        console.log("success")
-        alert("Message has been sent.");
-        setMessage("");
-      } else {
-        setErrorMessage(res);
-      }
-    });
+
   };
+
 
   return loading ? (
     <PulseLoader
