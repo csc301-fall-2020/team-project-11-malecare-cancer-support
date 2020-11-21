@@ -6,8 +6,10 @@ import { UserContext } from "../../../contexts/UserContext";
 import { getUserDetailOptions } from "./helper";
 import MultiCardSelection from "../../component-library/MultiCardSelection";
 import MultiSelectionDropdown from "../../component-library/MultiSelectionDropdown";
+import SliderSelection from "../../component-library/SliderSelection";
 import { getCurrentUser } from "../../utils/helpers";
 import io from "socket.io-client";
+import Slider from "@material-ui/core/Slider";
 
 import {
   Space,
@@ -67,7 +69,7 @@ const AdminSendMessages = () => {
   const history = useHistory();
 
   const [includeGenders, setIncludeGenders] = useState([]);
-  const [includeAges, setIncludeAges] = useState([]);
+  const [includeAges, setIncludeAges] = useState([18, 100]);
   const [includeCancerTypes, setIncludeCancerTypes] = useState([]);
   const [excludeCancerTypes, setExcludeCancerTypes] = useState([]);
   const [includeMedications, setIncludeMedications] = useState([]);
@@ -177,15 +179,11 @@ const AdminSendMessages = () => {
             sectionLabelSize="18px"
             cardLabelSize="18px"
           />
-          <MultiCardSelection
-            label="Ages:"
-            selections={includeAges}
-            allowSelectAll
-            updateSelections={setIncludeAges}
-            options={userDetailSelections.ageOptions || []}
-            roundedCard
+          <SliderSelection
             sectionLabelSize="18px"
-            cardLabelSize="18px"
+            label="Ages"
+            includeAges={includeAges}
+            setIncludeAges={setIncludeAges}
           />
           <MultiSelectionDropdown
             label="Types of Cancer:"

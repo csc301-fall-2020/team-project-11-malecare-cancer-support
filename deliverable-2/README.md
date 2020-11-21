@@ -7,13 +7,13 @@
  * What is the problem you're trying to solve?
  * Is there any context required to understand **why** the application solves this problem?
  
- CancerChat is a Tinder-like app that serves as a platform, on which the cancer patients can be matched to other cancer patients that meet their requirements.
+ CancerChat is a Tinder-like app that serves as a platform, on which the cancer patients can be matched to other cancer patients that meet their requirements. Our app also has a built-in notification functionality where the admin can send cancer-related news to target users. 
  
  Our app focuses on a social issue that has long been ignored -- the social problem of cancer patients. Because of their cancer, it could be difficult for them to find dates on other social platforms. As cancer patients, they have more social needs than many people may have, to help them through the difficult cancer treatment, and to relieve their inner loneliness.
  
  To address this problem, our app provides a platform where the cancer patients can meet other cancer patients, either they want to date or find themselves a mentor or mentee. There is no such app on the market currently that does what our app does. We will match users who are close to each other and having the same type(s) of cancer since they may be interested in meeting each other in reality to expand their social circles and significantly improve their life quality.
 
-What's more, because the administrators from Malecare can send news about new treatments on CancerChat, it's also a great platform where the patients can receive the latest information about their cancer. Patients used to get information about new treatments when they met their doctors， while this app allows them to directly access this piece of information. They can then contact the doctor and ask if the new treatment can be applied to them. It can make cancer patients’ lives better and even save their lives.
+What's more, because the administrators from Malecare, a cancer survivor support nonprofit organization, can send news about new treatments on CancerChat, it's also a great platform where the patients can receive the latest information about their cancer. Patients used to get information about new treatments when they met their doctors， while this app allows them to directly access this piece of information. They can then contact the doctor and ask if the new treatment can be applied to them. It can make cancer patients’ lives better and even save their lives.
 
 ## Key Features
  * Described the key features in the application that the user can access
@@ -55,20 +55,36 @@ Administrators can handle reports for users, and make decisions. [TODO]
  * Provide clear steps for using each feature described above
  * This section is critical to testing your application and must be done carefully and thoughtfully
  
- A user can visit our app at [TODO:url]
+ Note: The pictures here are just for reference. The actual website may be (slightly) different from those pictures.
+ 
+ A user can visit our app at [TODO:url], and will see this welcome page:
+ 
+<img src="pictures/welcome.png" alt="welcome" />
  
  Our app has two types of users: normal users and administrators.
  
- As a normal user, one can either register a new account or log in as an existing user. [TODO: add a demo user] 
+ ### Normal user
+ As a normal user, one can either register a new account or log in as an existing user. We have created a demo user for testing, and the credentials would be: [TODO: add a demo user], or you can click the Create Account button and be redirected to the register page:
+ <img src="pictures/register.png" alt="register" />
  
- After logging in, the user will see this page[TODO: a matches page screen shot].
+ After logging in, the user will see the matching page:
+ <img src="pictures/match.jpg" alt="matches" />
+ To test the chat functionality, we have provided two accounts that are already friended:[TODO: added two credentials]. Please open two incognito windows and sign in as two users respectively and you'll find each other in the chat page. The send emoji and pictures feature has not been implemented, and will be finished in D3.
+ <img src="pictures/chat.png" alt="chat" />
+ The user can view and update their profile on the profile page. Note that the uploading photos feature has not been supported and will be finished in D3.
+  <img src="pictures/profile.png" alt="chat" />
+  
+  [TODO: requests page]
  
+ ### Admin user
  As an admin, we have provided a pre-set admin account: 
  
  email: CancerChatAdmin@gmail.com
  password: Admin
  
-  After logging in, the user will see this page[TODO: a send message page screen shot].
+  After logging in, the user will be redirected to the admin send message page. The reports page will be implemented in D3.
+   <img src="pictures/adminSendMessage.png" alt="adminSendMessage" />
+   This page is where the admin can send messages to a specific group of users. we have both a include section and a exclude section to handle the case where the admin may want to send a message to the users who have lung cancer but are not receiving the Antibody treatment. To test this feature, please open an incognitive and sign in as admin, and open another incognitive window and sign in as a normal user. 
  
  ## Development requirements
  * If a developer were to set this up on their machine or a remote server, what are the technical requirements (e.g. OS, libraries, etc.)?

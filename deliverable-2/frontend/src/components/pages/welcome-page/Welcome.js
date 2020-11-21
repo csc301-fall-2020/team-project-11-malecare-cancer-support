@@ -53,14 +53,14 @@ const Welcome = () => {
   return (
     !isLoading && (
       <WelcomePageContainer>
-        <MainTitleLarge>Cancerchat</MainTitleLarge>
+        <MainTitleLarge>CancerChat</MainTitleLarge>
         <Space height="24px" />
         <MainSubTitleLarge>
           Meet &amp; chat to someone just like you
         </MainSubTitleLarge>
         <Space height="72px" />
         <div>
-          <PrimaryButton onClick={handleSignup}>Create account</PrimaryButton>
+          <PrimaryButton onClick={handleSignup}>Create Account</PrimaryButton>
         </div>
         <Space height="24px" />
         <div>

@@ -250,6 +250,11 @@ const Messages = () => {
     });
   }, [currentUser]);
 
+  const handleSeeFullProfile = () => {
+    const w = window.open("about:blank");
+    w.location.href = "profile/" + currentUser;
+  };
+
   return loading ? (
     <PulseLoader
       css={loaderCSS}
@@ -277,8 +282,17 @@ const Messages = () => {
         </PageContainerLeft>
         <PageContainerRight>
           <LinkOut>
-            <a>block</a>
-            <a>report</a>
+            {currentUser && userList[currentUser] !== "Cancer Chat Official" ? (
+              <a>block</a>
+            ) : null}
+            {currentUser && userList[currentUser] !== "Cancer Chat Official" ? (
+              <a>report</a>
+            ) : null}
+            {currentUser && userList[currentUser] !== "Cancer Chat Official" ? (
+              <a onClick={handleSeeFullProfile}>
+                See {userList[currentUser]} full profile
+              </a>
+            ) : null}
           </LinkOut>
           <ChatWrap ref={chatRef}>
             {chatList &&
