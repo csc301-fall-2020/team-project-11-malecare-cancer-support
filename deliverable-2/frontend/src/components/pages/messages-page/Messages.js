@@ -134,6 +134,36 @@ const InputField = styled.input`
   box-sizing: border-box;
 `;
 
+function checkUrlWithString(str_url) {
+  var strRegex =
+    "((https|http|ftp|rtsp|mms)?://)" +
+    "(([0-9a-z_!~*'().&=+$%-]+: )?[0-9a-z_!~*'().&=+$%-]+@)?" + //ftp user@
+    "(([0-9]{1,3}\\.){3}[0-9]{1,3}" + // URL in IP format - 199.194.52.184
+    "|" + // allow IP and DOMAIN
+    "([0-9a-z_!~*'()-]+\\.)*" + // domain- www.
+    "([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\\." + // second domain
+    "[a-z]{2,6})" + // first level domain- .com or .museum
+    "(:[0-9]{1,4})?" + // port- :80
+    "((/?)|" + // a slash isn't required if there is no file name
+    "(/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+/?)";
+  var re = new RegExp(strRegex);
+  if (re.test(str_url)) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function getUrlWithString(s) {
+  // var reg = "(http://|https://)((w|=|?|.|/|&|-)+)";
+  console.log("before", s);
+  var reg =
+    "(https?|http|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]";
+  s = s.match(reg);
+  console.log("url", s[0]);
+  return s[0];
+}
+
 function get(url, params = {}) {
   return new Promise((resolve, reject) => {
     axios
@@ -170,7 +200,6 @@ const Messages = () => {
   const [socket, setSocket] = useState();
   const [chatList, setChatList] = useState([]);
   const [inputText, setInputText] = useState();
-  const [loaded, setLoaded] = useState(false);
   const chatRef = useRef();
   const inputRef = useRef();
   const send = () => {
@@ -255,6 +284,26 @@ const Messages = () => {
     w.location.href = "profile/" + currentUser;
   };
 
+  const handleChatUrl = (item) => {
+    const handleUrl = () => {
+      const w = window.open("about:blank");
+      w.location.href = getUrlWithString(item.text);
+    };
+    if (checkUrlWithString(item.text)) {
+      return (
+        <div className={item.sender_uid === userId ? "chatItemR" : "chatItemL"}>
+          <a onClick={handleUrl}>{item.text}</a>
+        </div>
+      );
+    } else {
+      return (
+        <div className={item.sender_uid === userId ? "chatItemR" : "chatItemL"}>
+          {item.text}
+        </div>
+      );
+    }
+  };
+
   return loading ? (
     <PulseLoader
       css={loaderCSS}
@@ -305,15 +354,7 @@ const Messages = () => {
                       item.receiver_uid === userId)
                   );
                 })
-                .map((item) => (
-                  <div
-                    className={
-                      item.sender_uid === userId ? "chatItemR" : "chatItemL"
-                    }
-                  >
-                    {item.text}
-                  </div>
-                ))}
+                .map((item) => handleChatUrl(item))}
           </ChatWrap>
           <Send>
             <InputField
