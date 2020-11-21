@@ -14,7 +14,10 @@ def save_session_id_to_user_id(user_id, session_id):
 
 
 def get_session_id_by_user_id(user_id):
-    return Session.objects(user_id=user_id).first().get_session_id()
+    session_info = Session.objects(user_id=user_id).first()
+    if session_info:
+        return Session.objects(user_id=user_id).first().get_session_id()
+    return None
 
 
 def get_lst_session_id_by_user_ids(user_id_dict):

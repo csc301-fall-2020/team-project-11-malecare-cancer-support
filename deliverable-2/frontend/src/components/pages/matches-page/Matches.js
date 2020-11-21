@@ -166,6 +166,7 @@ const Matches = () => {
   const [userDetailSelections, setUserDetailSelections] = useState({});
   const [loading, setLoading] = useState(true);
   const [matchesIndex, setMatchesIndex] = useState(0);
+  const [mSocket, setMSocket] = useState(null)
 
   const handleApply = async () => {
     if (
@@ -224,10 +225,16 @@ const Matches = () => {
 
     const socket = io.connect(socketUrl, {reconnection: true})
     socket.emit("save_session")
+    setMSocket(socket)
 
     fetchUser();
     findMatches();
     fetchUserDetailSelections();
+
+    return () => {
+      socket.close();
+      setMSocket(undefined);
+    };
   }, [history, setUser]);
 
   const handleViewProfile = () => {
@@ -251,16 +258,18 @@ const Matches = () => {
     }
   };
 
-  const send = () => {
-    if (!user) return;
-    const socket = io.connect(socketUrl, {reconnection: true})
-    socket.emit('new_friend_request', {
-      receiver: user.user_id
-    });
-  };
+  // const send = () => {
+  //   if (!user) return;
+  //   const socket = io.connect(socketUrl, {reconnection: true})
+  //   socket.emit('new_friend_request', {
+  //     receiver: user.user_id
+  //   });
+  // };
 
-  const handleSendRequest = () => {
-    send();
+  const handleSendRequest = (receiverId) => {
+    mSocket.emit('new_friend_request', {
+      receiver: receiverId
+    });
     alertMessage.success("Request has been sent.")
   };
 
@@ -336,7 +345,7 @@ const Matches = () => {
           <SmallButton style={alignedButton} onClick={handleGotoPrevious}>
             previous
           </SmallButton>
-          <BigButton style={alignedButton} onClick={handleSendRequest}>
+          <BigButton style={alignedButton} onClick={()=>{handleSendRequest(matches[matchesIndex].user_id)}}>
             request to chat
           </BigButton>
           <SmallButton style={alignedButton} onClick={handleGotoNext}>

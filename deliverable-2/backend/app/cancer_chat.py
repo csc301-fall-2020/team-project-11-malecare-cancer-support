@@ -346,22 +346,30 @@ def admin_send_msg(input_json):
 @authenticated_only
 def new_friend_request(payload):
     receiver_id = payload['receiver']
+    sender_id = current_user.get_id()
+    _friend_request_helper({"receiver": receiver_id,
+                            "sender": sender_id},
+                           friend_handler_helpers.create_new_friend_request)
     session_id = handle_session_info_helpers.get_session_id_by_user_id(
         receiver_id)
-    _friend_request_helper(payload,
-                           friend_handler_helpers.create_new_friend_request)
-    socketio.emit('get_friend_request', room=session_id)
+    if session_id:
+        socketio.emit('get_friend_request', room=session_id)
 
 
 @socketio.on('accept_friend_request')
 @authenticated_only
 def accept_friend_request(payload):
     sender_id = payload['sender']
+    receiver_id = current_user.get_id()
+    _friend_request_helper({"receiver": receiver_id,
+                            "sender": sender_id},
+                           friend_handler_helpers.accept_friend_request)
+
     session_id = handle_session_info_helpers.get_session_id_by_user_id(
         sender_id)
-    _friend_request_helper(payload,
-                           friend_handler_helpers.accept_friend_request)
-    socketio.emit('friend_request_accepted', room=session_id)
+    if session_id:
+        socketio.emit('friend_request_accepted', room=session_id)
+
 
 
 @app.route('/friend_requests/decline', methods=['POST'])
