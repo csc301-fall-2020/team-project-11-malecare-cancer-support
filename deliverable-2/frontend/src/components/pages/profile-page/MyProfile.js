@@ -70,10 +70,6 @@ const MyProfile = ({ user, setUser }) => {
   const [include, setInclude] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  function onChange(e) {
-    console.log(`checked = ${e.target.checked}`);
-  }
-
   const handleUpdate = () => {
     if (
       _.isEmpty(name) ||
@@ -86,6 +82,7 @@ const MyProfile = ({ user, setUser }) => {
       message.warning("You cannot submit unfinished form");
     } else {
       //   Initiate Login Request
+      setLoading(true);
       const requestBody = {
         username: name,
         cancer: cancerList,
@@ -102,6 +99,7 @@ const MyProfile = ({ user, setUser }) => {
         .post("current_user/profile/text", requestBody)
         .then((response) => {
           if (response.status === 200) {
+            setLoading(false);
             message.success("success update");
             setUser(response.data);
           }
