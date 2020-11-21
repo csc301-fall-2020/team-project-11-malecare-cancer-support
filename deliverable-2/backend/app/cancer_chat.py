@@ -243,6 +243,32 @@ def get_admin_only_page():
     friend_handler_helpers.add_friend_to_all_users(current_user.get_id())
     return "Yes you are admin"
 
+@app.route('/admin/get_filter_email')
+@login_required
+@admin_only
+def admin_get_filter_email(input_json):
+    gender = input_json['includeGenders']
+    age_min, age_max = input_json['includeAges']
+    include_cancer = input_json['includeCancerTypes']
+    exclude_cancer = input_json['excludeCancerTypes']
+    include_medication = input_json['includeMedications']
+    exclude_medication = input_json['excludeMedications']
+    include_treatment = input_json['includeTreatments']
+    exclude_treatment = input_json['excludeTreatments']
+    print("got socket")
+    email_lst = administrator_filter_helpers.get_email_from_admin_filter(
+        include_cancer=include_cancer,
+        include_medication=include_medication,
+        include_treatment=include_treatment,
+        exclude_cancer=exclude_cancer,
+        exclude_medication=exclude_medication,
+        exclude_treatment=exclude_treatment,
+        age_min=age_min,
+        age_max=age_max,
+        gender=gender
+    )
+    return jsonify(email_lst)
+
 
 @socketio.on('receive_msg')
 @authenticated_only
