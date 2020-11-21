@@ -153,7 +153,7 @@ const Matches = () => {
   const { user, setUser } = useContext(UserContext);
   const history = useHistory();
   const [filterSexOrientation, setFilteredSexOrientation] = useState([
-    "bisexual",
+    "heterosexual",
   ]);
   const [filterGender, setFilterGender] = useState(["male"]);
   const [filterPurpose, setFilterPurpose] = useState(["looking for love"]);
