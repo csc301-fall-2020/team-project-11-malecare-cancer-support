@@ -4,4 +4,5 @@ Thank you for marking our deliverble2. Since we were granted extension to Sunday
 
 Some of us failed to configure the user.email and user.name when commiting to our work. We apologize for any inconvenience that may cause. Here is a list of our names, utmail, Github username.
 
-Name      Utmail      Github uesrname
+Name          Utmail                         Github uesrname
+Xiaomeng Hu   xiaomeng.hu@mail.utoronto.ca   XiaomHu
