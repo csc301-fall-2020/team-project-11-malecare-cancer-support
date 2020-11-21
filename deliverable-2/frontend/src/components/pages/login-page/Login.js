@@ -6,7 +6,7 @@ import styled from "styled-components";
 
 import Input from "../../component-library/Input";
 import Checkbox from "../../component-library/Checkbox";
-import { getCurrentUser, validateEmailAddress } from "../../utils/helpers";
+import { getCurrentUser } from "../../utils/helpers";
 
 import {
   Space,
@@ -51,11 +51,6 @@ const Login = () => {
     if (_.isEmpty(email) || _.isEmpty(password)) {
       return setErrorMessage("Your email and password cannot be empty.");
     }
-
-    if (!validateEmailAddress(email)) {
-      return setErrorMessage("Invalid email address provided");
-    }
-
     //   Initiate Login Request
     const requestBody = { email, password };
     try {

@@ -12,11 +12,6 @@ export const formatDate = (date) => {
   return [year, month, day].join("-");
 };
 
-export const validateEmailAddress = (emailValue) => {
-  const emailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-  return !!emailValue.match(emailformat);
-};
-
 export const getAge = (date) => {
   const parsedDate = new Date(date);
   let year = parsedDate.getFullYear();
