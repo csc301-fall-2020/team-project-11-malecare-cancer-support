@@ -66,5 +66,4 @@ def get_email_from_admin_filter(include_cancer, exclude_cancer,
                                 Q(date_of_birth__gte=start_year) &
                                 Q(date_of_birth__lte=end_year)).values_list(
         'email')
-    print(query_result)
     return query_result

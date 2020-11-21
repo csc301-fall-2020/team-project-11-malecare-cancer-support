@@ -271,7 +271,10 @@ def admin_get_filter_email():
         age_max=age_max,
         gender=gender
     )
-    return json.loads(email_lst)
+    output = {"email":[]}
+    for email in email_lst:
+        output["email"].append(email)
+    return jsonify(output)
 
 
 @socketio.on('receive_msg')
