@@ -19,6 +19,7 @@ import {
 
 import { PulseLoader } from "react-spinners";
 import { css } from "@emotion/react";
+import { socketUrl } from "../../utils/sharedUrl";
 
 const loaderCSS = css`
   margin-top: 300px;
@@ -60,6 +61,17 @@ const MessageInputArea = styled.textarea`
   height: 850px;
 `;
 
+const LoadingMessageInputArea = styled.div`
+  width: 100%;
+  padding: 12px 20px;
+  margin: 12px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  height: 850px;
+`;
+
 const ButtonGroupContainer = styled.div`
   text-align: end;
 `;
@@ -81,6 +93,7 @@ const AdminSendMessages = () => {
   const [message, setMessage] = useState("");
   const [socket, setSocket] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [textBoxLoading, setTextBoxLoading] = useState(false)
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -103,7 +116,7 @@ const AdminSendMessages = () => {
   }, [history, setUser]);
 
   useEffect(() => {
-    let socket = io.connect("http://localhost:5000", { reconnection: true });
+    let socket = io.connect(socketUrl, { reconnection: true });
     socket.emit("index");
     socket.emit("save_session");
     setSocket(socket);
@@ -115,6 +128,7 @@ const AdminSendMessages = () => {
   }, []);
 
   const handleSendMessage = async () => {
+    setTextBoxLoading(true)
     setErrorMessage("");
     if (
       _.isEmpty(includeGenders) ||
@@ -123,11 +137,13 @@ const AdminSendMessages = () => {
       _.isEmpty(includeMedications) ||
       _.isEmpty(includeTreatments)
     ) {
+      setTextBoxLoading(false)
       return setErrorMessage(
         "Please fill in all the filters in the Filters(include) section."
       );
     }
     if (_.isEmpty(message)) {
+      setTextBoxLoading(false)
       return setErrorMessage("The message cannot be empty.");
     }
 
@@ -143,10 +159,12 @@ const AdminSendMessages = () => {
       excludeTreatments,
       message,
     };
-
+    console.log(requestBody)
     socket.emit("admin_send_msg", requestBody);
     socket.on("to_admin", (res) => {
+      setTextBoxLoading(false)
       if (res === "Successfully sent") {
+        console.log("success")
         alert("Message has been sent.");
         setMessage("");
       } else {
@@ -163,101 +181,110 @@ const AdminSendMessages = () => {
       color="rgb(172, 102, 104)"
     ></PulseLoader>
   ) : (
-    <MainContainer>
-      <FiltersContainer>
-        <SectionContainer>
-          <SectionTitle>Filters(include):</SectionTitle>
+      <MainContainer>
+        <FiltersContainer>
+          <SectionContainer>
+            <SectionTitle>Filters(include):</SectionTitle>
 
+            <Space height="12px" />
+            <MultiCardSelection
+              label="Genders:"
+              selections={includeGenders}
+              allowSelectAll
+              updateSelections={setIncludeGenders}
+              options={userDetailSelections.genderOptions || []}
+              roundedCard
+              sectionLabelSize="18px"
+              cardLabelSize="18px"
+            />
+            <SliderSelection
+              sectionLabelSize="18px"
+              label="Ages"
+              includeAges={includeAges}
+              setIncludeAges={setIncludeAges}
+            />
+            <MultiSelectionDropdown
+              label="Types of Cancer:"
+              selections={includeCancerTypes}
+              allowSelectAll
+              updateSelections={setIncludeCancerTypes}
+              options={userDetailSelections.cancerTypeOptions}
+              sectionLabelSize="18px"
+            />
+            <MultiSelectionDropdown
+              label="Types of Treatments:"
+              selections={includeTreatments}
+              allowSelectAll
+              updateSelections={setIncludeTreatments}
+              options={userDetailSelections.treatmentTypeOptions}
+              sectionLabelSize="18px"
+            />
+            <MultiSelectionDropdown
+              label="Types of Medications:"
+              selections={includeMedications}
+              allowSelectAll
+              updateSelections={setIncludeMedications}
+              options={userDetailSelections.medicationOptions}
+              sectionLabelSize="18px"
+            />
+          </SectionContainer>
+          <Space height="24px" />
+          <SectionContainer>
+            <SectionTitle>Filters(exclude):</SectionTitle>
+            <Space height="12px" />
+            <MultiSelectionDropdown
+              label="Types of Cancer:"
+              selections={excludeCancerTypes}
+              updateSelections={setExcludeCancerTypes}
+              options={userDetailSelections.cancerTypeOptions}
+              sectionLabelSize="18px"
+            />
+            <MultiSelectionDropdown
+              label="Types of Treatments:"
+              selections={excludeTreatments}
+              updateSelections={setExcludeTreatments}
+              options={userDetailSelections.treatmentTypeOptions}
+              sectionLabelSize="18px"
+            />
+            <MultiSelectionDropdown
+              label="Types of Medications:"
+              selections={excludeMedications}
+              updateSelections={setExcludeMedications}
+              options={userDetailSelections.medicationOptions}
+              sectionLabelSize="18px"
+            />
+          </SectionContainer>
+        </FiltersContainer>
+        <MessagesContainer>
+          <SectionTitle>Message:</SectionTitle>
+          {textBoxLoading ? (
+            <LoadingMessageInputArea>
+              <PulseLoader
+                css={loaderCSS}
+                size={40}
+                loading={textBoxLoading}
+                color="rgb(172, 102, 104)"
+              ></PulseLoader>
+            </LoadingMessageInputArea>
+          ) : (<MessageInputArea
+            value={message}
+            onChange={(event) => {
+              setMessage(event.target.value);
+            }}
+          />)}
+          {!_.isEmpty(errorMessage) && (
+            <>
+              <ErrorMessageContainer>{errorMessage}</ErrorMessageContainer>
+              <Space height="24px" />
+            </>
+          )}
           <Space height="12px" />
-          <MultiCardSelection
-            label="Genders:"
-            selections={includeGenders}
-            allowSelectAll
-            updateSelections={setIncludeGenders}
-            options={userDetailSelections.genderOptions || []}
-            roundedCard
-            sectionLabelSize="18px"
-            cardLabelSize="18px"
-          />
-          <SliderSelection
-            sectionLabelSize="18px"
-            label="Ages"
-            includeAges={includeAges}
-            setIncludeAges={setIncludeAges}
-          />
-          <MultiSelectionDropdown
-            label="Types of Cancer:"
-            selections={includeCancerTypes}
-            allowSelectAll
-            updateSelections={setIncludeCancerTypes}
-            options={userDetailSelections.cancerTypeOptions}
-            sectionLabelSize="18px"
-          />
-          <MultiSelectionDropdown
-            label="Types of Treatments:"
-            selections={includeTreatments}
-            allowSelectAll
-            updateSelections={setIncludeTreatments}
-            options={userDetailSelections.treatmentTypeOptions}
-            sectionLabelSize="18px"
-          />
-          <MultiSelectionDropdown
-            label="Types of Medications:"
-            selections={includeMedications}
-            allowSelectAll
-            updateSelections={setIncludeMedications}
-            options={userDetailSelections.medicationOptions}
-            sectionLabelSize="18px"
-          />
-        </SectionContainer>
-        <Space height="24px" />
-        <SectionContainer>
-          <SectionTitle>Filters(exclude):</SectionTitle>
-          <Space height="12px" />
-          <MultiSelectionDropdown
-            label="Types of Cancer:"
-            selections={excludeCancerTypes}
-            updateSelections={setExcludeCancerTypes}
-            options={userDetailSelections.cancerTypeOptions}
-            sectionLabelSize="18px"
-          />
-          <MultiSelectionDropdown
-            label="Types of Treatments:"
-            selections={excludeTreatments}
-            updateSelections={setExcludeTreatments}
-            options={userDetailSelections.treatmentTypeOptions}
-            sectionLabelSize="18px"
-          />
-          <MultiSelectionDropdown
-            label="Types of Medications:"
-            selections={excludeMedications}
-            updateSelections={setExcludeMedications}
-            options={userDetailSelections.medicationOptions}
-            sectionLabelSize="18px"
-          />
-        </SectionContainer>
-      </FiltersContainer>
-      <MessagesContainer>
-        <SectionTitle>Message:</SectionTitle>
-        <MessageInputArea
-          value={message}
-          onChange={(event) => {
-            setMessage(event.target.value);
-          }}
-        />
-        {!_.isEmpty(errorMessage) && (
-          <>
-            <ErrorMessageContainer>{errorMessage}</ErrorMessageContainer>
-            <Space height="24px" />
-          </>
-        )}
-        <Space height="12px" />
-        <ButtonGroupContainer>
-          <UpdateButton onClick={handleSendMessage}>Send message</UpdateButton>
-        </ButtonGroupContainer>
-      </MessagesContainer>
-    </MainContainer>
-  );
+          <ButtonGroupContainer>
+            <UpdateButton onClick={handleSendMessage}>Send message</UpdateButton>
+          </ButtonGroupContainer>
+        </MessagesContainer>
+      </MainContainer>
+    );
 };
 
 export default AdminSendMessages;

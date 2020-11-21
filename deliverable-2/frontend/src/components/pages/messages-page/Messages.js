@@ -9,6 +9,7 @@ import { getCurrentUser } from "../../utils/helpers";
 import { UserContext } from "../../../contexts/UserContext";
 import { PulseLoader } from "react-spinners";
 import { css } from "@emotion/react";
+import { socketUrl } from "../../utils/sharedUrl";
 // import { get } from "../../utils/request";
 
 const loaderCSS = css`
@@ -241,7 +242,7 @@ const Messages = () => {
   }, [setUser, history]);
 
   useEffect(() => {
-    let socket = io.connect("http://localhost:5000", { reconnection: true });
+    let socket = io.connect(socketUrl, { reconnection: true });
 
     socket.emit("index");
     socket.on("chat", () => {
