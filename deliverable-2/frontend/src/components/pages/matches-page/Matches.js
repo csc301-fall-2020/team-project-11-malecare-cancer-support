@@ -12,6 +12,7 @@ import { Space, PrimaryButton } from "../../share-styled-component";
 import { getUserDetailOptions } from "../signup-page/helper";
 import _ from "lodash";
 import { message } from "antd";
+import { message as alertMessage } from "antd"
 
 import { PulseLoader } from "react-spinners";
 import { css } from "@emotion/react";
@@ -250,8 +251,17 @@ const Matches = () => {
     }
   };
 
+  const send = () => {
+    if (!user) return;
+    const socket = io.connect(socketUrl, {reconnection: true})
+    socket.emit('new_friend_request', {
+      receiver: user.user_id
+    });
+  };
+
   const handleSendRequest = () => {
-    history.push("/profile/" + user.user_id);
+    send();
+    alertMessage.success("Request has been sent.")
   };
 
   return loading ? (
@@ -326,7 +336,7 @@ const Matches = () => {
           <SmallButton style={alignedButton} onClick={handleGotoPrevious}>
             previous
           </SmallButton>
-          <BigButton style={alignedButton} onClick={handleViewProfile}>
+          <BigButton style={alignedButton} onClick={handleSendRequest}>
             request to chat
           </BigButton>
           <SmallButton style={alignedButton} onClick={handleGotoNext}>
