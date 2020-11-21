@@ -7,13 +7,13 @@
  * What is the problem you're trying to solve?
  * Is there any context required to understand **why** the application solves this problem?
  
- CancerChat is a Tinder-like app that serves as a platform, on which the cancer patients can be matched to other cancer patients that meet their requirements. Our app also has a built-in notification functionality where the admin can send cancer-related news to target users. 
+ CancerChat is a Tinder-like app that serves as a platform, on which the cancer patients can be matched to other cancer patients that meet their requirements. Our app also has a built-in notification functionality where the administrators can send cancer-related news to target users. The administrators are from Malecare, a cancer survivor support nonprofit organization.
  
- Our app focuses on a social issue that has long been ignored -- the social problem of cancer patients. Because of their cancer, it could be difficult for them to find dates on other social platforms. As cancer patients, they have more social needs than many people may have, to help them through the difficult cancer treatment, and to relieve their inner loneliness.
+ Our app focuses on a social issue that has long been ignored -- the social problem of cancer patients. Because of their cancer, it could be difficult for them to find dates on other social platforms. As cancer patients, they may have more social needs than others do. Socializing helps them through the difficulties they met during cancer treatment, and to relieve their inner loneliness.
  
  To address this problem, our app provides a platform where the cancer patients can meet other cancer patients, either they want to date or find themselves a mentor or mentee. There is no such app on the market currently that does what our app does. We will match users who are close to each other and having the same type(s) of cancer since they may be interested in meeting each other in reality to expand their social circles and significantly improve their life quality.
 
-What's more, because the administrators from Malecare, a cancer survivor support nonprofit organization, can send news about new treatments on CancerChat, it's also a great platform where the patients can receive the latest information about their cancer. Patients used to get information about new treatments when they met their doctors， while this app allows them to directly access this piece of information. They can then contact the doctor and ask if the new treatment can be applied to them. It can make cancer patients’ lives better and even save their lives.
+What's more, because the administrators can send news about new treatments on CancerChat, it's also a great platform where the patients can receive the latest information about their cancer. Patients used to get information about new treatments when they met their doctors， while this app allows them to directly access this piece of information. They can then contact the doctor and ask if the new treatment can be applied to them. It can make cancer patients’ lives better and even save their lives.
 
 ## Key Features
  * Described the key features in the application that the user can access
@@ -21,8 +21,8 @@ What's more, because the administrators from Malecare, a cancer survivor support
  * This section will be used to assess the value of the features built
  
 ### Create Account/ Signup:  
-For the first time, the users who visit CanerChat can use the button on the front page to create an account for them.
-At the signup page, users will be asked to enter some basic account information (enter email, user name, birth date and password) and also choose the purpose of using this app as well as the cancer type. After register accounts, it will be automatically directed to the app main page.
+For the first time, the users who visit CancerChat can use the button on the front page to create an account for them.
+At the signup page, users will be asked to enter some basic account information (enter email, user name, birth date and password) and also choose the purpose of using this app as well as their cancer types. After registering, they will be automatically directed to the app main page.
 
 ### Login:  
 On the front page, Users can login with their email and password. Besides, users can click on the checkbox and let CancerChat app to remember your email account.
@@ -31,22 +31,18 @@ On the front page, Users can login with their email and password. Besides, users
 After logging in, there is a navigation bar on the top, users can click on them and users will be redirected to the chosen page.
 
 ### Browse matches:  
-On the main page, there will be matches provided by CancerChat app which shows another user's profile. Users can choose to view the full profile of the matched user or request to have a chat with this user.
+On the main page, there will be matches provided by CancerChat app which shows another user's profile. Users can choose to view the full profile of the matched user or request to have a chat with this user. They will be match to someone who has some same types of cancer as they do.
 Since CancerChat app will provide multiple matches for users, they can make decisions to either view previous matches or the next matches.
 Moreover, next to the match, users can change the filter setting(for ideal match user) to ask for matches that meet their requirements.
 
 ### Chat:  
-On the message page, users can find their friends on the left. (after both users agree on the chat request, they are friends, unless one of them has been blocked). Users can click on a friend's user name and start a chat by sending texts to friends.
+On the message page, users can find their friends on the left. (after both users agree on the chat request, they are friends, unless one of them has been blocked by the other). Users can click on a friend's user name and start a chat by sending texts to friends. Messages received offline are loaded once users go online.
 
 ### Update Profile:  
-On the profile page, users can modify their profile here. Profile not only includes the basic information but also includes some extra information such as the greeting message users want to show on the match, adding detailed information such as cancer's medication and treatment. (For receiving latest news)
+On the profile page, users can modify their profile here. Profile not only includes the basic information but also includes some extra information such as the greeting message users want to show to other users on the match page. Users can also add detailed information including the medications they are taking and the treatments they are using. For the purpose of receiving latest news of the treatments or medications from admin. (They has to be filled in to receive any news.)
 
 ### Admin sends news:  
 Administrators can send news to target users using the filters including ages, genders, types of cancer, types of treatment, and types of medication. For example, administrators can send a news about the lastest lung cancer treatment to users with lung cancer aged 20-50.
-
-### Admin handle report:  
-Administrators can handle reports for users, and make decisions. [TODO]
-
  
 
 ## Instructions
@@ -63,13 +59,20 @@ Administrators can handle reports for users, and make decisions. [TODO]
  
  Our app has two types of users: normal users and administrators.
  
- ### Normal user
+ ### Common user
  As a normal user, one can either register a new account or log in as an existing user. We have created a demo user for testing, and the credentials would be: [TODO: add a demo user], or you can click the Create Account button and be redirected to the register page:
  <img src="pictures/register.png" alt="register" />
  
- After logging in, the user will see the matching page:
+ After logging in, the user will see the matching page. To test match functionality, you can create several accounts through signup page and try to match them. Note that only users who have some types of cancer in common can be matched to each other. 
  <img src="pictures/match.jpg" alt="matches" />
- To test the chat functionality, we have provided two accounts that are already friended:[TODO: added two credentials]. Please open two incognito windows and sign in as two users respectively and you'll find each other in the chat page. The send emoji and pictures feature has not been implemented, and will be finished in D3.
+ To test the chat functionality, we have provided two accounts that are already friended:
+ 
+   - email: my_cancer3@gmail.com
+   - pwd: my_cancer2
+   - email: my_cancer6@gmail.com
+   - pwd: my_cancer2
+ 
+ Please open two incognito windows(or two different browsers) and sign in as two users respectively and you'll find each other in the chat page. The send emoji and pictures feature has not been implemented, and will be finished in D3.
  <img src="pictures/chat.png" alt="chat" />
  The user can view and update their profile on the profile page. Note that the uploading photos feature has not been supported and will be finished in D3.
   <img src="pictures/profile.png" alt="chat" />
@@ -84,7 +87,7 @@ Administrators can handle reports for users, and make decisions. [TODO]
  
   After logging in, the user will be redirected to the admin send message page. The reports page will be implemented in D3.
    <img src="pictures/adminSendMessage.png" alt="adminSendMessage" />
-   This page is where the admin can send messages to a specific group of users. we have both a include section and a exclude section to handle the case where the admin may want to send a message to the users who have lung cancer but are not receiving the Antibody treatment. To test this feature, please open an incognitive and sign in as admin, and open another incognitive window and sign in as a normal user. 
+   This page is where the admin can send messages to a specific group of users. we have both a include section and a exclude section to handle the case where the admin may want to send a message to the users who have lung cancer but are not receiving the Antibody treatment. To test this feature, please open an incognitive and sign in as admin, and open another incognitive window and sign in as a normal user. Note that only users who fill in the both sections under the detailed information in their profile page can receive admin's message.
  
  ## Development requirements
  * If a developer were to set this up on their machine or a remote server, what are the technical requirements (e.g. OS, libraries, etc.)?
@@ -129,7 +132,7 @@ Describe your Git / GitHub workflow. Essentially, we want to understand how your
       - If a manually merging is needed, merge `develop` branch to the new branch manually. Test the merged code at the local machine and make sure it is stable. Then do a pull-request to merge the new branch back to the `develop` branch. The reason for this is that we do not want any unstable code in the `develop` branch.
       - Examples of the pull-requests can be found here: https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/pulls?q=is%3Apr+is%3Aclosed
       - we did not enforce this practice at first. We are adapting to it since we believe that it helps to maintain a cleaner codebase.
-   - Invite someone who is available at the time or someone who is in charge of the changed code to do a code review. Sometimes we have to change to the code which was not the part that was assigned to us, thus it is necessary to consult the person who was in charge of the code. However, this does not often happen, since our first instinct is to ask the person who is in charge of the piece of the code to make the change. If this does happen, then the review is definitely needed. The reason is that we do not want our code to be changed without being notified, which could result in hard-to-find bugs.
+   - Invite someone who is available at the time or someone who is in charge of the changed code to do a code review. Sometimes we have to change to the code which was not the part that was assigned to us, thus it is necessary to consult the person who was in charge of the code. However, this does not often happen, since we first ask the person who is in charge of the piece of the code to make the change. If this does happen, then the review is definitely needed. The reason is that we do not want our code to be changed without being notified, which could result in hard-to-find bugs.
    - Once the pull-request is approved, go ahead to merge it to the `develop` branch. Usually, the person who creates the pull-requests is responsible for merging the branch, but it does not matter, since the conflicts are resolved earlier and the changes are approved by others.
 
 - Most of the time, developers stay on the develop branch to stay in sync with each other and made quick responses to others' suggestions.
