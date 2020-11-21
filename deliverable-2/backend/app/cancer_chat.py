@@ -304,7 +304,8 @@ def admin_send_msg(input_json):
         socketio.emit('to_admin', "Successfully sent", room=request.sid)
     except:
         e = sys.exc_info()[0]
-        socketio.emit('to_admin', "<p>Error: %s</p>" % e , room=request.sid)
+        print("<p>Error: %s</p>" % e)
+        socketio.emit('to_admin', "something wrong occurred" , room=request.sid)
 
 
 @socketio.on('new_friend_request')
