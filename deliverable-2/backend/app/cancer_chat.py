@@ -376,7 +376,7 @@ def decline_friend_request():
 @login_required
 def get_undecided_requests():
     return friend_handler_helpers.get_all_undecided_friend_requests_by_receiver_uid(
-        request.get_json()["receiver"])
+        current_user.get_id())
 
 
 def _friend_request_helper(user_dict, func):
