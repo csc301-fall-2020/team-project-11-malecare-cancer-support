@@ -1,6 +1,7 @@
 import React, { useEffect, useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
+import io from "socket.io-client";
 import { UserContext } from "../../../contexts/UserContext";
 import { getAge, getCurrentUser } from "../../utils/helpers";
 import { filterMatches } from "./helper";
@@ -14,6 +15,7 @@ import { message } from "antd";
 
 import { PulseLoader } from "react-spinners";
 import { css } from "@emotion/react";
+import { socketUrl } from "../../utils/sharedUrl";
 
 const loaderCSS = css`
   margin-top: 300px;
@@ -218,6 +220,9 @@ const Matches = () => {
         setMatches(myMatches);
       }
     };
+
+    const socket = io.connect(socketUrl, {reconnection: true})
+    socket.emit("save_session")
 
     fetchUser();
     findMatches();
