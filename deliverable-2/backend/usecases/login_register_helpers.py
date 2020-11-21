@@ -48,7 +48,6 @@ def create_new_user(email, password, date_of_birth, gender, cancer, purpose,
     new_user.save()
 
 
-
 def get_user_by_user_id(user_id):
     return User.objects(user_id=user_id).first()
 

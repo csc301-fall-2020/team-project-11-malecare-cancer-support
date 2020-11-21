@@ -2,11 +2,11 @@ import functools
 import sys
 
 import pymongo
-from flask import Flask, jsonify, request
+from flask import Flask, json, jsonify, request
 from flask_login import LoginManager, current_user, login_required, login_user, \
     logout_user
 from flask_socketio import SocketIO, disconnect
-from ..util.helpers import age_list_parser
+
 from ..usecases import administrator_filter_helpers, \
     customize_user_profile_helpers, friend_handler_helpers, \
     handle_report_helpers, handle_session_info_helpers, login_register_helpers, \
@@ -53,8 +53,8 @@ def load_to_db():
         treatment_lst=request.get_json()["treatment_types"],
         sexual_orientation_lst=request.get_json()["sexual_orientations"],
         gender_lst=request.get_json()["genders"],
-        medication_lst=request.get_json()["medications"],\
-    )
+        medication_lst=request.get_json()["medications"], \
+        )
 
 
 @app.route('/load_from_db/cancer_types')
@@ -138,7 +138,9 @@ def login():
 @app.route('/current_user')
 @login_required
 def get_current_user():
-    return jsonify(friend_handler_helpers.augment_user_dict_with_friends_user_name(current_user.get_id()))
+    return jsonify(
+        friend_handler_helpers.augment_user_dict_with_friends_user_name(
+            current_user.get_id()))
 
 
 @app.route('/current_user/profile/text', methods=['POST'])
@@ -233,7 +235,8 @@ def mark_as_read():
 @login_required
 @app.route('/chat/all_messages_by_user', methods=['POST'])
 def get_all_messages_relate_to_current_user():
-    return message_handle_helper.get_all_messages_by_user_id(current_user.get_id())
+    return message_handle_helper.get_all_messages_by_user_id(
+        current_user.get_id())
 
 
 @app.route('/admin')
@@ -243,10 +246,12 @@ def get_admin_only_page():
     friend_handler_helpers.add_friend_to_all_users(current_user.get_id())
     return "Yes you are admin"
 
-@app.route('/admin/get_filter_email')
+
+@app.route('/admin/get_filter_email', methods=['POST'])
 @login_required
 @admin_only
-def admin_get_filter_email(input_json):
+def admin_get_filter_email():
+    input_json = request.get_json()
     gender = input_json['includeGenders']
     age_min, age_max = input_json['includeAges']
     include_cancer = input_json['includeCancerTypes']
@@ -255,7 +260,6 @@ def admin_get_filter_email(input_json):
     exclude_medication = input_json['excludeMedications']
     include_treatment = input_json['includeTreatments']
     exclude_treatment = input_json['excludeTreatments']
-    print("got socket")
     email_lst = administrator_filter_helpers.get_email_from_admin_filter(
         include_cancer=include_cancer,
         include_medication=include_medication,
@@ -267,7 +271,7 @@ def admin_get_filter_email(input_json):
         age_max=age_max,
         gender=gender
     )
-    return jsonify(email_lst)
+    return json.loads(email_lst)
 
 
 @socketio.on('receive_msg')
@@ -297,6 +301,7 @@ def save_session():
 @authenticated_only
 def admin_send_msg(input_json):
     try:
+        print(input_json)
         gender = input_json['includeGenders']
         age_min, age_max = input_json['includeAges']
         include_cancer = input_json['includeCancerTypes']
@@ -330,7 +335,7 @@ def admin_send_msg(input_json):
         socketio.emit('to_admin', "Successfully sent", room=request.sid)
     except:
         e = sys.exc_info()[0]
-        socketio.emit('to_admin', "<p>Error: %s</p>" % e , room=request.sid)
+        socketio.emit('to_admin', "<p>Error: %s</p>" % e, room=request.sid)
 
 
 @socketio.on('new_friend_request')
@@ -453,9 +458,14 @@ def index():
 
 @app.route('/test')
 def test():
-    administrator_filter_helpers.age(age_min=0, age_max=100, include_treatment=['Clinical Trial(s)','Antibody'],
-                                            include_cancer=['Anal cancer','Acute myeloid leukemia'],
-                                            include_medication=['ABVE',"Abiraterone Acetate"],gender=['male'])
+    administrator_filter_helpers.age(age_min=0, age_max=100,
+                                     include_treatment=['Clinical Trial(s)',
+                                                        'Antibody'],
+                                     include_cancer=['Anal cancer',
+                                                     'Acute myeloid leukemia'],
+                                     include_medication=['ABVE',
+                                                         "Abiraterone Acetate"],
+                                     gender=['male'])
     return '111'
 
 
