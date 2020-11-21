@@ -6,3 +6,4 @@ Some of us failed to configure the user.email and user.name when commiting to ou
 
 Name          Utmail                         Github uesrname
 Xiaomeng Hu   xiaomeng.hu@mail.utoronto.ca   XiaomHu
+Rui Zhu       v.zhu@mail.utoronto.ca         7hestral or RuiZhu
