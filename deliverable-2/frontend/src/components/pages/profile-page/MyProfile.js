@@ -15,6 +15,7 @@ import Greeting from "../../component-library/Profile/Greeting";
 import PhotoWall from "../../component-library/Profile/PhotoWall";
 import { getUserDetailOptions } from "../../pages/signup-page/helper";
 import { UpdateButton } from "../../share-styled-component";
+import Checkbox from "../../component-library/Checkbox";
 
 import { PulseLoader } from "react-spinners";
 import { css } from "@emotion/react";
@@ -33,9 +34,16 @@ const ProfileTitle = styled.div`
   color: #4d222a;
 `;
 
+const CheckboxSection = styled.div`
+  align-items: flex-start;
+  display: flex;
+  flex-direction: row;
+`;
+
 const SmallTitle = styled.div`
   font-size: 20px;
   color: #4d222a;
+  margin-right: 10px;
 `;
 
 const dateFormat = "YYYY-MM-DD";
@@ -59,7 +67,12 @@ const MyProfile = ({ user, setUser }) => {
   const [greetMsg, setGreetMsg] = useState(user.short_intro);
   const [medication, setMed] = useState(user.medications);
   const [treatment, setTreat] = useState(user.treatments);
+  const [include, setInclude] = useState(false);
   const [loading, setLoading] = useState(true);
+
+  function onChange(e) {
+    console.log(`checked = ${e.target.checked}`);
+  }
 
   const handleUpdate = () => {
     if (
@@ -169,14 +182,14 @@ const MyProfile = ({ user, setUser }) => {
         <Col>
           {/* <Title level={2}>Your album</Title> */}
           <ProfileTitle>Your album</ProfileTitle>
-          <SmallTitle>Let's make your profile looks more attracting</SmallTitle>
+          <SmallTitle>Let's make your profile look more attracting</SmallTitle>
           <p></p>
           <PhotoWall></PhotoWall>
         </Col>
       </Row>
       <Row gutter={[16, 16]}>
         <Col span={2}></Col>
-        <Col span={14}>
+        <Col span={8}>
           {/* <Title level={2}>Detailed Information</Title> */}
           <ProfileTitle>Detailed Information</ProfileTitle>
           <SmallTitle>
@@ -195,7 +208,18 @@ const MyProfile = ({ user, setUser }) => {
             lineTitle={"Treatment:"}
             data={userDetailSelections.treatmentTypeOptions}
           ></MultiSelect>
+          <CheckboxSection>
+            <Checkbox
+              label="Include detailed information in your profile"
+              isChecked={include}
+              onClick={() => {
+                setInclude(!include);
+              }}
+            />
+          </CheckboxSection>
         </Col>
+        <Col span={2}></Col>
+        <Col span={8}></Col>
       </Row>
       <Row gutter={[16, 16]}>
         {" "}
