@@ -7,7 +7,7 @@
 
 ## Iteration XX - Review & Retrospect
 
- * When: FILL IN THE DATE WHEN YOU ACTUALLY HAD YOUR REVIEW MEETING
+ * When: November 19
  * Where: Online
 
 ## Process - Reflection
