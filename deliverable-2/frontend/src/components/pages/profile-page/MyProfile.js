@@ -187,7 +187,7 @@ const MyProfile = ({ user, setUser }) => {
       </Row>
       <Row gutter={[16, 16]}>
         <Col span={2}></Col>
-        <Col span={8}>
+        <Col span={12}>
           {/* <Title level={2}>Detailed Information</Title> */}
           <ProfileTitle>Detailed Information</ProfileTitle>
           <SmallTitle>
