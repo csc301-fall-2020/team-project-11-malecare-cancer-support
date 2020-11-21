@@ -22,4 +22,3 @@ class PreLoads(db.Document):
 
     def get_treatment_types(self):
         return self.treatment_types
-
