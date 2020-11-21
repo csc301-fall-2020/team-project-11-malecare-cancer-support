@@ -3,8 +3,10 @@ import _ from "lodash";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
-
+import { PulseLoader } from "react-spinners";
+import { css } from "@emotion/react";
 import moment from "moment";
+
 import Input from "../../component-library/Input";
 import DatePickerInput from "../../component-library/DatePickerInput";
 import Checkbox from "../../component-library/Checkbox";
@@ -20,12 +22,10 @@ import {
   ErrorMessageContainer,
 } from "../../share-styled-component";
 
-import { getUserDetailOptions } from "./helper";
-
+import { validateEmailAddress } from "../../utils/helpers";
 import { UserContext } from "../../../contexts/UserContext";
 
-import { PulseLoader } from "react-spinners";
-import { css } from "@emotion/react";
+import { getUserDetailOptions } from "./helper";
 
 const loaderCSS = css`
   margin-top: 300px;
@@ -93,6 +93,10 @@ const SignUp = () => {
       return setErrorMessage(
         "Please fill in all the fields and selections above."
       );
+    }
+
+    if (!validateEmailAddress(email)) {
+      return setErrorMessage("Invalid email address provided");
     }
 
     if (password !== confirmPassword) {
