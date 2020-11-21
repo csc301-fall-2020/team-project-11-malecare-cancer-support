@@ -1,0 +1,7 @@
+Hello, to whom is marking our deliverble2:
+
+Thank you for marking our deliverble2. Since we were granted extension to Sunday, Nov.22, 11:59 PM, please mark the material on the latest pull request from develop to master branch before then. 
+
+Some of us failed to configure the user.email and user.name when commiting to our work. We apologize for any inconvenience that may cause. Here is a list of our names, utmail, Github username.
+
+Name      Utmail      Github uesrname
