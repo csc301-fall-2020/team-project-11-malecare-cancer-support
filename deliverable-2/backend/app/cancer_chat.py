@@ -357,10 +357,12 @@ def new_friend_request(payload):
             receiver_id)
         if session_id:
             socketio.emit('get_friend_request', room=session_id)
-        socketio.emit('return_new_friend_request', SOCKET_ON_SUCCESS_MSG, room=request.sid)
+        socketio.emit('return_new_friend_request', SOCKET_ON_SUCCESS_MSG,
+                      room=request.sid)
     except:
         print_error()
-        socketio.emit('return_new_friend_request', SOCKET_ERROR_MSG, room=request.sid)
+        socketio.emit('return_new_friend_request', SOCKET_ERROR_MSG,
+                      room=request.sid)
 
 
 @socketio.on('accept_friend_request')
@@ -377,10 +379,12 @@ def accept_friend_request(payload):
             sender_id)
         if session_id:
             socketio.emit('friend_request_accepted', room=session_id)
-        socketio.emit('return_accept_friend_request', SOCKET_ON_SUCCESS_MSG, room=request.sid)
+        socketio.emit('return_accept_friend_request', SOCKET_ON_SUCCESS_MSG,
+                      room=request.sid)
     except:
         print_error()
-        socketio.emit('return_accept_friend_request', SOCKET_ERROR_MSG, room=request.sid)
+        socketio.emit('return_accept_friend_request', SOCKET_ERROR_MSG,
+                      room=request.sid)
 
 
 def print_error():
@@ -405,8 +409,10 @@ def decline_friend_request():
 @app.route('/friend_requests')
 @login_required
 def get_undecided_requests():
-    return jsonify(friend_handler_helpers.
-                   get_all_undecided_friend_requests_by_receiver_uid(current_user.get_id()))
+    return jsonify(
+        friend_handler_helpers.
+        get_all_undecided_friend_requests_by_receiver_uid(
+            current_user.get_id()))
 
 
 def _friend_request_helper(user_dict, func):
