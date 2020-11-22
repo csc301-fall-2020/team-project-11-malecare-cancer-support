@@ -53,6 +53,12 @@ const RequestContainer = {
   margin: "0px",
 }
 
+const EmptyMessage = styled.div`
+  height: 200px;
+  margin: 30px;
+  font-size: 20px;
+`;
+
 const alignedButton = {
   display: "inline-block",
   margin: "0px 30px",
@@ -106,6 +112,8 @@ const Requests = () => {
   const [requestList, setRequestList] = useState();
   const getRequestList = async () => {
     const response = await axios.get("/friend_requests");
+    console.log(">>>>>response.data")
+    console.log(response.data);
     return response.data;
   };
 
@@ -145,7 +153,14 @@ const Requests = () => {
   ) : (
     <RequestsPageContainer>
       <RequestTitle>Chat Requests</RequestTitle>
-      <RequestCard name="CancerChat"/>
+        {requestList.map((item, index) => {
+          return(
+          <RequestCard name="CancerChat"/>
+          );
+        })}
+        {requestList.length == 0 && (
+          <EmptyMessage>You have no new requests. </EmptyMessage>
+        )}
     </RequestsPageContainer>
   );
 };
