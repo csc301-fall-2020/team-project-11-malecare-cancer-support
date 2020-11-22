@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import _ from "lodash";
+import axios from "axios";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
 import Input from "../../component-library/Input";
 import Checkbox from "../../component-library/Checkbox";
+import { getCurrentUser } from "../../utils/helpers";
 
 import {
   Space,
@@ -12,6 +15,8 @@ import {
   SecondaryButton,
   ErrorMessageContainer,
 } from "../../share-styled-component";
+
+import { UserContext } from "../../../contexts/UserContext";
 
 const LoginPageContainer = styled.div`
   position: absolute;
@@ -23,17 +28,39 @@ const LoginPageContainer = styled.div`
 `;
 
 const Login = () => {
+  const { setUser } = useContext(UserContext);
+  const history = useHistory();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberUser, setRememberUser] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleLogin = () => {
+  useEffect(() => {
+    const fetchUser = async () => {
+      const fetchedUser = await getCurrentUser();
+      if (fetchedUser) {
+        history.push(fetchedUser.is_admin ? "/adminSendMessages" : "/matches");
+      }
+    };
+
+    fetchUser();
+  }, [history]);
+
+  const handleLogin = async () => {
     if (_.isEmpty(email) || _.isEmpty(password)) {
       return setErrorMessage("Your email and password cannot be empty.");
     }
     //   Initiate Login Request
-    console.log({ email, password });
+    const requestBody = { email, password };
+    try {
+      const response = await axios.post("/login", requestBody);
+      const fetchedUser = response.data;
+      setUser(fetchedUser);
+      history.push(fetchedUser.is_admin ? "/adminSendMessages" : "/matches");
+    } catch (err) {
+      setErrorMessage(err.response.data);
+    }
   };
 
   return (

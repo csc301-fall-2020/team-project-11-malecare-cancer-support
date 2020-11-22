@@ -37,7 +37,10 @@ export const PrimaryButton = styled.button`
   color: #ffffff;
   font-size: 30px;
   width: 320px;
-  height: 50px;
+  outline: none;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const SecondaryButton = styled.button`
@@ -47,7 +50,10 @@ export const SecondaryButton = styled.button`
   color: #d54e54;
   font-size: 30px;
   width: 320px;
-  height: 50px;
+  outline: none;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const NavBarContainer = styled.nav`
@@ -62,19 +68,45 @@ export const NavBarContainer = styled.nav`
 `;
 
 export const NavLinkContainer = styled.ul`
-  width: 30%;
+  width: 700px;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   list-style: none;
+  margin: 0;
 `;
 
 export const NavLink = styled(Link)`
   color: #ffffff;
   text-decoration: none;
+  &:hover {
+    cursor: pointer;
+    color: #ffffff;
+  }
+`;
+
+export const LogoutSection = styled.a`
+  color: #ffffff;
+  text-decoration: none;
+  &:hover {
+    color: #ffffff;
+  }
 `;
 
 export const ErrorMessageContainer = styled.div`
   color: #eb901a;
   font-size: 24px;
+`;
+
+export const UpdateButton = styled.button`
+  border: 2px solid #d54e54;
+  border-radius: 50px;
+  background-color: #d54e54;
+  color: #ffffff;
+  font-size: 20px;
+  width: 320px;
+  outline: none;
+  &:hover {
+    cursor: pointer;
+  }
 `;

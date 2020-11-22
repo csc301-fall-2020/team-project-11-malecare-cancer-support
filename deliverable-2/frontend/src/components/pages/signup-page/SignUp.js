@@ -1,19 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import _ from "lodash";
+import axios from "axios";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
+import moment from "moment";
 import Input from "../../component-library/Input";
-import DatePicker from "../../component-library/DatePicker";
+import DatePickerInput from "../../component-library/DatePickerInput";
 import Checkbox from "../../component-library/Checkbox";
 import SingleCardSelection from "../../component-library/SingleCardSelection";
 import MultiCardSelection from "../../component-library/MultiCardSelection";
-
-import {
-  genderOptions,
-  sexualOrientationOptions,
-  treatmentTypeOptions,
-  purposeOptions,
-} from "./constant";
+import MultiSelectionDropdown from "../../component-library/MultiSelectionDropdown";
 
 import {
   Space,
@@ -22,6 +19,21 @@ import {
   PrimaryButton,
   ErrorMessageContainer,
 } from "../../share-styled-component";
+
+import { getUserDetailOptions } from "./helper";
+
+import { UserContext } from "../../../contexts/UserContext";
+
+import { PulseLoader } from "react-spinners";
+import { css } from "@emotion/react";
+
+const loaderCSS = css`
+  margin-top: 300px;
+  margin-bottom: 50px;
+  flex: 1;
+`;
+
+const dateFormat = "YYYY-MM-DD";
 
 const SignUpPageContainer = styled.div`
   margin: auto;
@@ -34,27 +46,53 @@ const SectionContainer = styled.div`
 `;
 
 const SignUp = () => {
+  const { user, setUser } = useContext(UserContext);
+  const history = useHistory();
+
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [dateOfBirth, setDateOfBirth] = useState(new Date());
+  const [dateOfBirth, setDateOfBirth] = useState(
+    new moment("2000-01-01", dateFormat)
+  );
   const [gender, setGender] = useState("");
   const [purposes, setPurposes] = useState([]);
+  const [cancerTypes, setCancerTypes] = useState([]);
   const [sexOrientation, setSexOrientation] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-
   const [agreeTerms, setAgreeTerms] = useState(false);
+  const [userDetailSelections, setUserDetailSelections] = useState({});
+  const [loading, setLoading] = useState(true);
 
-  const handleRegister = () => {
+  useEffect(() => {
+    if (user) {
+      history.push("/matches");
+    }
+    const fetchUserDetailSelections = async () => {
+      setUserDetailSelections(await getUserDetailOptions());
+      setLoading(false);
+    };
+
+    fetchUserDetailSelections();
+  }, [user, history]);
+
+  const handleRegister = async () => {
+    setErrorMessage("");
     if (
       _.isEmpty(username) ||
       _.isEmpty(email) ||
       _.isEmpty(password) ||
       _.isEmpty(confirmPassword) ||
-      _.isNil(dateOfBirth)
+      _.isNil(dateOfBirth) ||
+      _.isEmpty(gender) ||
+      _.isEmpty(cancerTypes) ||
+      _.isEmpty(purposes) ||
+      _.isEmpty(sexOrientation)
     ) {
-      return setErrorMessage("Please fill in all the required fields.");
+      return setErrorMessage(
+        "Please fill in all the fields and selections above."
+      );
     }
 
     if (password !== confirmPassword) {
@@ -68,20 +106,43 @@ const SignUp = () => {
         "Please agree with our terms and policy in order to register."
       );
     }
+
+    if (moment().diff(dateOfBirth.format(dateFormat), "years") < 18) {
+      return setErrorMessage("You must be at least 18 years of old to join.");
+    }
+
     // Initiate Signup Request
-    console.log({
+    const requestBody = {
       username,
       email,
       password,
-      dateOfBirth,
+      date_of_birth: dateOfBirth.format(dateFormat),
       gender,
-      purposes,
-      sexOrientation,
-      agreeTerms,
-    });
+      cancer: cancerTypes, // Array
+      purpose: purposes, // Array
+      sex_orientation: sexOrientation,
+    };
+
+    axios
+      .post("/signup", requestBody)
+      .then((response) => {
+        if (!_.isNil(response, "data.user_id")) {
+          setUser(response.data);
+        }
+      })
+      .catch((err) => {
+        setErrorMessage(err.message);
+      });
   };
 
-  return (
+  return loading ? (
+    <PulseLoader
+      css={loaderCSS}
+      size={40}
+      loading={loading}
+      color="rgb(172, 102, 104)"
+    ></PulseLoader>
+  ) : (
     <SignUpPageContainer>
       {/* Login Info */}
       <SectionContainer>
@@ -129,7 +190,7 @@ const SignUp = () => {
       <SectionContainer>
         <MainTitle>More about you ..</MainTitle>
         <Space height="24px" />
-        <DatePicker
+        <DatePickerInput
           label="Date of birth (yyyy-mm-dd):"
           onChange={setDateOfBirth}
           date={dateOfBirth}
@@ -139,21 +200,31 @@ const SignUp = () => {
           label="Gender:"
           selection={gender}
           updateSelection={setGender}
-          options={genderOptions}
+          roundedCard
+          options={userDetailSelections.genderOptions || []}
+        />
+        <Space height="12px" />
+        <MultiSelectionDropdown
+          label="Types of Cancer:"
+          selections={cancerTypes}
+          updateSelections={setCancerTypes}
+          options={userDetailSelections.cancerTypeOptions}
         />
         <Space height="12px" />
         <MultiCardSelection
           label="Are you a mentor, mentee, looking for love or all of them?"
           selections={purposes}
           updateSelections={setPurposes}
-          options={purposeOptions}
+          roundedCard
+          options={userDetailSelections.purposeOptions || []}
         />
         <Space height="12px" />
         <SingleCardSelection
           label="Sex orientation:"
           selection={sexOrientation}
           updateSelection={setSexOrientation}
-          options={sexualOrientationOptions}
+          roundedCard
+          options={userDetailSelections.sexualOrientationOptions || []}
         />
       </SectionContainer>
       <Space height="36px" />

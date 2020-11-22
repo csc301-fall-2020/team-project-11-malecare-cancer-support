@@ -25,6 +25,12 @@ const OptionCardConatiner = styled.div`
   border-radius: 4px;
   margin: 0 8px 8px 0;
 
+  &:hover {
+    cursor: pointer;
+  }
+
+  border-radius: ${({ roundedCard }) => (roundedCard ? "50px" : "4px")};
+
   ${({ isSelected }) =>
     isSelected
       ? `
@@ -41,7 +47,12 @@ const CardSelectedIcon = styled(FaCheck)`
   color: #fff;
 `;
 
-const OptionCard = ({ selection, updateSelection, optionValue }) => {
+const OptionCard = ({
+  selection,
+  updateSelection,
+  optionValue,
+  roundedCard,
+}) => {
   const isSelected = selection === optionValue;
 
   const handleCardSelection = () => {
@@ -53,7 +64,11 @@ const OptionCard = ({ selection, updateSelection, optionValue }) => {
   };
 
   return (
-    <OptionCardConatiner isSelected={isSelected} onClick={handleCardSelection}>
+    <OptionCardConatiner
+      isSelected={isSelected}
+      onClick={handleCardSelection}
+      roundedCard={roundedCard}
+    >
       {isSelected && <CardSelectedIcon />}
       <span>{optionValue}</span>
     </OptionCardConatiner>
@@ -65,6 +80,7 @@ const SingleCardSelection = ({
   selection,
   updateSelection,
   options,
+  roundedCard = false,
 }) => {
   return (
     <SingleCardSelectionContainer>
@@ -76,6 +92,7 @@ const SingleCardSelection = ({
             optionValue={optionValue}
             selection={selection}
             updateSelection={updateSelection}
+            roundedCard={roundedCard}
           />
         ))}
       </CardListContainer>

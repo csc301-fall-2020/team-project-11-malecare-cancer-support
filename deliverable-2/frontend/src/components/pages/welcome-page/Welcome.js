@@ -1,7 +1,7 @@
-import React, { useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
-import { UserContext } from "../../../contexts/UserContext";
+import { getCurrentUser } from "../../utils/helpers";
 
 import {
   Space,
@@ -21,14 +21,26 @@ const WelcomePageContainer = styled.div`
 `;
 
 const Welcome = () => {
-  const { user } = useContext(UserContext);
   const history = useHistory();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    if (user) {
-      history.push("/matches");
-    }
-  }, [user, history]);
+    const fetchUser = async () => {
+      setIsLoading(true);
+      const fetchedUser = await getCurrentUser();
+      setIsLoading(false);
+      if (!fetchedUser) return;
+      if (fetchedUser.is_admin) {
+        // User logged in as Admin
+        history.push("/adminSendMessages");
+      } else {
+        // User logged in
+        history.push("/matches");
+      }
+    };
+
+    fetchUser();
+  }, [history]);
 
   const handleSignup = () => {
     history.push("/signup");
@@ -39,21 +51,23 @@ const Welcome = () => {
   };
 
   return (
-    <WelcomePageContainer>
-      <MainTitleLarge>Cancerchat</MainTitleLarge>
-      <Space height="24px" />
-      <MainSubTitleLarge>
-        Meet &amp; chat to someone just like you
-      </MainSubTitleLarge>
-      <Space height="72px" />
-      <div>
-        <PrimaryButton onClick={handleSignup}>Create account</PrimaryButton>
-      </div>
-      <Space height="24px" />
-      <div>
-        <SecondaryButton onClick={handleLogin}>Login</SecondaryButton>
-      </div>
-    </WelcomePageContainer>
+    !isLoading && (
+      <WelcomePageContainer>
+        <MainTitleLarge>CancerChat</MainTitleLarge>
+        <Space height="24px" />
+        <MainSubTitleLarge>
+          Meet &amp; chat to someone just like you
+        </MainSubTitleLarge>
+        <Space height="72px" />
+        <div>
+          <PrimaryButton onClick={handleSignup}>Create Account</PrimaryButton>
+        </div>
+        <Space height="24px" />
+        <div>
+          <SecondaryButton onClick={handleLogin}>Login</SecondaryButton>
+        </div>
+      </WelcomePageContainer>
+    )
   );
 };
 
