@@ -491,11 +491,6 @@ def create_admin():
     return "Create admin successfully"
 
 
-@socketio.on('index')
-def index():
-    print("123123")
-
-
 
 if __name__ == '__main__':
     # app.run(debug=True)
