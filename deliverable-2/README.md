@@ -21,30 +21,28 @@ What's more, because the administrators can send news about new treatments on Ca
  * This section will be used to assess the value of the features built
  
 ### Create Account/ Signup:  
-For the first time, the users who visit CancerChat can use the button on the front page to create an account for them.
-At the signup page, users will be asked to enter some basic account information (enter email, user name, birth date and password) and also choose the purpose of using this app as well as their cancer types. After registering, they will be automatically directed to the app main page.
+When the users first visit CancerChat, they can use the button on the welcome page to create an account.
+At the signup page, users will be asked to enter some basic account information (email, user name, birth date and password, etc.), as well as their purpose of using this app (find mentor, mentee or love) as well as their cancer types. After registering, they will be automatically directed to the main page.
 
 ### Login:  
-On the front page, Users can login with their email and password. Besides, users can click on the checkbox and let CancerChat app to remember your email account.
+On the login page, users can log in with their email and password. Besides, users can click on the checkbox and let CancerChat app remember your email account.
 
 ### Navigation bar:  
-After logging in, there is a navigation bar on the top, users can click on them and users will be redirected to the chosen page.
+After logging in, there is a navigation bar on the top, and users can click on them and be redirected to the according page.
 
 ### Browse matches:  
-On the main page, there will be matches provided by CancerChat app which shows another user's profile. Users can choose to view the full profile of the matched user or request to have a chat with this user. They will be match to someone who has some same types of cancer as they do.
-Since CancerChat app will provide multiple matches for users, they can make decisions to either view previous matches or the next matches.
-Moreover, next to the match, users can change the filter setting(for ideal match user) to ask for matches that meet their requirements.
+On the main page, there will be matched users provided by the CancerChat app. Users can choose to view the full profile of the matched user or request to have a chat with this user. They will be matched to someone who has the same types of cancer as they do.
+Next to the current match, users can change the filters to ask for matches that meet their requirements.
+Since the CancerChat app provides multiple matches for users, they can switch matches with the previous and next buttons on the matches page. 
 
 ### Chat:  
-On the message page, users can find their friends on the left. (after both users agree on the chat request, they are friends, unless one of them has been blocked by the other). Users can click on a friend's user name and start a chat by sending texts to friends. Messages received offline are loaded once users go online.
+The users will become friends after both users agree on the chat request, and they will be de-friended unless one of them has been blocked by the other. On the message page, users can find their friends on the left. Users can click on a friend's user name and start a chat by sending texts to friends. Messages received offline are loaded once users go online.
 
 ### Update Profile:  
-On the profile page, users can modify their profile here. Profile not only includes the basic information but also includes some extra information such as the greeting message users want to show to other users on the match page. Users can also add detailed information including the medications they are taking and the treatments they are using. For the purpose of receiving latest news of the treatments or medications from admin. (They has to be filled in to receive any news.)
+Users can modify their profile on the profile page. Profile not only includes the basic information but also some extra information such as the greeting message users want to show to other users on the matches page. Users can also add detailed information including the medications they are taking and the treatments they are using, for the purpose of receiving the latest news of the treatments or medications from the admin. Note that a user has to fill in both sections(medication and treatment) to receive any news.
 
 ### Admin sends news:  
-Administrators can send news to target users using the filters including ages, genders, types of cancer, types of treatment, and types of medication. For example, administrators can send a news about the lastest lung cancer treatment to users with lung cancer aged 20-50.
- 
-
+Administrators can send the news to target users using the filters including ages, genders, types of cancer, types of treatment, and types of medication. For example, administrators can send news about the latest lung cancer treatment to users with lung cancer aged 20-50.
 ## Instructions
  * Clear instructions for how to use the application from the end-user's perspective
  * How do you access it? Are accounts pre-created or does a user register? Where do you start? etc. 
@@ -60,11 +58,18 @@ Administrators can send news to target users using the filters including ages, g
  Our app has two types of users: normal users and administrators.
  
  ### Common user
- As a normal user, one can either register a new account or log in as an existing user. We have created a demo user for testing, and the credentials would be: [TODO: add a demo user], or you can click the Create Account button and be redirected to the register page:
- <img src="pictures/register.png" alt="register" />
+ As a normal user, one can either register a new account or log in as an existing user. We have created a demo user for testing, and the credentials would be: email: my_cancer3@gmail.com, pwd: my_cancer2, 
+or you can click the Create Account button and create a new user:
+
+<img src="pictures/register.png" alt="register" />
  
  After logging in, the user will see the matching page. To test match functionality, you can create several accounts through signup page and try to match them. Note that only users who have some types of cancer in common can be matched to each other. 
  <img src="pictures/match.jpg" alt="matches" />
+ 
+ If the user wants to talk to the match, then he/she can click the "request to chat" button user the matched user, then the metched user would receive a request on their requests page:
+  <img src="pictures/requests.jpg" alt="requests" />
+ 
+ 
  To test the chat functionality, we have provided two accounts that are already friended:
  
    - email: my_cancer3@gmail.com
@@ -77,7 +82,6 @@ Administrators can send news to target users using the filters including ages, g
  The user can view and update their profile on the profile page. Note that the uploading photos feature has not been supported and will be finished in D3.
   <img src="pictures/profile.png" alt="chat" />
   
-  [TODO: requests page]
  
  ### Admin user
  As an admin, we have provided a pre-set admin account: 
