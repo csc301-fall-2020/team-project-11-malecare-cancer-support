@@ -341,17 +341,19 @@ const Matches = () => {
             </EmptyMatch>
           )}
         </BorderContainer>
-        <div style={buttons}>
-          <SmallButton style={alignedButton} onClick={handleGotoPrevious}>
-            previous
-          </SmallButton>
-          <BigButton style={alignedButton} onClick={()=>{handleSendRequest(matches[matchesIndex].user_id)}}>
-            request to chat
-          </BigButton>
-          <SmallButton style={alignedButton} onClick={handleGotoNext}>
-            next
-          </SmallButton>
-        </div>
+        {matches.length !== 0 && (
+          <div style={buttons}>
+            <SmallButton style={alignedButton} onClick={handleGotoPrevious}>
+              previous
+            </SmallButton>
+            <BigButton style={alignedButton} onClick={()=>{handleSendRequest(matches[matchesIndex].user_id)}}>
+              request to chat
+            </BigButton>
+            <SmallButton style={alignedButton} onClick={handleGotoNext}>
+              next
+            </SmallButton>
+          </div>
+        )}
       </MatchContainer>
     </MatchesPageContainer>
   );
