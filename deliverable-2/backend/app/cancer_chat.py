@@ -411,9 +411,10 @@ def decline_friend_request():
 @app.route('/friend_requests')
 @login_required
 def get_undecided_requests():
-    return jsonify(friend_handler_helpers.
-                   get_all_undecided_friend_requests_by_receiver_uid(
-        current_user.get_id()))
+    return jsonify(
+        friend_handler_helpers.
+        get_all_undecided_friend_requests_by_receiver_uid(
+            current_user.get_id()))
 
 
 def _friend_request_helper(user_dict, func):
