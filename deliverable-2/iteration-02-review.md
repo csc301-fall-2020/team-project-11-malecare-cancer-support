@@ -37,9 +37,12 @@ List **process-related** (i.e. team organization and how you work) decisions tha
 
 List **process-related** (i.e. team organization and how you work) decisions that, in retrospect, were not as successful as you thought they would be.
 
-1. We underestimated the time needed to finish D2 and started late. In the end, everyone was exhausted in order to implement the functionalities before the deadline. 
+1. We underestimated the time needed to finish D2 and started late. In the end, everyone was exhausted to implement the functionalities before the deadline. 
 
-2. In order to save time, the team has decided to not spending time designing the parameters of APIs and start directly. Because the frontend and backend were implemented asynchronously, sometimes we had to change the API that has been written to meet the needs of the frontend, which wasted a lot of time, and also produced some hard-to-find bugs.
+2. We decided to have only weekly group meetings because we wanted every team member to schedule their time freely according to their calendar, as long as they can finish their assigned work. However, some team members struggled to finish the task on time and the other team members didn't find out till near the deadline because our meetings were not frequent enough. In D3, we need to have more frequent meetings so we can better keep track of everyone's progress and adjust the delivery plan accordingly. 
+
+3. To save time, the team has decided to not spending time designing the parameters of APIs and start directly. Because the frontend and backend were implemented asynchronously, sometimes we had to change the API that has been written to meet the needs of the frontend, which wasted a lot of time, and also produced some hard-to-find bugs.
+
 
  * 2 - 4 decisions.
  * Ordered from most to least important.
@@ -52,8 +55,8 @@ List **process-related** (i.e. team organization and how you work) decisions tha
 List any **process-related** (i.e. team organization and how you work) changes you are planning to make (if there are any)
 
 1. Share deadlines, organize better:  
-Though in the past few months, we are doing fine organizing and splitting the work, we think that we can organize our group work better if we share our deadlines and our time schedules ahead. Since our group members are in different time zones and we have different course works, 
-we are planning to take every member's personal schedule and project deadlines into consideration when planning and assigning works. Dividing the work into several small milestones might also be beneficial for us. We will plan to do this, too.
+Though in the past few months, we are doing fine organizing and splitting the work, we think that we can organize our group work better if we share our deadlines and our time schedules ahead. Since our group members are in different time zones and we have different coursework, 
+we think it would be a good idea to take every member's personal schedule and project deadlines into consideration when planning and assigning works. We have also planned to divide the work into several small milestones.
 2. Agree on API before developing new features:  
 At deliverable-2, we started our coding work before designing APIs. This means overtimes, members who work at the front-end will need to communicate with back-end members on deciding APIs. This is more time consuming than we thought due to the timezone issue. It will be efficient if we can agree on complete APIs before doing our work.
 3. More meetings, more communication:  
