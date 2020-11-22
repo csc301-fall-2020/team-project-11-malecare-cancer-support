@@ -56,7 +56,7 @@ or you can click the Create Account button and create a new user:
  <img src="pictures/match.jpg" alt="matches" />
  
  If the user wants to talk to the match, then he/she can click the "request to chat" button user the matched user, then the matched user would receive a request on their requests page:
-  <img src="pictures/requests.jpg" alt="requests" />
+  <img src="pictures/requests.png" alt="requests" />
  
  
  To test the chat functionality, we have provided two accounts that are already friended:
