@@ -1,11 +1,6 @@
 # CancerChat/Team 11
 
-> _Note:_ This document is intended to be relatively short. Be concise and precise. Assume the reader has no prior knowledge of your application and is non-technical. 
-
 ## Description 
- * Provide a high-level description of your application and it's value from an end-user's perspective
- * What is the problem you're trying to solve?
- * Is there any context required to understand **why** the application solves this problem?
  
  CancerChat is a Tinder-like app that serves as a platform, on which the cancer patients can be matched to other cancer patients that meet their requirements. Our app also has a built-in notification functionality where the administrators can send cancer-related news to target users. The administrators are from Malecare, a cancer survivor support nonprofit organization.
  
@@ -16,9 +11,6 @@
 What's more, because the administrators can send news about new treatments on CancerChat, it's also a great platform where the patients can receive the latest information about their cancer. Patients used to get information about new treatments when they met their doctors， while this app allows them to directly access this piece of information. They can then contact the doctor and ask if the new treatment can be applied to them. It can make cancer patients’ lives better and even save their lives.
 
 ## Key Features
- * Described the key features in the application that the user can access
- * Provide a breakdown or detail for each feature that is most appropriate for your application
- * This section will be used to assess the value of the features built
  
 ### Create Account/ Signup:  
 When the users first visit CancerChat, they can use the button on the welcome page to create an account.
@@ -43,11 +35,8 @@ Users can modify their profile on the profile page. Profile not only includes th
 
 ### Admin sends news:  
 Administrators can send the news to target users using the filters including ages, genders, types of cancer, types of treatment, and types of medication. For example, administrators can send news about the latest lung cancer treatment to users with lung cancer aged 20-50.
+
 ## Instructions
- * Clear instructions for how to use the application from the end-user's perspective
- * How do you access it? Are accounts pre-created or does a user register? Where do you start? etc. 
- * Provide clear steps for using each feature described above
- * This section is critical to testing your application and must be done carefully and thoughtfully
  
  Note: The pictures here are just for reference. The actual website may be (slightly) different from those pictures.
  
@@ -94,8 +83,6 @@ or you can click the Create Account button and create a new user:
    This page is where the admin can send messages to a specific group of users. we have both a include section and a exclude section to handle the case where the admin may want to send a message to the users who have lung cancer but are not receiving the Antibody treatment. To test this feature, please open an incognitive and sign in as admin, and open another incognitive window and sign in as a normal user. Note that only users who fill in the both sections under the detailed information in their profile page can receive admin's message.
  
  ## Development requirements
- * If a developer were to set this up on their machine or a remote server, what are the technical requirements (e.g. OS, libraries, etc.)?
- * Briefly describe instructions for setting up and running the application (think a true README).
  
  - Installation of npm, node, python3, python3-pip, flask are required. Python packages requirements has shown in requirements.txt. 
  - Instructions for setting up and running the application:
@@ -118,14 +105,6 @@ or you can click the Create Account button and create a new user:
         - `npm start`
         
  ## Deployment and Github Workflow
-
-Describe your Git / GitHub workflow. Essentially, we want to understand how your team members shares a codebase, avoid conflicts and deploys the application.
- * Be concise, yet precise. For example, "we use pull-requests" is not a precise statement since it leaves too many open questions - Pull-requests from where to where? Who reviews the pull-requests? Who is responsible for merging them? etc.
- * If applicable, specify any naming conventions or standards you decide to adopt.
- * Describe your overall deployment process from writing code to viewing a live application
- * What deployment tool(s) are you using and how
- * Don't forget to **briefly explain why** you chose this workflow or particular aspects of it!
- 
 
 - Main development process happens on the `develop` branch. This is for preventing from contaminating the master branch. https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/tree/develop
 
@@ -175,12 +154,6 @@ Note that the main difference between the commands for deployment and developmen
    
 
  ## Licenses 
-
- Keep this section as brief as possible. You may read this [Github article](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/licensing-a-repository) for a start.
-
- * What type of license will you apply to your codebase?
- * What affect does it have on the development and use of your codebase?
- * Why did you or your partner make this choice?
 
 We will apply MIT license to our codebase. 
 Further development and use of our codebase have to also stay under MIT license and include the copyright notice. 
