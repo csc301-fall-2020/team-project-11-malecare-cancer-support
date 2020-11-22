@@ -282,7 +282,7 @@ const Messages = () => {
 
   const handleSeeFullProfile = () => {
     const w = window.open("about:blank");
-    w.location.href = "profile/" + currentUser;
+    w.location.href = "/profile/" + currentUser;
   };
 
   const handleChatUrl = (item) => {
