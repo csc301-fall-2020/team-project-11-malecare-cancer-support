@@ -177,6 +177,7 @@ const Matches = () => {
       message.warning("Empty filter");
       // TODO: Maybe fill the filter item? Make it filter nothing?
     } else {
+      setLoading(true)
       const myMatches = await filterMatches(
         filterSexOrientation,
         filterGender,
@@ -189,6 +190,7 @@ const Matches = () => {
       }
     }
     console.log("update");
+    setLoading(false)
   };
 
   useEffect(() => {
@@ -223,7 +225,7 @@ const Matches = () => {
       }
     };
 
-    const socket = io.connect(socketUrl, {reconnection: true})
+    const socket = io.connect(socketUrl, { reconnection: true })
     socket.emit("save_session")
     setMSocket(socket)
 
@@ -281,82 +283,85 @@ const Matches = () => {
       color="rgb(172, 102, 104)"
     ></PulseLoader>
   ) : (
-    <MatchesPageContainer>
-      <FilterContainer>
-        <Title>Filter</Title>
-        <MultiCardSelection
-          label="Gender:"
-          selections={filterGender}
-          updateSelections={setFilterGender}
-          roundedCard
-          options={userDetailSelections.genderOptions || []}
-        />
-        <Space height="12px" />
-        <MultiCardSelection
-          label="Target:"
-          selections={filterPurpose}
-          updateSelections={setFilterPurpose}
-          roundedCard
-          options={userDetailSelections.purposeOptions || []}
-        />
-        <Space height="12px" />
-        <MultiCardSelection
-          label="Sex orientation:"
-          selections={filterSexOrientation}
-          updateSelections={setFilteredSexOrientation}
-          roundedCard
-          options={userDetailSelections.sexualOrientationOptions || []}
-        />
-        <Space height="24px" />
-        <PrimaryButton onClick={handleApply}>Apply</PrimaryButton>
-        <Space height="24px" />
-      </FilterContainer>
-      <MatchContainer>
-        <BorderContainer>
-          {matches.length !== 0 && (
-            <PhotoContainer>
-              <img style={picStyle} src={img} alt="user picture" />
-              <span style={label}>{matches[matchesIndex].purpose} </span>
-            </PhotoContainer>
-          )}
-          {matches.length !== 0 ? (
-            <InfoContainer>
-              <span style={info}>Name: {matches[matchesIndex].username} </span>
-              <span style={info}>
-                Age: 
+      <MatchesPageContainer>
+        <FilterContainer>
+          <Title>Filter</Title>
+          <MultiCardSelection
+            label="Gender:"
+            selections={filterGender}
+            updateSelections={setFilterGender}
+            roundedCard
+            options={userDetailSelections.genderOptions || []}
+          />
+          <Space height="12px" />
+          <MultiCardSelection
+            label="Target:"
+            selections={filterPurpose}
+            updateSelections={setFilterPurpose}
+            roundedCard
+            options={userDetailSelections.purposeOptions || []}
+          />
+          <Space height="12px" />
+          <MultiCardSelection
+            label="Sex orientation:"
+            selections={filterSexOrientation}
+            updateSelections={setFilteredSexOrientation}
+            roundedCard
+            options={userDetailSelections.sexualOrientationOptions || []}
+          />
+          <Space height="24px" />
+          <PrimaryButton onClick={handleApply}>Apply</PrimaryButton>
+          <Space height="24px" />
+        </FilterContainer>
+        <MatchContainer>
+          <BorderContainer>
+            {matches.length !== 0 && (
+              <PhotoContainer>
+                <img style={picStyle} src={img} alt="user picture" />
+                <span style={label}>{matches[matchesIndex].purpose && matches[matchesIndex].purpose.map((item, index) => { return (<div>{item}</div>) })} </span>
+              </PhotoContainer>
+            )}
+            {matches.length !== 0 ? (
+              <InfoContainer>
+                <span style={info}>Name: {matches[matchesIndex].username} </span>
+                <span style={info}>
+                  Age:
                 {getAge(matches[matchesIndex].date_of_birth)}
-              </span>
-              <span style={info}>Gender: {matches[matchesIndex].gender}</span>
-              <span style={info}>
-                Cancer Type(s): {matches[matchesIndex].cancer}
-              </span>
-              <span style={info}>{matches[matchesIndex].short_intro}</span>
-              <SmallButton style={profileButton} onClick={handleViewProfile}>
-                full profile
+                </span>
+                <span style={info}>Gender: {matches[matchesIndex].gender}</span>
+                <span style={info}>
+                  Cancer Type(s): {matches[matchesIndex].cancer &&
+                    ((matches[matchesIndex].cancer.length <= 3)
+                      ? matches[matchesIndex].cancer :
+                      matches[matchesIndex].cancer.slice(0, 3).concat(['...'])).map((item, index) => { return (<div>{item}</div>) })}
+                </span>
+                <span style={info}>Greeting message: {matches[matchesIndex].short_intro}</span>
+                <SmallButton style={profileButton} onClick={handleViewProfile}>
+                  full profile
               </SmallButton>
-            </InfoContainer>
-          ) : (
-            <EmptyMatch>
-              It is sad but no one is here. Maybe try another filter?
-            </EmptyMatch>
-          )}
-        </BorderContainer>
-        {matches.length !== 0 && (
-          <div style={buttons}>
-            <SmallButton style={alignedButton} onClick={handleGotoPrevious}>
-              previous
+              </InfoContainer>
+            ) : (
+                <EmptyMatch>
+                  It is sad but no one is here. Maybe try another filter?
+                </EmptyMatch>
+              )}
+          </BorderContainer>
+          {matches.length !== 0 && (
+            <div style={buttons}>
+              <SmallButton style={alignedButton} onClick={handleGotoPrevious}>
+                previous
             </SmallButton>
-            <BigButton style={alignedButton} onClick={()=>{handleSendRequest(matches[matchesIndex].user_id)}}>
-              request to chat
+              <BigButton style={alignedButton} onClick={() => { handleSendRequest(matches[matchesIndex].user_id) }}>
+                request to chat
             </BigButton>
-            <SmallButton style={alignedButton} onClick={handleGotoNext}>
-              next
+              <SmallButton style={alignedButton} onClick={handleGotoNext}>
+                next
             </SmallButton>
-          </div>
-        )}
-      </MatchContainer>
-    </MatchesPageContainer>
-  );
+            </div>
+          )}
+        </MatchContainer>
+      </MatchesPageContainer>
+    );
 };
 
 export default Matches;

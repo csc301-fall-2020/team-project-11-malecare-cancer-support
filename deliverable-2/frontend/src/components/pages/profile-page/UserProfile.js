@@ -133,7 +133,7 @@ const UserProfile = ({ match }) => {
           <Row>
             <Col span={4}>Type(s) of cancer:</Col>
             <Col span={8}>
-              {profileUser && profileUser.cancer ? profileUser.cancer : null}
+              {profileUser && profileUser.cancer ? profileUser.cancer.map((item, index) => {return (<div>{item}</div>)}) : null}
             </Col>
           </Row>
           <p></p>

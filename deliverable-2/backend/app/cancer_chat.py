@@ -51,13 +51,12 @@ def authenticated_only(f):
 @app.route('/load_to_db', methods=['POST'])
 def load_to_db():
     return preload_data_helpers \
-        .load_to_cancer_type_db(
-        cancer_type_lst=request.get_json()["cancer_types"],
-        treatment_lst=request.get_json()["treatment_types"],
-        sexual_orientation_lst=request.get_json()["sexual_orientations"],
-        gender_lst=request.get_json()["genders"],
-        medication_lst=request.get_json()["medications"], \
-        )
+        .load_to_cancer_type_db(cancer_type_lst=request.get_json()["cancer_types"],
+                                treatment_lst=request.get_json()["treatment_types"],
+                                sexual_orientation_lst=request.get_json()["sexual_orientations"],
+                                gender_lst=request.get_json()["genders"],
+                                medication_lst=request.get_json()["medications"],
+                                )
 
 
 @app.route('/load_from_db/cancer_types')
@@ -130,8 +129,7 @@ def login():
         return "This account has been locked", 412
     if login_register_helpers.verify_password_by_email(email=user_email,
                                                        password=
-                                                       request.get_json()[
-                                                           "password"]):
+                                                       request.get_json()["password"]):
         login_user(login_register_helpers.get_user_by_email(email=user_email))
         return jsonify(current_user.get_json())
     else:
@@ -497,18 +495,6 @@ def create_admin():
 def index():
     print("123123")
 
-
-@app.route('/test')
-def test():
-    administrator_filter_helpers.age(age_min=0, age_max=100,
-                                     include_treatment=['Clinical Trial(s)',
-                                                        'Antibody'],
-                                     include_cancer=['Anal cancer',
-                                                     'Acute myeloid leukemia'],
-                                     include_medication=['ABVE',
-                                                         "Abiraterone Acetate"],
-                                     gender=['male'])
-    return '111'
 
 
 if __name__ == '__main__':
