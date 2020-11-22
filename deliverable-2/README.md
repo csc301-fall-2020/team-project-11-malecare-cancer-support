@@ -97,14 +97,17 @@ or you can click the Create Account button and create a new user:
  * If a developer were to set this up on their machine or a remote server, what are the technical requirements (e.g. OS, libraries, etc.)?
  * Briefly describe instructions for setting up and running the application (think a true README).
  
- - Technical requirements has shown in requirements.txt.
+ - Installation of npm, node, python3, python3-pip, flask are required. Python packages requirements has shown in requirements.txt. 
  - Instructions for setting up and running the application:
    - Open the deliverable-2 folder:
      - Open one terminal for backend:
      - Step 1:
-        - if your operation system is MacOS/Linux, please `export FLASK_APP=backend/app/cancer_chat.py`
-        - if your operation system is Windows, please `set FLASK_APP=backend/app/cancer_chat.py`
+        - go to backend folder: `cd backend`
+        - install requirements using pip: `pip install -r requirements.txt` or `pip3 install -r requirements.txt`
      - Step 2:
+        - if your operation system is MacOS/Linux, please `export FLASK_APP=app/cancer_chat.py`
+        - if your operation system is Windows, please `set FLASK_APP=app/cancer_chat.py`
+     - Step 3:
         - `flask run`
      - Open another terminal for frontend:
      - Step 1:
