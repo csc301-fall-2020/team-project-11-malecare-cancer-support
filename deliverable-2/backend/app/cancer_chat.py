@@ -2,7 +2,7 @@ import functools
 import sys
 
 import pymongo
-from flask import Flask, json, jsonify, request
+from flask import Flask, jsonify, request
 from flask_login import LoginManager, current_user, login_required, login_user, \
     logout_user
 from flask_socketio import SocketIO, disconnect
@@ -22,6 +22,7 @@ socketio = SocketIO(app, manage_session=False, cors_allowed_origins="*")
 
 SOCKET_ERROR_MSG = "Something was wrong."
 SOCKET_ON_SUCCESS_MSG = "Successfully sent"
+
 
 # decorator for limiting access of admin-only api
 def admin_only(f):
@@ -273,7 +274,7 @@ def admin_get_filter_email():
         age_max=age_max,
         gender=gender
     )
-    output = {"email":[]}
+    output = {"email": []}
     for email in email_lst:
         output["email"].append(email)
     return jsonify(output)
@@ -342,7 +343,7 @@ def admin_send_msg(input_json):
         # e = sys.exc_info()[0]
         # print("<p>Error: %s</p>" % e)
         print_error()
-        socketio.emit('to_admin', SOCKET_ERROR_MSG , room=request.sid)
+        socketio.emit('to_admin', SOCKET_ERROR_MSG, room=request.sid)
 
 
 @socketio.on('new_friend_request')
@@ -364,7 +365,6 @@ def new_friend_request(payload):
         socketio.emit('return_new_friend_request', SOCKET_ERROR_MSG, room=request.sid)
 
 
-
 @socketio.on('accept_friend_request')
 @authenticated_only
 def accept_friend_request(payload):
@@ -384,10 +384,12 @@ def accept_friend_request(payload):
         print_error()
         socketio.emit('return_accept_friend_request', SOCKET_ERROR_MSG, room=request.sid)
 
+
 def print_error():
     e = sys.exc_info()
     for i in e:
         print(i)
+
 
 @app.route('/friend_requests/decline', methods=['POST'])
 @login_required
@@ -395,7 +397,7 @@ def decline_friend_request():
     receiver_id = current_user.get_id()
     sender_id = request.get_json()['sender']
     print({"receiver": receiver_id,
-                            "sender": sender_id})
+           "sender": sender_id})
     _friend_request_helper({"receiver": receiver_id,
                             "sender": sender_id},
                            friend_handler_helpers.decline_friend_request)
@@ -405,8 +407,8 @@ def decline_friend_request():
 @app.route('/friend_requests')
 @login_required
 def get_undecided_requests():
-    return friend_handler_helpers.get_all_undecided_friend_requests_by_receiver_uid(
-        current_user.get_id())
+    return jsonify(friend_handler_helpers.
+                   get_all_undecided_friend_requests_by_receiver_uid(current_user.get_id()))
 
 
 def _friend_request_helper(user_dict, func):

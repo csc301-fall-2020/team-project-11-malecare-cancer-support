@@ -113,24 +113,26 @@ const Requests = () => {
   const { user, setUser } = useContext(UserContext);
   const history = useHistory();
   const [loading, setLoading] = useState(true);
-  const [requestList, setRequestList] = useState([]);
+  // const [requestList, setRequestList] = useState([]);
   const [senderList, setSenderList] = useState([]);
   const getRequestList = async () => {
     const response = await axios.get("/friend_requests");
     return response.data;
   };
 
-  const handleAccept = (senderId) => {
+  const handleAccept = async (senderId) => {
     mSocket.emit('accept_friend_request', {
       sender: senderId
     });
-    alertMessage.success("Request accepted.")
+    asyncReq()
+    // alertMessage.success("Request accepted.")
   };
   
-  const handleDecline = (senderId) => {
+  const handleDecline = async (senderId) => {
     axios.post("/friend_requests/decline", {sender: senderId}).then(() => {
       alertMessage.success("Request declined.");
     })
+    asyncReq()
   };
   
   const handleViewProfile = (senderId) => {
@@ -138,7 +140,7 @@ const Requests = () => {
     w.location.href = "/profile/" + senderId;
   };
   
-  
+
   
   function RequestCard(props) {
     return(
@@ -166,32 +168,85 @@ const Requests = () => {
       </div>
     );
   }
-  const getUser = async (userId) => {
-    const response = await axios.post("/get_user", {user_id: userId});
-    return response.data;
-  };
+  // const getUser = async (userId) => {
+  //   const response = await axios.post("/get_user", {user_id: userId});
+  //   return response.data;
+  // };
 
-  const fetchSenders = async () => {
-    var length, i;
-    var senders = [];
-    length = requestList.length;
-    for (i = 0; i < length; i ++) {
-      senders.push(await getUser(requestList[i]["sender_uid"]));
-    }
-    setSenderList(senders);
-    setLoading(false);
-  }
+  // const fetchSenders = async () => {
+  //   var length, i;
+  //   var senders = [];
+  //   length = requestList.length;
+  //   for (i = 0; i < length; i ++) {
+  //     let x = await getUser(requestList[i]["sender_uid"])
+  //     senders.push(x);
+  //   }
+  //   setSenderList(senders);
+  //   setLoading(false);
+  // }
   
-  const fetchRequests = () => {
-    getRequestList().then((value) => {
-      setRequestList(value);
-      fetchSenders();
-    });
-  };
+  const asyncReq = async() => {
+    const senders = await getRequestList()
+    if (senders) {
+      setSenderList(senders)
+      setLoading(false)
+    }
+  }
+
+  // const fetchRequests = () => {
+  //   getRequestList().then((value) => {
+  //     setRequestList(value);
+  //     console.log(value)
+  //     fetchSenders();
+  //   });
+  // };
 
   useEffect(() => {
-    fetchRequests();
+    const socket = io.connect(socketUrl, {reconnection: true});
+    socket.emit("save_session");
+    setMSocket(socket);
+
+
+    socket.on("get_friend_request", () => {
+      asyncReq()
+    })
+
+    socket.on("return_accept_friend_request", (msg) => {
+      asyncReq()
+      if (msg === "Successfully sent") {
+        alertMessage.success("Request accepted.")
+      } else {
+        alertMessage.error(msg)
+      }
+    })
+    // asyncReqList()
+    // asyncSenderList()
+    // axios.get("/friend_requests").then((res) => {
+    //   setRequestList(res.data)
+    //   var length, i;
+    //   var senders = [];
+    //   length = requestList.length;
+    //   for (i = 0; i < length; i ++) {
+    //     getUser(requestList[i]["sender_uid"]).then((x) => {
+    //       senders.push(x);
+    //       setSenderList(senders);
+    //     })
+    //   }
+      
+    //   setLoading(false);
+    // })
+
+
+    asyncReq()
+    // fetchRequests();
+    console.log(senderList)
+    return () => {
+      socket.close();
+      setMSocket(undefined);
+    };
   }, []);
+
+
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -210,16 +265,11 @@ const Requests = () => {
 
 
     fetchUser();
-    const socket = io.connect(socketUrl, {reconnection: true});
-    socket.emit("save_session");
-    setMSocket(socket);
-    
-    fetchRequests();
 
-    return () => {
-      socket.close();
-      setMSocket(undefined);
-    };
+    
+    // fetchRequests();
+
+
   }, [history, setUser]);
 
   return loading ? (
@@ -232,7 +282,7 @@ const Requests = () => {
   ) : (
     <RequestsPageContainer>
       <RequestTitle>Chat Requests</RequestTitle>
-        {senderList.map((item, index) => {
+        {senderList&&senderList.map((item, index) => {
           return(
           <RequestCard
             key = {index}
@@ -244,7 +294,7 @@ const Requests = () => {
           />
           );
         })}
-    {senderList.length == 0 && (
+    {senderList.length === 0 && (
       <EmptyMessage>You have no new requests. </EmptyMessage>
     )}
     </RequestsPageContainer>
