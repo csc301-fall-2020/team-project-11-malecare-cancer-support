@@ -20,6 +20,8 @@ login_manager.init_app(app)
 
 socketio = SocketIO(app, manage_session=False, cors_allowed_origins="*")
 
+SOCKET_ERROR_MSG = "Something was wrong."
+SOCKET_ON_SUCCESS_MSG = "Successfully sent"
 
 # decorator for limiting access of admin-only api
 def admin_only(f):
@@ -335,42 +337,57 @@ def admin_send_msg(input_json):
             socketio.emit('chat', "send to all filter users",
                           room=sid)
 
-        socketio.emit('to_admin', "Successfully sent", room=request.sid)
+        socketio.emit('to_admin', SOCKET_ON_SUCCESS_MSG, room=request.sid)
     except:
-        e = sys.exc_info()[0]
-        print("<p>Error: %s</p>" % e)
-        socketio.emit('to_admin', "something wrong occurred" , room=request.sid)
+        # e = sys.exc_info()[0]
+        # print("<p>Error: %s</p>" % e)
+        print_error()
+        socketio.emit('to_admin', SOCKET_ERROR_MSG , room=request.sid)
 
 
 @socketio.on('new_friend_request')
 @authenticated_only
 def new_friend_request(payload):
-    receiver_id = payload['receiver']
-    sender_id = current_user.get_id()
-    _friend_request_helper({"receiver": receiver_id,
-                            "sender": sender_id},
-                           friend_handler_helpers.create_new_friend_request)
-    session_id = handle_session_info_helpers.get_session_id_by_user_id(
-        receiver_id)
-    if session_id:
-        socketio.emit('get_friend_request', room=session_id)
+    try:
+        receiver_id = payload['receiver']
+        sender_id = current_user.get_id()
+        _friend_request_helper({"receiver": receiver_id,
+                                "sender": sender_id},
+                               friend_handler_helpers.create_new_friend_request)
+        session_id = handle_session_info_helpers.get_session_id_by_user_id(
+            receiver_id)
+        if session_id:
+            socketio.emit('get_friend_request', room=session_id)
+        socketio.emit('return_new_friend_request', SOCKET_ON_SUCCESS_MSG, room=request.sid)
+    except:
+        print_error()
+        socketio.emit('return_new_friend_request', SOCKET_ERROR_MSG, room=request.sid)
+
 
 
 @socketio.on('accept_friend_request')
 @authenticated_only
 def accept_friend_request(payload):
-    sender_id = payload['sender']
-    receiver_id = current_user.get_id()
-    _friend_request_helper({"receiver": receiver_id,
-                            "sender": sender_id},
-                           friend_handler_helpers.accept_friend_request)
+    try:
+        sender_id = payload['sender']
+        receiver_id = current_user.get_id()
+        _friend_request_helper({"receiver": receiver_id,
+                                "sender": sender_id},
+                               friend_handler_helpers.accept_friend_request)
 
-    session_id = handle_session_info_helpers.get_session_id_by_user_id(
-        sender_id)
-    if session_id:
-        socketio.emit('friend_request_accepted', room=session_id)
+        session_id = handle_session_info_helpers.get_session_id_by_user_id(
+            sender_id)
+        if session_id:
+            socketio.emit('friend_request_accepted', room=session_id)
+        socketio.emit('return_accept_friend_request', SOCKET_ON_SUCCESS_MSG, room=request.sid)
+    except:
+        print_error()
+        socketio.emit('return_accept_friend_request', SOCKET_ERROR_MSG, room=request.sid)
 
-
+def print_error():
+    e = sys.exc_info()
+    for i in e:
+        print(i)
 
 @app.route('/friend_requests/decline', methods=['POST'])
 @login_required
