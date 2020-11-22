@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-import { getCurrentUser } from "../../utils/helpers";
+import { getAge, getCurrentUser } from "../../utils/helpers";
 import styled from "styled-components";
 import { UserContext } from "../../../contexts/UserContext";
 
+import io from "socket.io-client";
+import { message as alertMessage } from "antd"
 import { PulseLoader } from "react-spinners";
 import { css } from "@emotion/react";
 import { socketUrl } from "../../utils/sharedUrl";
@@ -36,7 +38,6 @@ const BorderContainer = styled.div`
   display: flex;
   border-radius: 15px;
   border: 6px solid #d54e54;
-  padding: 20px;
   width: 720px;
   height: 150px;
   margin: 10px auto;
@@ -59,6 +60,26 @@ const EmptyMessage = styled.div`
   font-size: 20px;
 `;
 
+const InfoContainer = styled.div`
+  height: 200px;
+  margin: 10px 10px;
+`;
+
+const BasicInfo = styled.span`
+  font-size: 19px;
+  display: block;
+  text-align: left;
+  height: 26px;
+`;
+
+const Greeting = styled.span`
+  font-size: 22px;
+  display: block;
+  text-align: left;
+  height: 26px;
+  color: #d54e54;
+`;
+
 const alignedButton = {
   display: "inline-block",
   margin: "0px 30px",
@@ -68,7 +89,9 @@ const circlePiture = {
   width: "100px",
   height: "100px",
   borderRadius: "50px",
+  margin: "18px",
 };
+
 
 const SmallButton = styled.button`
   border-radius: 50px;
@@ -76,52 +99,97 @@ const SmallButton = styled.button`
   color: #ffffff;
   border: 2px solid #d54e54;
   font-size: 16px;
-  width: 100px;
+  width: 120px;
   height: 30px;
   &:hover {
     cursor: pointer;
   }
 `;
 
-function RequestCard(props) {
-  return(
-    <div style={RequestContainer}>
-      <BorderContainer>
-        <img style={circlePiture} src={UserPhoto} alt="user photo"/>
-        Request place holder {props.name}
-      </BorderContainer>
-      <div style={buttons}>
-        <SmallButton style={alignedButton}>
-            ignore
-        </SmallButton>
-        <SmallButton style={alignedButton}>
-            refuse
-        </SmallButton>
-        <SmallButton style={alignedButton}>
-            accept
-        </SmallButton>
-      </div>
-    </div>
-  );
-}
+
 
 const Requests = () => {
+  const [mSocket, setMSocket] = useState(null);
   const { user, setUser } = useContext(UserContext);
   const history = useHistory();
   const [loading, setLoading] = useState(true);
-  const [requestList, setRequestList] = useState();
+  const [requestList, setRequestList] = useState([]);
+  const [senderList, setSenderList] = useState([]);
   const getRequestList = async () => {
     const response = await axios.get("/friend_requests");
-    console.log(">>>>>response.data")
-    console.log(response.data);
     return response.data;
   };
 
+  const handleAccept = (senderId) => {
+    mSocket.emit('accept_friend_request', {
+      sender: senderId
+    });
+    alertMessage.success("Request accepted.")
+  };
+  
+  const handleDecline = (senderId) => {
+    axios.post("/friend_requests/decline", {sender: senderId}).then(() => {
+      alertMessage.success("Request declined.");
+    })
+  };
+  
+  const handleViewProfile = (senderId) => {
+    const w = window.open("about:blank");
+    w.location.href = "/profile/" + senderId;
+  };
+  
+  
+  
+  function RequestCard(props) {
+    return(
+      <div style={RequestContainer}>
+        <BorderContainer>
+          <img style={circlePiture} src={UserPhoto} alt="user photo"/>
+          <InfoContainer>
+            <BasicInfo>Name: {props.name}</BasicInfo>
+            <BasicInfo>Age: {props.age}</BasicInfo>
+            <BasicInfo>Gender: {props.gender}</BasicInfo>
+            <Greeting>"{props.greeting}"</Greeting>
+          </InfoContainer>
+        </BorderContainer>
+        <div style={buttons}>
+          <SmallButton style={alignedButton} onClick={handleViewProfile.bind(this, props.id)}>
+              View Profile
+          </SmallButton>
+          <SmallButton style={alignedButton } onClick={handleDecline.bind(this, props.id)}>
+              refuse
+          </SmallButton>
+          <SmallButton style={alignedButton} onClick={handleAccept.bind(this, props.id)}>
+              accept
+          </SmallButton>
+        </div>
+      </div>
+    );
+  }
+  const getUser = async (userId) => {
+    const response = await axios.post("/get_user", {user_id: userId});
+    return response.data;
+  };
+
+  const fetchSenders = async () => {
+    var length, i;
+    var senders = [];
+    length = requestList.length;
+    for (i = 0; i < length; i ++) {
+      senders.push(await getUser(requestList[i]["sender_uid"]));
+    }
+    setSenderList(senders);
+    setLoading(false);
+  }
+  
+  const fetchRequests = () => {
+    getRequestList().then((value) => {
+      setRequestList(value);
+      fetchSenders();
+    });
+  };
+
   useEffect(() => {
-    const fetchRequests = async () => {
-      setRequestList(await getRequestList());
-      setLoading(false);
-    };
     fetchRequests();
   }, []);
 
@@ -140,7 +208,18 @@ const Requests = () => {
       }
     };
 
+
     fetchUser();
+    const socket = io.connect(socketUrl, {reconnection: true});
+    socket.emit("save_session");
+    setMSocket(socket);
+    
+    fetchRequests();
+
+    return () => {
+      socket.close();
+      setMSocket(undefined);
+    };
   }, [history, setUser]);
 
   return loading ? (
@@ -153,14 +232,21 @@ const Requests = () => {
   ) : (
     <RequestsPageContainer>
       <RequestTitle>Chat Requests</RequestTitle>
-        {requestList.map((item, index) => {
+        {senderList.map((item, index) => {
           return(
-          <RequestCard name="CancerChat"/>
+          <RequestCard
+            key = {index}
+            name={item["username"]}
+            age={getAge(item["date_of_birth"])}
+            gender={item["gender"]}
+            greeting={item["short_intro"]}
+            id = {item["user_id"]}
+          />
           );
         })}
-        {requestList.length == 0 && (
-          <EmptyMessage>You have no new requests. </EmptyMessage>
-        )}
+    {senderList.length == 0 && (
+      <EmptyMessage>You have no new requests. </EmptyMessage>
+    )}
     </RequestsPageContainer>
   );
 };
