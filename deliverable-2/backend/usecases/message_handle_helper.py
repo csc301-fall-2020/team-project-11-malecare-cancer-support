@@ -1,5 +1,5 @@
 from mongoengine.queryset.visitor import Q
-
+import datetime
 from .login_register_helpers import is_user_id_existed
 from ..models.message import Message
 
@@ -17,7 +17,8 @@ def create_new_text_msg(sender_uid, receiver_uid, text):
 
     new_text_msg = Message(sender_uid=sender_uid,
                            receiver_uid=receiver_uid,
-                           text=text)
+                           text=text,
+                           send_at=datetime.datetime.utcnow())
     new_text_msg.save()
     return SUCCESS_CREATE_NEW_TEXT_MSG
 
