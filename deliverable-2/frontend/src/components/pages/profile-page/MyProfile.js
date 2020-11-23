@@ -19,6 +19,7 @@ import Checkbox from "../../component-library/Checkbox";
 
 import { PulseLoader } from "react-spinners";
 import { css } from "@emotion/react";
+import { HOST_URL } from "../../utils/sharedUrl";
 
 const loaderCSS = css`
   margin-top: 300px;
@@ -96,7 +97,7 @@ const MyProfile = ({ user, setUser }) => {
       };
       console.log(requestBody);
       axios
-        .post("current_user/profile/text", requestBody)
+        .post(HOST_URL + "/current_user/profile/text", requestBody)
         .then((response) => {
           if (response.status === 200) {
             setLoading(false);

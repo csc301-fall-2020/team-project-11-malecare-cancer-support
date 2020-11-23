@@ -2,10 +2,11 @@ import functools
 import sys
 
 import pymongo
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 from flask_login import LoginManager, current_user, login_required, login_user, \
     logout_user
 from flask_socketio import SocketIO, disconnect
+from flask_cors import CORS, cross_origin
 
 from ..usecases import administrator_filter_helpers, \
     customize_user_profile_helpers, friend_handler_helpers, \
@@ -13,9 +14,9 @@ from ..usecases import administrator_filter_helpers, \
     match_helpers, message_handle_helper, preload_data_helpers
 
 login_manager = LoginManager()
-app = Flask(__name__)
+app = Flask(__name__, static_folder='../../frontend/build/static', template_folder='../../frontend/build/')
 app.config["SECRET_KEY"] = 'my secret'
-
+CORS(app)
 login_manager.init_app(app)
 
 socketio = SocketIO(app, manage_session=False, cors_allowed_origins="*")
@@ -103,9 +104,8 @@ def get_profile_picture():
 
 
 @app.route("/")
-@login_required
 def index():
-    return "your email is " + current_user.get_email()
+    return render_template('index.html')
 
 
 @login_manager.unauthorized_handler
@@ -122,6 +122,7 @@ def logout():
 
 @app.route('/login', methods=['POST'])
 def login():
+    print(">>>>>>>>>>>>>>>>>>>>>>>")
     user_email = request.get_json()["email"]
     if not login_register_helpers.email_already_existed(user_email):
         return "Email or password is not correct", 412
@@ -131,12 +132,13 @@ def login():
                                                        password=
                                                        request.get_json()["password"]):
         login_user(login_register_helpers.get_user_by_email(email=user_email))
+        print(current_user.get_json())
         return jsonify(current_user.get_json())
     else:
         return "Email or password is not correct", 412
 
 
-@app.route('/current_user')
+@app.route('/current_user', methods=['GET'])
 @login_required
 def get_current_user():
     return jsonify(
@@ -490,6 +492,10 @@ def create_admin():
                                         password=my_json["password"])
     return "Create admin successfully"
 
+
+@app.route('/<path:path>')
+def serve(path):
+    return render_template("index.html")
 
 
 if __name__ == '__main__':

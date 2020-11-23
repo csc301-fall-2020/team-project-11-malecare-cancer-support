@@ -17,6 +17,7 @@ import {
 } from "../../share-styled-component";
 
 import { UserContext } from "../../../contexts/UserContext";
+import { HOST_URL } from "../../utils/sharedUrl";
 
 const LoginPageContainer = styled.div`
   position: absolute;
@@ -54,11 +55,16 @@ const Login = () => {
     //   Initiate Login Request
     const requestBody = { email, password };
     try {
-      const response = await axios.post("/login", requestBody);
+      const response = await axios.post(HOST_URL + "/login", requestBody);
+      // console.log(HOST_URL)
+      // console.log(response)
+      // console.log(response.data)
+      // console.log(response.headers)
       const fetchedUser = response.data;
       setUser(fetchedUser);
       history.push(fetchedUser.is_admin ? "/adminSendMessages" : "/matches");
     } catch (err) {
+      // console.log(err)
       setErrorMessage(err.response.data);
     }
   };

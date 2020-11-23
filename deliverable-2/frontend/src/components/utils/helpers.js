@@ -1,4 +1,5 @@
 import axios from "axios";
+import { HOST_URL } from "./sharedUrl";
 
 export const formatDate = (date) => {
   const parsedDate = new Date(date);
@@ -21,9 +22,11 @@ export const getAge = (date) => {
 
 export const getCurrentUser = async () => {
   try {
-    const response = await axios.get("/current_user");
+    const response = await axios.get(HOST_URL + "/current_user");
+    console.log(response)
     return response ? response.data : null;
   } catch (err) {
+    console.log(err)
     return null;
   }
 };

@@ -16,7 +16,7 @@ import { message as alertMessage } from "antd"
 
 import { PulseLoader } from "react-spinners";
 import { css } from "@emotion/react";
-import { socketUrl } from "../../utils/sharedUrl";
+import { HOST_URL } from "../../utils/sharedUrl";
 
 const loaderCSS = css`
   margin-top: 300px;
@@ -196,6 +196,7 @@ const Matches = () => {
   useEffect(() => {
     const fetchUser = async () => {
       const fetchedUser = await getCurrentUser();
+      console.log("match", fetchedUser)
       if (!fetchedUser) {
         // User not logged in
         history.push("/");
@@ -225,7 +226,7 @@ const Matches = () => {
       }
     };
 
-    const socket = io.connect(socketUrl, { reconnection: true })
+    const socket = io.connect(HOST_URL, { reconnection: true })
     socket.emit("save_session")
     setMSocket(socket)
 
@@ -262,7 +263,7 @@ const Matches = () => {
 
   // const send = () => {
   //   if (!user) return;
-  //   const socket = io.connect(socketUrl, {reconnection: true})
+  //   const socket = io.connect(HOST_URL, {reconnection: true})
   //   socket.emit('new_friend_request', {
   //     receiver: user.user_id
   //   });

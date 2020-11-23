@@ -9,7 +9,7 @@ import { getCurrentUser } from "../../utils/helpers";
 import { UserContext } from "../../../contexts/UserContext";
 import { PulseLoader } from "react-spinners";
 import { css } from "@emotion/react";
-import { socketUrl } from "../../utils/sharedUrl";
+import { HOST_URL } from "../../utils/sharedUrl";
 // import { get } from "../../utils/request";
 
 const loaderCSS = css`
@@ -168,7 +168,7 @@ function getUrlWithString(s) {
 function get(url, params = {}) {
   return new Promise((resolve, reject) => {
     axios
-      .get(url, {
+      .get(HOST_URL + url, {
         params: params,
       })
       .then((response) => {
@@ -182,7 +182,7 @@ function get(url, params = {}) {
 
 function post(url, data = {}) {
   return new Promise((resolve, reject) => {
-    axios.post(url, data).then(
+    axios.post(HOST_URL + url, data).then(
       (response) => {
         resolve(response.data);
       },
@@ -242,7 +242,7 @@ const Messages = () => {
   }, [setUser, history]);
 
   useEffect(() => {
-    let socket = io.connect(socketUrl, { reconnection: true });
+    let socket = io.connect(HOST_URL, { reconnection: true });
 
     socket.emit("index");
     socket.on("chat", () => {
@@ -282,7 +282,7 @@ const Messages = () => {
 
   const handleSeeFullProfile = () => {
     const w = window.open("about:blank");
-    w.location.href = "profile/" + currentUser;
+    w.location.href = "/profile/" + currentUser;
   };
 
   const handleChatUrl = (item) => {
