@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import axios from "axios";
 import { UserContext } from "../contexts/UserContext";
 import { useHistory } from "react-router-dom";
-import { HOST_URL } from "./utils/sharedUrl"
+
 import {
   NavBarContainer,
   NavLinkContainer,
@@ -16,7 +16,7 @@ const Nav = () => {
 
   const logoutUser = async (event) => {
     event.preventDefault();
-    const response = await axios.get(HOST_URL + "/logout");
+    const response = await axios.get("/logout");
     if (!response || response.status !== 200 || response.data !== "logout") {
       // placeholder - Adding some error messages here?
     }

@@ -10,7 +10,6 @@
     "@testing-library/user-event": "^12.2.0",
     "antd": "^4.8.2",
     "axios": "^0.21.0",
-    "cross-env": "^7.0.2",
     "lodash": "^4.17.20",
     "react": "^17.0.1",
     "react-date-picker": "^8.0.3",
@@ -26,11 +25,8 @@
     "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "start": "react-app-env --env-file=.env.development start",
-    "start:prod": "react-app-env --env-file=.env.production start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
-    "build:dev": "react-app-env --env-file=.env.development build",
-    "build:prod": "react-app-env --env-file=.env.production build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -52,7 +48,5 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
-    "react-app-env": "^1.2.3"
-  }
+  "proxy": "http://localhost:5000"
 }

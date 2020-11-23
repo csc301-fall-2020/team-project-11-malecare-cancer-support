@@ -26,7 +26,6 @@ import { UserContext } from "../../../contexts/UserContext";
 
 import { PulseLoader } from "react-spinners";
 import { css } from "@emotion/react";
-import { HOST_URL } from "../../utils/sharedUrl";
 
 const loaderCSS = css`
   margin-top: 300px;
@@ -125,7 +124,7 @@ const SignUp = () => {
     };
 
     axios
-      .post(HOST_URL + "/signup", requestBody)
+      .post("/signup", requestBody)
       .then((response) => {
         if (!_.isNil(response, "data.user_id")) {
           setUser(response.data);
