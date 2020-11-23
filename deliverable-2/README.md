@@ -40,7 +40,12 @@ Administrators can send the news to target users using the filters including age
  
  Note: The pictures here are just for reference. The actual website may be (slightly) different from those pictures.
  
- A user can visit our app at http://ec2-52-36-24-67.us-west-2.compute.amazonaws.com:5000, and will see this welcome page:
+ A user can visit our app at http://ec2-52-36-24-67.us-west-2.compute.amazonaws.com:5000. One thing to notice is that the chat and send admin message feature is not working on the deployed version. Our chat and send admin message feature relies on the python socket module, which works perfectly fine on the local version. However, after deploying the app, the socket stopped working and the whole team dedicated a lot of time trying to fix this issue but couldn't manage to get it done in D2. We will fix the chat functionality in D3. 
+ 
+ If you want to test the chat feature, please git clone our repository to the local system and run `npm run build:dev` and `flask run` under the root directory, and the chat feature should work without any issue.
+ 
+ 
+ Below is the welcome page of CancerChat:
  
 <img src="pictures/welcome.png" alt="welcome" />
  
@@ -66,7 +71,7 @@ or you can click the Create Account button and create a new user:
    - email: my_cancer6@gmail.com
    - pwd: my_cancer2
  
- Please open two incognito windows(or two different browsers) and sign in as two users respectively and you'll find each other in the chat page. The send emoji and pictures feature has not been implemented, and will be finished in D3.
+ Please open two two different browsers (for example, ie and Chrome or Safari and Chrome) and sign in as two users respectively and you'll find each other in the chat page. The send emoji and pictures feature has not been implemented, and will be finished in D3.
  <img src="pictures/chat.png" alt="chat" />
  The user can view and update their profile on the profile page. Note that the uploading photos feature has not been supported and will be finished in D3.
   <img src="pictures/profile.png" alt="chat" />
