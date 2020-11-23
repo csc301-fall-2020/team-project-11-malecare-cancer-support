@@ -12,7 +12,7 @@ What's more, because the administrators can send news about new treatments on Ca
 
 ## Key Features
  
-### Create Account/ Signup:  
+### Create Account:  
 When the users first visit CancerChat, they can use the button on the welcome page to create an account.
 At the signup page, users will be asked to enter some basic account information (email, user name, birth date and password, etc.), as well as their purpose of using this app (find mentor, mentee or love) as well as their cancer types. After registering, they will be automatically directed to the main page.
 
