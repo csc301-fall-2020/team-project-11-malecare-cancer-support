@@ -21,9 +21,8 @@ def decline_friend_request(sender_uid, receiver_uid):
 
 
 def get_all_undecided_friend_requests_by_receiver_uid(receiver_uid):
-    sender_uid_lst = FriendRequest.objects(receiver_uid=receiver_uid,
-                                           is_accepted__exists=False).values_list(
-        'sender_uid')
+    sender_uid_lst =  FriendRequest.objects(receiver_uid=receiver_uid,
+                                 is_accepted__exists=False).values_list('sender_uid')
     senders = []
     for s in sender_uid_lst:
         sender = User.objects(user_id=s).first().get_json()
