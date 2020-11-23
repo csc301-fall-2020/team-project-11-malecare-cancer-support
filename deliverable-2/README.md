@@ -40,7 +40,7 @@ Administrators can send the news to target users using the filters including age
  
  Note: The pictures here are just for reference. The actual website may be (slightly) different from those pictures.
  
- A user can visit our app at http://ec2-52-36-24-67.us-west-2.compute.amazonaws.com:5000. One thing to notice is that the chat and send admin message feature is not working as expected on the deployed version. Our chat and send admin message feature relies on the flask-socketio module, which works perfectly fine on the local version. However, after deploying the app, the socket stopped working and the whole team dedicated a lot of time trying to fix this issue but couldn't manage to get it done in D2. We will fix the chat functionality in D3. 
+ A user can visit our app at http://ec2-52-36-24-67.us-west-2.compute.amazonaws.com:5000. One thing to notice is that the chat and send admin message feature is not working as expected on the deployed version. Our chat, send admin message feature, send friend requests relies on the `flask-socketio` module, which works perfectly fine on the local version. However, after deploying the app, the socket stopped working and the whole team dedicated a lot of time trying to fix this issue but couldn't manage to get it done in D2. The reason for that may be that `flask-socketio` requires some extra configuration in the prodcution environment. We will fix the chat functionality in D3. 
  
  If you want to test the chat feature, please git clone our repository to the local system and follow the instructions listed under Development Requirements section below, and the chat feature should work without any issue.
  
