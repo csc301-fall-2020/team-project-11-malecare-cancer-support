@@ -40,9 +40,9 @@ Administrators can send the news to target users using the filters including age
  
  Note: The pictures here are just for reference. The actual website may be (slightly) different from those pictures.
  
- A user can visit our app at http://ec2-52-36-24-67.us-west-2.compute.amazonaws.com:5000. One thing to notice is that the chat and send admin message feature is not working on the deployed version. Our chat and send admin message feature relies on the python socket module, which works perfectly fine on the local version. However, after deploying the app, the socket stopped working and the whole team dedicated a lot of time trying to fix this issue but couldn't manage to get it done in D2. We will fix the chat functionality in D3. 
+ A user can visit our app at http://ec2-52-36-24-67.us-west-2.compute.amazonaws.com:5000. One thing to notice is that the chat and send admin message feature is not working as expected on the deployed version. Our chat and send admin message feature relies on the flask-socketio module, which works perfectly fine on the local version. However, after deploying the app, the socket stopped working and the whole team dedicated a lot of time trying to fix this issue but couldn't manage to get it done in D2. We will fix the chat functionality in D3. 
  
- If you want to test the chat feature, please git clone our repository to the local system and run `npm run build:dev` and `flask run` under the root directory, and the chat feature should work without any issue.
+ If you want to test the chat feature, please git clone our repository to the local system and follow the instructions listed under Development Requirements section below, and the chat feature should work without any issue.
  
  
  Below is the welcome page of CancerChat:
@@ -155,7 +155,7 @@ or you can click the Create Account button and create a new user:
     - `export FLASK_APP=app/cancer_chat.py`
     - `nohup flask run --host=0.0.0.0 &`
 
-Note that the main difference between the commands for deployment and development is that deployment requires `build`, which is the main reason why we have a separate branch for deployment. We do not want to run `build` when developing the app, since it is time-consuming. We also have different .env files in the `deploy_preparation` branch for setting up the production environment.
+Note that the main difference between the commands for deployment and development is that deployment requires `build`, which is the main reason why we have a separate branch for deployment. We do not want to run `build` when developing the app, since it is time-consuming. We also have different .env files in the `deploy_preparation` branch for setting up the production environment. Replacing `npm run build:prod` with `npm run build:dev` at local machine can make the deployed version run locally. It works fine, too.
    
 
  ## Licenses 
