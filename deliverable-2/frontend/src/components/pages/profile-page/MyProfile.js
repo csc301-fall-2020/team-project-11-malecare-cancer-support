@@ -96,7 +96,7 @@ const MyProfile = ({ user, setUser }) => {
       };
       console.log(requestBody);
       axios
-        .post("current_user/profile/text", requestBody)
+        .post("/current_user/profile/text", requestBody)
         .then((response) => {
           if (response.status === 200) {
             setLoading(false);
