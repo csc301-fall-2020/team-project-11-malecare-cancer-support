@@ -132,9 +132,9 @@ const profileButton = {
 };
 
 const buttons = {
-  position: "relative",
-  margin: "20px",
+  margin: "20px 0px",
   left: "15px",
+  width: "720px",
 };
 
 const alignedButton = {

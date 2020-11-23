@@ -51,7 +51,7 @@ Administrators can send the news to target users using the filters including age
  
  Note: The pictures here are just for reference. The actual website may be (slightly) different from those pictures.
  
- A user can visit our app at [TODO:url], and will see this welcome page:
+ A user can visit our app at http://ec2-52-36-24-67.us-west-2.compute.amazonaws.com:5000, and will see this welcome page:
  
 <img src="pictures/welcome.png" alt="welcome" />
  
@@ -66,7 +66,7 @@ or you can click the Create Account button and create a new user:
  After logging in, the user will see the matching page. To test match functionality, you can create several accounts through signup page and try to match them. Note that only users who have some types of cancer in common can be matched to each other. 
  <img src="pictures/match.jpg" alt="matches" />
  
- If the user wants to talk to the match, then he/she can click the "request to chat" button user the matched user, then the metched user would receive a request on their requests page:
+ If the user wants to talk to the match, then he/she can click the "request to chat" button user the matched user, then the matched user would receive a request on their requests page:
   <img src="pictures/requests.jpg" alt="requests" />
  
  
@@ -146,8 +146,10 @@ Describe your Git / GitHub workflow. Essentially, we want to understand how your
 
 - Once we reach a big milestone(a working MVP for D2 would be considered as a milestone), we use pull-requests to merge the `develop` branch to the `master` branch.
 
+- Once it is time to deploy, extra configurations are needed. Therefore we have a separate branch called `deploy_preparation` for release. https://github.com/csc301-fall-2020/team-project-11-malecare-cancer-support/tree/deploy_preparation
+
 ### How and when to test
-- Every push and pull-request, we deploy our app at our local machines to test it. 
+- Every push and pull-request, we run our app at our local machines to test it. 
 - UI tests are done by manually clicking on the UI to make sure they are reliable to use and won't crash easily. 
 - Postman is used to test the back-end. It is an API testing tool. It is used to manually send requests to the API and see if the correct responses are sent back.
 - MongoDBCompass, a GUI for MongoDB, is used to monitoring the changes happen in the database, since some of API test and UI test may result in changes in our database.
@@ -156,9 +158,21 @@ Describe your Git / GitHub workflow. Essentially, we want to understand how your
 - Deploy to AWS EC2.
 - AWS console is used to help us deploy the app.
 - Deployment process:
+   - Choose Ubuntu 20.0 as AMI
    - Create a new EC2 instance
+   - `ssh` to the instance
    - Clone our project from Github to the instance
-   - Follow the instructions in the development requirement described above to manually run the app in the EC2 instance
+   - Checkout `deploy_preparation` branch
+   - Install requirements
+   - In frontend folder, run:
+    - `npm i`
+    - `npm run build:prod`
+   - set path to backend folder, run:
+    - `export FLASK_APP=app/cancer_chat.py`
+    - `nohup flask run --host=0.0.0.0 &`
+
+Note that the main difference between the commands for deployment and development is that deployment requires `build`, which is the main reason why we have a separate branch for deployment. We do not want to run `build` when developing the app, since it is time-consuming. We also have different .env files in the `deploy_preparation` branch for setting up the production environment.
+   
 
  ## Licenses 
 
