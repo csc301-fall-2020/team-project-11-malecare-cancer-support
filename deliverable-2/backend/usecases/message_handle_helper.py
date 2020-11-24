@@ -1,5 +1,7 @@
-from mongoengine.queryset.visitor import Q
 import datetime
+
+from mongoengine.queryset.visitor import Q
+
 from .login_register_helpers import is_user_id_existed
 from ..models.message import Message
 

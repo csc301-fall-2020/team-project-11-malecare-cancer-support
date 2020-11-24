@@ -3,14 +3,13 @@ import sys
 
 import pymongo
 from flask import Flask, jsonify, request
-from flask_login import LoginManager, current_user, login_required, login_user, \
-    logout_user
+from flask_login import LoginManager, current_user, login_required, login_user
 from flask_socketio import SocketIO, disconnect
 
 from ..usecases import administrator_filter_helpers, \
-    customize_user_profile_helpers, friend_handler_helpers, \
+    customize_user_profile_helpers, delete_helper, friend_handler_helpers, \
     handle_report_helpers, handle_session_info_helpers, login_register_helpers, \
-    match_helpers, message_handle_helper, preload_data_helpers, delete_helper
+    match_helpers, message_handle_helper, preload_data_helpers
 
 login_manager = LoginManager()
 app = Flask(__name__)
@@ -57,7 +56,7 @@ def load_to_db():
         sexual_orientation_lst=request.get_json()["sexual_orientations"],
         gender_lst=request.get_json()["genders"],
         medication_lst=request.get_json()["medications"],
-        )
+    )
 
 
 @app.route('/load_from_db/cancer_types')
@@ -499,6 +498,7 @@ def create_admin():
                                         password=my_json["password"])
     return "Create admin successfully"
 
+
 @app.route('/report/delete_user', methods=['POST'])
 @login_required
 @admin_only
@@ -508,12 +508,14 @@ def delete_user_by_uid():
     result = delete_helper.delete_user_by_uid(uid)
     return result
 
+
 @app.route('/delete_self', methods=['POST'])
 @login_required
 def delete_self():
     uid = current_user.get_id()
     result = delete_helper.delete_user_by_uid(uid)
     return result
+
 
 if __name__ == '__main__':
     # app.run(debug=True)
