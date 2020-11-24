@@ -114,11 +114,11 @@ def unauthorized():
     return "user is not logged in", 401
 
 
-@app.route("/logout")
-@login_required
-def logout():
-    logout_user()
-    return "logout"
+# @app.route("/logout")
+# @login_required
+# def logout():
+#     logout_user()
+#     return "logout"
 
 
 @app.route('/login', methods=['POST'])
@@ -494,6 +494,7 @@ def create_admin():
     login_register_helpers.create_admin(email=my_json["email"],
                                         password=my_json["password"])
     return "Create admin successfully"
+
 
 if __name__ == '__main__':
     # app.run(debug=True)
