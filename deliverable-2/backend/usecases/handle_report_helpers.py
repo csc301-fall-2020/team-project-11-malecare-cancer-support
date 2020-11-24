@@ -32,7 +32,7 @@ def get_all_undecided_report():
     return all_undecided_report.to_json()
 
 
-def accept_report(report_id):
+def block_report(report_id):
     ReportHistory.objects(report_id=report_id).update(is_handle=True)
     uid = ReportHistory.objects(report_id=report_id).first().get_reported_uid()
     new_black_user = BlackList(uid=uid)
@@ -40,7 +40,7 @@ def accept_report(report_id):
     return ACCEPT_REPORT.format(uid)
 
 
-def decline_report(report_id):
+def ignore_report(report_id):
     ReportHistory.objects(report_id=report_id).update(is_handle=True)
     return DECLINE_REPORT
 

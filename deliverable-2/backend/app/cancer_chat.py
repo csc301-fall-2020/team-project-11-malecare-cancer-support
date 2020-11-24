@@ -443,22 +443,22 @@ def get_all_undecided_report_history():
     return handle_report_helpers.get_all_undecided_report()
 
 
-@app.route('/report/accept', methods=['POST'])
+@app.route('/report/block', methods=['POST'])
 @admin_only
 @login_required
-def accept_report():
+def block_user_by_report():
     my_json = request.get_json()
     report_id = my_json["report_id"]
-    return handle_report_helpers.accept_report(report_id)
+    return handle_report_helpers.block_report(report_id)
 
 
-@app.route('/report/decline', methods=['POST'])
+@app.route('/report/ignore', methods=['POST'])
 @admin_only
 @login_required
-def decline_report():
+def ignore_report():
     my_json = request.get_json()
     report_id = my_json["report_id"]
-    return handle_report_helpers.decline_report(report_id)
+    return handle_report_helpers.ignore_report(report_id)
 
 
 @app.route('/new_report', methods=['POST'])
