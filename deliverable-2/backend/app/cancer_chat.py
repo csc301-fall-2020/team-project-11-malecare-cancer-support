@@ -51,12 +51,13 @@ def authenticated_only(f):
 @app.route('/load_to_db', methods=['POST'])
 def load_to_db():
     return preload_data_helpers \
-        .load_to_cancer_type_db(cancer_type_lst=request.get_json()["cancer_types"],
-                                treatment_lst=request.get_json()["treatment_types"],
-                                sexual_orientation_lst=request.get_json()["sexual_orientations"],
-                                gender_lst=request.get_json()["genders"],
-                                medication_lst=request.get_json()["medications"],
-                                )
+        .load_to_cancer_type_db(
+        cancer_type_lst=request.get_json()["cancer_types"],
+        treatment_lst=request.get_json()["treatment_types"],
+        sexual_orientation_lst=request.get_json()["sexual_orientations"],
+        gender_lst=request.get_json()["genders"],
+        medication_lst=request.get_json()["medications"],
+        )
 
 
 @app.route('/load_from_db/cancer_types')
@@ -129,7 +130,8 @@ def login():
         return "This account has been locked", 412
     if login_register_helpers.verify_password_by_email(email=user_email,
                                                        password=
-                                                       request.get_json()["password"]):
+                                                       request.get_json()[
+                                                           "password"]):
         login_user(login_register_helpers.get_user_by_email(email=user_email))
         return jsonify(current_user.get_json())
     else:
@@ -177,11 +179,14 @@ def change_current_user_profile_text():
 
 @app.route('/current_user/profile/picture', methods=['POST'])
 def change_current_user_picture():
-    picture = open(str(request.get_json()["picture"]), 'rb')
-    print(current_user.get_id())
-    customize_user_profile_helpers \
-        .set_picture_by_user_id(user_id=current_user.get_id(), picture=picture)
-    return "Success"
+    imgs = request.files.getlist()
+    print("get img success")
+    return imgs
+    # picture = open(str(request.get_json()["picture"]), 'rb')
+    # print(current_user.get_id())
+    # customize_user_profile_helpers \
+    #     .set_picture_by_user_id(user_id=current_user.get_id(), picture=picture)
+    # return "Success"
 
 
 @app.route('/signup', methods=['POST'])
@@ -411,7 +416,7 @@ def decline_friend_request():
 def get_undecided_requests():
     return jsonify(
         friend_handler_helpers.
-        get_all_undecided_friend_requests_by_receiver_uid(
+            get_all_undecided_friend_requests_by_receiver_uid(
             current_user.get_id()))
 
 
@@ -489,8 +494,6 @@ def create_admin():
     login_register_helpers.create_admin(email=my_json["email"],
                                         password=my_json["password"])
     return "Create admin successfully"
-
-
 
 if __name__ == '__main__':
     # app.run(debug=True)
