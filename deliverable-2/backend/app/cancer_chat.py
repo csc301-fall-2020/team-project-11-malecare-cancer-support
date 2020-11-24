@@ -10,7 +10,7 @@ from flask_socketio import SocketIO, disconnect
 from ..usecases import administrator_filter_helpers, \
     customize_user_profile_helpers, friend_handler_helpers, \
     handle_report_helpers, handle_session_info_helpers, login_register_helpers, \
-    match_helpers, message_handle_helper, preload_data_helpers
+    match_helpers, message_handle_helper, preload_data_helpers, delete_helper
 
 login_manager = LoginManager()
 app = Flask(__name__)
@@ -445,6 +445,7 @@ def get_all_undecided_report_history():
 
 
 @app.route('/report/accept', methods=['POST'])
+@admin_only
 @login_required
 def accept_report():
     my_json = request.get_json()
@@ -453,6 +454,7 @@ def accept_report():
 
 
 @app.route('/report/decline', methods=['POST'])
+@admin_only
 @login_required
 def decline_report():
     my_json = request.get_json()
@@ -473,12 +475,14 @@ def new_report():
 
 
 @app.route('/report/black_list')
+@admin_only
 @login_required
 def get_all_black_list():
     return handle_report_helpers.get_all_black_list()
 
 
 @app.route('/report/check_reported_user', methods=['POST'])
+@admin_only
 @login_required
 def get_reported_user_message():
     my_json = request.get_json()
@@ -495,6 +499,21 @@ def create_admin():
                                         password=my_json["password"])
     return "Create admin successfully"
 
+@app.route('/report/delete_user', methods=['POST'])
+@login_required
+@admin_only
+def delete_user_by_uid():
+    my_json = request.get_json()
+    uid = my_json["uid"]
+    result = delete_helper.delete_user_by_uid(uid)
+    return result
+
+@app.route('/delete_self', methods=['POST'])
+@login_required
+def delete_self():
+    uid = current_user.get_id()
+    result = delete_helper.delete_user_by_uid(uid)
+    return result
 
 if __name__ == '__main__':
     # app.run(debug=True)
