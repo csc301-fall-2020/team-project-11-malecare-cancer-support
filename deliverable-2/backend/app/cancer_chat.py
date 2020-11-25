@@ -10,6 +10,12 @@ from ..usecases import administrator_filter_helpers, \
     customize_user_profile_helpers, delete_helper, friend_handler_helpers, \
     handle_report_helpers, handle_session_info_helpers, login_register_helpers, \
     match_helpers, message_handle_helper, preload_data_helpers
+import io
+import numpy as np
+import cv2
+from PIL import Image
+
+# import Image
 
 login_manager = LoginManager()
 app = Flask(__name__)
@@ -178,9 +184,31 @@ def change_current_user_profile_text():
 
 @app.route('/current_user/profile/picture', methods=['POST'])
 def change_current_user_picture():
-    imgs = request.files.getlist()
-    print("get img success")
-    return imgs
+    # print(request.form)
+    print(request.files)
+    # print(request.form.get("keyword"))
+    print(request.files.get("file"))
+    # print(request.files.getlist("files[]"))
+    imgs = request.files.get("file")
+
+    # data = request.files['file']
+    img = Image.open(imgs)
+    # img = np.array(img)
+    # img = cv2.resize(img, (224, 224))
+    # img = cv2.cvtColor(np.array(img), cv2.COLOR_BGR2RGB)
+    return jsonify({"imgs":img})
+
+
+    # photo = request.files['photo']
+    # in_memory_file = io.BytesIO()
+    # imgs.save(in_memory_file)
+    # data = np.fromstring(in_memory_file.getvalue(), dtype=np.uint8)
+    # color_image_flag = 1
+    # img = cv2.imdecode(data, color_image_flag)
+    # # file_content = imgs.read()
+    # print("get img success")
+    # print(img)
+    # return jsonify({"imgs":img})
     # picture = open(str(request.get_json()["picture"]), 'rb')
     # print(current_user.get_id())
     # customize_user_profile_helpers \
