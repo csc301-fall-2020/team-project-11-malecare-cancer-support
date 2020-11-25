@@ -5,6 +5,9 @@ import pymongo
 from flask import Flask, jsonify, request
 from flask_login import LoginManager, current_user, login_required, login_user
 from flask_socketio import SocketIO, disconnect
+from .config import Configuration
+from flask_mail import Mail, Message
+
 
 from ..usecases import administrator_filter_helpers, \
     customize_user_profile_helpers, delete_helper, friend_handler_helpers, \
@@ -12,11 +15,12 @@ from ..usecases import administrator_filter_helpers, \
     match_helpers, message_handle_helper, preload_data_helpers
 
 login_manager = LoginManager()
+mail = Mail()
 app = Flask(__name__)
-app.config["SECRET_KEY"] = 'my secret'
-
+# app.config["SECRET_KEY"] = 'my secret'
+app.config.from_object(Configuration)
 login_manager.init_app(app)
-
+mail.init_app(app)
 socketio = SocketIO(app, manage_session=False, cors_allowed_origins="*")
 
 SOCKET_ERROR_MSG = "Something was wrong."
@@ -515,6 +519,21 @@ def delete_self():
     uid = current_user.get_id()
     result = delete_helper.delete_user_by_uid(uid)
     return result
+
+def send_email(user_id, email):
+
+    msg = Message()
+    msg.subject = "CancerChat Password Reset"
+    msg.sender = app.config.get("MAIL_USERNAME")
+    msg.recipients = [email]
+    msg.body = "Hello"
+
+    mail.send(msg)
+
+@app.route('/email', methods=['POST'])
+def email():
+    send_email(1, "thestral2017@gmail.com")
+    return "1"
 
 
 if __name__ == '__main__':
