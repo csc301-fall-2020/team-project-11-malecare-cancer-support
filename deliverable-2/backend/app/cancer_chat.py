@@ -2,6 +2,7 @@ import functools
 import sys
 
 import pymongo
+from PIL import Image
 from flask import Flask, jsonify, request
 from flask_login import LoginManager, current_user, login_required, login_user
 from flask_socketio import SocketIO, disconnect
@@ -10,10 +11,6 @@ from ..usecases import administrator_filter_helpers, \
     customize_user_profile_helpers, delete_helper, friend_handler_helpers, \
     handle_report_helpers, handle_session_info_helpers, login_register_helpers, \
     match_helpers, message_handle_helper, preload_data_helpers
-import io
-import numpy as np
-import cv2
-from PIL import Image
 
 # import Image
 
@@ -196,8 +193,7 @@ def change_current_user_picture():
     # img = np.array(img)
     # img = cv2.resize(img, (224, 224))
     # img = cv2.cvtColor(np.array(img), cv2.COLOR_BGR2RGB)
-    return jsonify({"imgs":img})
-
+    return jsonify({"imgs": img})
 
     # photo = request.files['photo']
     # in_memory_file = io.BytesIO()
