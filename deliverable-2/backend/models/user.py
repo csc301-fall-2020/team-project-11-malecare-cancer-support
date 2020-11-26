@@ -5,8 +5,8 @@ from .mongoengine_connect import db
 
 class User(db.Document, UserMixin):
     username = db.StringField()
-    user_id = db.StringField()
-    email = db.StringField()
+    user_id = db.StringField(unique=True)
+    email = db.StringField(unique=True)
     password = db.StringField()
     date_of_birth = db.DateField()
     gender = db.StringField()
