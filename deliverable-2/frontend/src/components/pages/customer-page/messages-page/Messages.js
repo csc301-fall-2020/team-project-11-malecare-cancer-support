@@ -52,13 +52,13 @@ const UserList = styled.div`
   color: rgb(172, 172, 172);
   line-height: 40px;
   text-align: left;
+  padding: 10px 0px;
   & > div {
     padding: 0 24px;
     cursor: pointer;
   }
   & > .check {
     color: white;
-
     background: rgb(210, 197, 197);
   }
 `;
