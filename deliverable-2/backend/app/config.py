@@ -1,11 +1,8 @@
+
+import os
 class Configuration:
-    Debug = True
-    MAIL_SERVER = 'smtp.163.com'
-    MAIL_PORT = 465
-    MAIL_USE_TLS = False,
-    MAIL_USE_SSL = True,
-    # MAIL_USERNAME = "SSSpid2019@gmail.com"
-    MAIL_USERNAME = "SSSpid2019@163.com"
-    # MAIL_PASSWORD = "Thestral2019"
-    MAIL_PASSWORD = "UWRIELYGZRSMDFLN"
+    MAIL = "Thestral2017@gmail.com"
     SECRET_KEY = 'my secret'
+    API_KEY = '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'
+    ROUTE_URL = "http://ec2-52-36-24-67.us-west-2.compute.amazonaws.com:5000" if os.environ.get("PROD") else \
+        "http://localhost:5000"
