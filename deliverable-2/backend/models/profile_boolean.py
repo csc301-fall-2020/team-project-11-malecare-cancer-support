@@ -23,8 +23,7 @@ class ProfileBoolean(db.Document, UserMixin):
             "date_of_birth_bool": self.date_of_birth_bool,
             "medications_and_treatments_bool": self.medications_and_treatments_bool,
             "cancer_bool": self.cancer_bool,
-            "gender": self.gender,
-            "cancer": self.cancer,
+            "cancer": self.cancer_bool,
             "purpose_bool": self.purpose_bool,
             "short_intro_bool": self.short_intro_bool
 
