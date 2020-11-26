@@ -1,11 +1,13 @@
+from time import time
+
+import jwt
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
-import jwt
-from time import time
+
 from ..models.user import User
 
-def send_email(sender_email, receiver_email, api_key, url):
 
+def send_email(sender_email, receiver_email, api_key, url):
     message = Mail(
         from_email=sender_email,
         to_emails=receiver_email,
@@ -17,9 +19,11 @@ def send_email(sender_email, receiver_email, api_key, url):
     except Exception as e:
         print(e.message)
 
+
 def get_token_by_user_id(user_id, key, expire=500):
     return jwt.encode({'user_id': user_id, 'exp': time() + expire},
                       key=key)
+
 
 def verify_token(token, key):
     try:
@@ -28,6 +32,7 @@ def verify_token(token, key):
     except Exception as e:
         print(e)
         return None
+
 
 def set_password(user_id, password):
     User.objects(user_id=user_id).update(set__password=password)

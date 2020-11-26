@@ -1,30 +1,27 @@
+import base64
 import functools
 import sys
+from io import BytesIO
 
 import pymongo
 from PIL import Image
-
-from flask import Flask, jsonify, request, render_template
-from flask_login import LoginManager, current_user, login_required, login_user, logout_user
-
-from flask_socketio import SocketIO, disconnect
-from .config import Configuration
+from flask import Flask, jsonify, render_template, request
 from flask_cors import CORS
+from flask_login import LoginManager, current_user, login_required, login_user, \
+    logout_user
+from flask_socketio import SocketIO, disconnect
 
-
+from .config import Configuration
 from ..usecases import administrator_filter_helpers, \
     customize_user_profile_helpers, delete_helper, friend_handler_helpers, \
     handle_report_helpers, handle_session_info_helpers, login_register_helpers, \
-    match_helpers, message_handle_helper, preload_data_helpers, reset_password_helpers, \
-    profile_boolean_helpers
-
-import base64
-from io import BytesIO
-
+    match_helpers, message_handle_helper, preload_data_helpers, \
+    profile_boolean_helpers, reset_password_helpers
 
 login_manager = LoginManager()
 
-app = Flask(__name__, static_folder='../../frontend/build/static', template_folder='../../frontend/build/')
+app = Flask(__name__, static_folder='../../frontend/build/static',
+            template_folder='../../frontend/build/')
 # app.config["SECRET_KEY"] = 'my secret'
 app.config.from_object(Configuration)
 login_manager.init_app(app)
@@ -56,9 +53,11 @@ def authenticated_only(f):
 
     return wrapped
 
+
 @app.route("/")
 def index():
     return render_template('index.html')
+
 
 @app.route("/<path:path>")
 def serve(path):
@@ -120,7 +119,6 @@ def get_user_by_id():
 @app.route('/load_from_db/profile_picture')
 def get_profile_picture():
     return jsonify(preload_data_helpers.get_profile_picture())
-
 
 
 @login_manager.unauthorized_handler
@@ -189,6 +187,7 @@ def change_current_user_profile_text():
     #     .set_sexual_orientation_by_user_id(user_id=my_id,
     #                                        sex_orientation=my_json["sex_orientation"])
     return jsonify(login_register_helpers.get_user_by_user_id(my_id).get_json())
+
 
 @app.route('/current_user/profile/text_show', methods=['POST'])
 def change_current_user_profile_text():
@@ -566,7 +565,8 @@ def email():
     if not login_register_helpers.email_already_existed(user_email):
         return "Email not found. ", 412
     user_id = login_register_helpers.get_user_id_by_user_email(user_email)
-    token = reset_password_helpers.get_token_by_user_id(user_id, app.config.get('SECRET_KEY')).decode('utf-8')
+    token = reset_password_helpers.get_token_by_user_id(user_id, app.config.get(
+        'SECRET_KEY')).decode('utf-8')
     url = app.config.get('ROUTE_URL') + '/changePassword/' + token
     print(url)
 
@@ -576,11 +576,13 @@ def email():
 @app.route('/reset_password/verify', methods=['POST'])
 def verify_token():
     token = request.get_json()['token']
-    user_id = (reset_password_helpers.verify_token(token, app.config.get('SECRET_KEY')))
+    user_id = (reset_password_helpers.verify_token(token, app.config.get(
+        'SECRET_KEY')))
     if user_id is None:
         return "Not a valid token", 412
     login_user(login_register_helpers.get_user_by_user_id(user_id))
     return "Verify successfully", 200
+
 
 @login_required
 @app.route('/reset_password/set', methods=['POST'])
@@ -592,8 +594,6 @@ def set_password():
     except Exception as e:
         print(e)
         return "Something wrong happened. ", 412
-
-
 
 
 if __name__ == '__main__':
