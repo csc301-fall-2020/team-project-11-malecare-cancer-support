@@ -7,18 +7,23 @@ from flask import Flask, jsonify, request
 from flask_login import LoginManager, current_user, login_required, login_user, \
     logout_user
 from flask_socketio import SocketIO, disconnect
+from .config import Configuration
+
 
 from ..usecases import administrator_filter_helpers, \
     customize_user_profile_helpers, delete_helper, friend_handler_helpers, \
     handle_report_helpers, handle_session_info_helpers, login_register_helpers, \
-    match_helpers, message_handle_helper, preload_data_helpers
+    match_helpers, message_handle_helper, preload_data_helpers, reset_password_helpers
+
 import base64
 from io import BytesIO
 
-login_manager = LoginManager()
-app = Flask(__name__)
-app.config["SECRET_KEY"] = 'my secret'
 
+login_manager = LoginManager()
+
+app = Flask(__name__)
+# app.config["SECRET_KEY"] = 'my secret'
+app.config.from_object(Configuration)
 login_manager.init_app(app)
 
 socketio = SocketIO(app, manage_session=False, cors_allowed_origins="*")
@@ -520,6 +525,42 @@ def delete_self():
     uid = current_user.get_id()
     result = delete_helper.delete_user_by_uid(uid)
     return result
+
+
+@app.route('/reset_password/email', methods=['POST'])
+def email():
+    user_email = request.get_json()['email']
+    if not login_register_helpers.email_already_existed(user_email):
+        return "Email not found. ", 412
+    user_id = login_register_helpers.get_user_id_by_user_email(user_email)
+    token = reset_password_helpers.get_token_by_user_id(user_id, app.config.get('SECRET_KEY')).decode('utf-8')
+    url = app.config.get('ROUTE_URL') + '/changePassword/' + token
+    print(url)
+
+    return "Reset password email sent. ", 200
+
+
+@app.route('/reset_password/verify', methods=['POST'])
+def verify_token():
+    token = request.get_json()['token']
+    user_id = (reset_password_helpers.verify_token(token, app.config.get('SECRET_KEY')))
+    if user_id is None:
+        return "Not a valid token", 412
+    login_user(login_register_helpers.get_user_by_user_id(user_id))
+    return "Verify successfully", 200
+
+@login_required
+@app.route('/reset_password/set', methods=['POST'])
+def set_password():
+    new_password = request.get_json()['password']
+    try:
+        reset_password_helpers.set_password(current_user.get_id(), new_password)
+        return "Password reset successfully. ", 200
+    except Exception as e:
+        print(e)
+        return "Something wrong happened. ", 412
+
+
 
 
 if __name__ == '__main__':
