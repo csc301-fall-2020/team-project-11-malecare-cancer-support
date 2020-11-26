@@ -1,22 +1,25 @@
 import React, { useEffect, useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
-import axios from "axios";
 import io from "socket.io-client";
-import { UserContext } from "../../../contexts/UserContext";
-import { getAge, getCurrentUser } from "../../utils/helpers";
+import { UserContext } from "../../../../contexts/UserContext";
+import { getAge, getCurrentUser } from "../../../utils/helpers";
 import { filterMatches } from "./helper";
 import styled from "styled-components";
-import img from "../../../assets/UserPhoto.png";
-import MultiCardSelection from "../../component-library/MultiCardSelection";
-import { Space, PrimaryButton } from "../../share-styled-component";
-import { getUserDetailOptions } from "../signup-page/helper";
+import img from "../../../../assets/UserPhoto.png";
+import MultiCardSelection from "../../../component-library/MultiCardSelection";
+import {
+  PageTitleSection,
+  Space,
+  PrimaryButton,
+} from "../../../share-styled-component";
+import { getUserDetailOptions } from "../../signup-page/helper";
 import _ from "lodash";
 import { message } from "antd";
-import { message as alertMessage } from "antd"
+import { message as alertMessage } from "antd";
 
 import { PulseLoader } from "react-spinners";
 import { css } from "@emotion/react";
-import { socketUrl } from "../../utils/sharedUrl";
+import { socketUrl } from "../../../utils/sharedUrl";
 
 const loaderCSS = css`
   margin-top: 300px;
@@ -142,31 +145,19 @@ const alignedButton = {
   margin: "0px 30px",
 };
 
-// const filterTitle = {
-//   fontSize: "30px",
-// };
-
-const Title = styled.div`
-  font-size: 38px;
-  font-weight: bold;
-  color: #4d222a;
-`;
-
 const Matches = () => {
-  const { user, setUser } = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
   const history = useHistory();
   const [filterSexOrientation, setFilteredSexOrientation] = useState([
     "heterosexual",
   ]);
   const [filterGender, setFilterGender] = useState(["male"]);
   const [filterPurpose, setFilterPurpose] = useState(["looking for love"]);
-  // const [filterCanerType, setFilterCanerType] = useState([]);
-  // const [filterDistance, setFilteredDistance] = useState([]);
   const [matches, setMatches] = useState([]);
   const [userDetailSelections, setUserDetailSelections] = useState({});
   const [loading, setLoading] = useState(true);
   const [matchesIndex, setMatchesIndex] = useState(0);
-  const [mSocket, setMSocket] = useState(null)
+  const [mSocket, setMSocket] = useState(null);
 
   const handleApply = async () => {
     if (
@@ -177,7 +168,7 @@ const Matches = () => {
       message.warning("Empty filter");
       // TODO: Maybe fill the filter item? Make it filter nothing?
     } else {
-      setLoading(true)
+      setLoading(true);
       const myMatches = await filterMatches(
         filterSexOrientation,
         filterGender,
@@ -190,7 +181,7 @@ const Matches = () => {
       }
     }
     console.log("update");
-    setLoading(false)
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -225,9 +216,9 @@ const Matches = () => {
       }
     };
 
-    const socket = io.connect(socketUrl, { reconnection: true })
-    socket.emit("save_session")
-    setMSocket(socket)
+    const socket = io.connect(socketUrl, { reconnection: true });
+    socket.emit("save_session");
+    setMSocket(socket);
 
     fetchUser();
     findMatches();
@@ -237,6 +228,7 @@ const Matches = () => {
       socket.close();
       setMSocket(undefined);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [history, setUser]);
 
   const handleViewProfile = () => {
@@ -260,19 +252,11 @@ const Matches = () => {
     }
   };
 
-  // const send = () => {
-  //   if (!user) return;
-  //   const socket = io.connect(socketUrl, {reconnection: true})
-  //   socket.emit('new_friend_request', {
-  //     receiver: user.user_id
-  //   });
-  // };
-
   const handleSendRequest = (receiverId) => {
-    mSocket.emit('new_friend_request', {
-      receiver: receiverId
+    mSocket.emit("new_friend_request", {
+      receiver: receiverId,
     });
-    alertMessage.success("Request has been sent.")
+    alertMessage.success("Request has been sent.");
   };
 
   return loading ? (
@@ -283,85 +267,101 @@ const Matches = () => {
       color="rgb(172, 102, 104)"
     ></PulseLoader>
   ) : (
-      <MatchesPageContainer>
-        <FilterContainer>
-          <Title>Filter</Title>
-          <MultiCardSelection
-            label="Gender:"
-            selections={filterGender}
-            updateSelections={setFilterGender}
-            roundedCard
-            options={userDetailSelections.genderOptions || []}
-          />
-          <Space height="12px" />
-          <MultiCardSelection
-            label="Target:"
-            selections={filterPurpose}
-            updateSelections={setFilterPurpose}
-            roundedCard
-            options={userDetailSelections.purposeOptions || []}
-          />
-          <Space height="12px" />
-          <MultiCardSelection
-            label="Sex orientation:"
-            selections={filterSexOrientation}
-            updateSelections={setFilteredSexOrientation}
-            roundedCard
-            options={userDetailSelections.sexualOrientationOptions || []}
-          />
-          <Space height="24px" />
-          <PrimaryButton onClick={handleApply}>Apply</PrimaryButton>
-          <Space height="24px" />
-        </FilterContainer>
-        <MatchContainer>
-          <BorderContainer>
-            {matches.length !== 0 && (
-              <PhotoContainer>
-                <img style={picStyle} src={img} alt="user picture" />
-                <span style={label}>{matches[matchesIndex].purpose && matches[matchesIndex].purpose.map((item, index) => { return (<div>{item}</div>) })} </span>
-              </PhotoContainer>
-            )}
-            {matches.length !== 0 ? (
-              <InfoContainer>
-                <span style={info}>Name: {matches[matchesIndex].username} </span>
-                <span style={info}>
-                  Age:
-                {getAge(matches[matchesIndex].date_of_birth)}
-                </span>
-                <span style={info}>Gender: {matches[matchesIndex].gender}</span>
-                <span style={info}>
-                  Cancer Type(s): {matches[matchesIndex].cancer &&
-                    ((matches[matchesIndex].cancer.length <= 3)
-                      ? matches[matchesIndex].cancer :
-                      matches[matchesIndex].cancer.slice(0, 3).concat(['...'])).map((item, index) => { return (<div>{item}</div>) })}
-                </span>
-                <span style={info}>Greeting message: {matches[matchesIndex].short_intro}</span>
-                <SmallButton style={profileButton} onClick={handleViewProfile}>
-                  full profile
-              </SmallButton>
-              </InfoContainer>
-            ) : (
-                <EmptyMatch>
-                  It is sad but no one is here. Maybe try another filter?
-                </EmptyMatch>
-              )}
-          </BorderContainer>
+    <MatchesPageContainer>
+      <FilterContainer>
+        <PageTitleSection>Filter</PageTitleSection>
+        <MultiCardSelection
+          label="Gender:"
+          selections={filterGender}
+          updateSelections={setFilterGender}
+          roundedCard
+          options={userDetailSelections.genderOptions || []}
+        />
+        <Space height="12px" />
+        <MultiCardSelection
+          label="Target:"
+          selections={filterPurpose}
+          updateSelections={setFilterPurpose}
+          roundedCard
+          options={userDetailSelections.purposeOptions || []}
+        />
+        <Space height="12px" />
+        <MultiCardSelection
+          label="Sex orientation:"
+          selections={filterSexOrientation}
+          updateSelections={setFilteredSexOrientation}
+          roundedCard
+          options={userDetailSelections.sexualOrientationOptions || []}
+        />
+        <Space height="24px" />
+        <PrimaryButton onClick={handleApply}>Apply</PrimaryButton>
+        <Space height="24px" />
+      </FilterContainer>
+      <MatchContainer>
+        <BorderContainer>
           {matches.length !== 0 && (
-            <div style={buttons}>
-              <SmallButton style={alignedButton} onClick={handleGotoPrevious}>
-                previous
-            </SmallButton>
-              <BigButton style={alignedButton} onClick={() => { handleSendRequest(matches[matchesIndex].user_id) }}>
-                request to chat
-            </BigButton>
-              <SmallButton style={alignedButton} onClick={handleGotoNext}>
-                next
-            </SmallButton>
-            </div>
+            <PhotoContainer>
+              <img style={picStyle} src={img} alt="user picture" />
+              <span style={label}>
+                {matches[matchesIndex].purpose &&
+                  matches[matchesIndex].purpose.map((item, index) => {
+                    return <div>{item}</div>;
+                  })}{" "}
+              </span>
+            </PhotoContainer>
           )}
-        </MatchContainer>
-      </MatchesPageContainer>
-    );
+          {matches.length !== 0 ? (
+            <InfoContainer>
+              <span style={info}>Name: {matches[matchesIndex].username} </span>
+              <span style={info}>
+                Age:
+                {getAge(matches[matchesIndex].date_of_birth)}
+              </span>
+              <span style={info}>Gender: {matches[matchesIndex].gender}</span>
+              <span style={info}>
+                Cancer Type(s): 
+                {matches[matchesIndex].cancer &&
+                  (matches[matchesIndex].cancer.length <= 3
+                    ? matches[matchesIndex].cancer
+                    : matches[matchesIndex].cancer.slice(0, 3).concat(["..."])
+                  ).map((item, index) => {
+                    return <div>{item}</div>;
+                  })}
+              </span>
+              <span style={info}>
+                Greeting message: {matches[matchesIndex].short_intro}
+              </span>
+              <SmallButton style={profileButton} onClick={handleViewProfile}>
+                full profile
+              </SmallButton>
+            </InfoContainer>
+          ) : (
+            <EmptyMatch>
+              It is sad but no one is here. Maybe try another filter?
+            </EmptyMatch>
+          )}
+        </BorderContainer>
+        {matches.length !== 0 && (
+          <div style={buttons}>
+            <SmallButton style={alignedButton} onClick={handleGotoPrevious}>
+              previous
+            </SmallButton>
+            <BigButton
+              style={alignedButton}
+              onClick={() => {
+                handleSendRequest(matches[matchesIndex].user_id);
+              }}
+            >
+              request to chat
+            </BigButton>
+            <SmallButton style={alignedButton} onClick={handleGotoNext}>
+              next
+            </SmallButton>
+          </div>
+        )}
+      </MatchContainer>
+    </MatchesPageContainer>
+  );
 };
 
 export default Matches;

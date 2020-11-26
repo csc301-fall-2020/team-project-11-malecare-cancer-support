@@ -68,7 +68,6 @@ export const NavBarContainer = styled.nav`
 `;
 
 export const NavLinkContainer = styled.ul`
-  width: 700px;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -78,6 +77,7 @@ export const NavLinkContainer = styled.ul`
 
 export const NavLink = styled(Link)`
   color: #ffffff;
+  margin: 0 18px;
   text-decoration: none;
   &:hover {
     cursor: pointer;
@@ -86,6 +86,7 @@ export const NavLink = styled(Link)`
 `;
 
 export const LogoutSection = styled.a`
+  margin: 0 18px;
   color: #ffffff;
   text-decoration: none;
   &:hover {
@@ -109,4 +110,26 @@ export const UpdateButton = styled.button`
   &:hover {
     cursor: pointer;
   }
+`;
+
+export const PageTitleSection = styled.div`
+  font-size: 38px;
+  font-weight: bold;
+  color: #4d222a;
+`;
+
+export const PageSubTitleSection = styled.div`
+  font-size: 24px;
+  color: #3c1014;
+`;
+
+export const RegularMessage = styled.div`
+  color: #3c1014;
+  font-size: 18px;
+`;
+
+export const WarningMessage = styled.div`
+  color: #d54e54;
+  font-size: 18px;
+  font-weight: bold;
 `;

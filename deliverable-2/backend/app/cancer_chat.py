@@ -2,8 +2,10 @@ import functools
 import sys
 
 import pymongo
+from PIL import Image
 from flask import Flask, jsonify, request
-from flask_login import LoginManager, current_user, login_required, login_user
+from flask_login import LoginManager, current_user, login_required, login_user, \
+    logout_user
 from flask_socketio import SocketIO, disconnect
 from .config import Configuration
 
@@ -12,6 +14,10 @@ from ..usecases import administrator_filter_helpers, \
     customize_user_profile_helpers, delete_helper, friend_handler_helpers, \
     handle_report_helpers, handle_session_info_helpers, login_register_helpers, \
     match_helpers, message_handle_helper, preload_data_helpers, reset_password_helpers
+
+import base64
+from io import BytesIO
+
 
 login_manager = LoginManager()
 
@@ -116,11 +122,11 @@ def unauthorized():
     return "user is not logged in", 401
 
 
-# @app.route("/logout")
-# @login_required
-# def logout():
-#     logout_user()
-#     return "logout"
+@app.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    return "logout"
 
 
 @app.route('/login', methods=['POST'])
@@ -181,14 +187,15 @@ def change_current_user_profile_text():
 
 @app.route('/current_user/profile/picture', methods=['POST'])
 def change_current_user_picture():
-    imgs = request.files.getlist()
-    print("get img success")
-    return imgs
-    # picture = open(str(request.get_json()["picture"]), 'rb')
-    # print(current_user.get_id())
-    # customize_user_profile_helpers \
-    #     .set_picture_by_user_id(user_id=current_user.get_id(), picture=picture)
-    # return "Success"
+    print(request.form)
+    print(request.files)
+    print(request.files.get("file"))
+    imgs = request.files.get("file")
+    img = Image.open(imgs)
+    buffered = BytesIO()
+    img.save(buffered, format="PNG")
+    img_str = base64.b64encode(buffered.getvalue())
+    return jsonify({"imgs": img_str})
 
 
 @app.route('/signup', methods=['POST'])

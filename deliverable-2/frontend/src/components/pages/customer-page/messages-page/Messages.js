@@ -2,15 +2,14 @@ import React, { useState, useEffect, useRef, useContext } from "react";
 import styled from "styled-components";
 import io from "socket.io-client";
 import axios from "axios";
-import face from "../../../assets/face.png";
-import image from "../../../assets/image.png";
+import face from "../../../../assets/face.png";
+import image from "../../../../assets/image.png";
 import { useHistory } from "react-router-dom";
-import { getCurrentUser } from "../../utils/helpers";
-import { UserContext } from "../../../contexts/UserContext";
+import { getCurrentUser } from "../../../utils/helpers";
+import { UserContext } from "../../../../contexts/UserContext";
 import { PulseLoader } from "react-spinners";
 import { css } from "@emotion/react";
-import { socketUrl } from "../../utils/sharedUrl";
-// import { get } from "../../utils/request";
+import { socketUrl } from "../../../utils/sharedUrl";
 
 const loaderCSS = css`
   margin-top: 300px;

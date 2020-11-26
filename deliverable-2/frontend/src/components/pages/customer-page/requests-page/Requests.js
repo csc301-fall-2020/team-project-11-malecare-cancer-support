@@ -1,16 +1,16 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-import { getAge, getCurrentUser } from "../../utils/helpers";
+import { getAge, getCurrentUser } from "../../../utils/helpers";
 import styled from "styled-components";
-import { UserContext } from "../../../contexts/UserContext";
+import { UserContext } from "../../../../contexts/UserContext";
 
 import io from "socket.io-client";
-import { message as alertMessage } from "antd"
+import { message as alertMessage } from "antd";
 import { PulseLoader } from "react-spinners";
 import { css } from "@emotion/react";
-import { socketUrl } from "../../utils/sharedUrl";
-import UserPhoto from "../../../assets/UserPhoto.png";
+import { socketUrl } from "../../../utils/sharedUrl";
+import UserPhoto from "../../../../assets/UserPhoto.png";
 
 const loaderCSS = css`
   margin-top: 300px;
@@ -52,7 +52,7 @@ const buttons = {
 const RequestContainer = {
   height: "200px",
   margin: "0px",
-}
+};
 
 const EmptyMessage = styled.div`
   height: 200px;
@@ -92,7 +92,6 @@ const circlePiture = {
   margin: "18px",
 };
 
-
 const SmallButton = styled.button`
   border-radius: 50px;
   background-color: #d54e54;
@@ -105,8 +104,6 @@ const SmallButton = styled.button`
     cursor: pointer;
   }
 `;
-
-
 
 const Requests = () => {
   const [mSocket, setMSocket] = useState(null);
@@ -121,32 +118,30 @@ const Requests = () => {
   };
 
   const handleAccept = async (senderId) => {
-    mSocket.emit('accept_friend_request', {
-      sender: senderId
+    mSocket.emit("accept_friend_request", {
+      sender: senderId,
     });
-    asyncReq()
+    asyncReq();
     // alertMessage.success("Request accepted.")
   };
-  
+
   const handleDecline = async (senderId) => {
-    axios.post("/friend_requests/decline", {sender: senderId}).then(() => {
+    axios.post("/friend_requests/decline", { sender: senderId }).then(() => {
       alertMessage.success("Request declined.");
-    })
-    asyncReq()
+    });
+    asyncReq();
   };
-  
+
   const handleViewProfile = (senderId) => {
     const w = window.open("about:blank");
     w.location.href = "/profile/" + senderId;
   };
-  
 
-  
   function RequestCard(props) {
-    return(
+    return (
       <div style={RequestContainer}>
         <BorderContainer>
-          <img style={circlePiture} src={UserPhoto} alt="user photo"/>
+          <img style={circlePiture} src={UserPhoto} alt="user photo" />
           <InfoContainer>
             <BasicInfo>Name: {props.name}</BasicInfo>
             <BasicInfo>Age: {props.age}</BasicInfo>
@@ -155,14 +150,23 @@ const Requests = () => {
           </InfoContainer>
         </BorderContainer>
         <div style={buttons}>
-          <SmallButton style={alignedButton} onClick={handleViewProfile.bind(this, props.id)}>
-              View Profile
+          <SmallButton
+            style={alignedButton}
+            onClick={handleViewProfile.bind(this, props.id)}
+          >
+            View Profile
           </SmallButton>
-          <SmallButton style={alignedButton } onClick={handleDecline.bind(this, props.id)}>
-              refuse
+          <SmallButton
+            style={alignedButton}
+            onClick={handleDecline.bind(this, props.id)}
+          >
+            refuse
           </SmallButton>
-          <SmallButton style={alignedButton} onClick={handleAccept.bind(this, props.id)}>
-              accept
+          <SmallButton
+            style={alignedButton}
+            onClick={handleAccept.bind(this, props.id)}
+          >
+            accept
           </SmallButton>
         </div>
       </div>
@@ -184,14 +188,14 @@ const Requests = () => {
   //   setSenderList(senders);
   //   setLoading(false);
   // }
-  
-  const asyncReq = async() => {
-    const senders = await getRequestList()
+
+  const asyncReq = async () => {
+    const senders = await getRequestList();
     if (senders) {
-      setSenderList(senders)
-      setLoading(false)
+      setSenderList(senders);
+      setLoading(false);
     }
-  }
+  };
 
   // const fetchRequests = () => {
   //   getRequestList().then((value) => {
@@ -202,23 +206,22 @@ const Requests = () => {
   // };
 
   useEffect(() => {
-    const socket = io.connect(socketUrl, {reconnection: true});
+    const socket = io.connect(socketUrl, { reconnection: true });
     socket.emit("save_session");
     setMSocket(socket);
 
-
     socket.on("get_friend_request", () => {
-      asyncReq()
-    })
+      asyncReq();
+    });
 
     socket.on("return_accept_friend_request", (msg) => {
-      asyncReq()
+      asyncReq();
       if (msg === "Successfully sent") {
-        alertMessage.success("Request accepted.")
+        alertMessage.success("Request accepted.");
       } else {
-        alertMessage.error(msg)
+        alertMessage.error(msg);
       }
-    })
+    });
     // asyncReqList()
     // asyncSenderList()
     // axios.get("/friend_requests").then((res) => {
@@ -232,21 +235,18 @@ const Requests = () => {
     //       setSenderList(senders);
     //     })
     //   }
-      
+
     //   setLoading(false);
     // })
 
-
-    asyncReq()
+    asyncReq();
     // fetchRequests();
-    console.log(senderList)
+    console.log(senderList);
     return () => {
       socket.close();
       setMSocket(undefined);
     };
   }, []);
-
-
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -263,13 +263,9 @@ const Requests = () => {
       }
     };
 
-
     fetchUser();
 
-    
     // fetchRequests();
-
-
   }, [history, setUser]);
 
   return loading ? (
@@ -282,21 +278,22 @@ const Requests = () => {
   ) : (
     <RequestsPageContainer>
       <RequestTitle>Chat Requests</RequestTitle>
-        {senderList&&senderList.map((item, index) => {
-          return(
-          <RequestCard
-            key = {index}
-            name={item["username"]}
-            age={getAge(item["date_of_birth"])}
-            gender={item["gender"]}
-            greeting={item["short_intro"]}
-            id = {item["user_id"]}
-          />
+      {senderList &&
+        senderList.map((item, index) => {
+          return (
+            <RequestCard
+              key={index}
+              name={item["username"]}
+              age={getAge(item["date_of_birth"])}
+              gender={item["gender"]}
+              greeting={item["short_intro"]}
+              id={item["user_id"]}
+            />
           );
         })}
-    {senderList.length === 0 && (
-      <EmptyMessage>You have no new requests. </EmptyMessage>
-    )}
+      {senderList.length === 0 && (
+        <EmptyMessage>You have no new requests. </EmptyMessage>
+      )}
     </RequestsPageContainer>
   );
 };

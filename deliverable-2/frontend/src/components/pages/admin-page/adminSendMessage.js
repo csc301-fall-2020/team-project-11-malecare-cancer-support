@@ -170,6 +170,7 @@ const AdminSendMessages = () => {
       );
     }
 
+    // Initiate Signup Request
     const requestBody = {
       includeGenders,
       includeAges,
@@ -180,8 +181,10 @@ const AdminSendMessages = () => {
       includeTreatments,
       excludeTreatments,
     };
+    console.log(requestBody);
     try {
       const response = await axios.post("/admin/get_filter_email", requestBody);
+      console.log(response.data);
       const fetchedEmailList = _.get(response, "data.email", []);
       if (!_.isEmpty(fetchedEmailList)) {
         setMatchedEmailList(fetchedEmailList);

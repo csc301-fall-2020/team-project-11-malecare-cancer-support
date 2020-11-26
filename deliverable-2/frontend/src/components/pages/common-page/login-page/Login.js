@@ -4,9 +4,9 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
-import Input from "../../component-library/Input";
-import Checkbox from "../../component-library/Checkbox";
-import { getCurrentUser } from "../../utils/helpers";
+import Input from "../../../component-library/Input";
+import Checkbox from "../../../component-library/Checkbox";
+import { getCurrentUser } from "../../../utils/helpers";
 
 import {
   Space,
@@ -14,9 +14,9 @@ import {
   MainSubTitleLarge,
   SecondaryButton,
   ErrorMessageContainer,
-} from "../../share-styled-component";
+} from "../../../share-styled-component";
 
-import { UserContext } from "../../../contexts/UserContext";
+import { UserContext } from "../../../../contexts/UserContext";
 
 const LoginPageContainer = styled.div`
   position: absolute;
