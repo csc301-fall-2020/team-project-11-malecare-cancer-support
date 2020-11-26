@@ -12,13 +12,8 @@ from ..usecases import administrator_filter_helpers, \
     customize_user_profile_helpers, delete_helper, friend_handler_helpers, \
     handle_report_helpers, handle_session_info_helpers, login_register_helpers, \
     match_helpers, message_handle_helper, preload_data_helpers
-import cv2
-import os
-import numpy
-# import file
-from werkzeug import security
-# from cv2 import cv
-# import Image
+import base64
+from io import BytesIO
 
 login_manager = LoginManager()
 app = Flask(__name__)
@@ -189,49 +184,13 @@ def change_current_user_profile_text():
 def change_current_user_picture():
     print(request.form)
     print(request.files)
-    # print(request.form.get("keyword"))
     print(request.files.get("file"))
-    # print(request.files.getlist("files[]"))
     imgs = request.files.get("file")
-    # data = request.files['file']
     img = Image.open(imgs)
-    import base64
-    from io import BytesIO
     buffered = BytesIO()
     img.save(buffered, format="PNG")
     img_str = base64.b64encode(buffered.getvalue())
     return jsonify({"imgs": img_str})
-    # img = np.array(img)
-    # img = cv2.resize(img, (224, 224))
-    # img = cv2.cvtColor(np.array(img), cv2.COLOR_BGR2RGB)
-    # file = request.files['file']
-    # filename = security.secure_filename(file.filename)  # save file
-    # filepath = os.path.join(app.config['imgdir'], filename)
-    # file.save(filepath)
-    # cv2.imread(filepath)
-    # # read image file string data
-    # filestr = request.files['file'].read()
-    # # convert string data to numpy array
-    # npimg = numpy.fromstring(filestr, numpy.uint8)
-    # # convert numpy array to image
-    # img = cv2.imdecode(npimg, cv2.CV_LOAD_IMAGE_UNCHANGED)
-    # return jsonify({"imgs": img_str})
-
-    # photo = request.files['photo']
-    # in_memory_file = io.BytesIO()
-    # imgs.save(in_memory_file)
-    # data = np.fromstring(in_memory_file.getvalue(), dtype=np.uint8)
-    # color_image_flag = 1
-    # img = cv2.imdecode(data, color_image_flag)
-    # # file_content = imgs.read()
-    # print("get img success")
-    # print(img)
-    # return jsonify({"imgs":img})
-    # picture = open(str(request.get_json()["picture"]), 'rb')
-    # print(current_user.get_id())
-    # customize_user_profile_helpers \
-    #     .set_picture_by_user_id(user_id=current_user.get_id(), picture=picture)
-    # return "Success"
 
 
 @app.route('/signup', methods=['POST'])
