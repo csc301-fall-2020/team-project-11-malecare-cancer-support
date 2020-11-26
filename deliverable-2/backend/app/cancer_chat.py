@@ -225,7 +225,11 @@ def signup():
                 login_register_helpers.get_user_by_email(my_json["email"]))
             return current_user.get_json()
     except pymongo.errors.AutoReconnect as e:
-        print("Try again maybe?", e)
+        print(e)
+        return "Cannot connect to database, please try again", 400
+    except Exception as e:
+        print(e)
+        return "We cannot create an account for you at this time. ", 400
 
 
 @app.route('/chat/new_message', methods=['POST'])
