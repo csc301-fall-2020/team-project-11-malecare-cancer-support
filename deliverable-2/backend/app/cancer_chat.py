@@ -15,7 +15,8 @@ from flask_cors import CORS
 from ..usecases import administrator_filter_helpers, \
     customize_user_profile_helpers, delete_helper, friend_handler_helpers, \
     handle_report_helpers, handle_session_info_helpers, login_register_helpers, \
-    match_helpers, message_handle_helper, preload_data_helpers, reset_password_helpers
+    match_helpers, message_handle_helper, preload_data_helpers, reset_password_helpers, \
+    profile_boolean_helpers
 
 import base64
 from io import BytesIO
@@ -188,6 +189,29 @@ def change_current_user_profile_text():
     #     .set_sexual_orientation_by_user_id(user_id=my_id,
     #                                        sex_orientation=my_json["sex_orientation"])
     return jsonify(login_register_helpers.get_user_by_user_id(my_id).get_json())
+
+@app.route('/current_user/profile/text_show', methods=['POST'])
+def change_current_user_profile_text():
+    my_json = request.get_json()
+    my_id = current_user.get_id()
+    my_functions = [profile_boolean_helpers.set_date_of_birth_bool_by_user_id,
+                    profile_boolean_helpers.set_cancer_types_bool_by_user_id,
+                    profile_boolean_helpers.set_medications_and_treatments_bool_by_user_id,
+                    profile_boolean_helpers.set_purpose_bool_by_user_id,
+                    profile_boolean_helpers.set_short_intro_bool_by_user_id,
+                    ]
+
+    my_new_profile_fields = [my_json["date_of_birth_bool"],
+                             my_json["cancer_bool"],
+                             my_json["medications_and_treatments_bool"],
+                             my_json["purpose_bool"],
+                             my_json["short_intro_bool"]]
+    for func, field in zip(my_functions, my_new_profile_fields):
+        func(my_id, field)
+    # customize_user_profile_helpers \
+    #     .set_sexual_orientation_by_user_id(user_id=my_id,
+    #                                        sex_orientation=my_json["sex_orientation"])
+    return jsonify(profile_boolean_helpers.get_user_bool_by_user_id(my_id))
 
 
 @app.route('/current_user/profile/picture', methods=['POST'])
