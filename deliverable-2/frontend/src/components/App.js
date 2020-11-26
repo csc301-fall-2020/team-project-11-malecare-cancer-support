@@ -4,9 +4,9 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { MainPageContainer } from "./share-styled-component";
 import Nav from "./Nav";
 // Common pages
-import Welcome from "./pages/welcome-page/Welcome";
-import Login from "./pages/login-page/Login";
-import SignUp from "./pages/signup-page/SignUp";
+import Welcome from "./pages/common-page/welcome-page/Welcome";
+import Login from "./pages/common-page/login-page/Login";
+import SignUp from "./pages/common-page/signup-page/SignUp";
 
 // Customer pages
 import Account from "./pages/customer-page/account-page/Account";

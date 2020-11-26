@@ -9,8 +9,9 @@ import io from "socket.io-client";
 import { message as alertMessage } from "antd";
 import { PulseLoader } from "react-spinners";
 import { css } from "@emotion/react";
-import { socketUrl } from "../../../utils/sharedUrl";
+
 import UserPhoto from "../../../../assets/UserPhoto.png";
+import { HOST_URL } from "../../../utils/sharedUrl";
 
 const loaderCSS = css`
   margin-top: 300px;
@@ -113,7 +114,7 @@ const Requests = () => {
   // const [requestList, setRequestList] = useState([]);
   const [senderList, setSenderList] = useState([]);
   const getRequestList = async () => {
-    const response = await axios.get("/friend_requests");
+    const response = await axios.get(HOST_URL + "/friend_requests");
     return response.data;
   };
 
@@ -126,7 +127,7 @@ const Requests = () => {
   };
 
   const handleDecline = async (senderId) => {
-    axios.post("/friend_requests/decline", { sender: senderId }).then(() => {
+    axios.post(HOST_URL + "/friend_requests/decline", {sender: senderId}).then(() => {
       alertMessage.success("Request declined.");
     });
     asyncReq();
@@ -206,7 +207,7 @@ const Requests = () => {
   // };
 
   useEffect(() => {
-    const socket = io.connect(socketUrl, { reconnection: true });
+    const socket = io.connect(HOST_URL, {reconnection: true});
     socket.emit("save_session");
     setMSocket(socket);
 

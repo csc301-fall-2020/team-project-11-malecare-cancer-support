@@ -11,6 +11,7 @@ import { UserContext } from "../../../../contexts/UserContext";
 
 import { PulseLoader } from "react-spinners";
 import { css } from "@emotion/react";
+import { HOST_URL } from "../../../utils/sharedUrl";
 
 const loaderCSS = css`
   margin-top: 300px;
@@ -59,7 +60,7 @@ const UserProfile = ({ match }) => {
   const requestBody = { user_id: match.params.id };
   const [profileUser, setProfileUser] = useState({});
   const getProfileInfo = async () => {
-    const response = await axios.post("/get_user", requestBody);
+    const response = await axios.post(HOST_URL + "/get_user", requestBody);
     return response.data;
   };
   useEffect(() => {

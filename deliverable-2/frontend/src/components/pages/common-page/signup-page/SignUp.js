@@ -18,14 +18,18 @@ import {
   MainSubTitle,
   PrimaryButton,
   ErrorMessageContainer,
-} from "../../share-styled-component";
+} from "../../../share-styled-component";
 
 import { getUserDetailOptions } from "./helper";
 
-import { UserContext } from "../../../contexts/UserContext";
+
 
 import { PulseLoader } from "react-spinners";
 import { css } from "@emotion/react";
+import { UserContext } from "../../../../contexts/UserContext";
+import { HOST_URL } from "../../../utils/sharedUrl";
+
+
 
 const loaderCSS = css`
   margin-top: 300px;
@@ -124,7 +128,7 @@ const SignUp = () => {
     };
 
     axios
-      .post("/signup", requestBody)
+      .post(HOST_URL + "/signup", requestBody)
       .then((response) => {
         if (!_.isNil(response, "data.user_id")) {
           setUser(response.data);

@@ -12,14 +12,16 @@ import {
   Space,
   PrimaryButton,
 } from "../../../share-styled-component";
-import { getUserDetailOptions } from "../../signup-page/helper";
+
 import _ from "lodash";
 import { message } from "antd";
 import { message as alertMessage } from "antd";
 
 import { PulseLoader } from "react-spinners";
 import { css } from "@emotion/react";
-import { socketUrl } from "../../../utils/sharedUrl";
+
+import { getUserDetailOptions } from "../../common-page/signup-page/helper";
+import { HOST_URL } from "../../../utils/sharedUrl";
 
 const loaderCSS = css`
   margin-top: 300px;
@@ -216,9 +218,9 @@ const Matches = () => {
       }
     };
 
-    const socket = io.connect(socketUrl, { reconnection: true });
-    socket.emit("save_session");
-    setMSocket(socket);
+    const socket = io.connect(HOST_URL, { reconnection: true })
+    socket.emit("save_session")
+    setMSocket(socket)
 
     fetchUser();
     findMatches();
