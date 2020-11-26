@@ -53,6 +53,9 @@ const Nav = () => {
         <NavLink to="/requests">
           <li>Requests</li>
         </NavLink>
+        <NavLink to="/account">
+          <li>Account</li>
+        </NavLink>
         <LogoutSection onClick={logoutUser}>Logout</LogoutSection>
       </>
     );

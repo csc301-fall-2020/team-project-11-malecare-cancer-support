@@ -1,16 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Row, Col, Typography, Image } from "antd";
+import { Row, Col, Image } from "antd";
 import styles from "./MyProfile.module.css";
 import "antd/dist/antd.css";
-import _ from "lodash";
 import axios from "axios";
 import styled from "styled-components";
-import UserPhoto from "../../../assets/UserPhoto.png";
+import UserPhoto from "../../../../assets/UserPhoto.png";
 import { useHistory } from "react-router-dom";
-import { getCurrentUser } from "../../utils/helpers";
-import { UserContext } from "../../../contexts/UserContext";
-
-// const dateFormat = "YYYY-MM-DD";
+import { getCurrentUser } from "../../../utils/helpers";
+import { UserContext } from "../../../../contexts/UserContext";
 
 import { PulseLoader } from "react-spinners";
 import { css } from "@emotion/react";
@@ -36,7 +33,7 @@ const timeFormat = (inputString) => {
 };
 
 const UserProfile = ({ match }) => {
-  const { user, setUser } = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
   const history = useHistory();
   const [loading, setLoading] = useState(true);
   const [navLoading, setNavLoading] = useState(true);
@@ -133,7 +130,11 @@ const UserProfile = ({ match }) => {
           <Row>
             <Col span={4}>Type(s) of cancer:</Col>
             <Col span={8}>
-              {profileUser && profileUser.cancer ? profileUser.cancer.map((item, index) => {return (<div>{item}</div>)}) : null}
+              {profileUser && profileUser.cancer
+                ? profileUser.cancer.map((item, index) => {
+                    return <div>{item}</div>;
+                  })
+                : null}
             </Col>
           </Row>
           <p></p>

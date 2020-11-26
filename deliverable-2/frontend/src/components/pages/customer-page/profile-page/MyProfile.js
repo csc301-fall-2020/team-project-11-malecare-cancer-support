@@ -6,16 +6,19 @@ import "antd/dist/antd.css";
 import moment from "moment";
 import _ from "lodash";
 import axios from "axios";
-import ProfilePhoto from "../../component-library/Profile/ProfilePhoto";
-import NameInput from "../../component-library/Profile/NameInput";
-import DateInput from "../../component-library/Profile/DateInput";
-import DropDownSelect from "../../component-library/Profile/DropDownSelect";
-import MultiSelect from "../../component-library/Profile/MultiSelect";
-import Greeting from "../../component-library/Profile/Greeting";
-import PhotoWall from "../../component-library/Profile/PhotoWall";
-import { getUserDetailOptions } from "../../pages/signup-page/helper";
-import { UpdateButton } from "../../share-styled-component";
-import Checkbox from "../../component-library/Checkbox";
+import ProfilePhoto from "../../../component-library/Profile/ProfilePhoto";
+import NameInput from "../../../component-library/Profile/NameInput";
+import DateInput from "../../../component-library/Profile/DateInput";
+import DropDownSelect from "../../../component-library/Profile/DropDownSelect";
+import MultiSelect from "../../../component-library/Profile/MultiSelect";
+import Greeting from "../../../component-library/Profile/Greeting";
+import PhotoWall from "../../../component-library/Profile/PhotoWall";
+import { getUserDetailOptions } from "../../../pages/signup-page/helper";
+import {
+  PageTitleSection,
+  UpdateButton,
+} from "../../../share-styled-component";
+import Checkbox from "../../../component-library/Checkbox";
 
 import { PulseLoader } from "react-spinners";
 import { css } from "@emotion/react";
@@ -26,13 +29,11 @@ const loaderCSS = css`
   flex: 1;
 `;
 
-// const { Header, Content, Footer } = Layout;
-
-const ProfileTitle = styled.div`
-  font-size: 38px;
-  font-weight: bold;
-  color: #4d222a;
-`;
+// const ProfileTitle = styled.div`
+//   font-size: 38px;
+//   font-weight: bold;
+//   color: #4d222a;
+// `;
 
 const CheckboxSection = styled.div`
   align-items: flex-start;
@@ -136,8 +137,7 @@ const MyProfile = ({ user, setUser }) => {
       <Row gutter={[16, 16]}>
         <Col span={2}></Col>
         <Col>
-          {/* <Title level={2}>Your profile</Title> */}
-          <ProfileTitle>Your profile</ProfileTitle>
+          <PageTitleSection>Your profile</PageTitleSection>
           <SmallTitle>For matching</SmallTitle>
         </Col>
       </Row>
@@ -178,8 +178,7 @@ const MyProfile = ({ user, setUser }) => {
       <Row gutter={[16, 16]}>
         <Col span={2}></Col>
         <Col>
-          {/* <Title level={2}>Your album</Title> */}
-          <ProfileTitle>Your album</ProfileTitle>
+          <PageTitleSection>Your album</PageTitleSection>
           <SmallTitle>Let's make your profile look more attracting</SmallTitle>
           <p></p>
           <PhotoWall></PhotoWall>
@@ -188,8 +187,7 @@ const MyProfile = ({ user, setUser }) => {
       <Row gutter={[16, 16]}>
         <Col span={2}></Col>
         <Col span={12}>
-          {/* <Title level={2}>Detailed Information</Title> */}
-          <ProfileTitle>Detailed Information</ProfileTitle>
+          <PageTitleSection>Detailed Information</PageTitleSection>
           <SmallTitle>
             Only for receiving latest news regarding your cancer
           </SmallTitle>

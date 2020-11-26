@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from "react";
 import { useHistory } from "react-router-dom";
-import { getCurrentUser } from "../../utils/helpers";
-import { UserContext } from "../../../contexts/UserContext";
+import { getCurrentUser } from "../../../utils/helpers";
+import { UserContext } from "../../../../contexts/UserContext";
 import MyProfile from "./MyProfile";
 
 const MyProfileContainer = () => {
