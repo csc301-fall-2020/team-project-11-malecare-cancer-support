@@ -4,7 +4,7 @@ import sys
 import pymongo
 from PIL import Image
 from flask import Flask, jsonify, request
-from flask_login import LoginManager, current_user, login_required, login_user
+from flask_login import LoginManager, current_user, login_required, login_user, logout_user
 from flask_socketio import SocketIO, disconnect
 
 from ..usecases import administrator_filter_helpers, \
@@ -116,11 +116,11 @@ def unauthorized():
     return "user is not logged in", 401
 
 
-# @app.route("/logout")
-# @login_required
-# def logout():
-#     logout_user()
-#     return "logout"
+@app.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    return "logout"
 
 
 @app.route('/login', methods=['POST'])
