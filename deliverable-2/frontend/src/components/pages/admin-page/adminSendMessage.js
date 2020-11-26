@@ -20,7 +20,7 @@ import {
 
 import { PulseLoader } from "react-spinners";
 import { css } from "@emotion/react";
-import { socketUrl } from "../../utils/sharedUrl";
+import { HOST_URL } from "../../utils/sharedUrl";
 
 const loaderCSS = css`
   margin-top: 300px;
@@ -131,7 +131,7 @@ const AdminSendMessages = () => {
   }, [history, setUser]);
 
   useEffect(() => {
-    let socket = io.connect(socketUrl, { reconnection: true });
+    let socket = io.connect(HOST_URL, { reconnection: true });
     socket.emit("index");
     socket.emit("save_session");
     setSocket(socket);
@@ -181,7 +181,7 @@ const AdminSendMessages = () => {
       excludeTreatments,
     };
     try {
-      const response = await axios.post("/admin/get_filter_email", requestBody);
+      const response = await axios.post(HOST_URL + "/admin/get_filter_email", requestBody);
       const fetchedEmailList = _.get(response, "data.email", []);
       if (!_.isEmpty(fetchedEmailList)) {
         setMatchedEmailList(fetchedEmailList);

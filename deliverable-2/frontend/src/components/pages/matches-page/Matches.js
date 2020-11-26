@@ -16,7 +16,7 @@ import { message as alertMessage } from "antd"
 
 import { PulseLoader } from "react-spinners";
 import { css } from "@emotion/react";
-import { socketUrl } from "../../utils/sharedUrl";
+import { HOST_URL } from "../../utils/sharedUrl";
 
 const loaderCSS = css`
   margin-top: 300px;
@@ -225,7 +225,7 @@ const Matches = () => {
       }
     };
 
-    const socket = io.connect(socketUrl, { reconnection: true })
+    const socket = io.connect(HOST_URL, { reconnection: true })
     socket.emit("save_session")
     setMSocket(socket)
 

@@ -9,6 +9,7 @@ import {
   NavLink,
   LogoutSection,
 } from "./share-styled-component";
+import { HOST_URL } from "./utils/sharedUrl";
 
 const Nav = () => {
   const { user, setUser } = useContext(UserContext);
@@ -16,7 +17,7 @@ const Nav = () => {
 
   const logoutUser = async (event) => {
     event.preventDefault();
-    const response = await axios.get("/logout");
+    const response = await axios.get(HOST_URL + "/logout");
     if (!response || response.status !== 200 || response.data !== "logout") {
       // placeholder - Adding some error messages here?
     }

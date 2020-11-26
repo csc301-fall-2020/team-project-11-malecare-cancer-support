@@ -2,10 +2,11 @@ import functools
 import sys
 
 import pymongo
-from flask import Flask, jsonify, request
-from flask_login import LoginManager, current_user, login_required, login_user
+from flask import Flask, jsonify, request, render_template
+from flask_login import LoginManager, current_user, login_required, login_user, logout_user
 from flask_socketio import SocketIO, disconnect
 from .config import Configuration
+from flask_cors import CORS
 
 
 from ..usecases import administrator_filter_helpers, \
@@ -15,11 +16,11 @@ from ..usecases import administrator_filter_helpers, \
 
 login_manager = LoginManager()
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='../../frontend/build/static', template_folder='../../frontend/build/')
 # app.config["SECRET_KEY"] = 'my secret'
 app.config.from_object(Configuration)
 login_manager.init_app(app)
-
+CORS(app)
 socketio = SocketIO(app, manage_session=False, cors_allowed_origins="*")
 
 SOCKET_ERROR_MSG = "Something was wrong."
@@ -46,6 +47,14 @@ def authenticated_only(f):
             return f(*args, **kwargs)
 
     return wrapped
+
+@app.route("/")
+def index():
+    return render_template('index.html')
+
+@app.route("/<path:path>")
+def serve(path):
+    return render_template('index.html')
 
 
 # this is only for initializing empty database,
@@ -105,22 +114,17 @@ def get_profile_picture():
     return jsonify(preload_data_helpers.get_profile_picture())
 
 
-@app.route("/")
-@login_required
-def index():
-    return "your email is " + current_user.get_email()
-
 
 @login_manager.unauthorized_handler
 def unauthorized():
     return "user is not logged in", 401
 
 
-# @app.route("/logout")
-# @login_required
-# def logout():
-#     logout_user()
-#     return "logout"
+@app.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    return "logout"
 
 
 @app.route('/login', methods=['POST'])
