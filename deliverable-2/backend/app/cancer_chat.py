@@ -4,7 +4,8 @@ import sys
 import pymongo
 from PIL import Image
 from flask import Flask, jsonify, request
-from flask_login import LoginManager, current_user, login_required, login_user, logout_user
+from flask_login import LoginManager, current_user, login_required, login_user, \
+    logout_user
 from flask_socketio import SocketIO, disconnect
 
 from ..usecases import administrator_filter_helpers, \
