@@ -123,6 +123,8 @@ const SignUp = () => {
       sex_orientation: sexOrientation,
     };
 
+    setLoading(true);
+
     axios
       .post(HOST_URL + "/signup", requestBody)
       .then((response) => {
@@ -131,6 +133,7 @@ const SignUp = () => {
         }
       })
       .catch((err) => {
+        setLoading(false);
         setErrorMessage(err.message);
       });
   };
