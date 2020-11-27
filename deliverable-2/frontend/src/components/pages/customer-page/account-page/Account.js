@@ -1,7 +1,9 @@
 import React, { useEffect, useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
+import axios from "axios";
 import _ from "lodash";
+import { message } from "antd";
 
 import { UserContext } from "../../../../contexts/UserContext";
 import { getCurrentUser } from "../../../utils/helpers";
@@ -13,6 +15,7 @@ import {
   WarningMessage,
   PrimaryButton,
 } from "../../../share-styled-component";
+import { HOST_URL } from "../../../utils/sharedUrl";
 
 const MainContainer = styled.div`
   margin: auto;
@@ -59,7 +62,17 @@ const Account = () => {
 
   const handleChangePassword = () => {};
 
-  const handleDeleteAccount = () => {};
+  const handleDeleteAccount = async () => {
+    axios
+      .post(HOST_URL + "/delete_self", {})
+      .then((response) => {
+        setUser(null);
+        history.push("/");
+      })
+      .catch((err) => {
+        message.error(err.response.data);
+      });
+  };
 
   return (
     <MainContainer>

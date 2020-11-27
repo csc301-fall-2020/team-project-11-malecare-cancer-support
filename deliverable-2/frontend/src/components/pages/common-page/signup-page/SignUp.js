@@ -142,6 +142,8 @@ const SignUp = () => {
       .then((response) => {
         if (!_.isNil(response, "data.user_id")) {
           setUser(response.data);
+          setLoading(false);
+          history.push("/matches");
         }
       })
       .catch((err) => {
