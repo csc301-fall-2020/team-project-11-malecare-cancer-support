@@ -92,9 +92,7 @@ const Account = () => {
             <RegularMessage>
               To delete your account, click "Delete Account" button.
             </RegularMessage>
-            <WarningMessage>
-              NOTE: This action can NOT be undone!
-            </WarningMessage>
+            <WarningMessage>NOTE: This action CANNOT be undone!</WarningMessage>
           </SectionDescription>
         </div>
         <div>
