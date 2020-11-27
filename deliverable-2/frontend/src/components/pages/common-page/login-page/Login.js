@@ -16,7 +16,6 @@ import {
   ErrorMessageContainer,
 } from "../../../share-styled-component";
 
-
 import { UserContext } from "../../../../contexts/UserContext";
 import { HOST_URL } from "../../../utils/sharedUrl";
 
@@ -33,9 +32,13 @@ const Login = () => {
   const { setUser } = useContext(UserContext);
   const history = useHistory();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [rememberUser, setRememberUser] = useState(false);
+  const [email, setEmail] = useState(localStorage.getItem("email") || "");
+  const [password, setPassword] = useState(
+    localStorage.getItem("password") || ""
+  );
+  const [rememberUser, setRememberUser] = useState(
+    localStorage.getItem("rememberUser") || false
+  );
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
@@ -53,6 +56,19 @@ const Login = () => {
     if (_.isEmpty(email) || _.isEmpty(password)) {
       return setErrorMessage("Your email and password cannot be empty.");
     }
+    // Update localStorage with latest user email
+    if (rememberUser) {
+      // Update user credential in localStorage
+      localStorage.setItem("rememberUser", true);
+      localStorage.setItem("email", email);
+      localStorage.setItem("password", password);
+    } else {
+      // remove user credential from localStorage
+      localStorage.removeItem("rememberUser");
+      localStorage.removeItem("email");
+      localStorage.removeItem("password");
+    }
+
     //   Initiate Login Request
     const requestBody = { email, password };
     try {
