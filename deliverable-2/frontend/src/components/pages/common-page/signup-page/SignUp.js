@@ -22,14 +22,10 @@ import {
 
 import { getUserDetailOptions } from "./helper";
 
-
-
 import { PulseLoader } from "react-spinners";
 import { css } from "@emotion/react";
 import { UserContext } from "../../../../contexts/UserContext";
 import { HOST_URL } from "../../../utils/sharedUrl";
-
-
 
 const loaderCSS = css`
   margin-top: 300px;
@@ -216,7 +212,7 @@ const SignUp = () => {
         />
         <Space height="12px" />
         <MultiCardSelection
-          label="Are you a mentor, mentee, looking for love or all of them?"
+          label="What are your labels in CancerChat?"
           selections={purposes}
           updateSelections={setPurposes}
           roundedCard

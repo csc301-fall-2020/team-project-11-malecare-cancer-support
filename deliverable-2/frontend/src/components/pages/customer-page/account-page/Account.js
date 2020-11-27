@@ -90,8 +90,7 @@ const Account = () => {
           <PageSubTitleSection>Delete Account</PageSubTitleSection>
           <SectionDescription>
             <RegularMessage>
-              To change the password of your account, click "Delete Account"
-              button.
+              To delete your account, click "Delete Account" button.
             </RegularMessage>
             <WarningMessage>
               NOTE: This action can NOT be undone!
