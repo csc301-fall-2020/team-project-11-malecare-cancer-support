@@ -48,7 +48,7 @@ const SectionContainer = styled.div`
 `;
 
 const SignUp = () => {
-  const { user, setUser } = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
   const history = useHistory();
 
   const [username, setUsername] = useState("");

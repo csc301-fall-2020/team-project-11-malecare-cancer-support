@@ -1,7 +1,6 @@
-import React, { useEffect, useContext, useState } from "react";
+import React, { useEffect, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
-import _ from "lodash";
 
 import { UserContext } from "../../../../contexts/UserContext";
 import { getCurrentUser } from "../../../utils/helpers";

@@ -218,9 +218,9 @@ const Matches = () => {
       }
     };
 
-    const socket = io.connect(HOST_URL, { reconnection: true })
-    socket.emit("save_session")
-    setMSocket(socket)
+    const socket = io.connect(HOST_URL, { reconnection: true });
+    socket.emit("save_session");
+    setMSocket(socket);
 
     fetchUser();
     findMatches();
@@ -303,12 +303,12 @@ const Matches = () => {
         <BorderContainer>
           {matches.length !== 0 && (
             <PhotoContainer>
-              <img style={picStyle} src={img} alt="user picture" />
+              <img style={picStyle} src={img} alt="user" />
               <span style={label}>
                 {matches[matchesIndex].purpose &&
-                  matches[matchesIndex].purpose.map((item, index) => {
-                    return <div>{item}</div>;
-                  })}{" "}
+                  matches[matchesIndex].purpose.map((item, index) => (
+                    <div key={index}>{item}</div>
+                  ))}{" "}
               </span>
             </PhotoContainer>
           )}
@@ -326,9 +326,7 @@ const Matches = () => {
                   (matches[matchesIndex].cancer.length <= 3
                     ? matches[matchesIndex].cancer
                     : matches[matchesIndex].cancer.slice(0, 3).concat(["..."])
-                  ).map((item, index) => {
-                    return <div>{item}</div>;
-                  })}
+                  ).map((item, index) => <div key={index}>{item}</div>)}
               </span>
               <span style={info}>
                 Greeting message: {matches[matchesIndex].short_intro}
