@@ -20,6 +20,7 @@ import {
   ErrorMessageContainer,
 } from "../../../share-styled-component";
 
+import { labelDescription } from "./constant";
 import { getUserDetailOptions } from "./helper";
 
 import { PulseLoader } from "react-spinners";
@@ -217,6 +218,7 @@ const SignUp = () => {
           updateSelections={setPurposes}
           roundedCard
           options={userDetailSelections.purposeOptions || []}
+          flyoutMessages={labelDescription}
         />
         <Space height="12px" />
         <SingleCardSelection

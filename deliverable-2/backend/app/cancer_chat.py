@@ -190,7 +190,7 @@ def change_current_user_profile_text():
 
 
 @app.route('/current_user/profile/text_show', methods=['POST'])
-def change_current_user_profile_text():
+def change_current_user_profile_text_show():
     my_json = request.get_json()
     my_id = current_user.get_id()
     my_functions = [profile_boolean_helpers.set_date_of_birth_bool_by_user_id,
