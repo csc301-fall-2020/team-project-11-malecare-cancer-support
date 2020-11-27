@@ -11,6 +11,7 @@ import Checkbox from "../../../component-library/Checkbox";
 import SingleCardSelection from "../../../component-library/SingleCardSelection";
 import MultiCardSelection from "../../../component-library/MultiCardSelection";
 import MultiSelectionDropdown from "../../../component-library/MultiSelectionDropdown";
+import RegionSelect from "react-region-flag-select";
 
 import {
   Space,
@@ -59,6 +60,7 @@ const SignUp = () => {
     new moment("2000-01-01", dateFormat)
   );
   const [gender, setGender] = useState("");
+  const [region, setRegion] = useState([]);
   const [purposes, setPurposes] = useState([]);
   const [cancerTypes, setCancerTypes] = useState([]);
   const [sexOrientation, setSexOrientation] = useState("");
@@ -221,6 +223,7 @@ const SignUp = () => {
           roundedCard
           options={userDetailSelections.genderOptions || []}
         />
+        <RegionSelect handleChange={setRegion} />
         <Space height="12px" />
         <MultiSelectionDropdown
           label="Types of Cancer:"
