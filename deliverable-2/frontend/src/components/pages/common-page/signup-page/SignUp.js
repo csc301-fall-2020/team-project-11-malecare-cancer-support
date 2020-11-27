@@ -21,6 +21,7 @@ import {
 } from "../../../share-styled-component";
 
 import { getUserDetailOptions } from "./helper";
+import { getCurrentUser } from "../../../utils/helpers";
 
 import { PulseLoader } from "react-spinners";
 import { css } from "@emotion/react";
@@ -66,16 +67,27 @@ const SignUp = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (user) {
-      history.push("/matches");
-    }
+    const fetchUser = async () => {
+      setLoading(true);
+      const fetchedUser = await getCurrentUser();
+      if (!fetchedUser) return;
+      if (fetchedUser.is_admin) {
+        // User logged in as Admin
+        history.push("/adminSendMessages");
+      } else {
+        // User logged in
+        history.push("/matches");
+      }
+    };
+
+    fetchUser();
     const fetchUserDetailSelections = async () => {
       setUserDetailSelections(await getUserDetailOptions());
-      setLoading(false);
     };
 
     fetchUserDetailSelections();
-  }, [user, history]);
+    setLoading(false);
+  }, [history]);
 
   const handleRegister = async () => {
     setErrorMessage("");
@@ -134,7 +146,7 @@ const SignUp = () => {
       })
       .catch((err) => {
         setLoading(false);
-        setErrorMessage(err.message);
+        setErrorMessage(err.response.data);
       });
   };
 
