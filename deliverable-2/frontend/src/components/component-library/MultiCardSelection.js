@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import _ from "lodash";
 import { FaCheck } from "react-icons/fa";
 import styled from "styled-components";
@@ -17,8 +17,24 @@ const SelectionLabelContainer = styled.div`
   font-size: ${({ labelSize }) => (labelSize ? `${labelSize}` : "24px")};
 `;
 
-const OptionCardConatiner = styled.div`
+const OptionCardContainer = styled.div``;
+
+const FlyoutMessageContainer = styled.div`
+  position: absolute;
+  padding: 6px;
+  z-index: 1;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 400px;
+  font-size: 18px;
+  color: #3c1014;
+  background-color: #fff;
+  text-align: center;
+`;
+
+const OptionCardContentConatiner = styled.div`
   display: flex;
+  position: relative;
   align-items: center;
   text-align: center;
   font-size: ${({ labelSize }) => (labelSize ? `${labelSize}` : "24px")};
@@ -65,7 +81,7 @@ const SelectAllCard = ({
   };
 
   return (
-    <OptionCardConatiner
+    <OptionCardContentConatiner
       isSelected={isSelected}
       onClick={handleSelectAll}
       roundedCard={roundedCard}
@@ -73,7 +89,7 @@ const SelectAllCard = ({
     >
       {isSelected && <CardSelectedIcon />}
       <span>select all</span>
-    </OptionCardConatiner>
+    </OptionCardContentConatiner>
   );
 };
 
@@ -83,7 +99,9 @@ const OptionCard = ({
   optionValue,
   roundedCard,
   cardLabelSize,
+  flyoutMessages,
 }) => {
+  const [isHovered, setIsHovered] = useState(false);
   const isSelected = _.includes(selections, optionValue);
 
   const handleCardSelection = () => {
@@ -97,15 +115,28 @@ const OptionCard = ({
   };
 
   return (
-    <OptionCardConatiner
-      isSelected={isSelected}
-      onClick={handleCardSelection}
-      roundedCard={roundedCard}
-      labelSize={cardLabelSize}
-    >
-      {isSelected && <CardSelectedIcon />}
-      <span>{optionValue}</span>
-    </OptionCardConatiner>
+    <OptionCardContainer>
+      <OptionCardContentConatiner
+        isSelected={isSelected}
+        onClick={handleCardSelection}
+        roundedCard={roundedCard}
+        labelSize={cardLabelSize}
+        onMouseEnter={() => {
+          setIsHovered(true);
+        }}
+        onMouseLeave={() => {
+          setIsHovered(false);
+        }}
+      >
+        {isSelected && <CardSelectedIcon />}
+        <span>{optionValue}</span>
+      </OptionCardContentConatiner>
+      {!_.isNil(flyoutMessages, "optionValue") && isHovered && (
+        <FlyoutMessageContainer>
+          {flyoutMessages[optionValue]}
+        </FlyoutMessageContainer>
+      )}
+    </OptionCardContainer>
   );
 };
 
@@ -118,6 +149,7 @@ const MultiCardSelection = ({
   cardLabelSize,
   roundedCard = false,
   allowSelectAll = false,
+  flyoutMessages = null,
 }) => {
   return (
     <MultiCardSelectionContainer>
@@ -143,6 +175,7 @@ const MultiCardSelection = ({
             updateSelections={updateSelections}
             roundedCard={roundedCard}
             cardLabelSize={cardLabelSize}
+            flyoutMessages={flyoutMessages}
           />
         ))}
       </CardListContainer>

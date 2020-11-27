@@ -20,6 +20,7 @@ import {
   ErrorMessageContainer,
 } from "../../../share-styled-component";
 
+import { labelDescription } from "./constant";
 import { getUserDetailOptions } from "./helper";
 import { getCurrentUser } from "../../../utils/helpers";
 
@@ -47,7 +48,7 @@ const SectionContainer = styled.div`
 `;
 
 const SignUp = () => {
-  const { user, setUser } = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
   const history = useHistory();
 
   const [username, setUsername] = useState("");
@@ -234,6 +235,7 @@ const SignUp = () => {
           updateSelections={setPurposes}
           roundedCard
           options={userDetailSelections.purposeOptions || []}
+          flyoutMessages={labelDescription}
         />
         <Space height="12px" />
         <SingleCardSelection
