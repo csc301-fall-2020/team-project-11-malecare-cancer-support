@@ -78,6 +78,12 @@ def load_to_db():
     )
 
 
+@app.route('/add_none_to_medication_and_treatment', methods=['POST'])
+def add_none_to_medication_and_treatment():
+    preload_data_helpers.add_none_to_all_users_medication_and_treatment()
+    return "Update Successfully"
+
+
 @app.route('/load_from_db/cancer_types')
 def get_cancer_types():
     return jsonify(preload_data_helpers.get_cancer_types())
