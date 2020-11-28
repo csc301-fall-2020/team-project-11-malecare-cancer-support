@@ -39,7 +39,7 @@ const SectionDescription = styled.div`
 `;
 
 const Account = () => {
-  const { setUser } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const history = useHistory();
 
   useEffect(() => {
@@ -60,7 +60,16 @@ const Account = () => {
     fetchUser();
   }, [history, setUser]);
 
-  const handleChangePassword = () => {};
+  const handleChangePassword = async () => {
+    axios
+    .post(HOST_URL + "/reset_password/email", {email: user.email})
+    .then((response) => {
+      message.success(response.data)
+    })
+    .catch((err) => {
+      message.error(err.response.data)
+    })
+  };
 
   const handleDeleteAccount = async () => {
     axios

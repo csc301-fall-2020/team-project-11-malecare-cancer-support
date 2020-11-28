@@ -17,7 +17,8 @@ def send_email(sender_email, receiver_email, api_key, url):
         sg = SendGridAPIClient(api_key)
         sg.client.mail.send.post(request_body=message.get())
     except Exception as e:
-        print(e.message)
+        print(e)
+        raise e
 
 
 def get_token_by_user_id(user_id, key, expire=500):

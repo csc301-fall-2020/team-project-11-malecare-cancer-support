@@ -565,12 +565,17 @@ def email():
     if not login_register_helpers.email_already_existed(user_email):
         return "Email not found. ", 412
     user_id = login_register_helpers.get_user_id_by_user_email(user_email)
-    token = reset_password_helpers.get_token_by_user_id(user_id, app.config.get(
-        'SECRET_KEY')).decode('utf-8')
+    token = reset_password_helpers.get_token_by_user_id(user_id,
+                                                        app.config.get('SECRET_KEY')).decode('utf-8')
     url = app.config.get('ROUTE_URL') + '/changePassword/' + token
-    print(url)
-
-    return "Reset password email sent. ", 200
+    try:
+        reset_password_helpers.send_email(app.config.get("MAIL"),
+                                          user_email,
+                                          app.config.get('API_KEY'),
+                                          url)
+        return "Reset password email sent. ", 200
+    except Exception:
+        return "Something wrong. ", 412
 
 
 @app.route('/reset_password/verify', methods=['POST'])
