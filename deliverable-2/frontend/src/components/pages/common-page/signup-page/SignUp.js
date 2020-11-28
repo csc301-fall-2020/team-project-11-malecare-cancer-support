@@ -3,15 +3,17 @@ import _ from "lodash";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
-
+import { PulseLoader } from "react-spinners";
+import { css } from "@emotion/react";
 import moment from "moment";
+
 import Input from "../../../component-library/Input";
 import DatePickerInput from "../../../component-library/DatePickerInput";
 import Checkbox from "../../../component-library/Checkbox";
 import SingleCardSelection from "../../../component-library/SingleCardSelection";
 import MultiCardSelection from "../../../component-library/MultiCardSelection";
 import MultiSelectionDropdown from "../../../component-library/MultiSelectionDropdown";
-import RegionSelect from "react-region-flag-select";
+import RegionDropdown from "../../../component-library/RegionDropdown";
 
 import {
   Space,
@@ -25,8 +27,6 @@ import { labelDescription } from "./constant";
 import { getUserDetailOptions } from "./helper";
 import { getCurrentUser } from "../../../utils/helpers";
 
-import { PulseLoader } from "react-spinners";
-import { css } from "@emotion/react";
 import { UserContext } from "../../../../contexts/UserContext";
 import { HOST_URL } from "../../../utils/sharedUrl";
 
@@ -60,7 +60,7 @@ const SignUp = () => {
     new moment("2000-01-01", dateFormat)
   );
   const [gender, setGender] = useState("");
-  const [region, setRegion] = useState([]);
+  const [region, setRegion] = useState({});
   const [purposes, setPurposes] = useState([]);
   const [cancerTypes, setCancerTypes] = useState([]);
   const [sexOrientation, setSexOrientation] = useState("");
@@ -110,6 +110,16 @@ const SignUp = () => {
       );
     }
 
+    if (
+      _.isEmpty(region) ||
+      _.isEmpty(_.get(region, "countryData")) ||
+      _.isEmpty(_.get(region, "stateData"))
+    ) {
+      return setErrorMessage(
+        "Please fill in your country and state information."
+      );
+    }
+
     if (password !== confirmPassword) {
       return setErrorMessage(
         "Please provide the same password to both password and confirm password fields."
@@ -136,6 +146,7 @@ const SignUp = () => {
       cancer: cancerTypes, // Array
       purpose: purposes, // Array
       sex_orientation: sexOrientation,
+      region,
     };
 
     setLoading(true);
@@ -223,7 +234,12 @@ const SignUp = () => {
           roundedCard
           options={userDetailSelections.genderOptions || []}
         />
-        <RegionSelect handleChange={setRegion} />
+        <Space height="12px" />
+        <RegionDropdown
+          label="Location:"
+          region={region}
+          setRegion={setRegion}
+        />
         <Space height="12px" />
         <MultiSelectionDropdown
           label="Types of Cancer:"
