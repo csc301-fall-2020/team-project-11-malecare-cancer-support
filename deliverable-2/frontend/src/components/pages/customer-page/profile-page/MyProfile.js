@@ -87,18 +87,18 @@ const MyProfile = ({ user, setUser }) => {
     } else {
       //   Initiate Login Request
       setLoading(true);
-      setMed([...medication, "None"]);
-      setTreat([...treatment, "None"]);
+      const newMed = [...medication, "None"];
+      const newTreat = [...treatment, "None"];
       const requestBody = {
         username: name,
         cancer: cancerList,
         date_of_birth: date.format(dateFormat),
         gender: gender,
-        medications: medication,
+        medications: newMed,
         purpose: purposeList,
         sex_orientation: sex,
         short_intro: greetMsg,
-        treatments: treatment,
+        treatments: newTreat,
       };
       console.log(requestBody);
       axios
