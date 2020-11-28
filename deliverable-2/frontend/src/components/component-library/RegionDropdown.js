@@ -19,22 +19,17 @@ const RegionSelectorContainer = styled.div`
   margin: 12px 0;
 `;
 
-const RegionDropdown = ({ label, setRegion }) => {
-  //   const handleRegionChange = (data) => {
-  //     setRegion(data);
-  //   };
-  return (
-    <SectionContainer>
-      <SelectionLabelContainer>{label}</SelectionLabelContainer>
-      <RegionSelectorContainer>
-        <RegionSelect
-          isFlag={false}
-          isPhoneCode={false}
-          handleChange={setRegion}
-        />
-      </RegionSelectorContainer>
-    </SectionContainer>
-  );
-};
+const RegionDropdown = ({ label, setRegion }) => (
+  <SectionContainer>
+    <SelectionLabelContainer>{label}</SelectionLabelContainer>
+    <RegionSelectorContainer>
+      <RegionSelect
+        isFlag={false}
+        isPhoneCode={false}
+        handleChange={setRegion}
+      />
+    </RegionSelectorContainer>
+  </SectionContainer>
+);
 
 export default RegionDropdown;
