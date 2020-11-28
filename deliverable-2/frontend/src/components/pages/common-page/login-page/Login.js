@@ -28,6 +28,20 @@ const LoginPageContainer = styled.div`
   margin: -200px 0 0 -300px;
 `;
 
+const ForgotPasswordSectionContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const ForgotPasswordButton = styled.div`
+  font-size: 18px;
+  color: steelblue;
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+`;
+
 const Login = () => {
   const { setUser } = useContext(UserContext);
   const history = useHistory();
@@ -51,6 +65,11 @@ const Login = () => {
 
     fetchUser();
   }, [history]);
+
+  const handleChangePassword = async () => {
+    // Logic of forgot password goes here
+    alert("You forgot your password.");
+  };
 
   const handleLogin = async () => {
     if (_.isEmpty(email) || _.isEmpty(password)) {
@@ -105,7 +124,11 @@ const Login = () => {
           setPassword(event.target.value);
         }}
       />
-      <Space height="12px" />
+      <ForgotPasswordSectionContainer>
+        <ForgotPasswordButton onClick={handleChangePassword}>
+          Forgot Password?
+        </ForgotPasswordButton>
+      </ForgotPasswordSectionContainer>
       <Checkbox
         label="Remember me"
         isChecked={rememberUser}
