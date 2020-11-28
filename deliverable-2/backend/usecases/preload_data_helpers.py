@@ -1,4 +1,5 @@
 from ..models.preload_data import PreLoads
+from ..models.user import User
 
 EMPTY_DB_MSG = "the db does not have documents of cancer types, please load it"
 CANCER_TYPE_STR = "cancer_types"
@@ -64,3 +65,8 @@ def get_medications():
 
 def get_profile_picture():
     return _get_preload_data(PROFILE_PICTURE_STR)
+
+
+def add_none_to_all_users_medication_and_treatment():
+    User.objects().update(add_to_set__medications="None",
+                          add_to_set__treatments="None")
