@@ -13,7 +13,7 @@ import DropDownSelect from "../../../component-library/Profile/DropDownSelect";
 import MultiSelect from "../../../component-library/Profile/MultiSelect";
 import Greeting from "../../../component-library/Profile/Greeting";
 import PhotoWall from "../../../component-library/Profile/PhotoWall";
-
+import UserPhoto from "../../../../assets/UserPhoto.png";
 import {
   PageTitleSection,
   UpdateButton,
@@ -24,8 +24,6 @@ import { PulseLoader } from "react-spinners";
 import { css } from "@emotion/react";
 import { HOST_URL } from "../../../utils/sharedUrl";
 import { getUserDetailOptions } from "../../common-page/signup-page/helper";
-
-
 
 const loaderCSS = css`
   margin-top: 300px;
@@ -74,6 +72,7 @@ const MyProfile = ({ user, setUser }) => {
   const [treatment, setTreat] = useState(user.treatments);
   const [include, setInclude] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [avaterUrl, setAvaterUrl] = useState(UserPhoto);
 
   const handleUpdate = () => {
     if (
@@ -88,6 +87,8 @@ const MyProfile = ({ user, setUser }) => {
     } else {
       //   Initiate Login Request
       setLoading(true);
+      setMed([...medication, "None"]);
+      setTreat([...treatment, "None"]);
       const requestBody = {
         username: name,
         cancer: cancerList,
@@ -147,7 +148,10 @@ const MyProfile = ({ user, setUser }) => {
       </Row>
       <Row gutter={[16, 16]}>
         <Col span={2}></Col>
-        <ProfilePhoto></ProfilePhoto>
+        <ProfilePhoto
+          avaterUrl={avaterUrl}
+          setAvaterUrl={setAvaterUrl}
+        ></ProfilePhoto>
         <Col span={14}>
           <NameInput name={name} setName={setName}></NameInput>
           <DateInput date={date} setDate={setDate}></DateInput>

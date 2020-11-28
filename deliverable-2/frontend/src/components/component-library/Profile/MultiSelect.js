@@ -28,7 +28,7 @@ const MultiSelect = ({ List, setList, lineTitle, data }) => {
             allowClear
             style={{ width: 250 }}
             placeholder="Please select"
-            defaultValue={List}
+            defaultValue={List.filter((item) => item !== "None")}
             onChange={handleChange}
           >
             {valider(data).map((value, key) => (
