@@ -1,7 +1,7 @@
 import React from "react";
 import { Col, Image, Upload, message, Button } from "antd";
 import "antd/dist/antd.css";
-import UserPhoto from "../../../assets/UserPhoto.png";
+// import UserPhoto from "../../../assets/UserPhoto.png";
 import { UploadOutlined } from "@ant-design/icons";
 
 function getBase64(img, callback) {
@@ -35,12 +35,13 @@ class ProfilePhoto extends React.Component {
     if (info.file.status === "done") {
       message.success(`${info.file.name} file uploaded successfully`);
       // Get this url from response in real world.
-      getBase64(info.file.originFileObj, (imageUrl) =>
+      getBase64(info.file.originFileObj, (imageUrl) => {
         this.setState({
           imageUrl,
           loading: false,
-        })
-      );
+        });
+        this.props.setAvaterUrl(imageUrl);
+      });
     } else if (info.file.status === "error") {
       message.error(`${info.file.name} file upload failed.`);
     }
@@ -54,7 +55,7 @@ class ProfilePhoto extends React.Component {
         {imageUrl ? (
           <Image width={350} src={imageUrl} />
         ) : (
-          <Image width={350} src={UserPhoto} />
+          <Image width={350} src={this.props.avaterUrl} />
         )}
 
         <p></p>
