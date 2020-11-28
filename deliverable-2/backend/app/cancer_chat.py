@@ -222,7 +222,7 @@ def change_current_user_picture():
     img = Image.open(imgs)
     buffered = BytesIO()
     img.save(buffered, format="PNG")
-    img_str = base64.b64encode(buffered.getvalue())
+    img_str = base64.b64encode(buffered.getvalue()).decode("utf-8")
     return jsonify({"imgs": img_str})
 
 
