@@ -21,7 +21,7 @@ class User(db.Document, UserMixin):
     profile_picture = db.StringField()
     # db.ImageField(thumbnail_size=(150, 150, False))
     album_pictures = db.ListField(db.StringField())
-    location = db.DictField()
+    region = db.DictField()
     gender_bool = db.BooleanField(unique=False)
     sex_orientation_bool = db.BooleanField(unique=False)
     date_of_birth_bool = db.BooleanField(default=False)
@@ -43,8 +43,10 @@ class User(db.Document, UserMixin):
             "medications": self.medications,
             "treatments": self.treatments,
             "profile_picture": self.profile_picture,
-            "album pictures": self.album_pictures,
+            "album_pictures": self.album_pictures,
+            "region": self.region,
             "is_admin": self.is_admin,
+
             "gender_bool": self.gender_bool,
             "sex_orientation_bool": self.sex_orientation_bool,
             "date_of_birth_bool": self.date_of_birth_bool,
@@ -97,6 +99,9 @@ class User(db.Document, UserMixin):
 
     def get_purpose_bool(self):
         return self.purpose_bool
+
+    def get_region(self):
+        return self.region
 
     def filter_cancer(self, cancer_type):
         if cancer_type in self.cancer:
