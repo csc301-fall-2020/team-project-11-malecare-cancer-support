@@ -110,6 +110,7 @@ export const UpdateButton = styled.button`
   &:hover {
     cursor: pointer;
   }
+  margin: 10px;
 `;
 
 export const PageTitleSection = styled.div`
