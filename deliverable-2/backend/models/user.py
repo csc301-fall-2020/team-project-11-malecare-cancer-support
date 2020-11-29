@@ -36,7 +36,7 @@ class User(db.Document, UserMixin):
             "friends": self.friends,
             "medications": self.medications,
             "treatments": self.treatments,
-            "profile_picture": self.profile_picture.read(),
+            "profile_picture": self.profile_picture,
             "is_admin": self.is_admin
 
         }
