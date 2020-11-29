@@ -182,7 +182,14 @@ def change_current_user_profile_update():
                     customize_user_profile_helpers.set_username_by_user_id,
                     customize_user_profile_helpers.
                         set_profile_picture_by_user_id,
-                    customize_user_profile_helpers.set_album_pictures_by_user_id]
+                    customize_user_profile_helpers.set_album_pictures_by_user_id,
+                    customize_user_profile_helpers.set_date_of_birth_bool_by_user_id,
+                    customize_user_profile_helpers.set_gender_bool_by_user_id,
+                    customize_user_profile_helpers.set_sex_orientation_bool_by_user_id,
+                    customize_user_profile_helpers.
+                        set_medications_and_treatments_bool_by_user_id,
+                    customize_user_profile_helpers.set_purpose_bool_by_user_id
+                    ]
 
     my_new_profile_fields = [my_json["cancer"],
                              my_json["sex_orientation"],
@@ -194,7 +201,13 @@ def change_current_user_profile_update():
                              my_json["short_intro"],
                              my_json["username"],
                              my_json["profile_picture"],
-                             my_json["album_pictures"]]
+                             my_json["album_pictures"],
+                             my_json["date_of_birth_bool"],
+                             my_json["gender_bool"],
+                             my_json["sex_orientation_bool"],
+                             my_json["medications_and_treatments_bool"],
+                             my_json["purpose_bool"]
+                             ]
     for func, field in zip(my_functions, my_new_profile_fields):
         func(my_id, field)
     # customize_user_profile_helpers \
@@ -226,7 +239,7 @@ def change_current_user_profile_text_show():
     # customize_user_profile_helpers \
     #     .set_sexual_orientation_by_user_id(user_id=my_id,
     #                                        sex_orientation=my_json["sex_orientation"])
-    return jsonify(profile_boolean_helpers.get_user_bool_by_user_id(my_id))
+    return jsonify(profile_boolean_helpers.get_user_json_by_user_id(my_id))
 
 
 @app.route('/current_user/profile/picture', methods=['POST'])

@@ -22,11 +22,11 @@ class User(db.Document, UserMixin):
     # db.ImageField(thumbnail_size=(150, 150, False))
     album_pictures = db.ListField(db.StringField())
     location = db.DictField()
-    gender_bool = db.BooleanField(unique=True)
-    sex_orientation_bool = db.BooleanField(unique=True)
-    date_of_birth_bool = db.BooleanField(default=True)
-    medications_and_treatments_bool = db.BooleanField(default=True)
-    purpose_bool = db.BooleanField(default=True)
+    gender_bool = db.BooleanField(unique=False)
+    sex_orientation_bool = db.BooleanField(unique=False)
+    date_of_birth_bool = db.BooleanField(default=False)
+    medications_and_treatments_bool = db.BooleanField(default=False)
+    purpose_bool = db.BooleanField(default=False)
 
     def get_json(self):
         return {
