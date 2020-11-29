@@ -38,21 +38,62 @@ def set_username_by_user_id(user_id, username):
 
 
 def set_profile_picture_by_user_id(user_id, picture):
-    user = User.objects(user_id=user_id).first()
-    user.profile_picture.replace(picture)
+    User.objects(user_id=user_id).update(set__picture=picture)
 
 
-def add_album_pictures_by_user_id(user_id, picture):
-    user = User.objects(user_id=user_id).first()
-    user.update(add_to_set__album_pictures=picture)
-    return user.get_album_pictures()
+def set_album_pictures_by_user_id(user_id, picture_list):
+    User.objects(user_id=user_id).update(set__album_pictures=picture_list)
 
 
-def get_profile_picture_by_user_id(user_id):
-    user = User.objects(user_id=user_id).first()
-    return user.get_profile_picture()
+def set_gender_bool_by_user_id(user_id, gender_bool):
+    User.objects(user_id=user_id).update(
+        set__gender_bool=gender_bool)
 
 
-def get_album_pictures_by_user_id(user_id):
-    user = User.objects(user_id=user_id).first()
-    return user.get_album_pictures()
+def set_sex_orientation_bool_by_user_id(user_id, sex_orientation_bool):
+    User.objects(user_id=user_id).update(
+        set__sex_orientation_bool=sex_orientation_bool
+    )
+
+
+def set_date_of_birth_bool_by_user_id(user_id, date_of_birth_bool):
+    User.objects(user_id=user_id).update(
+        set__date_of_birth_bool=date_of_birth_bool)
+
+
+def set_medications_and_treatments_bool_by_user_id(user_id,
+                                                   medications_and_treatments_bool):
+    User.objects(user_id=user_id).update(
+        set__medications_and_treatments_bool=medications_and_treatments_bool)
+
+
+def set_purpose_bool_by_user_id(user_id, purpose_bool):
+    User.objects(user_id=user_id).update(
+        set__purpose_bool=purpose_bool)
+#
+
+#
+# def add_album_pictures_by_user_id(user_id, picture):
+#     user = User.objects(user_id=user_id).first()
+#     user.update(add_to_set__album_pictures=picture)
+#     return user.get_album_pictures()
+#
+#
+# def delete_album_pictures_by_user_id(user_id, picture):
+#     user = User.objects(user_id=user_id).first()
+#     album_picture_list = user.get_album_pictures()
+#     if picture not in album_picture_list:
+#         return "no such picture in db for this user"
+#     album_picture_list = album_picture_list.remove(picture)
+#     user.update(set__album_pictures=album_picture_list)
+#     return user.get_album_pictures()
+#
+#
+# def get_profile_picture_by_user_id(user_id):
+#     user = User.objects(user_id=user_id).first()
+#     return user.get_profile_picture()
+#
+#
+# def get_album_pictures_by_user_id(user_id):
+#     user = User.objects(user_id=user_id).first()
+#     return user.get_album_pictures()
