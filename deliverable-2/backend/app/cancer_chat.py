@@ -183,6 +183,7 @@ def change_current_user_profile_update():
                     customize_user_profile_helpers.
                         set_profile_picture_by_user_id,
                     customize_user_profile_helpers.set_album_pictures_by_user_id,
+                    customize_user_profile_helpers.set_region_by_user_id,
                     customize_user_profile_helpers.set_date_of_birth_bool_by_user_id,
                     customize_user_profile_helpers.set_gender_bool_by_user_id,
                     customize_user_profile_helpers.set_sex_orientation_bool_by_user_id,
@@ -202,6 +203,7 @@ def change_current_user_profile_update():
                              my_json["username"],
                              my_json["profile_picture"],
                              my_json["album_pictures"],
+                             my_json["region"],
                              my_json["date_of_birth_bool"],
                              my_json["gender_bool"],
                              my_json["sex_orientation_bool"],
@@ -216,30 +218,30 @@ def change_current_user_profile_update():
     return jsonify(login_register_helpers.get_user_by_user_id(my_id).get_json())
 
 
-@app.route('/current_user/profile/text_show', methods=['POST'])
-def change_current_user_profile_text_show():
-    my_json = request.get_json()
-    my_id = current_user.get_id()
-    my_functions = [profile_boolean_helpers.set_date_of_birth_bool_by_user_id,
-                    profile_boolean_helpers.set_gender_bool_by_user_id,
-                    profile_boolean_helpers.set_sex_orientation_bool_by_user_id,
-                    profile_boolean_helpers.
-                        set_medications_and_treatments_bool_by_user_id,
-                    profile_boolean_helpers.set_purpose_bool_by_user_id
-                    ]
-
-    my_new_profile_fields = [my_json["date_of_birth_bool"],
-                             my_json["gender_bool"],
-                             my_json["sex_orientation_bool"],
-                             my_json["medications_and_treatments_bool"],
-                             my_json["purpose_bool"]
-                             ]
-    for func, field in zip(my_functions, my_new_profile_fields):
-        func(my_id, field)
-    # customize_user_profile_helpers \
-    #     .set_sexual_orientation_by_user_id(user_id=my_id,
-    #                                        sex_orientation=my_json["sex_orientation"])
-    return jsonify(profile_boolean_helpers.get_user_json_by_user_id(my_id))
+# @app.route('/current_user/profile/text_show', methods=['POST'])
+# def change_current_user_profile_text_show():
+#     my_json = request.get_json()
+#     my_id = current_user.get_id()
+#     my_functions = [profile_boolean_helpers.set_date_of_birth_bool_by_user_id,
+#                     profile_boolean_helpers.set_gender_bool_by_user_id,
+#                     profile_boolean_helpers.set_sex_orientation_bool_by_user_id,
+#                     profile_boolean_helpers.
+#                         set_medications_and_treatments_bool_by_user_id,
+#                     profile_boolean_helpers.set_purpose_bool_by_user_id
+#                     ]
+#
+#     my_new_profile_fields = [my_json["date_of_birth_bool"],
+#                              my_json["gender_bool"],
+#                              my_json["sex_orientation_bool"],
+#                              my_json["medications_and_treatments_bool"],
+#                              my_json["purpose_bool"]
+#                              ]
+#     for func, field in zip(my_functions, my_new_profile_fields):
+#         func(my_id, field)
+#     # customize_user_profile_helpers \
+#     #     .set_sexual_orientation_by_user_id(user_id=my_id,
+#     #                                        sex_orientation=my_json["sex_orientation"])
+#     return jsonify(profile_boolean_helpers.get_user_json_by_user_id(my_id))
 
 
 @app.route('/current_user/profile/picture', methods=['POST'])
@@ -306,6 +308,7 @@ def change_current_user_picture():
 def signup():
     try:
         my_json = request.get_json()
+        print(my_json)
         if login_register_helpers.email_already_existed(
                 my_json["email"]):
             return "Email already exists.", 412
@@ -315,14 +318,15 @@ def signup():
                 email=my_json["email"],
                 password=my_json["password"],
                 date_of_birth=my_json["date_of_birth"],
-                gender=my_json['gender'],
-                cancer=my_json['cancer'],
-                purpose=my_json['purpose'],
-                sex_orientation=my_json['sex_orientation']
+                gender=my_json["gender"],
+                cancer=my_json["cancer"],
+                purpose=my_json["purpose"],
+                sex_orientation=my_json['sex_orientation'],
+                region=my_json["region"]
             )
             login_user(
                 login_register_helpers.get_user_by_email(my_json["email"]))
-            return current_user.get_json()
+            return jsonify(current_user.get_json())
     except pymongo.errors.AutoReconnect as e:
         print(e)
         return "Cannot connect to database, please try again", 400
