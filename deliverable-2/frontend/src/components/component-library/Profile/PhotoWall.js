@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-
-import { Upload, Modal } from "antd";
+import { Upload, Modal, message } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 
-function getBase64(file) {
+function waitBase64(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -17,56 +16,40 @@ class PhotoWall extends React.Component {
     previewVisible: false,
     previewImage: "",
     previewTitle: "",
-    fileList: [
-      {
-        uid: "-1",
+    fileList: this.props.albumList.map((base64str, index) => {
+      return {
+        uid: "1" + index,
         name: "image.png",
         status: "done",
-        url:
-          "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-      },
-      {
-        uid: "-2",
-        name: "image.png",
-        status: "done",
-        url:
-          "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-      },
-      {
-        uid: "-3",
-        name: "image.png",
-        status: "done",
-        url:
-          "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-      },
-      {
-        uid: "-4",
-        name: "image.png",
-        status: "done",
-        url:
-          "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-      },
-      {
-        uid: "-xxx",
-        percent: 50,
-        name: "image.png",
-        status: "uploading",
-        url:
-          "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-      },
-      {
-        uid: "-5",
-        name: "image.png",
-        status: "error",
-      },
-    ],
+        url: base64str,
+      };
+    }),
   };
 
-  handleCancel = () => this.setState({ previewVisible: false });
+  getBase64(img, callback) {
+    const reader = new FileReader();
+    reader.addEventListener("load", () => callback(reader.result));
+    reader.readAsDataURL(img);
+  }
+
+  getAllBase64(fileList) {
+    let allBase64 = [];
+    for (let i = 0; i < fileList.length; i++) {
+      this.getBase64(fileList[i].originFileObj, (imageUrl) => {
+        allBase64.push(imageUrl);
+      });
+    }
+    console.log("allBase64", allBase64);
+    this.props.setAlbumList([...allBase64]);
+  }
+
+  handleCancel = () => {
+    this.setState({ previewVisible: false });
+  };
 
   handlePreview = async (file) => {
     if (!file.url && !file.preview) {
-      file.preview = await getBase64(file.originFileObj);
+      file.preview = await waitBase64(file.originFileObj);
     }
 
     this.setState({
@@ -77,7 +60,17 @@ class PhotoWall extends React.Component {
     });
   };
 
-  handleChange = ({ fileList }) => this.setState({ fileList });
+  handleChange = (info) => {
+    console.log("Line 69", info);
+    this.setState({ fileList: info.fileList });
+    if (info.file.status === "done") {
+      message.success(`${info.file.name} file uploaded successfully`);
+      this.getAllBase64(info.fileList);
+      // Get this url from response in real world.
+    } else if (info.file.status === "error") {
+      message.error(`${info.file.name} file upload failed.`);
+    }
+  };
 
   render() {
     const { previewVisible, previewImage, fileList, previewTitle } = this.state;

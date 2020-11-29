@@ -72,7 +72,8 @@ const MyProfile = ({ user, setUser }) => {
   const [treatment, setTreat] = useState(user.treatments);
   const [include, setInclude] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [avaterUrl, setAvaterUrl] = useState(UserPhoto);
+  const [avaterUrl, setAvaterUrl] = useState(user.profile_picture);
+  const [albumList, setAlbumList] = useState(user.album_pictures);
 
   const handleUpdate = () => {
     if (
@@ -102,7 +103,7 @@ const MyProfile = ({ user, setUser }) => {
       };
       console.log(requestBody);
       axios
-        .post(HOST_URL + "/current_user/profile/text", requestBody)
+        .post(HOST_URL + "current_user/profile/update", requestBody)
         .then((response) => {
           if (response.status === 200) {
             setLoading(false);
@@ -189,7 +190,10 @@ const MyProfile = ({ user, setUser }) => {
           <PageTitleSection>Your album</PageTitleSection>
           <SmallTitle>Let's make your profile look more attracting</SmallTitle>
           <p></p>
-          <PhotoWall></PhotoWall>
+          <PhotoWall
+            albumList={albumList}
+            setAlbumList={setAlbumList}
+          ></PhotoWall>
         </Col>
       </Row>
       <Row gutter={[16, 16]}>

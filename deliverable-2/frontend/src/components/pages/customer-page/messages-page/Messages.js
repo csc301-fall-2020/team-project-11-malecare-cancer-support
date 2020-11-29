@@ -10,6 +10,7 @@ import { UserContext } from "../../../../contexts/UserContext";
 import { PulseLoader } from "react-spinners";
 import { css } from "@emotion/react";
 import { HOST_URL } from "../../../utils/sharedUrl";
+import { Button, notification } from "antd";
 // import { get } from "../../utils/request";
 
 const loaderCSS = css`
@@ -221,6 +222,51 @@ const Messages = () => {
     }, 0);
   };
 
+  const close = () => {
+    console.log(
+      "Notification was closed. Either the close button was clicked or duration time elapsed."
+    );
+  };
+
+  const openNotification = (msgUser, msgUserName) => {
+    const key = `open${Date.now()}`;
+    const btn = (
+      <Button
+        type="primary"
+        size="small"
+        onClick={() => {
+          notification.close(key);
+          setCurrentUser(msgUser);
+        }}
+      >
+        Check message.
+      </Button>
+    );
+    notification.open({
+      message: "New message!",
+      description: "You have new message from " + msgUserName,
+      btn,
+      key,
+      onClose: close,
+    });
+  };
+
+  function chatAlert(res) {
+    for (let i = 0; i < res.length; i++) {
+      openNotification(res.sender_uid, findUsernameByuid(res.sender_uid));
+    }
+  }
+
+  function findUsernameByuid(target) {
+    const name = userList.map((keyName, index) => {
+      if (keyName === target) {
+        return userList[index];
+      }
+    });
+    console.log(name);
+    return name[0];
+  }
+
   const { user, setUser } = useContext(UserContext);
   const history = useHistory();
 
@@ -248,6 +294,7 @@ const Messages = () => {
     socket.on("chat", () => {
       post("/chat/all_messages_by_user").then((res) => {
         setChatList(res);
+        chatAlert(res);
         setTimeout(() => {
           chatRef.current.scrollTop = 100000;
         }, 0);
