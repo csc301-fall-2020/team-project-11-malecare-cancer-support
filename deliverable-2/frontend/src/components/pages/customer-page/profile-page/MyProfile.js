@@ -100,6 +100,13 @@ const MyProfile = ({ user, setUser }) => {
         sex_orientation: sex,
         short_intro: greetMsg,
         treatments: newTreat,
+        profile_picture: avaterUrl,
+        album_pictures: albumList,
+        date_of_birth_bool: false,
+        gender_bool: false,
+        sex_orientation_bool: false,
+        medications_and_treatments_bool: false,
+        purpose_bool: false,
       };
       console.log(requestBody);
       axios
@@ -153,7 +160,7 @@ const MyProfile = ({ user, setUser }) => {
           avaterUrl={avaterUrl}
           setAvaterUrl={setAvaterUrl}
         ></ProfilePhoto>
-        <Col span={14}>
+        <Col span={8}>
           <NameInput name={name} setName={setName}></NameInput>
           <DateInput date={date} setDate={setDate}></DateInput>
           <DropDownSelect
@@ -182,6 +189,21 @@ const MyProfile = ({ user, setUser }) => {
           ></MultiSelect>
           <Greeting greetMsg={greetMsg} setGreetMsg={setGreetMsg}></Greeting>
         </Col>
+        {/* <Col span={6}>
+          <div>
+            <Row></Row>
+            <p>Must include your name</p>
+          </div>
+          <CheckboxSection>
+            <Checkbox
+              label="Include detailed information in your profile"
+              isChecked={include}
+              onClick={() => {
+                setInclude(!include);
+              }}
+            />
+          </CheckboxSection>
+        </Col> */}
       </Row>
 
       <Row gutter={[16, 16]}>

@@ -222,51 +222,6 @@ const Messages = () => {
     }, 0);
   };
 
-  const close = () => {
-    console.log(
-      "Notification was closed. Either the close button was clicked or duration time elapsed."
-    );
-  };
-
-  const openNotification = (msgUser, msgUserName) => {
-    const key = `open${Date.now()}`;
-    const btn = (
-      <Button
-        type="primary"
-        size="small"
-        onClick={() => {
-          notification.close(key);
-          setCurrentUser(msgUser);
-        }}
-      >
-        Check message.
-      </Button>
-    );
-    notification.open({
-      message: "New message!",
-      description: "You have new message from " + msgUserName,
-      btn,
-      key,
-      onClose: close,
-    });
-  };
-
-  function chatAlert(res) {
-    for (let i = 0; i < res.length; i++) {
-      openNotification(res.sender_uid, findUsernameByuid(res.sender_uid));
-    }
-  }
-
-  function findUsernameByuid(target) {
-    const name = userList.map((keyName, index) => {
-      if (keyName === target) {
-        return userList[index];
-      }
-    });
-    console.log(name);
-    return name[0];
-  }
-
   const { user, setUser } = useContext(UserContext);
   const history = useHistory();
 
@@ -293,11 +248,17 @@ const Messages = () => {
     socket.emit("index");
     socket.on("chat", () => {
       post("/chat/all_messages_by_user").then((res) => {
+        console.log("res", res);
         setChatList(res);
-        chatAlert(res);
         setTimeout(() => {
           chatRef.current.scrollTop = 100000;
         }, 0);
+        console.log("341", res);
+        const i = res.length - 1;
+        if (res[i].sender_uid !== currentUser) {
+          console.log("344", currentUser);
+          openNotification(res[i].sender_uid, res[i].sender_uid);
+        }
       });
     });
     socket.open();
@@ -351,6 +312,46 @@ const Messages = () => {
       );
     }
   };
+
+  const close = () => {
+    console.log(
+      "Notification was closed. Either the close button was clicked or duration time elapsed."
+    );
+  };
+
+  const openNotification = (msgUser, msgUserName) => {
+    const key = `open${Date.now()}`;
+    const btn = (
+      <Button
+        type="primary"
+        size="small"
+        onClick={() => {
+          notification.close(key);
+          setCurrentUser(msgUser);
+        }}
+      >
+        Check message.
+      </Button>
+    );
+    notification.open({
+      message: "New message!",
+      description: "You have new message from " + msgUserName,
+      btn,
+      key,
+      onClose: close,
+    });
+  };
+
+  // function findUsernameByuid(target) {
+  //   console.log("261", user);
+  //   console.log("262", userList);
+  //   // console.log("263", Object.keys(user.friend_username));
+  //   var idx = Object.keys(user.friend_username).indexOf(target);
+  //   if (idx !== -1) {
+  //     return user.friend_username[idx][target];
+  //   }
+  //   return undefined;
+  // }
 
   return loading ? (
     <PulseLoader

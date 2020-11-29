@@ -1,7 +1,7 @@
 import React from "react";
 import { Col, Image, Upload, message, Button } from "antd";
 import "antd/dist/antd.css";
-// import UserPhoto from "../../../assets/UserPhoto.png";
+import UserPhoto from "../../../assets/UserPhoto.png";
 import { UploadOutlined } from "@ant-design/icons";
 
 function getBase64(img, callback) {
@@ -56,9 +56,11 @@ class ProfilePhoto extends React.Component {
         {imageUrl ? (
           <Image width={350} src={imageUrl} />
         ) : (
-          <Image width={350} src={this.props.avaterUrl} />
+          <Image
+            width={350}
+            src={this.props.avaterUrl ? this.props.avaterUrl : UserPhoto}
+          />
         )}
-
         <p></p>
         <Upload
           name="file"
