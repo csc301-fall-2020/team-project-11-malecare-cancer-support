@@ -37,6 +37,22 @@ def set_username_by_user_id(user_id, username):
     User.objects(user_id=user_id).update(set__username=username)
 
 
-def set_picture_by_user_id(user_id, picture):
+def set_profile_picture_by_user_id(user_id, picture):
     user = User.objects(user_id=user_id).first()
     user.profile_picture.replace(picture)
+
+
+def add_album_pictures_by_user_id(user_id, picture):
+    user = User.objects(user_id=user_id).first()
+    user.update(add_to_set__album_pictures=picture)
+    return user.get_album_pictures()
+
+
+def get_profile_picture_by_user_id(user_id):
+    user = User.objects(user_id=user_id).first()
+    return user.get_profile_picture()
+
+
+def get_album_pictures_by_user_id(user_id):
+    user = User.objects(user_id=user_id).first()
+    return user.get_album_pictures()
