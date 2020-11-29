@@ -48,6 +48,16 @@ def add_album_pictures_by_user_id(user_id, picture):
     return user.get_album_pictures()
 
 
+def delete_album_pictures_by_user_id(user_id, picture):
+    user = User.objects(user_id=user_id).first()
+    album_picture_list = user.get_album_pictures()
+    if picture not in album_picture_list:
+        return "no such picture in db for this user"
+    album_picture_list = album_picture_list.remove(picture)
+    user.update(set__album_pictures=album_picture_list)
+    return user.get_album_pictures()
+
+
 def get_profile_picture_by_user_id(user_id):
     user = User.objects(user_id=user_id).first()
     return user.get_profile_picture()
