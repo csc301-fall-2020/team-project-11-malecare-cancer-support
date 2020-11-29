@@ -38,8 +38,11 @@ def set_username_by_user_id(user_id, username):
 
 
 def set_profile_picture_by_user_id(user_id, picture):
-    user = User.objects(user_id=user_id).first()
-    user.profile_picture.update(set__picture=picture)
+    User.objects(user_id=user_id).update(set__picture=picture)
+
+
+def set_album_pictures_by_user_id(user_id, picture_list):
+    User.objects(user_id=user_id).update(set__album_pictures=picture_list)
 
 
 def add_album_pictures_by_user_id(user_id, picture):
