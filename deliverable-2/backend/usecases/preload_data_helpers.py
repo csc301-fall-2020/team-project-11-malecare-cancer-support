@@ -64,8 +64,8 @@ def get_medications():
     return _get_preload_data(MEDICATION_STR)
 
 
-def get_profile_picture():
-    return _get_preload_data(PROFILE_PICTURE_STR)
+# def get_profile_picture():
+#     return _get_preload_data(PROFILE_PICTURE_STR)
 
 
 def add_none_to_all_users_medication_and_treatment():
@@ -73,5 +73,5 @@ def add_none_to_all_users_medication_and_treatment():
                           add_to_set__treatments="None")
 
 
-def get_album_pictures():
-    return _get_preload_data(ALBUM_PICTURES_STR)
+# def get_album_pictures():
+#     return _get_preload_data(ALBUM_PICTURES_STR)

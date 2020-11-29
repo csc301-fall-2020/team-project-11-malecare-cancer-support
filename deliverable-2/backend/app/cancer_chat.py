@@ -122,14 +122,14 @@ def get_user_by_id():
     return login_register_helpers.get_user_by_user_id(user_id).get_json()
 
 
-@app.route('/load_from_db/profile_picture')
-def get_profile_picture():
-    return jsonify(preload_data_helpers.get_profile_picture())
-
-
-@app.route('/load_from_db/album_pictures')
-def get_album_pictures():
-    return jsonify(preload_data_helpers.get_album_pictures())
+# @app.route('/load_from_db/profile_picture')
+# def get_profile_picture():
+#     return jsonify(preload_data_helpers.get_profile_picture())
+#
+#
+# @app.route('/load_from_db/album_pictures')
+# def get_album_pictures():
+#     return jsonify(preload_data_helpers.get_album_pictures())
 
 
 @login_manager.unauthorized_handler
