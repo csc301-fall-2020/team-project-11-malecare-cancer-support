@@ -234,7 +234,7 @@ def change_current_user_picture():
     buffered = BytesIO()
     img.save(buffered, format="PNG")
     img_str = base64.b64encode(buffered.getvalue()).decode("utf-8")
-    customize_user_profile_helpers.\
+    customize_user_profile_helpers. \
         set_profile_picture_by_user_id(current_user.get_id(), img_str)
     return jsonify({"imgs": img_str})
 
@@ -257,7 +257,7 @@ def add_current_user_album_picture():
     img.save(buffered, format="PNG")
     img_str = base64.b64encode(buffered.getvalue()).decode("utf-8")
     album_pictures = \
-        customize_user_profile_helpers.\
+        customize_user_profile_helpers. \
             add_album_pictures_by_user_id(current_user.get_id(), img_str)
     return jsonify({"imgs": album_pictures})
 
@@ -609,7 +609,9 @@ def email():
         return "Email not found. ", 412
     user_id = login_register_helpers.get_user_id_by_user_email(user_email)
     token = reset_password_helpers.get_token_by_user_id(user_id,
-                                                        app.config.get('SECRET_KEY')).decode('utf-8')
+                                                        app.config.get(
+                                                            'SECRET_KEY')).decode(
+        'utf-8')
     url = app.config.get('ROUTE_URL') + '/changePassword/' + token
     try:
         reset_password_helpers.send_email(app.config.get("MAIL"),

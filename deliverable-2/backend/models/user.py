@@ -19,7 +19,7 @@ class User(db.Document, UserMixin):
     medications = db.ListField(db.StringField(default=[]))
     treatments = db.ListField(db.StringField(default=[]))
     profile_picture = db.StringField()
-        # db.ImageField(thumbnail_size=(150, 150, False))
+    # db.ImageField(thumbnail_size=(150, 150, False))
     album_pictures = db.ListField(db.StringField())
 
     def get_json(self):
