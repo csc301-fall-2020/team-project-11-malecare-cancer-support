@@ -37,6 +37,7 @@ class User(db.Document, UserMixin):
             "medications": self.medications,
             "treatments": self.treatments,
             "profile_picture": self.profile_picture,
+            "album pictures": self.album_pictures,
             "is_admin": self.is_admin
 
         }
