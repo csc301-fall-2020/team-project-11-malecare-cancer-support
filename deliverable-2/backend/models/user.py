@@ -18,7 +18,9 @@ class User(db.Document, UserMixin):
     friends = db.ListField(db.StringField(default=[]))
     medications = db.ListField(db.StringField(default=[]))
     treatments = db.ListField(db.StringField(default=[]))
-    profile_picture = db.ImageField(thumbnail_size=(150, 150, False))
+    profile_picture = db.StringField()
+        # db.ImageField(thumbnail_size=(150, 150, False))
+    album_pictures = db.ListField(db.StringField())
 
     def get_json(self):
         return {
@@ -66,6 +68,9 @@ class User(db.Document, UserMixin):
     # read()
     def get_profile_picture(self):
         return self.profile_picture
+
+    def get_album_pictures(self):
+        return self.album_pictures
 
     def filter_cancer(self, cancer_type):
         if cancer_type in self.cancer:
