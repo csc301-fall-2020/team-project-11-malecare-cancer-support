@@ -11,7 +11,7 @@ from flask_socketio import SocketIO, disconnect
 
 from .config import Configuration
 from ..usecases import administrator_filter_helpers, \
-    customize_user_profile_helpers, delete_helper, friend_handler_helpers, \
+    customize_user_profile_helpers, delete_helpers, friend_handler_helpers, \
     handle_report_helpers, handle_session_info_helpers, login_register_helpers, \
     match_helpers, message_handle_helper, preload_data_helpers, \
     profile_boolean_helpers, reset_password_helpers
@@ -230,6 +230,7 @@ def change_current_user_profile_text_show():
 
 @app.route('/current_user/profile/picture', methods=['POST'])
 def change_current_user_picture():
+    return jsonify({"imgs": "upload picture successfully"})
     # print(request.form)
     # print(request.files)
     # print(request.files.get("file"))
@@ -240,8 +241,6 @@ def change_current_user_picture():
     # img_str = base64.b64encode(buffered.getvalue()).decode("utf-8")
     # customize_user_profile_helpers. \
     #     set_profile_picture_by_user_id(current_user.get_id(), img_str)
-    return jsonify({"imgs": "upload picture successfully"})
-
 
 # @app.route('/current_user/profile/get_picture', methods=['POST'])
 # def get_profile_picture():
@@ -610,7 +609,7 @@ def create_admin():
 def delete_user_by_uid():
     my_json = request.get_json()
     uid = my_json["uid"]
-    result = delete_helper.delete_user_by_uid(uid)
+    result = delete_helpers.delete_user_by_uid(uid)
     return result
 
 
@@ -618,7 +617,7 @@ def delete_user_by_uid():
 @login_required
 def delete_self():
     uid = current_user.get_id()
-    result = delete_helper.delete_user_by_uid(uid)
+    result = delete_helpers.delete_user_by_uid(uid)
     return result
 
 
