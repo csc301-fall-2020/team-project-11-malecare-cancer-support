@@ -261,6 +261,21 @@ def add_current_user_album_picture():
             add_album_pictures_by_user_id(current_user.get_id(), img_str)
     return jsonify({"imgs": album_pictures})
 
+@app.route('/current_user/profile/delete_album_pictures', methods=['POST'])
+def delete_current_user_album_picture():
+    # print(request.form)
+    # print(request.files)
+    # print(request.files.get("file"))
+    imgs = request.files.get("file")
+    img = Image.open(imgs)
+    buffered = BytesIO()
+    img.save(buffered, format="PNG")
+    img_str = base64.b64encode(buffered.getvalue()).decode("utf-8")
+    album_pictures = \
+        customize_user_profile_helpers. \
+            delete_album_pictures_by_user_id(img_str)
+    return jsonify({"imgs": album_pictures})
+
 
 @app.route('/current_user/profile/get_album_pictures', methods=['POST'])
 def get_album_pictures():
