@@ -62,25 +62,27 @@ const Account = () => {
 
   const handleChangePassword = async () => {
     axios
-    .post(HOST_URL + "/reset_password/email", {email: user.email})
-    .then((response) => {
-      message.success(response.data)
-    })
-    .catch((err) => {
-      message.error(err.response.data)
-    })
-  };
-
-  const handleDeleteAccount = async () => {
-    axios
-      .post(HOST_URL + "/delete_self", {})
+      .post(HOST_URL + "/reset_password/email", { email: user.email })
       .then((response) => {
-        setUser(null);
-        history.push("/");
+        message.success(response.data);
       })
       .catch((err) => {
         message.error(err.response.data);
       });
+  };
+
+  const handleDeleteAccount = async () => {
+    if (window.confirm("Are you sure you want to delete your account? ")) {
+      axios
+        .post(HOST_URL + "/delete_self", {})
+        .then((response) => {
+          setUser(null);
+          history.push("/");
+        })
+        .catch((err) => {
+          message.error(err.response.data);
+        });
+    }
   };
 
   return (
