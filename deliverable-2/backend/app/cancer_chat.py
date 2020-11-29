@@ -274,7 +274,7 @@ def delete_current_user_album_picture():
     img_str = base64.b64encode(buffered.getvalue()).decode("utf-8")
     album_pictures = \
         customize_user_profile_helpers. \
-            delete_album_pictures_by_user_id(img_str)
+            delete_album_pictures_by_user_id(current_user.get_id(), img_str)
     return jsonify({"imgs": album_pictures})
 
 

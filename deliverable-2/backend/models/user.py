@@ -21,6 +21,7 @@ class User(db.Document, UserMixin):
     profile_picture = db.StringField()
     # db.ImageField(thumbnail_size=(150, 150, False))
     album_pictures = db.ListField(db.StringField())
+    location = db.DictField()
 
     def get_json(self):
         return {
