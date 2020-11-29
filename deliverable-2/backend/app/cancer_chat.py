@@ -240,7 +240,7 @@ def change_current_user_picture():
     # img_str = base64.b64encode(buffered.getvalue()).decode("utf-8")
     # customize_user_profile_helpers. \
     #     set_profile_picture_by_user_id(current_user.get_id(), img_str)
-    return jsonify({"imgs": "upload profile picture successsfully"})
+    return jsonify({"imgs": "upload picture successfully"})
 
 
 # @app.route('/current_user/profile/get_picture', methods=['POST'])
@@ -250,20 +250,20 @@ def change_current_user_picture():
 #     return jsonify({"imgs": img})
 
 
-@app.route('/current_user/profile/album_pictures', methods=['POST'])
-def add_current_user_album_picture():
-    # print(request.form)
-    # print(request.files)
-    # print(request.files.get("file"))
-    # imgs = request.files.get("file")
-    # img = Image.open(imgs)
-    # buffered = BytesIO()
-    # img.save(buffered, format="PNG")
-    # img_str = base64.b64encode(buffered.getvalue()).decode("utf-8")
-    # album_pictures = \
-    #     customize_user_profile_helpers. \
-    #         add_album_pictures_by_user_id(current_user.get_id(), img_str)
-    return jsonify({"imgs": "upload album pictures successfully"})
+# @app.route('/current_user/profile/album_pictures', methods=['POST'])
+# def add_current_user_album_picture():
+#     # print(request.form)
+#     # print(request.files)
+#     # print(request.files.get("file"))
+#     # imgs = request.files.get("file")
+#     # img = Image.open(imgs)
+#     # buffered = BytesIO()
+#     # img.save(buffered, format="PNG")
+#     # img_str = base64.b64encode(buffered.getvalue()).decode("utf-8")
+#     # album_pictures = \
+#     #     customize_user_profile_helpers. \
+#     #         add_album_pictures_by_user_id(current_user.get_id(), img_str)
+#     return jsonify({"imgs": "upload album pictures successfully"})
 
 
 # @app.route('/current_user/profile/delete_album_pictures', methods=['POST'])
