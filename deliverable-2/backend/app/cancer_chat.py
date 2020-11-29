@@ -261,6 +261,7 @@ def add_current_user_album_picture():
             add_album_pictures_by_user_id(current_user.get_id(), img_str)
     return jsonify({"imgs": album_pictures})
 
+
 @app.route('/current_user/profile/delete_album_pictures', methods=['POST'])
 def delete_current_user_album_picture():
     # print(request.form)
