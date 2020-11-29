@@ -1,7 +1,7 @@
 from ..models.profile_boolean import ProfileBoolean
 
 
-def get_user_bool_by_user_id(user_id):
+def get_user_json_by_user_id(user_id):
     return ProfileBoolean.objects(user_id=user_id).first().get_json()
 
 

@@ -44,6 +44,34 @@ def set_profile_picture_by_user_id(user_id, picture):
 def set_album_pictures_by_user_id(user_id, picture_list):
     User.objects(user_id=user_id).update(set__album_pictures=picture_list)
 
+
+def set_gender_bool_by_user_id(user_id, gender_bool):
+    User.objects(user_id=user_id).update(
+        set__gender_bool=gender_bool)
+
+
+def set_sex_orientation_bool_by_user_id(user_id, sex_orientation_bool):
+    User.objects(user_id=user_id).update(
+        set__sex_orientation_bool=sex_orientation_bool
+    )
+
+
+def set_date_of_birth_bool_by_user_id(user_id, date_of_birth_bool):
+    User.objects(user_id=user_id).update(
+        set__date_of_birth_bool=date_of_birth_bool)
+
+
+def set_medications_and_treatments_bool_by_user_id(user_id,
+                                                   medications_and_treatments_bool):
+    User.objects(user_id=user_id).update(
+        set__medications_and_treatments_bool=medications_and_treatments_bool)
+
+
+def set_purpose_bool_by_user_id(user_id, purpose_bool):
+    User.objects(user_id=user_id).update(
+        set__purpose_bool=purpose_bool)
+#
+
 #
 # def add_album_pictures_by_user_id(user_id, picture):
 #     user = User.objects(user_id=user_id).first()
