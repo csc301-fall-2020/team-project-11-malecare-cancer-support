@@ -127,6 +127,11 @@ def get_profile_picture():
     return jsonify(preload_data_helpers.get_profile_picture())
 
 
+@app.route('/load_from_db/album_pictures')
+def get_album_pictures():
+    return jsonify(preload_data_helpers.get_album_pictures())
+
+
 @login_manager.unauthorized_handler
 def unauthorized():
     return "user is not logged in", 401
@@ -221,15 +226,47 @@ def change_current_user_profile_text_show():
 
 @app.route('/current_user/profile/picture', methods=['POST'])
 def change_current_user_picture():
-    print(request.form)
-    print(request.files)
-    print(request.files.get("file"))
+    # print(request.form)
+    # print(request.files)
+    # print(request.files.get("file"))
     imgs = request.files.get("file")
     img = Image.open(imgs)
     buffered = BytesIO()
     img.save(buffered, format="PNG")
     img_str = base64.b64encode(buffered.getvalue()).decode("utf-8")
+    customize_user_profile_helpers.\
+        set_profile_picture_by_user_id(current_user.get_id(), img_str)
     return jsonify({"imgs": img_str})
+
+
+@app.route('/current_user/profile/get_picture', methods=['POST'])
+def get_profile_picture():
+    uid = current_user.get_id()
+    img = customize_user_profile_helpers.get_profile_picture_by_user_id(uid)
+    return jsonify({"imgs": img})
+
+
+@app.route('/current_user/profile/album_pictures', methods=['POST'])
+def add_current_user_album_picture():
+    # print(request.form)
+    # print(request.files)
+    # print(request.files.get("file"))
+    imgs = request.files.get("file")
+    img = Image.open(imgs)
+    buffered = BytesIO()
+    img.save(buffered, format="PNG")
+    img_str = base64.b64encode(buffered.getvalue()).decode("utf-8")
+    album_pictures = \
+        customize_user_profile_helpers.\
+            add_album_pictures_by_user_id(current_user.get_id(), img_str)
+    return jsonify({"imgs": album_pictures})
+
+
+@app.route('/current_user/profile/get_album_pictures', methods=['POST'])
+def get_album_pictures():
+    uid = current_user.get_id()
+    imgs = customize_user_profile_helpers.get_album_pictures_by_user_id(uid)
+    return jsonify({"imgs": imgs})
 
 
 @app.route('/signup', methods=['POST'])
