@@ -208,18 +208,19 @@ def change_current_user_profile_text_show():
     my_json = request.get_json()
     my_id = current_user.get_id()
     my_functions = [profile_boolean_helpers.set_date_of_birth_bool_by_user_id,
-                    profile_boolean_helpers.set_cancer_types_bool_by_user_id,
+                    profile_boolean_helpers.set_gender_bool_by_user_id,
+                    profile_boolean_helpers.set_sex_orientation_bool_by_user_id,
                     profile_boolean_helpers.
                         set_medications_and_treatments_bool_by_user_id,
-                    profile_boolean_helpers.set_purpose_bool_by_user_id,
-                    profile_boolean_helpers.set_short_intro_bool_by_user_id,
+                    profile_boolean_helpers.set_purpose_bool_by_user_id
                     ]
 
     my_new_profile_fields = [my_json["date_of_birth_bool"],
-                             my_json["cancer_bool"],
+                             my_json["gender_bool"],
+                             my_json["sex_orientation_bool"],
                              my_json["medications_and_treatments_bool"],
-                             my_json["purpose_bool"],
-                             my_json["short_intro_bool"]]
+                             my_json["purpose_bool"]
+                             ]
     for func, field in zip(my_functions, my_new_profile_fields):
         func(my_id, field)
     # customize_user_profile_helpers \

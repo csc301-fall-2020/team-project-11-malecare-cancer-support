@@ -10,7 +10,7 @@ def set_gender_bool_by_user_id(user_id, gender_bool):
         set__gender_bool=gender_bool)
 
 
-def set_sex_orientation_bool(user_id, sex_orientation_bool):
+def set_sex_orientation_bool_by_user_id(user_id, sex_orientation_bool):
     ProfileBoolean.objects(user_id=user_id).update(
         set__sex_orientation_bool=sex_orientation_bool
     )
