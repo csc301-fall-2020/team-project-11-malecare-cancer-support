@@ -1,10 +1,8 @@
-import base64
+import functools
 import functools
 import sys
-from io import BytesIO
 
 import pymongo
-from PIL import Image
 from flask import Flask, jsonify, render_template, request
 from flask_cors import CORS
 from flask_login import LoginManager, current_user, login_required, login_user, \
@@ -182,7 +180,8 @@ def change_current_user_profile_update():
                     customize_user_profile_helpers.set_treatments_by_user_id,
                     customize_user_profile_helpers.set_short_intro_by_user_id,
                     customize_user_profile_helpers.set_username_by_user_id,
-                    customize_user_profile_helpers.set_profile_picture_by_user_id,
+                    customize_user_profile_helpers.
+                        set_profile_picture_by_user_id,
                     customize_user_profile_helpers.set_album_pictures_by_user_id]
 
     my_new_profile_fields = [my_json["cancer"],
