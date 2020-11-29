@@ -22,7 +22,11 @@ class User(db.Document, UserMixin):
     # db.ImageField(thumbnail_size=(150, 150, False))
     album_pictures = db.ListField(db.StringField())
     location = db.DictField()
-    # show_booleans = db.DictField()
+    gender_bool = db.BooleanField(unique=True)
+    sex_orientation_bool = db.BooleanField(unique=True)
+    date_of_birth_bool = db.BooleanField(default=True)
+    medications_and_treatments_bool = db.BooleanField(default=True)
+    purpose_bool = db.BooleanField(default=True)
 
     def get_json(self):
         return {
@@ -40,7 +44,12 @@ class User(db.Document, UserMixin):
             "treatments": self.treatments,
             "profile_picture": self.profile_picture,
             "album pictures": self.album_pictures,
-            "is_admin": self.is_admin
+            "is_admin": self.is_admin,
+            "gender_bool": self.gender_bool,
+            "sex_orientation_bool": self.sex_orientation_bool,
+            "date_of_birth_bool": self.date_of_birth_bool,
+            "medications_and_treatments_bool": self.medications_and_treatments_bool,
+            "purpose_bool": self.purpose_bool
 
         }
 
@@ -68,12 +77,26 @@ class User(db.Document, UserMixin):
     def get_sex_orientation(self):
         return self.sex_orientation
 
-    # read()
     def get_profile_picture(self):
         return self.profile_picture
 
     def get_album_pictures(self):
         return self.album_pictures
+
+    def get_gender_bool(self):
+        return self.gender_bool
+
+    def get_sex_orientation_bool(self):
+        return self.sex_orientation_bool
+
+    def get_date_of_birth_bool(self):
+        return self.date_of_birth_bool
+
+    def get_medications_and_treatments_bool(self):
+        return self.medications_and_treatments_bool
+
+    def get_purpose_bool(self):
+        return self.purpose_bool
 
     def filter_cancer(self, cancer_type):
         if cancer_type in self.cancer:
