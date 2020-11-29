@@ -1,10 +1,11 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 import _ from "lodash";
+import { css } from "@emotion/react";
 import { message } from "antd";
-
+import Input from "../../../component-library/Input";
 import { UserContext } from "../../../../contexts/UserContext";
 import { getCurrentUser } from "../../../utils/helpers";
 import {
@@ -16,6 +17,13 @@ import {
   PrimaryButton,
 } from "../../../share-styled-component";
 import { HOST_URL } from "../../../utils/sharedUrl";
+import { PulseLoader } from "react-spinners";
+
+const loaderCSS = css`
+  margin-top: 300px;
+  margin-bottom: 50px;
+  flex: 1;
+`;
 
 const MainContainer = styled.div`
   margin: auto;
@@ -32,21 +40,24 @@ const SectionContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 80%;
 `;
-
-const SectionDescription = styled.div`
-  padding: 12px 0;
+const PasswordContainer = styled.div`
+  text-align: start;
 `;
 
 const ResetPassword = ({ match }) => {
   const { user, setUser } = useContext(UserContext);
   const history = useHistory();
   const token = _.get(match, "params.id");
+  const [password, setPassword] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("")
+  const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
-    // console.log(token);
-    console.log(_.get(match, "params.id"));
-  }, []);
+  // useEffect(() => {
+  //   // console.log(token);
+  //   console.log(_.get(match, "params.id"));
+  // }, []);
 
   useEffect(() => {
     const verifyToken = async () => {
@@ -54,44 +65,83 @@ const ResetPassword = ({ match }) => {
         .post(HOST_URL + "/reset_password/verify", { token: token })
         .then((res) => {
           message.success(res.data);
-          return true;
+          getCurrentUser()
+            .then((fetchedUser) => {
+              setLoading(false)
+              if (!fetchedUser) {
+                // User not logged in
+                history.push("/");
+              } else if (fetchedUser.is_admin) {
+                // User is admin
+                history.push("/adminSendMessages");
+              } else {
+                // User fetched and updated
+                setUser(fetchedUser);
+              }
+            })
+            .catch((err) => {
+              console.log(err.response.data);
+              history.push("/");
+            })
         })
         .catch((err) => {
-          console.log(err);
-          return false;
+          console.log(err.response.data);
+          history.push("/");
         });
     };
-    const fetchUser = async () => {
-      const verifed = await verifyToken();
-      if (verifed) {
-        const fetchedUser = await getCurrentUser();
-        if (!fetchedUser) {
-          // User not logged in
-          history.push("/");
-        } else if (fetchedUser.is_admin) {
-          // User is admin
-          history.push("/adminSendMessages");
-        } else {
-          // User fetched and updated
-          setUser(fetchedUser);
-        }
-      } else {
+    // const fetchUser = async () => {
+    //   await verifyToken();
+    //   console.log(verified)
+    //   if (verified) {
+    //     const fetchedUser = await getCurrentUser();
+    //     if (!fetchedUser) {
+    //       // User not logged in
+    //       history.push("/");
+    //     } else if (fetchedUser.is_admin) {
+    //       // User is admin
+    //       history.push("/adminSendMessages");
+    //     } else {
+    //       // User fetched and updated
+    //       setUser(fetchedUser);
+    //     }
+    //   } else {
+    //     history.push("/");
+    //   }
+    // };
+
+    verifyToken();
+  }, [history, setUser]);
+
+  const handleChangePassword = () => {
+    if (password !== confirmPassword) {
+      message.error("Please provide the same password to both password and confirm password fields.")
+      return
+    }
+
+    axios
+      .post('/reset_password/set', { password: password })
+      .then((res) => {
+        message.success(res.data);
         history.push("/");
-      }
-    };
+      })
+      .catch((err) => {
+        message.error(err.response.data)
+      })
 
-    fetchUser();
-  }, [history, setUser, token]);
+  };
 
-  const handleChangePassword = () => {};
-
-  return (
-    <MainContainer>
-      <PageTitleSection>Account Settings</PageTitleSection>
-      <Space height="36px" />
-      <SectionContainer>
-        <div>
-          <PageSubTitleSection>Change Password</PageSubTitleSection>
+  return loading ? <PulseLoader
+    css={loaderCSS}
+    size={40}
+    loading={loading}
+    color="rgb(172, 102, 104)"
+  ></PulseLoader> : (
+      <MainContainer>
+        <PageTitleSection>Account Settings</PageTitleSection>
+        <Space height="36px" />
+        <SectionContainer>
+          <PasswordContainer>
+            {/* <PageSubTitleSection>Change Password</PageSubTitleSection>
           <SectionDescription>
             <RegularMessage>
               To change the password of your account, click "Change Password"
@@ -100,16 +150,34 @@ const ResetPassword = ({ match }) => {
             <RegularMessage>
               We will then send you an email for setting up the new password.
             </RegularMessage>
-          </SectionDescription>
-        </div>
-        <div>
-          <PrimaryButton onClick={handleChangePassword}>
-            Change password
+          </SectionDescription> */}
+            <Input
+              label="New Password: "
+              inputValue={password}
+              inputType="password"
+              onChange={(event) => {
+                setPassword(event.target.value);
+              }}
+            />
+            <Space height="12px" />
+            <Input
+              label="Confirm New Password:"
+              inputValue={confirmPassword}
+              inputType="password"
+              onChange={(event) => {
+                setConfirmPassword(event.target.value);
+              }}
+            />
+
+          </PasswordContainer>
+          <div>
+            <PrimaryButton onClick={handleChangePassword}>
+              Change password
           </PrimaryButton>
-        </div>
-      </SectionContainer>
-    </MainContainer>
-  );
+          </div>
+        </SectionContainer>
+      </MainContainer>
+    );
 };
 
 export default ResetPassword;
