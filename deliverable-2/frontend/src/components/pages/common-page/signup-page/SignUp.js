@@ -146,7 +146,7 @@ const SignUp = () => {
       cancer: cancerTypes, // Array
       purpose: purposes, // Array
       sex_orientation: sexOrientation,
-      region,
+      region: region,
     };
 
     setLoading(true);
