@@ -45,6 +45,10 @@ def set_album_pictures_by_user_id(user_id, picture_list):
     User.objects(user_id=user_id).update(set__album_pictures=picture_list)
 
 
+def set_region_by_user_id(user_id, region):
+    User.objects(user_id=user_id).update(set__region=region)
+
+
 def set_gender_bool_by_user_id(user_id, gender_bool):
     User.objects(user_id=user_id).update(
         set__gender_bool=gender_bool)

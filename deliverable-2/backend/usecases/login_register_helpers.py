@@ -33,7 +33,7 @@ def get_user_by_email(email):
 
 
 def create_new_user(email, password, date_of_birth, gender, cancer, purpose,
-                    sex_orientation, username):
+                    sex_orientation, username, region):
     hashed_password = hash_str(password)
     new_user = User(email=email,
                     password=hashed_password,
@@ -44,7 +44,14 @@ def create_new_user(email, password, date_of_birth, gender, cancer, purpose,
                     cancer=cancer,
                     purpose=purpose,
                     sex_orientation=sex_orientation,
-                    friends=["0wwv9m"])
+                    friends=["0wwv9m"],
+                    region=region,
+                    gender_bool=False,
+                    sex_orientation_bool=False,
+                    date_of_birth_bool = False,
+                    medications_and_treatments_bool = False,
+                    purpose_bool = False
+    )
     new_user.save()
 
 
