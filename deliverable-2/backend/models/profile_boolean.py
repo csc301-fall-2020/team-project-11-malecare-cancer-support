@@ -4,7 +4,7 @@ from .mongoengine_connect import db
 
 
 # user name, gender
-# sexoriantation, shortintro
+# sex orientation, short intro
 
 
 class ProfileBoolean(db.Document, UserMixin):
