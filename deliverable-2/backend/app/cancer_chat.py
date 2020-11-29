@@ -209,7 +209,8 @@ def change_current_user_profile_text_show():
     my_id = current_user.get_id()
     my_functions = [profile_boolean_helpers.set_date_of_birth_bool_by_user_id,
                     profile_boolean_helpers.set_cancer_types_bool_by_user_id,
-                    profile_boolean_helpers.set_medications_and_treatments_bool_by_user_id,
+                    profile_boolean_helpers.
+                        set_medications_and_treatments_bool_by_user_id,
                     profile_boolean_helpers.set_purpose_bool_by_user_id,
                     profile_boolean_helpers.set_short_intro_bool_by_user_id,
                     ]
