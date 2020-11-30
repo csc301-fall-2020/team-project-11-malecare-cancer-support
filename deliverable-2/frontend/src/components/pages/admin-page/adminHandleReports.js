@@ -2,12 +2,12 @@ import React, { useState, useEffect, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { UserContext } from "../../../contexts/UserContext";
-
+import { message as alertMessage } from "antd";
+import { HOST_URL } from "../../utils/sharedUrl";
+import axios from "axios";
 import { getAge, getCurrentUser } from "../../utils/helpers";
 import { PulseLoader } from "react-spinners";
 import { css } from "@emotion/react";
-
-import UserPhoto from "../../../assets/UserPhoto.png";
 
 
 const loaderCSS = css`
@@ -60,34 +60,20 @@ const EmptyMessage = styled.div`
 
 const InfoContainer = styled.div`
   height: 200px;
-  margin: 10px 10px;
+  margin: 10px 20px;
 `;
 
 const BasicInfo = styled.span`
-  font-size: 19px;
-  display: block;
-  text-align: left;
-  height: 26px;
-`;
-
-const Greeting = styled.span`
   font-size: 22px;
   display: block;
+  margin: 5px 0px;
   text-align: left;
   height: 26px;
-  color: #d54e54;
 `;
 
 const alignedButton = {
   display: "inline-block",
   margin: "0px 30px",
-};
-
-const circlePiture = {
-  width: "100px",
-  height: "100px",
-  borderRadius: "50px",
-  margin: "18px",
 };
 
 const SmallButton = styled.button`
@@ -103,44 +89,49 @@ const SmallButton = styled.button`
   }
 `;
 
-function ReportCard(props) {
-  return (
-    <div style={ReportContainer}>
-      <BorderContainer>
-        <img style={circlePiture} src={UserPhoto} alt="user photo" />
-        <InfoContainer>
-          <BasicInfo>Name: {props.name}</BasicInfo>
-          <BasicInfo>Age: {props.age}</BasicInfo>
-          <BasicInfo>Gender: {props.gender}</BasicInfo>
-          <Greeting>"{props.greeting}"</Greeting>
-        </InfoContainer>
-      </BorderContainer>
-      <div style={buttons}>
-        <SmallButton
-          style={alignedButton}
-        >
-          View Profile
-        </SmallButton>
-        <SmallButton
-          style={alignedButton}
-        >
-          refuse
-        </SmallButton>
-        <SmallButton
-          style={alignedButton}
-        >
-          accept
-        </SmallButton>
-      </div>
-    </div>
-  );
-}
 
 const AdminHandleReports = () => {
   const { user, setUser } = useContext(UserContext);
-  const [reportedList, setReportedList] = useState([]);
+  const [reportsList, setReportsList] = useState([]);
   const history = useHistory();
   const [loading, setLoading] = useState(true);
+
+  const getReportList = async () => {
+    const response = await axios.get(HOST_URL + "/report/history");
+    return response.data;
+  };
+
+  const handleViewProfile = (reportedId) => {
+    const w = window.open("about:blank");
+    w.location.href = "/profile/" + reportedId;
+  };
+
+  const handleIngoreReport = (reportId) => {
+    axios.post(HOST_URL + "/report/ignore", {report_id: reportId}).then(() => {
+      alertMessage.success("Report ignored.");
+    });
+    asyncReq();
+  }
+  
+  const handleBlockByReport = (reportId) => {
+    axios.post(HOST_URL + "/report/block", {report_id: reportId}).then(() => {
+      alertMessage.success("Blocked user in this report.");
+    });
+    asyncReq();
+  }
+
+  const asyncReq = async () => {
+    const reports = await getReportList();
+    if (reports) {
+      setReportsList(reports);
+      console.log(reportsList);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    asyncReq();
+  }, []);
 
   useEffect(() => {
     if (!user) {
@@ -148,6 +139,39 @@ const AdminHandleReports = () => {
     }
   }, [user, history]);
 
+  function ReportCard(props) {
+    return (
+      <div style={ReportContainer}>
+        <BorderContainer>
+          <InfoContainer>
+            <BasicInfo>Reported user id: {props.reported}</BasicInfo>
+            <BasicInfo>Reported by: {props.reporter}</BasicInfo>
+            <BasicInfo>Report detail: {props.detail}</BasicInfo>
+          </InfoContainer>
+        </BorderContainer>
+        <div style={buttons}>
+          <SmallButton
+            style={alignedButton}
+            onClick={handleViewProfile.bind(this, props.reported)}
+          >
+            View Profile
+          </SmallButton>
+          <SmallButton
+            style={alignedButton}
+            onClick={handleIngoreReport.bind(this, props.reportId)}
+          >
+            ignore report
+          </SmallButton>
+          <SmallButton
+            style={alignedButton}
+            onClick={handleBlockByReport.bind(this, props.reportId)}
+          >
+            block user
+          </SmallButton>
+        </div>
+      </div>
+    );
+  }
   return loading ? (
     <PulseLoader
       css={loaderCSS}
@@ -158,20 +182,19 @@ const AdminHandleReports = () => {
   ) : (
     <ReportPageContainer>
       <ReportTitle>User Reports</ReportTitle>
-      {reportedList &&
-        reportedList.map((item, index) => {
+      {reportsList &&
+        reportsList.map((item, index) => {
           return (
             <ReportCard
               key={index}
-              name={item["username"]}
-              age={getAge(item["date_of_birth"])}
-              gender={item["gender"]}
-              greeting={item["short_intro"]}
-              id={item["user_id"]}
+              reportId={item["report_id"]}
+              reported={item["reported_uid"]}
+              reporter={item["reporter_uid"]}
+              detail={item["report_detail"]}
             />
           );
         })}
-      {reportedList.length === 0 && (
+      {reportsList.length === 0 && (
         <EmptyMessage>There are currently no reports. </EmptyMessage>
       )}
     </ReportPageContainer>
