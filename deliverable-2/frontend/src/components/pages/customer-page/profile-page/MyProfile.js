@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Row, Col, Layout, message } from "antd";
+import { Row, Col, Layout, message, Checkbox } from "antd";
 import styles from "./MyProfile.module.css";
 import styled from "styled-components";
 import "antd/dist/antd.css";
@@ -13,12 +13,13 @@ import DropDownSelect from "../../../component-library/Profile/DropDownSelect";
 import MultiSelect from "../../../component-library/Profile/MultiSelect";
 import Greeting from "../../../component-library/Profile/Greeting";
 import PhotoWall from "../../../component-library/Profile/PhotoWall";
-import UserPhoto from "../../../../assets/UserPhoto.png";
+// import UserPhoto from "../../../../assets/UserPhoto.png";
+import RegionDropdown from "../../../component-library/RegionDropdown";
 import {
   PageTitleSection,
   UpdateButton,
 } from "../../../share-styled-component";
-import Checkbox from "../../../component-library/Checkbox";
+// import Checkbox from "../../../component-library/Checkbox";
 
 import { PulseLoader } from "react-spinners";
 import { css } from "@emotion/react";
@@ -59,6 +60,19 @@ const timeFormat = (inputString) => {
   return moment(result, dateFormat);
 };
 
+function onDobChange(e) {
+  console.log(`checked = ${e.target.checked}`);
+}
+function onSexChange(e) {
+  console.log(`checked = ${e.target.checked}`);
+}
+function onGenderChange(e) {
+  console.log(`checked = ${e.target.checked}`);
+}
+function onPurposeChange(e) {
+  console.log(`checked = ${e.target.checked}`);
+}
+
 const MyProfile = ({ user, setUser }) => {
   const [userDetailSelections, setUserDetailSelections] = useState({});
   const [name, setName] = useState(user.username);
@@ -70,10 +84,15 @@ const MyProfile = ({ user, setUser }) => {
   const [greetMsg, setGreetMsg] = useState(user.short_intro);
   const [medication, setMed] = useState(user.medications);
   const [treatment, setTreat] = useState(user.treatments);
-  const [include, setInclude] = useState(false);
+  const [include, setInclude] = useState(false); // For detailed Information.
+  const [sexChecked, setSexChecked] = useState(false); // For Sex Information.
+  const [dobChecked, setDobChecked] = useState(false); // For DOB Information.
+  const [genderChecked, setGenderChecked] = useState(false); // For Gender Information.
+  const [purposeChecked, setPurposeChecked] = useState(false); // For Purpose Information.
   const [loading, setLoading] = useState(true);
   const [avaterUrl, setAvaterUrl] = useState(user.profile_picture);
   const [albumList, setAlbumList] = useState(user.album_pictures);
+  const [region, setRegion] = useState({});
 
   const handleUpdate = () => {
     if (
@@ -102,20 +121,12 @@ const MyProfile = ({ user, setUser }) => {
         treatments: newTreat,
         profile_picture: avaterUrl,
         album_pictures: albumList,
-        date_of_birth_bool: false,
-        gender_bool: false,
-        sex_orientation_bool: false,
-        medications_and_treatments_bool: false,
-        purpose_bool: false,
-        region: {
-          countryData: {
-            data: { id: 1, sortname: "AF", name: "Afghanistan", phoneCode: 93 },
-          },
-          stateData: {
-            data: { id: "42", name: "Badakhshan", country_id: "1" },
-          },
-          cityData: { data: { id: "5909", name: "Eshkashem", state_id: "42" } },
-        },
+        date_of_birth_bool: dobChecked,
+        gender_bool: genderChecked,
+        sex_orientation_bool: sexChecked,
+        medications_and_treatments_bool: include,
+        purpose_bool: purposeChecked,
+        region: region,
       };
       axios
         .post(HOST_URL + "/current_user/profile/update", requestBody)
@@ -168,26 +179,37 @@ const MyProfile = ({ user, setUser }) => {
           avaterUrl={avaterUrl}
           setAvaterUrl={setAvaterUrl}
         ></ProfilePhoto>
-        <Col span={8}>
+        <Col span={14}>
           <NameInput name={name} setName={setName}></NameInput>
-          <DateInput date={date} setDate={setDate}></DateInput>
+          <DateInput
+            date={date}
+            setDate={setDate}
+            checked={dobChecked}
+            setChecked={setDobChecked}
+          ></DateInput>
           <DropDownSelect
             select={gender}
             setSelect={setGender}
             lintTitle={"Gender:"}
             data={userDetailSelections.genderOptions}
+            checked={genderChecked}
+            setChecked={setGenderChecked}
           ></DropDownSelect>
           <DropDownSelect
             select={sex}
             setSelect={setSex}
             lintTitle={"Sex-Orientation:"}
             data={userDetailSelections.sexualOrientationOptions}
+            checked={sexChecked}
+            setChecked={setSexChecked}
           ></DropDownSelect>
           <MultiSelect
             List={purposeList}
             setList={setPurposeList}
             lineTitle={"Purpose"}
             data={userDetailSelections.purposeOptions}
+            checked={purposeChecked}
+            setChecked={setPurposeChecked}
           ></MultiSelect>
           <MultiSelect
             List={cancerList}
@@ -196,22 +218,12 @@ const MyProfile = ({ user, setUser }) => {
             data={userDetailSelections.cancerTypeOptions}
           ></MultiSelect>
           <Greeting greetMsg={greetMsg} setGreetMsg={setGreetMsg}></Greeting>
+          <RegionDropdown
+            label="Location:"
+            region={region}
+            setRegion={setRegion}
+          />
         </Col>
-        {/* <Col span={6}>
-          <div>
-            <Row></Row>
-            <p>Must include your name</p>
-          </div>
-          <CheckboxSection>
-            <Checkbox
-              label="Include detailed information in your profile"
-              isChecked={include}
-              onClick={() => {
-                setInclude(!include);
-              }}
-            />
-          </CheckboxSection>
-        </Col> */}
       </Row>
 
       <Row gutter={[16, 16]}>
@@ -248,12 +260,12 @@ const MyProfile = ({ user, setUser }) => {
           ></MultiSelect>
           <CheckboxSection>
             <Checkbox
-              label="Include detailed information in your profile"
-              isChecked={include}
-              onClick={() => {
+              onChange={() => {
                 setInclude(!include);
               }}
-            />
+            >
+              Include detailed information in your profile
+            </Checkbox>
           </CheckboxSection>
         </Col>
         <Col span={2}></Col>

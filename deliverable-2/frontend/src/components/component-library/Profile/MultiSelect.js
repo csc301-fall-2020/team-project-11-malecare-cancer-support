@@ -1,10 +1,24 @@
 import React from "react";
-import { Row, Col, Select } from "antd";
+import { Row, Col, Select, Checkbox } from "antd";
 import "antd/dist/antd.css";
+import styled from "styled-components";
+
+const Title = styled.div`
+  text-align: start;
+  color: #3c1014;
+  font-size: 24px;
+`;
 
 const { Option } = Select;
 
-const MultiSelect = ({ List, setList, lineTitle, data }) => {
+const MultiSelect = ({
+  List,
+  setList,
+  lineTitle,
+  data,
+  checked,
+  setChecked,
+}) => {
   function handleChange(value) {
     console.log(`selected ${value}`);
     setList([...value]);
@@ -20,7 +34,9 @@ const MultiSelect = ({ List, setList, lineTitle, data }) => {
   return (
     <div>
       <Row>
-        <Col span={4}>{lineTitle}</Col>
+        <Col span={6}>
+          <Title>{lineTitle}</Title>
+        </Col>
         <Col span={8}>
           <Select
             mode="multiple"
@@ -37,6 +53,16 @@ const MultiSelect = ({ List, setList, lineTitle, data }) => {
             ))}
           </Select>
         </Col>
+        {setChecked ? (
+          <Col>
+            <Checkbox
+              onChange={(e) => setChecked(e.target.checked)}
+              defaultChecked={checked}
+            >
+              Click to display in profile
+            </Checkbox>
+          </Col>
+        ) : null}
       </Row>
       <p></p>
     </div>

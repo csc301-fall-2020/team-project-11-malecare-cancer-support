@@ -381,15 +381,24 @@ const Messages = () => {
         <PageContainerRight>
           <LinkOut>
             {currentUser && userList[currentUser] !== "Cancer Chat Official" ? (
-              <a>block</a>
+              // <a>block</a>
+              <Button type="link" size={"small"}>
+                block
+              </Button>
             ) : null}
             {currentUser && userList[currentUser] !== "Cancer Chat Official" ? (
-              <a>report</a>
+              // <a>report</a>
+              <Button type="link" size={"small"}>
+                report
+              </Button>
             ) : null}
             {currentUser && userList[currentUser] !== "Cancer Chat Official" ? (
-              <a onClick={handleSeeFullProfile}>
+              // <a onClick={handleSeeFullProfile}>
+              //   See {userList[currentUser]} full profile
+              // </a>
+              <Button type="link" size={"small"}>
                 See {userList[currentUser]} full profile
-              </a>
+              </Button>
             ) : null}
           </LinkOut>
           <ChatWrap ref={chatRef}>
