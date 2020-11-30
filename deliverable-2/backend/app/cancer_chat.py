@@ -14,7 +14,7 @@ from ..usecases import administrator_filter_helpers, \
     customize_user_profile_helpers, delete_helpers, friend_handler_helpers, \
     handle_report_helpers, handle_session_info_helpers, login_register_helpers, \
     match_helpers, message_handle_helper, preload_data_helpers, \
-    profile_boolean_helpers, reset_password_helpers
+    reset_password_helpers
 
 login_manager = LoginManager()
 
@@ -258,6 +258,7 @@ def change_current_user_picture():
     # customize_user_profile_helpers. \
     #     set_profile_picture_by_user_id(current_user.get_id(), img_str)
 
+
 # @app.route('/current_user/profile/get_picture', methods=['POST'])
 # def get_profile_picture():
 #     uid = current_user.get_id()
@@ -344,19 +345,28 @@ def create_new_msg():
         text=my_json["text"])
 
 
+@login_required
 @app.route('/chat/unread_message', methods=['POST'])
 def get_unread_msg_by_receiver():
     return message_handle_helper.get_unread_msg_by_receiver(
         request.get_json()["receiver"])
 
 
+@login_required
 @app.route('/chat/update_message', methods=['POST'])
 def mark_as_read():
     my_json = request.get_json()
     return message_handle_helper.mark_as_read_by_sender_receiver(
         sender_uid=my_json['sender'],
 
-        receiver_uid=my_json['receiver'])
+        receiver_uid=current_user.get_id())
+
+
+@login_required
+@app.route('/chat/unread_msg_from', methods=['POST'])
+def get_unread_msg_from_friends_id():
+    return jsonify(message_handle_helper \
+                   .unread_msg_sender_list_by_receiver_id(current_user.get_id()))
 
 
 @login_required

@@ -10,7 +10,7 @@ import { UserContext } from "../../../../contexts/UserContext";
 import { PulseLoader } from "react-spinners";
 import { css } from "@emotion/react";
 import { HOST_URL } from "../../../utils/sharedUrl";
-import { Button, notification } from "antd";
+import { Button, notification, Badge } from "antd";
 // import { get } from "../../utils/request";
 
 const loaderCSS = css`
@@ -202,6 +202,7 @@ const Messages = () => {
   const [socket, setSocket] = useState();
   const [chatList, setChatList] = useState([]);
   const [inputText, setInputText] = useState();
+  const [unread, setUnread] = useState([])
   const chatRef = useRef();
   const inputRef = useRef();
   const send = () => {
@@ -242,27 +243,27 @@ const Messages = () => {
     fetchUser();
   }, [setUser, history]);
 
+  const setUpUnread = () => {
+    axios
+      .post(HOST_URL + "/chat/unread_msg_from")
+      .then((res) => {
+        console.log(res.data)
+        setUnread(res.data)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+
   useEffect(() => {
     let socket = io.connect(HOST_URL, { reconnection: true });
 
     socket.emit("index");
-    socket.on("chat", () => {
-      post("/chat/all_messages_by_user").then((res) => {
-        console.log("res", res);
-        setChatList(res);
-        setTimeout(() => {
-          chatRef.current.scrollTop = 100000;
-        }, 0);
-        console.log("341", res);
-        const i = res.length - 1;
-        if (res[i].sender_uid !== currentUser) {
-          console.log("344", currentUser);
-          openNotification(res[i].sender_uid, res[i].sender_uid);
-        }
-      });
-    });
+
     socket.open();
     setSocket(socket);
+
+    setUpUnread()
 
     get("/current_user").then((res) => {
       setUserId(res.user_id);
@@ -278,6 +279,24 @@ const Messages = () => {
     };
   }, []);
 
+  socket && socket.on("chat", () => {
+    post("/chat/all_messages_by_user").then((res) => {
+      // console.log("res", res);
+      setChatList(res);
+      setTimeout(() => {
+        chatRef.current.scrollTop = 100000;
+      }, 0);
+      // console.log("341", res);
+      const i = res.length - 1;
+      if (res[i].sender_uid === currentUser) {
+        console.log("344", currentUser);
+        // openNotification(res[i].sender_uid, res[i].sender_uid);
+        markAsRead(currentUser)
+      } else {
+        setUpUnread()
+      }
+    });
+  });
   useEffect(() => {
     if (!currentUser) return;
     post("/chat/all_messages_by_user").then((res) => {
@@ -313,45 +332,17 @@ const Messages = () => {
     }
   };
 
-  const close = () => {
-    console.log(
-      "Notification was closed. Either the close button was clicked or duration time elapsed."
-    );
-  };
 
-  const openNotification = (msgUser, msgUserName) => {
-    const key = `open${Date.now()}`;
-    const btn = (
-      <Button
-        type="primary"
-        size="small"
-        onClick={() => {
-          notification.close(key);
-          setCurrentUser(msgUser);
-        }}
-      >
-        Check message.
-      </Button>
-    );
-    notification.open({
-      message: "New message!",
-      description: "You have new message from " + msgUserName,
-      btn,
-      key,
-      onClose: close,
-    });
-  };
-
-  // function findUsernameByuid(target) {
-  //   console.log("261", user);
-  //   console.log("262", userList);
-  //   // console.log("263", Object.keys(user.friend_username));
-  //   var idx = Object.keys(user.friend_username).indexOf(target);
-  //   if (idx !== -1) {
-  //     return user.friend_username[idx][target];
-  //   }
-  //   return undefined;
-  // }
+  const markAsRead = (userId) => {
+    axios
+      .post(HOST_URL + "/chat/update_message", { sender: userId })
+      .then((res) => {
+        console.log(res.data)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
 
   return loading ? (
     <PulseLoader
@@ -370,10 +361,20 @@ const Messages = () => {
               Object.keys(userList).map((keyName, index) => (
                 <div
                   className={keyName === currentUser ? "check" : ""}
-                  onClick={() => setCurrentUser(keyName)}
+                  onClick={() => {
+                    setCurrentUser(keyName)
+                    markAsRead(keyName)
+                    setUpUnread()
+                  }}
                   key={index}
                 >
                   {userList[keyName]}
+                  {(unread.indexOf(keyName) >= 0) && 
+                  (<Badge
+                    size="small"
+                    count={1}
+                    offset={[10, 0]}
+                    style={{ backgroundColor: '#d75056', color: '#d75056', marginTop: "-3px" }} />)}
                 </div>
               ))}
           </UserList>
