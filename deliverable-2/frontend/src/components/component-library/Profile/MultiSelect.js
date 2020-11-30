@@ -14,7 +14,6 @@ const MultiSelect = ({ List, setList, lineTitle, data }) => {
     if (!l) {
       return [];
     }
-    console.log("duoxuan", lineTitle, Array.from(l));
     return Array.from(l);
   };
 

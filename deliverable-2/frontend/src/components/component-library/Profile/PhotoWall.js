@@ -18,7 +18,7 @@ class PhotoWall extends React.Component {
     previewTitle: "",
     fileList: this.props.albumList.map((base64str, index) => {
       return {
-        uid: "1" + index,
+        uid: "-" + index,
         name: "image.png",
         status: "done",
         url: base64str,
@@ -39,8 +39,7 @@ class PhotoWall extends React.Component {
         allBase64.push(imageUrl);
       });
     }
-    console.log("allBase64", allBase64);
-    this.props.setAlbumList([...allBase64]);
+    this.props.setAlbumList(allBase64);
   }
 
   handleCancel = () => {
