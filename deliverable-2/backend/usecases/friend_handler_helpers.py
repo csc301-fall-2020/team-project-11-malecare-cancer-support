@@ -33,7 +33,7 @@ def get_all_undecided_friend_requests_by_receiver_uid(receiver_uid):
 
 def augment_user_dict_with_friends_user_name(user_id):
     user_dict = User.objects(user_id=user_id).first().get_json()
-    print(user_dict)
+    # print(user_dict)
     friends_id_lst = user_dict['friends']
     friend_username_dict = {}
     for id in friends_id_lst:

@@ -246,6 +246,7 @@ const Messages = () => {
   }, [setUser, history]);
 
   const setUpUnread = () => {
+    console.log("SET UP UNREAD")
     axios
       .post(HOST_URL + "/chat/unread_msg_from")
       .then((res) => {
@@ -265,12 +266,17 @@ const Messages = () => {
     socket.open();
     setSocket(socket);
 
-    setUpUnread();
+    socket.on("chat", () => {
+      console.log("chat handler")
+      setUpUnread()
+
+    });
 
     get("/current_user").then((res) => {
       setUserId(res.user_id);
       setUserList(res.friend_username);
       socket.emit("save_session");
+      setUpUnread();
       setLoading(false);
     });
 
@@ -281,8 +287,19 @@ const Messages = () => {
     };
   }, []);
 
-  socket &&
-    socket.on("chat", () => {
+
+
+  useEffect(() => {
+    if (!currentUser) return;
+    post("/chat/all_messages_by_user").then((res) => {
+      setChatList(res);
+      setTimeout(() => {
+        chatRef.current.scrollTop = 100000;
+      }, 0);
+    });
+    socket && socket.off("chat")
+    socket && socket.on("chat", () => {
+      console.log("chat handler")
       post("/chat/all_messages_by_user").then((res) => {
         // console.log("res", res);
         setChatList(res);
@@ -295,18 +312,11 @@ const Messages = () => {
           console.log("344", currentUser);
           // openNotification(res[i].sender_uid, res[i].sender_uid);
           markAsRead(currentUser);
+          setUnread(unread.filter((item) => { return item !== currentUser }))
         } else {
           setUpUnread();
         }
       });
-    });
-  useEffect(() => {
-    if (!currentUser) return;
-    post("/chat/all_messages_by_user").then((res) => {
-      setChatList(res);
-      setTimeout(() => {
-        chatRef.current.scrollTop = 100000;
-      }, 0);
     });
   }, [currentUser]);
 
@@ -392,7 +402,8 @@ const Messages = () => {
                   onClick={() => {
                     setCurrentUser(keyName);
                     markAsRead(keyName);
-                    setUpUnread();
+                    // setUpUnread();
+                    setUnread(unread.filter((item) => { return item !== keyName }))
                   }}
                   key={index}
                 >
