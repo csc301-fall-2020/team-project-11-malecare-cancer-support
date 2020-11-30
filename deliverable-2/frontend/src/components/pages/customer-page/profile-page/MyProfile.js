@@ -107,10 +107,13 @@ const MyProfile = ({ user, setUser }) => {
         sex_orientation_bool: false,
         medications_and_treatments_bool: false,
         purpose_bool: false,
+        region:  {'countryData': {'data': {'id': 1, 'sortname': 'AF', 'name': 'Afghanistan', 'phoneCode': 93}}, 
+        'stateData': {'data': {'id': '42', 'name': 'Badakhshan', 'country_id': '1'}}, 
+        'cityData': {'data': {'id': '5909', 'name': 'Eshkashem','state_id': '42'}}}
       };
       console.log(requestBody);
       axios
-        .post(HOST_URL + "current_user/profile/update", requestBody)
+        .post(HOST_URL + "/current_user/profile/update", requestBody)
         .then((response) => {
           if (response.status === 200) {
             setLoading(false);
