@@ -416,14 +416,22 @@ def receive_msg(input_json):
     socketio.emit('chat', "receiver need to read", room=session_id)
 
 
-@socketio.on('save_session')
+# @socketio.on('save_session')
+# @authenticated_only
+# def save_session():
+#     user_id = current_user.get_id()
+#     session_id = request.sid
+#     result = handle_session_info_helpers.save_session_id_to_user_id(user_id,
+#                                                                     session_id)
+#     socketio.emit('save_session', result)
+
+@socketio.on('connect')
 @authenticated_only
-def save_session():
+def socket_connect():
+    print("connect")
     user_id = current_user.get_id()
     session_id = request.sid
-    result = handle_session_info_helpers.save_session_id_to_user_id(user_id,
-                                                                    session_id)
-    socketio.emit('save_session', result)
+    handle_session_info_helpers.save_session_id_to_user_id(user_id, session_id)
 
 
 @socketio.on('admin_send_msg')
