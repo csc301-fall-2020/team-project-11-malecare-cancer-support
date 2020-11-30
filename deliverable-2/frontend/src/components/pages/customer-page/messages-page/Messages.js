@@ -2,15 +2,15 @@ import React, { useState, useEffect, useRef, useContext } from "react";
 import styled from "styled-components";
 import io from "socket.io-client";
 import axios from "axios";
-import face from "../../../../assets/face.png";
-import image from "../../../../assets/image.png";
+// import face from "../../../../assets/face.png";
+// import image from "../../../../assets/image.png";
 import { useHistory } from "react-router-dom";
 import { getCurrentUser } from "../../../utils/helpers";
 import { UserContext } from "../../../../contexts/UserContext";
 import { PulseLoader } from "react-spinners";
 import { css } from "@emotion/react";
 import { HOST_URL } from "../../../utils/sharedUrl";
-import { Button, notification, Badge } from "antd";
+import { Button, Input, Badge, message, Modal } from "antd";
 // import { get } from "../../utils/request";
 
 const loaderCSS = css`
@@ -202,9 +202,11 @@ const Messages = () => {
   const [socket, setSocket] = useState();
   const [chatList, setChatList] = useState([]);
   const [inputText, setInputText] = useState();
-  const [unread, setUnread] = useState([])
+  const [unread, setUnread] = useState([]);
   const chatRef = useRef();
   const inputRef = useRef();
+  const [reportVisible, setReportVisible] = useState(false);
+  const [reportmsg, setReportmsg] = useState("");
   const send = () => {
     if (!inputText || !currentUser) return;
     socket.emit("receive_msg", {
@@ -247,13 +249,13 @@ const Messages = () => {
     axios
       .post(HOST_URL + "/chat/unread_msg_from")
       .then((res) => {
-        console.log(res.data)
-        setUnread(res.data)
+        console.log(res.data);
+        setUnread(res.data);
       })
       .catch((err) => {
-        console.log(err)
-      })
-  }
+        console.log(err);
+      });
+  };
 
   useEffect(() => {
     let socket = io.connect(HOST_URL, { reconnection: true });
@@ -263,7 +265,7 @@ const Messages = () => {
     socket.open();
     setSocket(socket);
 
-    setUpUnread()
+    setUpUnread();
 
     get("/current_user").then((res) => {
       setUserId(res.user_id);
@@ -279,24 +281,25 @@ const Messages = () => {
     };
   }, []);
 
-  socket && socket.on("chat", () => {
-    post("/chat/all_messages_by_user").then((res) => {
-      // console.log("res", res);
-      setChatList(res);
-      setTimeout(() => {
-        chatRef.current.scrollTop = 100000;
-      }, 0);
-      // console.log("341", res);
-      const i = res.length - 1;
-      if (res[i].sender_uid === currentUser) {
-        console.log("344", currentUser);
-        // openNotification(res[i].sender_uid, res[i].sender_uid);
-        markAsRead(currentUser)
-      } else {
-        setUpUnread()
-      }
+  socket &&
+    socket.on("chat", () => {
+      post("/chat/all_messages_by_user").then((res) => {
+        // console.log("res", res);
+        setChatList(res);
+        setTimeout(() => {
+          chatRef.current.scrollTop = 100000;
+        }, 0);
+        // console.log("341", res);
+        const i = res.length - 1;
+        if (res[i].sender_uid === currentUser) {
+          console.log("344", currentUser);
+          // openNotification(res[i].sender_uid, res[i].sender_uid);
+          markAsRead(currentUser);
+        } else {
+          setUpUnread();
+        }
+      });
     });
-  });
   useEffect(() => {
     if (!currentUser) return;
     post("/chat/all_messages_by_user").then((res) => {
@@ -306,6 +309,32 @@ const Messages = () => {
       }, 0);
     });
   }, [currentUser]);
+
+  const handleOk = () => {
+    setReportVisible(false);
+    const requestBody = { reported_uid: currentUser, report_detail: reportmsg };
+    axios
+      .post(HOST_URL + "/new_report", requestBody)
+      .then((response) => {
+        if (response.status === 200) {
+          console.log("success report");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        message.error("Error occurs");
+      });
+    message.success("Report success!");
+  };
+
+  const handleCancel = () => {
+    setReportVisible(false);
+    setReportmsg("");
+  };
+
+  const handleReport = () => {
+    setReportVisible(true);
+  };
 
   const handleSeeFullProfile = () => {
     const w = window.open("about:blank");
@@ -332,17 +361,16 @@ const Messages = () => {
     }
   };
 
-
   const markAsRead = (userId) => {
     axios
       .post(HOST_URL + "/chat/update_message", { sender: userId })
       .then((res) => {
-        console.log(res.data)
+        console.log(res.data);
       })
       .catch((err) => {
-        console.log(err)
-      })
-  }
+        console.log(err);
+      });
+  };
 
   return loading ? (
     <PulseLoader
@@ -362,24 +390,48 @@ const Messages = () => {
                 <div
                   className={keyName === currentUser ? "check" : ""}
                   onClick={() => {
-                    setCurrentUser(keyName)
-                    markAsRead(keyName)
-                    setUpUnread()
+                    setCurrentUser(keyName);
+                    markAsRead(keyName);
+                    setUpUnread();
                   }}
                   key={index}
                 >
                   {userList[keyName]}
-                  {(unread.indexOf(keyName) >= 0) && 
-                  (<Badge
-                    size="small"
-                    count={1}
-                    offset={[10, 0]}
-                    style={{ backgroundColor: '#d75056', color: '#d75056', marginTop: "-3px" }} />)}
+                  {unread.indexOf(keyName) >= 0 && (
+                    <Badge
+                      size="small"
+                      count={1}
+                      offset={[10, 0]}
+                      style={{
+                        backgroundColor: "#d75056",
+                        color: "#d75056",
+                        marginTop: "-3px",
+                      }}
+                    />
+                  )}
                 </div>
               ))}
           </UserList>
         </PageContainerLeft>
         <PageContainerRight>
+          <Modal
+            title="Report"
+            visible={reportVisible}
+            onOk={handleOk}
+            onCancel={handleCancel}
+          >
+            <p>Enter your report reason:</p>
+            <Input
+              style={{ width: 250 }}
+              allowClear
+              size={"middle"}
+              placeholder="Enter your report reason..."
+              value={reportmsg}
+              onChange={(event) => {
+                setReportmsg(event.target.value);
+              }}
+            />
+          </Modal>
           <LinkOut>
             {currentUser && userList[currentUser] !== "Cancer Chat Official" ? (
               // <a>block</a>
@@ -389,7 +441,7 @@ const Messages = () => {
             ) : null}
             {currentUser && userList[currentUser] !== "Cancer Chat Official" ? (
               // <a>report</a>
-              <Button type="link" size={"small"}>
+              <Button type="link" size={"small"} onClick={handleReport}>
                 report
               </Button>
             ) : null}
@@ -397,7 +449,7 @@ const Messages = () => {
               // <a onClick={handleSeeFullProfile}>
               //   See {userList[currentUser]} full profile
               // </a>
-              <Button type="link" size={"small"}>
+              <Button type="link" size={"small"} onClick={handleSeeFullProfile}>
                 See {userList[currentUser]} full profile
               </Button>
             ) : null}
@@ -423,10 +475,10 @@ const Messages = () => {
             />
             <div onClick={send}>send</div>
           </Send>
-          <Btns>
+          {/* <Btns>
             <img src={image} />
             <img src={face} />
-          </Btns>
+          </Btns> */}
         </PageContainerRight>
       </PageContainer>
     </PageWrap>

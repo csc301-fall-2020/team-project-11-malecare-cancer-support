@@ -60,19 +60,6 @@ const timeFormat = (inputString) => {
   return moment(result, dateFormat);
 };
 
-function onDobChange(e) {
-  console.log(`checked = ${e.target.checked}`);
-}
-function onSexChange(e) {
-  console.log(`checked = ${e.target.checked}`);
-}
-function onGenderChange(e) {
-  console.log(`checked = ${e.target.checked}`);
-}
-function onPurposeChange(e) {
-  console.log(`checked = ${e.target.checked}`);
-}
-
 const MyProfile = ({ user, setUser }) => {
   const [userDetailSelections, setUserDetailSelections] = useState({});
   const [name, setName] = useState(user.username);

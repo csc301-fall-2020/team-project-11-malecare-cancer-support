@@ -33,6 +33,16 @@ const timeFormat = (inputString) => {
   return result;
 };
 
+function regionToString(region) {
+  return (
+    region.cityData.data.name +
+    ", " +
+    region.stateData.data.name +
+    ", " +
+    region.countryData.data.name
+  );
+}
+
 const UserProfile = ({ match }) => {
   const { setUser } = useContext(UserContext);
   const history = useHistory();
@@ -45,9 +55,9 @@ const UserProfile = ({ match }) => {
       if (!fetchedUser) {
         // User not logged in
         history.push("/");
-      // } else if (fetchedUser.is_admin) {
-      //   // User is admin
-      //   history.push("/adminSendMessages");
+        // } else if (fetchedUser.is_admin) {
+        //   // User is admin
+        //   history.push("/adminSendMessages");
       } else {
         // User fetched and updated
         setUser(fetchedUser);
@@ -91,12 +101,19 @@ const UserProfile = ({ match }) => {
         <Col span={2}></Col>
 
         <Col span={8}>
-          <Image width={250} src={UserPhoto} />
+          <Image
+            width={250}
+            src={
+              profileUser && profileUser.profile_picture
+                ? profileUser.profile_picture
+                : UserPhoto
+            }
+          />
         </Col>
         <Col span={14}>
           <Row>
             <Col span={4}>Names:</Col>
-            <Col span={8}>
+            <Col span={12}>
               {profileUser && profileUser.username
                 ? profileUser.username
                 : null}
@@ -105,48 +122,94 @@ const UserProfile = ({ match }) => {
           <p></p>
           <Row>
             <Col span={4}>Day of birth:</Col>
-            <Col span={8}>
-              {profileUser && profileUser.date_of_birth
+            <Col span={12}>
+              {profileUser && profileUser.date_of_birth_bool
                 ? timeFormat(profileUser.date_of_birth)
-                : null}
+                : "The user choose to keep this information private."}
             </Col>
           </Row>
           <p></p>
           <Row>
             <Col span={4}>Gender:</Col>
-            <Col span={8}>
-              {profileUser && profileUser.gender ? profileUser.gender : null}
+            <Col span={12}>
+              {profileUser && profileUser.gender_bool
+                ? profileUser.gender
+                : "The user choose to keep this information private."}
             </Col>
           </Row>
           <p></p>
           <Row>
             <Col span={4}>Sex-Orientation:</Col>
-            <Col span={8}>
-              {profileUser && profileUser.sex_orientation
+            <Col span={12}>
+              {profileUser && profileUser.sex_orientation_bool
                 ? profileUser.sex_orientation
-                : null}
+                : "The user choose to keep this information private."}
             </Col>
           </Row>
           <p></p>
           <Row>
             <Col span={4}>Type(s) of cancer:</Col>
-            <Col span={8}>
+            <Col span={12}>
               {profileUser && profileUser.cancer
                 ? profileUser.cancer.map((item, index) => {
-                    return <div>{item}</div>;
+                    return <div key={index}>{item}</div>;
                   })
                 : null}
             </Col>
           </Row>
           <p></p>
           <Row>
+            <Col span={4}>Purpose:</Col>
+            <Col span={12}>
+              {profileUser && profileUser.purpose_bool
+                ? profileUser.purpose.map((item, index) => {
+                    return <div key={index}>{item}</div>;
+                  })
+                : "The user choose to keep this information private."}
+            </Col>
+          </Row>
+          <p></p>
+          <Row>
+            <Col span={4}>Region:</Col>
+            <Col span={12}>
+              {profileUser && profileUser.region
+                ? regionToString(profileUser.region)
+                : null}
+            </Col>
+          </Row>
+          <p></p>
+          <Row>
             <Col span={4}>Greeting message:</Col>
-            <Col span={8}>
+            <Col span={12}>
               {profileUser && profileUser.short_intro
                 ? profileUser.short_intro
                 : null}
             </Col>
           </Row>
+          <p></p>
+          {/* {profileUser && profileUser.medications_and_treatments_bool ? ( */}
+          <Row>
+            <Col span={4}>Medication:</Col>
+            <Col span={12}>
+              {profileUser && profileUser.medications_and_treatments_bool
+                ? profileUser.medications.map((item, index) => {
+                    return <div key={index}>{item}</div>;
+                  })
+                : "The user choose to keep this information private."}
+            </Col>
+          </Row>
+          <p></p>
+          <Row>
+            <Col span={4}>Treatment:</Col>
+            <Col span={12}>
+              {profileUser && profileUser.medications_and_treatments_bool
+                ? profileUser.treatments.map((item, index) => {
+                    return <div key={index}>{item}</div>;
+                  })
+                : "The user choose to keep this information private."}
+            </Col>
+          </Row>
+          {/* ) : null} */}
           <p></p>
         </Col>
       </Row>
@@ -157,27 +220,13 @@ const UserProfile = ({ match }) => {
           <ProfileTitle>User's album</ProfileTitle>
           <p></p>
           <Row gutter={16}>
-            <Col>
-              {" "}
-              <Image
-                width={200}
-                src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-              />
-            </Col>
-            <Col>
-              {" "}
-              <Image
-                width={200}
-                src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-              />
-            </Col>
-            <Col>
-              {" "}
-              <Image
-                width={200}
-                src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-              />
-            </Col>
+            {profileUser && profileUser.album_pictures.length > 0
+              ? profileUser.album_pictures.map((item, index) => (
+                  <Col>
+                    <Image key={index} width={200} src={item} />
+                  </Col>
+                ))
+              : "The user has not upload any pictures to the album yet."}
           </Row>
         </Col>
       </Row>
