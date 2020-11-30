@@ -45,9 +45,9 @@ const UserProfile = ({ match }) => {
       if (!fetchedUser) {
         // User not logged in
         history.push("/");
-      } else if (fetchedUser.is_admin) {
-        // User is admin
-        history.push("/adminSendMessages");
+      // } else if (fetchedUser.is_admin) {
+      //   // User is admin
+      //   history.push("/adminSendMessages");
       } else {
         // User fetched and updated
         setUser(fetchedUser);
