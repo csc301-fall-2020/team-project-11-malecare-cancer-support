@@ -369,7 +369,12 @@ const Messages = () => {
                   key={index}
                 >
                   {userList[keyName]}
-                  {(unread.indexOf(keyName) >= 0) && (<Badge dot size="default" />)}
+                  {(unread.indexOf(keyName) >= 0) && 
+                  (<Badge
+                    size="small"
+                    count={1}
+                    offset={[10, 0]}
+                    style={{ backgroundColor: '#d75056', color: '#d75056', marginTop: "-3px" }} />)}
                 </div>
               ))}
           </UserList>
