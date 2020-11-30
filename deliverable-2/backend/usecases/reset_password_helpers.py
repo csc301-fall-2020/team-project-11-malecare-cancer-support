@@ -5,6 +5,7 @@ from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 
 from ..models.user import User
+from .login_register_helpers import hash_str
 
 
 def send_email(sender_email, receiver_email, api_key, url):
@@ -21,7 +22,7 @@ def send_email(sender_email, receiver_email, api_key, url):
         raise e
 
 
-def get_token_by_user_id(user_id, key, expire=500):
+def get_token_by_user_id(user_id, key, expire=2000):
     return jwt.encode({'user_id': user_id, 'exp': time() + expire},
                       key=key)
 
@@ -36,4 +37,4 @@ def verify_token(token, key):
 
 
 def set_password(user_id, password):
-    User.objects(user_id=user_id).update(set__password=password)
+    User.objects(user_id=user_id).update(set__password=hash_str(password))

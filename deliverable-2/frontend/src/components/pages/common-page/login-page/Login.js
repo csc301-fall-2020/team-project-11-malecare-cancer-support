@@ -18,7 +18,7 @@ import {
 
 import { UserContext } from "../../../../contexts/UserContext";
 import { HOST_URL } from "../../../utils/sharedUrl";
-
+import { message, Popconfirm } from "antd";
 const LoginPageContainer = styled.div`
   position: absolute;
   width: 600px;
@@ -54,6 +54,35 @@ const Login = () => {
     localStorage.getItem("rememberUser") || false
   );
   const [errorMessage, setErrorMessage] = useState("");
+  const [visible, setVisible] = useState(false)
+  const [confirmLoading, setConfirmLoading] = useState(false)
+
+  const showPopconfirm = () => {
+    setVisible(true)
+  }
+
+  const handleOk = () => {
+    setConfirmLoading(true);
+    // setTimeout(() => {
+    //   setVisible(false);
+    //   setConfirmLoading(false);
+    // }, 2000);
+    axios
+      .post(HOST_URL + "/reset_password/email", { email: email })
+      .then((response) => {
+        message.success(response.data)
+        setConfirmLoading(false);
+      })
+      .catch((err) => {
+        message.error(err.response.data)
+        setConfirmLoading(false);
+      })
+  };
+
+  const handleCancel = () => {
+    console.log('Clicked cancel button');
+    setVisible(false);
+  };
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -66,10 +95,10 @@ const Login = () => {
     fetchUser();
   }, [history]);
 
-  const handleChangePassword = async () => {
-    // Logic of forgot password goes here
-    alert("You forgot your password.");
-  };
+  // const handleChangePassword = async () => {
+  //   // Logic of forgot password goes here
+  //   alert("You forgot your password.");
+  // };
 
   const handleLogin = async () => {
     if (_.isEmpty(email) || _.isEmpty(password)) {
@@ -125,7 +154,17 @@ const Login = () => {
         }}
       />
       <ForgotPasswordSectionContainer>
-        <ForgotPasswordButton onClick={handleChangePassword}>
+        <Popconfirm
+          title='Please enter your email correctly, then click "Send Email".
+           An email will be sent by us to your mailbox to reset your password. '
+          okText="Send Email"
+          visible={visible}
+          onConfirm={handleOk}
+          okButtonProps={{ loading: confirmLoading }}
+          onCancel={handleCancel}>
+
+        </Popconfirm>
+        <ForgotPasswordButton onClick={showPopconfirm}>
           Forgot Password?
         </ForgotPasswordButton>
       </ForgotPasswordSectionContainer>

@@ -10,6 +10,7 @@ import SignUp from "./pages/common-page/signup-page/SignUp";
 
 // Customer pages
 import Account from "./pages/customer-page/account-page/Account";
+import ResetPassword from "./pages/customer-page/account-page/ResetPassword";
 import Matches from "./pages/customer-page/matches-page/Matches";
 import Messages from "./pages/customer-page/messages-page/Messages";
 import UserProfile from "./pages/customer-page/profile-page/UserProfile";
@@ -46,7 +47,7 @@ const App = () => {
             <Route path="/me" component={MyProfileContainer} />
             <Route path="/requests" component={Requests} />
             <Route path="/profile/:id" component={UserProfile} />
-
+            <Route path="/changePassword/:id" component={ResetPassword} />
             {/* Admin routes */}
             <Route path="/adminHandleReports" component={AdminHandleReports} />
             <Route path="/adminSendMessages" component={AdminSendMessages} />
