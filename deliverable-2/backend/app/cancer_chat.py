@@ -17,7 +17,7 @@ from ..usecases import administrator_filter_helpers, \
     reset_password_helpers
 
 from ..util import helpers
-
+from .login_page import login_page
 login_manager = LoginManager()
 
 app = Flask(__name__, static_folder='../../frontend/build/static',
@@ -31,6 +31,7 @@ socketio = SocketIO(app, manage_session=False, cors_allowed_origins="*")
 SOCKET_ERROR_MSG = "Something was wrong."
 SOCKET_ON_SUCCESS_MSG = "Successfully sent"
 
+app.register_blueprint(login_page)
 
 # decorator for limiting access of admin-only api
 def admin_only(f):
@@ -122,15 +123,6 @@ def get_user_by_id():
     return login_register_helpers.get_user_by_user_id(user_id).get_json()
 
 
-# @app.route('/load_from_db/profile_picture')
-# def get_profile_picture():
-#     return jsonify(preload_data_helpers.get_profile_picture())
-#
-#
-# @app.route('/load_from_db/album_pictures')
-# def get_album_pictures():
-#     return jsonify(preload_data_helpers.get_album_pictures())
-
 
 @login_manager.unauthorized_handler
 def unauthorized():
@@ -142,23 +134,6 @@ def unauthorized():
 def logout():
     logout_user()
     return "logout"
-
-
-@app.route('/login', methods=['POST'])
-def login():
-    user_email = request.get_json()["email"]
-    if not login_register_helpers.email_already_existed(user_email):
-        return "Email or password is not correct", 412
-    if handle_report_helpers.check_user_in_black_list_by_email(user_email):
-        return "This account has been locked", 412
-    if login_register_helpers.verify_password_by_email(email=user_email,
-                                                       password=
-                                                       request.get_json()[
-                                                           "password"]):
-        login_user(login_register_helpers.get_user_by_email(email=user_email))
-        return jsonify(current_user.get_json())
-    else:
-        return "Email or password is not correct", 412
 
 
 @app.route('/current_user')
