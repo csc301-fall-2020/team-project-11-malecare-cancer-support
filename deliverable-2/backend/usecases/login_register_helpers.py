@@ -51,7 +51,7 @@ def create_new_user(email, password, date_of_birth, gender, cancer, purpose,
                     date_of_birth_bool=False,
                     medications_and_treatments_bool=False,
                     purpose_bool=False
-    )
+                    )
     new_user.save()
 
 
