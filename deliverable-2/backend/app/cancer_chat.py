@@ -16,6 +16,8 @@ from ..usecases import administrator_filter_helpers, \
     match_helpers, message_handle_helper, preload_data_helpers, \
     reset_password_helpers
 
+from ..util import helpers
+
 login_manager = LoginManager()
 
 app = Flask(__name__, static_folder='../../frontend/build/static',
@@ -410,10 +412,10 @@ def admin_get_filter_email():
         age_max=age_max,
         gender=gender
     )
-    output = {"email": []}
-    for email in email_lst:
-        output["email"].append(email)
-    return jsonify(output)
+    # output = {"email": []}
+    # for email in email_lst:
+    #     output["email"].append(email)
+    return jsonify(helpers.email_lst_to_dict(email_lst))
 
 
 @socketio.on('receive_msg')
@@ -660,6 +662,14 @@ def delete_user_by_email():
     else:
         result = "Email does not exists"
     return result
+
+
+@app.route('/report/all_emails', methods=['POST'])
+@admin_only
+def get_all_emails():
+    email_lst = administrator_filter_helpers.get_all_emails()
+
+    return jsonify(helpers.email_lst_to_dict(email_lst))
 
 
 @app.route('/delete_self', methods=['POST'])

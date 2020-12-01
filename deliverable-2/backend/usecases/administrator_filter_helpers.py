@@ -69,3 +69,6 @@ def get_email_from_admin_filter(include_cancer, exclude_cancer,
                                 Q(date_of_birth__lte=end_year)).values_list(
         'email')
     return query_result
+
+def get_all_emails():
+    return User.objects().only('email').values_list('email')
