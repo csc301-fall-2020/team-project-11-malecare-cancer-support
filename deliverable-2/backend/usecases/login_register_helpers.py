@@ -52,8 +52,7 @@ def create_new_user(email, password, date_of_birth, gender, cancer, purpose,
                     medications_and_treatments_bool = False,
                     purpose_bool = False,
                     medications = ['None'],
-                    treatments = ['None']
-    )
+                    treatments = ['None'])
     new_user.save()
 
 
