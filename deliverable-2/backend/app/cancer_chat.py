@@ -10,14 +10,12 @@ from flask_login import LoginManager, current_user, login_required, login_user, 
 from flask_socketio import SocketIO, disconnect
 
 from .config import Configuration
-from ..usecases import administrator_filter_helpers, \
-    customize_user_profile_helpers, delete_helpers, friend_handler_helpers, \
-    handle_report_helpers, handle_session_info_helpers, login_register_helpers, \
-    match_helpers, message_handle_helper, preload_data_helpers, \
+from .login_page import login_page
+from ..usecases import delete_helpers, handle_session_info_helpers, \
+    login_register_helpers, \
+    message_handle_helper, preload_data_helpers, \
     reset_password_helpers
 
-from ..util import helpers
-from .login_page import login_page
 login_manager = LoginManager()
 
 app = Flask(__name__, static_folder='../../frontend/build/static',
@@ -32,6 +30,7 @@ SOCKET_ERROR_MSG = "Something was wrong."
 SOCKET_ON_SUCCESS_MSG = "Successfully sent"
 
 app.register_blueprint(login_page)
+
 
 # decorator for limiting access of admin-only api
 def admin_only(f):
@@ -135,7 +134,6 @@ def logout():
     return "logout"
 
 
-
 @socketio.on('receive_msg')
 @authenticated_only
 def receive_msg(input_json):
@@ -166,15 +164,10 @@ def socket_connect():
     handle_session_info_helpers.save_session_id_to_user_id(user_id, session_id)
 
 
-
 def print_error():
     e = sys.exc_info()
     for i in e:
         print(i)
-
-
-
-
 
 
 @app.route('/delete_self', methods=['POST'])

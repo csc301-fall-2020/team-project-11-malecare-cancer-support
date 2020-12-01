@@ -1,18 +1,13 @@
-import sys
-from flask_socketio import SocketIO, disconnect
-
-
-from flask import jsonify, request, Blueprint
+from flask import Blueprint, jsonify, request
 from flask_login import current_user
-from .cancer_chat import login_required, socketio, authenticated_only, \
-    SOCKET_ERROR_MSG, SOCKET_ON_SUCCESS_MSG, print_error
-from ..usecases import message_handle_helper, handle_report_helpers, \
-    friend_handler_helpers, handle_session_info_helpers
 
+from .cancer_chat import SOCKET_ERROR_MSG, SOCKET_ON_SUCCESS_MSG, \
+    authenticated_only, login_required, print_error, socketio
+from ..usecases import friend_handler_helpers, handle_session_info_helpers
 
-
-friend_request_page = Blueprint('friend_request_page', __name__, static_folder='../../frontend/build/static',
-                       template_folder='../../frontend/build/')
+friend_request_page = Blueprint('friend_request_page', __name__,
+                                static_folder='../../frontend/build/static',
+                                template_folder='../../frontend/build/')
 
 
 # helper
@@ -64,7 +59,6 @@ def accept_friend_request(payload):
                       room=request.sid)
 
 
-
 @friend_request_page.route('/friend_requests/decline', methods=['POST'])
 @login_required
 def decline_friend_request():
@@ -85,5 +79,3 @@ def get_undecided_requests():
         friend_handler_helpers.
             get_all_undecided_friend_requests_by_receiver_uid(
             current_user.get_id()))
-
-

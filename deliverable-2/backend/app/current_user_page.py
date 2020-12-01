@@ -1,12 +1,13 @@
-from flask import jsonify, request, Blueprint
-from flask_login import current_user, login_user
+from flask import Blueprint, jsonify, request
+from flask_login import current_user
+
 from .cancer_chat import login_required
+from ..usecases import customize_user_profile_helpers, friend_handler_helpers, \
+    login_register_helpers
 
-from ..usecases import login_register_helpers, customize_user_profile_helpers,\
-    friend_handler_helpers
-
-current_user_page = Blueprint('current_user_page', __name__, static_folder='../../frontend/build/static',
-                       template_folder='../../frontend/build/')
+current_user_page = Blueprint('current_user_page', __name__,
+                              static_folder='../../frontend/build/static',
+                              template_folder='../../frontend/build/')
 
 
 @current_user_page.route('/current_user')
@@ -67,10 +68,10 @@ def change_current_user_profile_update():
     #                                        sex_orientation=my_json["sex_orientation"])
     return jsonify(login_register_helpers.get_user_by_user_id(my_id).get_json())
 
+
 @current_user_page.route('/current_user/profile/picture', methods=['POST'])
 def change_current_user_picture():
     return jsonify({"imgs": "upload picture successfully"})
-
 
 # @app.route('/current_user/profile/text_show', methods=['POST'])
 # def change_current_user_profile_text_show():
@@ -98,16 +99,16 @@ def change_current_user_picture():
 #     return jsonify(profile_boolean_helpers.get_user_json_by_user_id(my_id))
 
 
-    # print(request.form)
-    # print(request.files)
-    # print(request.files.get("file"))
-    # imgs = request.files.get("file")
-    # img = Image.open(imgs)
-    # buffered = BytesIO()
-    # img.save(buffered, format="PNG")
-    # img_str = base64.b64encode(buffered.getvalue()).decode("utf-8")
-    # customize_user_profile_helpers. \
-    #     set_profile_picture_by_user_id(current_user.get_id(), img_str)
+# print(request.form)
+# print(request.files)
+# print(request.files.get("file"))
+# imgs = request.files.get("file")
+# img = Image.open(imgs)
+# buffered = BytesIO()
+# img.save(buffered, format="PNG")
+# img_str = base64.b64encode(buffered.getvalue()).decode("utf-8")
+# customize_user_profile_helpers. \
+#     set_profile_picture_by_user_id(current_user.get_id(), img_str)
 
 
 # @app.route('/current_user/profile/get_picture', methods=['POST'])

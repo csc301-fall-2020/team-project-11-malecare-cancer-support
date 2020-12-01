@@ -1,12 +1,12 @@
-from flask import jsonify, request, Blueprint
+import pymongo
+from flask import Blueprint, jsonify, request
 from flask_login import current_user, login_user
 
 from ..usecases import login_register_helpers
 
-import pymongo
-
-register_page = Blueprint('register_page', __name__, static_folder='../../frontend/build/static',
-                       template_folder='../../frontend/build/')
+register_page = Blueprint('register_page', __name__,
+                          static_folder='../../frontend/build/static',
+                          template_folder='../../frontend/build/')
 
 
 @register_page.route('/signup', methods=['POST'])

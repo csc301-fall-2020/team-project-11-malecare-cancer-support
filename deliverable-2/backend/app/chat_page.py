@@ -1,10 +1,12 @@
-from flask import jsonify, request, Blueprint
+from flask import Blueprint, jsonify, request
 from flask_login import current_user
+
 from .cancer_chat import login_required
 from ..usecases import message_handle_helper
 
-chat_page = Blueprint('chat_page', __name__, static_folder='../../frontend/build/static',
-                       template_folder='../../frontend/build/')
+chat_page = Blueprint('chat_page', __name__,
+                      static_folder='../../frontend/build/static',
+                      template_folder='../../frontend/build/')
 
 
 @chat_page.route('/chat/new_message', methods=['POST'])
@@ -37,7 +39,8 @@ def mark_as_read():
 @chat_page.route('/chat/unread_msg_from', methods=['POST'])
 def get_unread_msg_from_friends_id():
     return jsonify(message_handle_helper \
-                   .unread_msg_sender_list_by_receiver_id(current_user.get_id()))
+                   .unread_msg_sender_list_by_receiver_id(
+        current_user.get_id()))
 
 
 @login_required

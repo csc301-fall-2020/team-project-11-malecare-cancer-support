@@ -1,19 +1,14 @@
-import sys
-from flask_socketio import SocketIO, disconnect
-
-
-from flask import jsonify, request, Blueprint
+from flask import Blueprint, jsonify, request
 from flask_login import current_user
-from .cancer_chat import login_required, socketio, authenticated_only, \
-    SOCKET_ERROR_MSG, SOCKET_ON_SUCCESS_MSG, print_error, admin_only
-from ..usecases import message_handle_helper, handle_report_helpers, \
-    friend_handler_helpers, handle_session_info_helpers,\
-    administrator_filter_helpers
+
+from .cancer_chat import SOCKET_ERROR_MSG, SOCKET_ON_SUCCESS_MSG, admin_only, \
+    authenticated_only, login_required, print_error, socketio
+from ..usecases import administrator_filter_helpers, friend_handler_helpers, \
+    handle_session_info_helpers, message_handle_helper
 from ..util import helpers
 
-
-
-admin_page = Blueprint('admin_page', __name__, static_folder='../../frontend/build/static',
+admin_page = Blueprint('admin_page', __name__,
+                       static_folder='../../frontend/build/static',
                        template_folder='../../frontend/build/')
 
 
@@ -53,6 +48,7 @@ def admin_get_filter_email():
     # for email in email_lst:
     #     output["email"].append(email)
     return jsonify(helpers.email_lst_to_dict(email_lst))
+
 
 @socketio.on('admin_send_msg')
 @admin_only
