@@ -59,14 +59,14 @@ const EmptyMessage = styled.div`
 `;
 
 const InfoContainer = styled.div`
-  height: 200px;
-  margin: 10px 20px;
+  height: 150px;
+  margin: 3px 20px;
 `;
 
 const BasicInfo = styled.span`
   font-size: 22px;
   display: block;
-  margin: 5px 0px;
+  margin: 3px 0px;
   text-align: left;
   height: 26px;
 `;
@@ -93,11 +93,17 @@ const SmallButton = styled.button`
 const AdminHandleReports = () => {
   const { user, setUser } = useContext(UserContext);
   const [reportsList, setReportsList] = useState([]);
+  const [blockedList, setBlockedList] = useState([]);
   const history = useHistory();
   const [loading, setLoading] = useState(true);
 
   const getReportList = async () => {
     const response = await axios.get(HOST_URL + "/report/history");
+    return response.data;
+  };
+  
+  const getBlackList = async () => {
+    const response = await axios.get(HOST_URL + "/report/black_list");
     return response.data;
   };
 
@@ -122,9 +128,10 @@ const AdminHandleReports = () => {
 
   const asyncReq = async () => {
     const reports = await getReportList();
-    if (reports) {
+    const blackList = await getBlackList();
+    if (reports && blackList) {
       setReportsList(reports);
-      console.log(reportsList);
+      setBlockedList(blackList);
       setLoading(false);
     }
   };
@@ -145,6 +152,7 @@ const AdminHandleReports = () => {
         <BorderContainer>
           <InfoContainer>
             <BasicInfo>Reported user id: {props.reported}</BasicInfo>
+            <BasicInfo>Reported user email: {props.email}</BasicInfo>
             <BasicInfo>Reported by: {props.reporter}</BasicInfo>
             <BasicInfo>Report detail: {props.detail}</BasicInfo>
           </InfoContainer>
@@ -154,7 +162,7 @@ const AdminHandleReports = () => {
             style={alignedButton}
             onClick={handleViewProfile.bind(this, props.reported)}
           >
-            View Profile
+            view profile
           </SmallButton>
           <SmallButton
             style={alignedButton}
@@ -172,6 +180,33 @@ const AdminHandleReports = () => {
       </div>
     );
   }
+
+  function BlockCard(props) {
+    return (
+      <div style={ReportContainer}>
+        <BorderContainer>
+          <InfoContainer>
+            <BasicInfo>User id: {props.userId}</BasicInfo>
+            <BasicInfo>User email: {props.email}</BasicInfo>
+          </InfoContainer>
+        </BorderContainer>
+        <div style={buttons}>
+          <SmallButton
+            style={alignedButton}
+            onClick={handleViewProfile.bind(this, props.userId)}
+          >
+            view profile
+          </SmallButton>
+          <SmallButton
+            style={alignedButton}
+          >
+            unblock user
+          </SmallButton>
+        </div>
+      </div>
+    );
+  }
+
   return loading ? (
     <PulseLoader
       css={loaderCSS}
@@ -189,6 +224,7 @@ const AdminHandleReports = () => {
               key={index}
               reportId={item["report_id"]}
               reported={item["reported_uid"]}
+              email={item["reported_email"]}
               reporter={item["reporter_uid"]}
               detail={item["report_detail"]}
             />
@@ -196,6 +232,19 @@ const AdminHandleReports = () => {
         })}
       {reportsList.length === 0 && (
         <EmptyMessage>There are currently no reports. </EmptyMessage>
+      )}
+      <ReportTitle>Blocked Users</ReportTitle>
+      {blockedList &&
+        blockedList.map((item, index) => {
+          return (
+            <BlockCard
+              key={index}
+              userId={item["uid"]}
+            />
+          );
+        })}
+      {blockedList.length === 0 && (
+        <EmptyMessage>There are currently no blocked users. </EmptyMessage>
       )}
     </ReportPageContainer>
   );
