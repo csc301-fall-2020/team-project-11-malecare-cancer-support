@@ -4,7 +4,7 @@ from mongoengine.queryset.visitor import Q
 
 from ..models.session import Session
 from ..models.user import User
-
+from ..util import helpers
 
 def filter_users(treatments, cancer_types, medications, sex, age_min, age_max):
     # Geo need implement later Latitude and longitude min max
@@ -21,10 +21,11 @@ def get_user_id_from_admin_filter(include_cancer, exclude_cancer,
                                   include_treatment, exclude_treatment,
                                   include_medication, exclude_medication,
                                   gender, age_min, age_max):
-    start_year = datetime.datetime(datetime.datetime.utcnow().year - age_max, 1,
-                                   1)
-    end_year = datetime.datetime(datetime.datetime.utcnow().year - age_min, 12,
-                                 31)
+    # start_year = datetime.datetime(datetime.datetime.utcnow().year - age_max, 1,
+    #                                1)
+    # end_year = datetime.datetime(datetime.datetime.utcnow().year - age_min, 12,
+    #                              31)
+    start_year, end_year = helpers.get_start_end_year(age_min=age_min, age_max=age_max)
     query_result = User.objects(Q(cancer__in=include_cancer) &
                                 Q(cancer__nin=exclude_cancer) &
                                 Q(treatments__exists=True) &
@@ -48,11 +49,12 @@ def get_email_from_admin_filter(include_cancer, exclude_cancer,
                                 include_treatment, exclude_treatment,
                                 include_medication, exclude_medication, gender,
                                 age_min, age_max):
-    print("111111111111")
-    start_year = datetime.datetime(datetime.datetime.utcnow().year - age_max, 1,
-                                   1)
-    end_year = datetime.datetime(datetime.datetime.utcnow().year - age_min, 12,
-                                 31)
+    # print("111111111111")
+    # start_year = datetime.datetime(datetime.datetime.utcnow().year - age_max, 1,
+    #                                1)
+    # end_year = datetime.datetime(datetime.datetime.utcnow().year - age_min, 12,
+    #                              31)
+    start_year, end_year = helpers.get_start_end_year(age_min=age_min, age_max=age_max)
     query_result = User.objects(Q(cancer__in=include_cancer) &
                                 Q(cancer__nin=exclude_cancer) &
                                 Q(treatments__exists=True) &

@@ -176,11 +176,13 @@ const Matches = () => {
       // TODO: Maybe fill the filter item? Make it filter nothing?
     } else {
       setLoading(true);
+      console.log("SELECTOR REGION", region)
       const myMatches = await filterMatches(
         filterSexOrientation,
         filterGender,
         filterPurpose, 
-        includeAges
+        includeAges,
+        region
       );
       console.log(myMatches);
       if (myMatches) {
@@ -203,7 +205,21 @@ const Matches = () => {
         history.push("/adminSendMessages");
       } else {
         // User fetched and updated
+        // setRegion(fetchedUser.region)
         setUser(fetchedUser);
+        // console.log("FETCHED USER REGION", fetchedUser.region)
+        const myMatches = await filterMatches(
+          filterSexOrientation,
+          filterGender,
+          filterPurpose,
+          includeAges,
+          {}
+        );
+        console.log("match", myMatches);
+        if (myMatches) {
+          setMatches(myMatches);
+        }
+        // setLoading(false);
       }
     };
 
@@ -212,24 +228,27 @@ const Matches = () => {
       setLoading(false);
     };
 
-    const findMatches = async () => {
-      const myMatches = await filterMatches(
-        filterSexOrientation,
-        filterGender,
-        filterPurpose
-      );
-      console.log("match", myMatches);
-      if (myMatches) {
-        setMatches(myMatches);
-      }
-    };
+    // const findMatches = async (mRegion) => {
+    //   console.log(mRegion)
+    //   const myMatches = await filterMatches(
+    //     filterSexOrientation,
+    //     filterGender,
+    //     filterPurpose,
+    //     includeAges,
+    //     mRegion
+    //   );
+    //   console.log("match", myMatches);
+    //   if (myMatches) {
+    //     setMatches(myMatches);
+    //   }
+    // };
 
     const socket = io.connect(HOST_URL, { reconnection: true });
     socket.emit("save_session");
     setMSocket(socket);
 
     fetchUser();
-    findMatches();
+    // findMatches();
     fetchUserDetailSelections();
 
     return () => {
@@ -314,6 +333,8 @@ const Matches = () => {
           region={region}
           setRegion={setRegion}
         />
+        <Space height="36px" />
+        <div>(Your current location by default)</div>
         <Space height="36px" />
         <PrimaryButton onClick={handleApply}>Apply</PrimaryButton>
         <Space height="24px" />
