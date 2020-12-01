@@ -149,7 +149,7 @@ def login():
     user_email = request.get_json()["email"]
     if not login_register_helpers.email_already_existed(user_email):
         return "Email or password is not correct", 412
-    if not handle_report_helpers.check_user_in_black_list_by_email(user_email):
+    if handle_report_helpers.check_user_in_black_list_by_email(user_email):
         return "This account has been locked", 412
     if login_register_helpers.verify_password_by_email(email=user_email,
                                                        password=
@@ -643,12 +643,22 @@ def get_reported_user_message():
         reported_uid, reporter_uid)
 
 
-@app.route('/admin_sign_up', methods=["POST"])
-def create_admin():
-    my_json = request.get_json()
-    login_register_helpers.create_admin(email=my_json["email"],
-                                        password=my_json["password"])
-    return "Create admin successfully"
+# @app.route('/report/email_by_id', methods=['POST'])
+# @login_required
+# @admin_only
+# def get_email_by_user_id():
+#     user_id = request.get_json()['user_id']
+#     if login_register_helpers.is_user_id_existed(user_id):
+#         return jsonify(login_register_helpers.get_email_by_id(user_id=user_id))
+#     return "[User deleted]"
+
+
+# @app.route('/admin_sign_up', methods=["POST"])
+# def create_admin():
+#     my_json = request.get_json()
+#     login_register_helpers.create_admin(email=my_json["email"],
+#                                         password=my_json["password"])
+#     return "Create admin successfully"
 
 
 @app.route('/report/delete_user', methods=['POST'])

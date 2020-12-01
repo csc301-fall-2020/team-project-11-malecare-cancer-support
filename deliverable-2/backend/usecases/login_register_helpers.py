@@ -74,4 +74,8 @@ def get_user_id_by_user_email(email):
 
 
 def is_user_id_existed(user_id):
-    return User.objects(user_id=user_id) is not None
+    return User.objects(user_id=user_id).first() is not None
+
+
+def get_email_by_id(user_id):
+    return User.objects(user_id=user_id).only('email').values_list('email')[0]

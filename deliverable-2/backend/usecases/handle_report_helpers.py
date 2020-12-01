@@ -63,4 +63,4 @@ def get_all_black_list():
 # return True if user in black_list
 def check_user_in_black_list_by_email(email):
     uid = login_register_helpers.get_user_id_by_user_email(email)
-    return BlackList.objects(uid=uid) is not None
+    return BlackList.objects(uid=uid).first() is not None
