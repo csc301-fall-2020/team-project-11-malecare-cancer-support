@@ -136,44 +136,6 @@ def logout():
 
 
 
-@app.route('/admin')
-@login_required
-@admin_only
-def get_admin_only_page():
-    friend_handler_helpers.add_friend_to_all_users(current_user.get_id())
-    return "Yes you are admin"
-
-
-@app.route('/admin/get_filter_email', methods=['POST'])
-@login_required
-@admin_only
-def admin_get_filter_email():
-    input_json = request.get_json()
-    gender = input_json['includeGenders']
-    age_min, age_max = input_json['includeAges']
-    include_cancer = input_json['includeCancerTypes']
-    exclude_cancer = input_json['excludeCancerTypes']
-    include_medication = input_json['includeMedications']
-    exclude_medication = input_json['excludeMedications']
-    include_treatment = input_json['includeTreatments']
-    exclude_treatment = input_json['excludeTreatments']
-    email_lst = administrator_filter_helpers.get_email_from_admin_filter(
-        include_cancer=include_cancer,
-        include_medication=include_medication,
-        include_treatment=include_treatment,
-        exclude_cancer=exclude_cancer,
-        exclude_medication=exclude_medication,
-        exclude_treatment=exclude_treatment,
-        age_min=age_min,
-        age_max=age_max,
-        gender=gender
-    )
-    # output = {"email": []}
-    # for email in email_lst:
-    #     output["email"].append(email)
-    return jsonify(helpers.email_lst_to_dict(email_lst))
-
-
 @socketio.on('receive_msg')
 @authenticated_only
 def receive_msg(input_json):
@@ -204,119 +166,11 @@ def socket_connect():
     handle_session_info_helpers.save_session_id_to_user_id(user_id, session_id)
 
 
-@socketio.on('admin_send_msg')
-@admin_only
-@authenticated_only
-def admin_send_msg(input_json):
-    try:
-        print(input_json)
-        gender = input_json['includeGenders']
-        age_min, age_max = input_json['includeAges']
-        include_cancer = input_json['includeCancerTypes']
-        exclude_cancer = input_json['excludeCancerTypes']
-        include_medication = input_json['includeMedications']
-        exclude_medication = input_json['excludeMedications']
-        include_treatment = input_json['includeTreatments']
-        exclude_treatment = input_json['excludeTreatments']
-        message = input_json["message"]
-        print("got socket")
-        uid_lst = administrator_filter_helpers.get_user_id_from_admin_filter(
-            include_cancer=include_cancer,
-            include_medication=include_medication,
-            include_treatment=include_treatment,
-            exclude_cancer=exclude_cancer,
-            exclude_medication=exclude_medication,
-            exclude_treatment=exclude_treatment,
-            age_min=age_min,
-            age_max=age_max,
-            gender=gender
-        )
-        for uid in uid_lst:
-            sid = handle_session_info_helpers.get_session_id_by_user_id(uid)
-            print(sid)
-            message_handle_helper.create_new_text_msg(
-                sender_uid=current_user.get_id(),
-                receiver_uid=uid, text=message)
-            socketio.emit('chat', "send to all filter users",
-                          room=sid)
-
-        socketio.emit('to_admin', SOCKET_ON_SUCCESS_MSG, room=request.sid)
-    except:
-        # e = sys.exc_info()[0]
-        # print("<p>Error: %s</p>" % e)
-        print_error()
-        socketio.emit('to_admin', SOCKET_ERROR_MSG, room=request.sid)
-
-
-@socketio.on('new_friend_request')
-@authenticated_only
-def new_friend_request(payload):
-    try:
-        receiver_id = payload['receiver']
-        sender_id = current_user.get_id()
-        _friend_request_helper({"receiver": receiver_id,
-                                "sender": sender_id},
-                               friend_handler_helpers.create_new_friend_request)
-        session_id = handle_session_info_helpers.get_session_id_by_user_id(
-            receiver_id)
-        if session_id:
-            socketio.emit('get_friend_request', room=session_id)
-        socketio.emit('return_new_friend_request', SOCKET_ON_SUCCESS_MSG,
-                      room=request.sid)
-    except:
-        print_error()
-        socketio.emit('return_new_friend_request', SOCKET_ERROR_MSG,
-                      room=request.sid)
-
-
-@socketio.on('accept_friend_request')
-@authenticated_only
-def accept_friend_request(payload):
-    try:
-        sender_id = payload['sender']
-        receiver_id = current_user.get_id()
-        _friend_request_helper({"receiver": receiver_id,
-                                "sender": sender_id},
-                               friend_handler_helpers.accept_friend_request)
-
-        session_id = handle_session_info_helpers.get_session_id_by_user_id(
-            sender_id)
-        if session_id:
-            socketio.emit('friend_request_accepted', room=session_id)
-        socketio.emit('return_accept_friend_request', SOCKET_ON_SUCCESS_MSG,
-                      room=request.sid)
-    except:
-        print_error()
-        socketio.emit('return_accept_friend_request', SOCKET_ERROR_MSG,
-                      room=request.sid)
-
 
 def print_error():
     e = sys.exc_info()
     for i in e:
         print(i)
-
-
-
-
-@app.route('/match', methods=['POST'])
-@login_required
-def find_matches():
-    my_json = request.get_json()
-    age_min, age_max = my_json["age"]
-    region = my_json["region"]
-    if region == {}:
-        region = current_user.get_json()['region']
-
-    return jsonify(match_helpers.find_match(
-        sex_orientation_lst=my_json["sex_orientation"],
-        gender_lst=my_json["gender"],
-        purpose_lst=my_json["purpose"],
-        cancer_type_lst=current_user.get_json()['cancer'],
-        current_uid=current_user.get_id(),
-        age_max=age_max,
-        age_min=age_min,
-        region=region))
 
 
 

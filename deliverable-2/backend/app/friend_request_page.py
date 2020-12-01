@@ -1,17 +1,69 @@
+import sys
+from flask_socketio import SocketIO, disconnect
+
+
 from flask import jsonify, request, Blueprint
 from flask_login import current_user
-from .cancer_chat import login_required, admin_only
+from .cancer_chat import login_required, socketio, authenticated_only, \
+    SOCKET_ERROR_MSG, SOCKET_ON_SUCCESS_MSG, print_error
 from ..usecases import message_handle_helper, handle_report_helpers, \
-    friend_handler_helpers
+    friend_handler_helpers, handle_session_info_helpers
+
+
 
 friend_request_page = Blueprint('friend_request_page', __name__, static_folder='../../frontend/build/static',
                        template_folder='../../frontend/build/')
 
 
-
+# helper
 def _friend_request_helper(user_dict, func):
     func(user_dict["sender"],
          user_dict["receiver"])
+
+
+@socketio.on('new_friend_request')
+@authenticated_only
+def new_friend_request(payload):
+    try:
+        receiver_id = payload['receiver']
+        sender_id = current_user.get_id()
+        _friend_request_helper({"receiver": receiver_id,
+                                "sender": sender_id},
+                               friend_handler_helpers.create_new_friend_request)
+        session_id = handle_session_info_helpers.get_session_id_by_user_id(
+            receiver_id)
+        if session_id:
+            socketio.emit('get_friend_request', room=session_id)
+        socketio.emit('return_new_friend_request', SOCKET_ON_SUCCESS_MSG,
+                      room=request.sid)
+    except:
+        print_error()
+        socketio.emit('return_new_friend_request', SOCKET_ERROR_MSG,
+                      room=request.sid)
+
+
+@socketio.on('accept_friend_request')
+@authenticated_only
+def accept_friend_request(payload):
+    try:
+        sender_id = payload['sender']
+        receiver_id = current_user.get_id()
+        _friend_request_helper({"receiver": receiver_id,
+                                "sender": sender_id},
+                               friend_handler_helpers.accept_friend_request)
+
+        session_id = handle_session_info_helpers.get_session_id_by_user_id(
+            sender_id)
+        if session_id:
+            socketio.emit('friend_request_accepted', room=session_id)
+        socketio.emit('return_accept_friend_request', SOCKET_ON_SUCCESS_MSG,
+                      room=request.sid)
+    except:
+        print_error()
+        socketio.emit('return_accept_friend_request', SOCKET_ERROR_MSG,
+                      room=request.sid)
+
+
 
 @friend_request_page.route('/friend_requests/decline', methods=['POST'])
 @login_required
@@ -33,3 +85,5 @@ def get_undecided_requests():
         friend_handler_helpers.
             get_all_undecided_friend_requests_by_receiver_uid(
             current_user.get_id()))
+
+
