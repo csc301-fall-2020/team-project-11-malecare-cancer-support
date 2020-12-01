@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 
 import styled from "styled-components";
 import { Space, PrimaryButton } from "../../share-styled-component";
-import { Select, message } from "antd";
+import { Select, message, Modal } from "antd";
 import "antd/dist/antd.css";
 import { getCurrentUser } from "../../utils/helpers";
 import { PulseLoader } from "react-spinners";
@@ -35,24 +35,31 @@ const loaderCSS = css`
 const AdminDeleteUser = () => {
   const { setUser } = useContext(UserContext);
   const history = useHistory();
-  const [toDelete, setToDelete] = useState("");
+  const [toDelete, setToDelete] = useState([]);
   const [loading1, setLoading1] = useState(true);
   const [loading2, setLoading2] = useState(true);
   const [emailList, setEmailList] = useState([]);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const showModal = () => {
+    setIsModalVisible(true);
+    console.log("11111", toDelete);
+  };
+
+  const handleOk = () => {
+    setToDelete([]);
+    handleDelete();
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
 
   const getEmailList = async () => {
     const response = await axios.post(HOST_URL + "/report/all_emails");
     return response.data;
   };
-
-  const o = [];
-  for (let i = 0; i < 100000; i++) {
-    const value = `${i.toString(36)}${i}`;
-    o.push({
-      value,
-      disabled: i === 10,
-    });
-  }
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -74,9 +81,13 @@ const AdminDeleteUser = () => {
 
   const getEmail = async () => {
     const options = await getEmailList();
+    console.log(options);
     if (options) {
-      setEmailList(options);
-      console.log(options);
+      const temp = options.email.map((value) => {
+        return { value: value };
+      });
+      console.log(temp);
+      setEmailList(temp);
       setLoading2(false);
     }
   };
@@ -92,7 +103,7 @@ const AdminDeleteUser = () => {
   }
 
   function handleDelete() {
-    const requestBody = { email: toDelete.split() };
+    const requestBody = { email: toDelete };
     console.log("delete", requestBody);
     axios
       .post(HOST_URL + "/reset_password/email", requestBody)
@@ -113,18 +124,30 @@ const AdminDeleteUser = () => {
     ></PulseLoader>
   ) : (
     <MainContainer>
-      <MainTitle>Enter to delete user</MainTitle>
+      <MainTitle>Enter email to delete user</MainTitle>
       <Space height="24px" />
-      <Select
-        mode="multiple"
-        style={{ width: "40%" }}
-        placeholder=""
-        defaultValue={[]}
-        onChange={handleChange}
-        options={emailList}
-      />
+      {emailList ? (
+        <Select
+          mode="multiple"
+          style={{ width: "48%" }}
+          placeholder=""
+          onChange={handleChange}
+          options={emailList}
+        />
+      ) : null}
       <Space height="24px" />
-      <PrimaryButton onClick={handleDelete}>Delete</PrimaryButton>
+      <PrimaryButton onClick={showModal}>Delete</PrimaryButton>
+      <Modal
+        title="Delete confirm"
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <h3>Are you sure you want to delete these user?</h3>
+        {toDelete.map((e) => (
+          <p>{e}</p>
+        ))}
+      </Modal>
     </MainContainer>
   );
 };
