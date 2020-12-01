@@ -35,6 +35,9 @@ const Nav = () => {
           <NavLink to="/adminSendMessages">
             <li>Send Messages</li>
           </NavLink>
+          <NavLink to="/adminDeleteUser">
+            <li>Delete User</li>
+          </NavLink>
           <LogoutSection onClick={logoutUser}>Logout</LogoutSection>
         </>
       );

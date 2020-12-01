@@ -20,7 +20,7 @@ import Requests from "./pages/customer-page/requests-page/Requests";
 // Admin pages
 import AdminSendMessages from "./pages/admin-page/adminSendMessage";
 import AdminHandleReports from "./pages/admin-page/adminHandleReports";
-
+import AdminDeleteUser from "./pages/admin-page/adminDeleteUser";
 import { UserContext } from "../contexts/UserContext";
 
 const App = () => {
@@ -51,6 +51,7 @@ const App = () => {
             {/* Admin routes */}
             <Route path="/adminHandleReports" component={AdminHandleReports} />
             <Route path="/adminSendMessages" component={AdminSendMessages} />
+            <Route path="/adminDeleteUser" component={AdminDeleteUser} />
           </Switch>
         </MainPageContainer>
       </UserContext.Provider>
