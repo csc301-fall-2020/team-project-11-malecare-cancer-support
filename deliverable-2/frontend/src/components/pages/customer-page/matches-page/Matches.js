@@ -5,6 +5,7 @@ import { UserContext } from "../../../../contexts/UserContext";
 import { getAge, getCurrentUser } from "../../../utils/helpers";
 import { filterMatches } from "./helper";
 import styled from "styled-components";
+import RegionDropdown from "../../../component-library/RegionDropdown";
 import SliderSelection from "../../../component-library/SliderSelection";
 import img from "../../../../assets/UserPhoto.png";
 import MultiCardSelection from "../../../component-library/MultiCardSelection";
@@ -154,6 +155,7 @@ const Matches = () => {
   const [filterSexOrientation, setFilteredSexOrientation] = useState([
     "heterosexual",
   ]);
+  const [region, setRegion] = useState({});
   const [includeAges, setIncludeAges] = useState([18, 100]);
   const [filterGender, setFilterGender] = useState(["male"]);
   const [filterPurpose, setFilterPurpose] = useState(["looking for love"]);
@@ -306,7 +308,13 @@ const Matches = () => {
           roundedCard
           options={userDetailSelections.sexualOrientationOptions || []}
         />
-        <Space height="24px" />
+        <Space height="12px" />
+        <RegionDropdown
+          label="Location:"
+          region={region}
+          setRegion={setRegion}
+        />
+        <Space height="36px" />
         <PrimaryButton onClick={handleApply}>Apply</PrimaryButton>
         <Space height="24px" />
       </FilterContainer>
