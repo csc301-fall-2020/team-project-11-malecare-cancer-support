@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import io from "socket.io-client";
 import { UserContext } from "../../../../contexts/UserContext";
 import { getAge, getCurrentUser } from "../../../utils/helpers";
-import { filterMatches } from "./helper";
+import { filterMatches, getDefaultFilter } from "./helper";
 import styled from "styled-components";
 import RegionDropdown from "../../../component-library/RegionDropdown";
 import SliderSelection from "../../../component-library/SliderSelection";
@@ -207,11 +207,26 @@ const Matches = () => {
         // User fetched and updated
         // setRegion(fetchedUser.region)
         setUser(fetchedUser);
+        const defaultFilter = getDefaultFilter(
+          fetchedUser.gender,
+          fetchedUser.sex_orientation,
+          fetchedUser.purpose
+          )
+        setFilterGender(defaultFilter.defaultGender)
+        setFilteredSexOrientation(defaultFilter.defaultSexOrientation)
+        setFilterPurpose(defaultFilter.defaultPurpose)
         // console.log("FETCHED USER REGION", fetchedUser.region)
+        // const myMatches = await filterMatches(
+        //   filterSexOrientation,
+        //   filterGender,
+        //   filterPurpose,
+        //   includeAges,
+        //   {}
+        // );
         const myMatches = await filterMatches(
-          filterSexOrientation,
-          filterGender,
-          filterPurpose,
+          defaultFilter.defaultSexOrientation,
+          defaultFilter.defaultGender,
+          defaultFilter.defaultPurpose,
           includeAges,
           {}
         );
@@ -329,14 +344,12 @@ const Matches = () => {
         />
         <Space height="12px" />
         <RegionDropdown
-          label="Location:"
+          label="Location (Your current location by default):"
           region={region}
           setRegion={setRegion}
         />
-        <Space height="36px" />
-        <div>(Your current location by default)</div>
-        <Space height="36px" />
-        <PrimaryButton onClick={handleApply}>Apply</PrimaryButton>
+        <Space height="48px" />
+        <PrimaryButton onClick={handleApply}>Find Matches</PrimaryButton>
         <Space height="24px" />
       </FilterContainer>
       <MatchContainer>
