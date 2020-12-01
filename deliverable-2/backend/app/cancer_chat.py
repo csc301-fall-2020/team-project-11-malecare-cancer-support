@@ -323,7 +323,9 @@ def signup():
                 cancer=my_json["cancer"],
                 purpose=my_json["purpose"],
                 sex_orientation=my_json['sex_orientation'],
-                region=my_json["region"]
+                region=my_json["region"],
+                medications = ["None"],
+                treatments = ["None"]
             )
             login_user(
                 login_register_helpers.get_user_by_email(my_json["email"]))
