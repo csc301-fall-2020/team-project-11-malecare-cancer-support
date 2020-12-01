@@ -652,10 +652,13 @@ def create_admin():
 @app.route('/report/delete_user', methods=['POST'])
 @login_required
 @admin_only
-def delete_user_by_uid():
+def delete_user_by_email():
     my_json = request.get_json()
-    uid = my_json["uid"]
-    result = delete_helpers.delete_user_by_uid(uid)
+    email = my_json["email"]
+    if login_register_helpers.email_already_existed(email):
+        result = delete_helpers.delete_user_by_email(email)
+    else:
+        result = "Email does not exists"
     return result
 
 
