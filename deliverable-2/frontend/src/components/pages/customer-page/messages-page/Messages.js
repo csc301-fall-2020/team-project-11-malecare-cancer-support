@@ -328,13 +328,13 @@ const Messages = () => {
       .then((response) => {
         if (response.status === 200) {
           console.log("success report");
+          message.success("Report success!");
         }
       })
       .catch((err) => {
         console.log(err);
         message.error("Error occurs");
       });
-    message.success("Report success!");
   };
 
   const handleCancel = () => {
@@ -370,7 +370,13 @@ const Messages = () => {
       );
     }
   };
-
+  const handleOnKeyDown = (e) => {
+    if (e.keyCode === 13) {
+        e.preventDefault();
+        console.log("KEY DOWN")
+        send()
+    }
+  }
   const markAsRead = (userId) => {
     axios
       .post(HOST_URL + "/chat/update_message", { sender: userId })
@@ -483,6 +489,7 @@ const Messages = () => {
               ref={inputRef}
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
+              onKeyDown={handleOnKeyDown}
             />
             <div onClick={send}>send</div>
           </Send>
