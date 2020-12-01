@@ -586,9 +586,9 @@ def find_matches():
 
 
 @app.route('/report/history')
-@login_required
+# @login_required
 def get_all_undecided_report_history():
-    return handle_report_helpers.get_all_undecided_report()
+    return jsonify(handle_report_helpers.get_all_undecided_report())
 
 
 @app.route('/report/block', methods=['POST'])

@@ -1,9 +1,11 @@
 import random
 import string
+import json
 
 from ..models.black_list import BlackList
 from ..models.report_history import ReportHistory
 from ..usecases import login_register_helpers
+from ..models.user import User
 
 ACCEPT_REPORT = \
     "the report has been accepted, user {} has been added to black list"
@@ -28,8 +30,17 @@ def create_new_report(reporter_uid, reported_uid, report_detail):
 
 
 def get_all_undecided_report():
-    all_undecided_report = ReportHistory.objects(is_handle=False)
-    return all_undecided_report.to_json()
+    all_undecided_report = ReportHistory.objects(is_handle=False).to_json()
+    report_lst = json.loads(all_undecided_report)
+
+    for r in report_lst:
+        user = User.objects(user_id=r['reported_uid'])
+        if user is not None:
+            email = user.only('email').values_list('email')[0]
+        else:
+            email = "[Deleted User]"
+        r['reported_email'] = email
+    return report_lst
 
 
 def block_report(report_id):
