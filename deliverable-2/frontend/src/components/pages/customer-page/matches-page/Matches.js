@@ -5,6 +5,7 @@ import { UserContext } from "../../../../contexts/UserContext";
 import { getAge, getCurrentUser } from "../../../utils/helpers";
 import { filterMatches } from "./helper";
 import styled from "styled-components";
+import SliderSelection from "../../../component-library/SliderSelection";
 import img from "../../../../assets/UserPhoto.png";
 import MultiCardSelection from "../../../component-library/MultiCardSelection";
 import {
@@ -153,6 +154,7 @@ const Matches = () => {
   const [filterSexOrientation, setFilteredSexOrientation] = useState([
     "heterosexual",
   ]);
+  const [includeAges, setIncludeAges] = useState([18, 100]);
   const [filterGender, setFilterGender] = useState(["male"]);
   const [filterPurpose, setFilterPurpose] = useState(["looking for love"]);
   const [matches, setMatches] = useState([]);
@@ -165,6 +167,7 @@ const Matches = () => {
     if (
       _.isEmpty(filterGender) ||
       _.isEmpty(filterPurpose) ||
+      _.isEmpty(includeAges) ||
       _.isEmpty(filterSexOrientation)
     ) {
       message.warning("Empty filter");
@@ -174,7 +177,8 @@ const Matches = () => {
       const myMatches = await filterMatches(
         filterSexOrientation,
         filterGender,
-        filterPurpose
+        filterPurpose, 
+        includeAges
       );
       console.log(myMatches);
       if (myMatches) {
@@ -286,6 +290,13 @@ const Matches = () => {
           updateSelections={setFilterPurpose}
           roundedCard
           options={userDetailSelections.purposeOptions || []}
+        />
+        <Space height="12px" />
+        <SliderSelection
+          sectionLabelSize="24px"
+          label="Ages: "
+          includeAges={includeAges}
+          setIncludeAges={setIncludeAges}
         />
         <Space height="12px" />
         <MultiCardSelection
