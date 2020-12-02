@@ -11,6 +11,7 @@ ACCEPT_REPORT = \
     "the report has been accepted, user {} has been added to black list"
 DECLINE_REPORT = "the report has been declined"
 CREATE_SUCCESS = "the report has been created successfully"
+ALREADY_BLOCKED = "The user is already blocked. "
 
 
 def generate_random_report_id(length):
@@ -38,7 +39,7 @@ def get_all_undecided_report():
         if user is not None:
             email = user.only('email').values_list('email')[0]
         else:
-            email = "[Deleted User]"
+            email = "[User deleted]"
         r['reported_email'] = email
     return report_lst
 
@@ -46,9 +47,12 @@ def get_all_undecided_report():
 def block_report(report_id):
     ReportHistory.objects(report_id=report_id).update(is_handle=True)
     uid = ReportHistory.objects(report_id=report_id).first().get_reported_uid()
-    new_black_user = BlackList(uid=uid)
-    new_black_user.save()
-    return ACCEPT_REPORT.format(uid)
+    if BlackList.objects(uid=uid).first() is not None:
+        new_black_user = BlackList(uid=uid)
+        new_black_user.save()
+        return ACCEPT_REPORT.format(uid)
+    else:
+        return ALREADY_BLOCKED
 
 
 def ignore_report(report_id):
@@ -57,7 +61,17 @@ def ignore_report(report_id):
 
 
 def get_all_black_list():
-    return BlackList.objects().to_json()
+    block_list =  BlackList.objects().to_json()
+    block_list = json.loads(block_list)
+    for i in block_list:
+        user_id = i['uid']
+        user = User.objects(user_id=user_id).first()
+        if User.objects(user_id=user_id).first() is not None:
+            i['email'] = user.get_json()['email']
+        else:
+            i['email'] = '[User deleted]'
+
+    return block_list
 
 
 # return True if user in black_list

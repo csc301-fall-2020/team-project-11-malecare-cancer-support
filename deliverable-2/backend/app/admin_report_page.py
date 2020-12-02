@@ -50,7 +50,7 @@ def new_report():
 @report_page.route('/report/black_list')
 @login_required
 def get_all_black_list():
-    return handle_report_helpers.get_all_black_list()
+    return jsonify(handle_report_helpers.get_all_black_list())
 
 
 @report_page.route('/report/check_reported_user', methods=['POST'])

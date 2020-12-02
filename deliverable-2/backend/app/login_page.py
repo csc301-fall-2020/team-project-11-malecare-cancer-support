@@ -25,7 +25,10 @@ def login():
             return jsonify(current_user.get_json())
         else:
             return "Email or password is not correct", 412
-    except pymongo.errors as e:
+    except pymongo.errors.AutoReconnect as e:
+        print(e)
+        return "Network connection failed", 500
+    except pymongo.errors.NetworkTimeout as e:
         print(e)
         return "Network connection failed", 500
     except Exception as e:
