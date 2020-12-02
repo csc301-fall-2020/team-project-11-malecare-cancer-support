@@ -92,8 +92,10 @@ def load_user(user_id):
 def get_user_by_id():
     my_json = request.get_json()
     user_id = my_json["user_id"]
-    return login_register_helpers.get_user_by_user_id(user_id).get_json()
-
+    if login_register_helpers.is_user_id_existed(user_id):
+        return login_register_helpers.get_user_by_user_id(user_id).get_json()
+    else:
+        return "User not found", 404
 
 @login_manager.unauthorized_handler
 def unauthorized():
