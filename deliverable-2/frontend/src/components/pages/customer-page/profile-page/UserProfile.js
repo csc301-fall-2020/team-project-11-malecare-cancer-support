@@ -120,33 +120,33 @@ const UserProfile = ({ match }) => {
             </Col>
           </Row>
           <p></p>
-          <Row>
-            <Col span={4}>Day of birth:</Col>
-            <Col span={12}>
-              {profileUser && profileUser.date_of_birth_bool
-                ? timeFormat(profileUser.date_of_birth)
-                : "The user choose to keep this information private."}
-            </Col>
-          </Row>
-          <p></p>
-          <Row>
-            <Col span={4}>Gender:</Col>
-            <Col span={12}>
-              {profileUser && profileUser.gender_bool
-                ? profileUser.gender
-                : "The user choose to keep this information private."}
-            </Col>
-          </Row>
-          <p></p>
-          <Row>
-            <Col span={4}>Sex-Orientation:</Col>
-            <Col span={12}>
-              {profileUser && profileUser.sex_orientation_bool
-                ? profileUser.sex_orientation
-                : "The user choose to keep this information private."}
-            </Col>
-          </Row>
-          <p></p>
+          {profileUser && profileUser.date_of_birth_bool ? (
+            <>
+              <Row>
+                <Col span={4}>Day of birth:</Col>
+                <Col span={12}>{timeFormat(profileUser.date_of_birth)} </Col>
+              </Row>
+              <p></p>
+            </>
+          ) : null}
+          {profileUser && profileUser.gender_bool ? (
+            <>
+              <Row>
+                <Col span={4}>Gender:</Col>
+                <Col span={12}>{profileUser.gender} </Col>
+              </Row>
+              <p></p>
+            </>
+          ) : null}
+          {profileUser && profileUser.sex_orientation_bool ? (
+            <>
+              <Row>
+                <Col span={4}>Sex-Orientation:</Col>
+                <Col span={12}>{profileUser.sex_orientation}</Col>
+              </Row>
+              <p></p>
+            </>
+          ) : null}
           <Row>
             <Col span={4}>Type(s) of cancer:</Col>
             <Col span={12}>
@@ -158,17 +158,19 @@ const UserProfile = ({ match }) => {
             </Col>
           </Row>
           <p></p>
-          <Row>
-            <Col span={4}>Purpose:</Col>
-            <Col span={12}>
-              {profileUser && profileUser.purpose_bool
-                ? profileUser.purpose.map((item, index) => {
+          {profileUser && profileUser.purpose_bool ? (
+            <>
+              <Row>
+                <Col span={4}>Purpose:</Col>
+                <Col span={12}>
+                  {profileUser.purpose.map((item, index) => {
                     return <div key={index}>{item}</div>;
-                  })
-                : "The user choose to keep this information private."}
-            </Col>
-          </Row>
-          <p></p>
+                  })}
+                </Col>
+              </Row>
+              <p></p>
+            </>
+          ) : null}
           <Row>
             <Col span={4}>Region:</Col>
             <Col span={12}>
@@ -187,30 +189,33 @@ const UserProfile = ({ match }) => {
             </Col>
           </Row>
           <p></p>
-          {/* {profileUser && profileUser.medications_and_treatments_bool ? ( */}
-          <Row>
-            <Col span={4}>Medication:</Col>
-            <Col span={12}>
-              {profileUser && profileUser.medications_and_treatments_bool
-                ? profileUser.medications.map((item, index) => {
-                    return <div key={index}>{item}</div>;
-                  })
-                : "The user choose to keep this information private."}
-            </Col>
-          </Row>
-          <p></p>
-          <Row>
-            <Col span={4}>Treatment:</Col>
-            <Col span={12}>
-              {profileUser && profileUser.medications_and_treatments_bool
-                ? profileUser.treatments.map((item, index) => {
-                    return <div key={index}>{item}</div>;
-                  })
-                : "The user choose to keep this information private."}
-            </Col>
-          </Row>
-          {/* ) : null} */}
-          <p></p>
+          {profileUser && profileUser.date_of_birth_bool ? (
+            <>
+              <Row>
+                <Col span={4}>Medication:</Col>
+                <Col span={12}>
+                  {profileUser && profileUser.medications
+                    ? profileUser.medications.map((item, index) => {
+                        return <div key={index}>{item}</div>;
+                      })
+                    : null}
+                </Col>
+              </Row>
+              <p></p>
+
+              <Row>
+                <Col span={4}>Treatment:</Col>
+                <Col span={12}>
+                  {profileUser && profileUser.treatments
+                    ? profileUser.treatments.map((item, index) => {
+                        return <div key={index}>{item}</div>;
+                      })
+                    : null}
+                </Col>
+              </Row>
+              <p></p>
+            </>
+          ) : null}
         </Col>
       </Row>
 
