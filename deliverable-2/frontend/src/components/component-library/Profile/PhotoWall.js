@@ -11,6 +11,20 @@ function waitBase64(file) {
   });
 }
 
+function beforeUpload(file) {
+  const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
+  if (!isJpgOrPng) {
+    message.error("You can only upload JPG/PNG file!");
+    return false;
+  }
+  const isLt1M = file.size / 1024 / 1024 < 1;
+  if (!isLt1M) {
+    message.error("Image must smaller than 1MB!");
+    return false;
+  }
+  return isJpgOrPng && isLt1M;
+}
+
 class PhotoWall extends React.Component {
   state = {
     previewVisible: false,
@@ -60,14 +74,32 @@ class PhotoWall extends React.Component {
   };
 
   handleChange = (info) => {
-    console.log("Line 69", info);
-    this.setState({ fileList: info.fileList });
-    if (info.file.status === "done") {
-      message.success(`${info.file.name} file uploaded successfully`);
-      this.getAllBase64(info.fileList);
+    const file = info.file;
+    const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
+    if (!isJpgOrPng) {
+      return;
+    }
+    const isLt1M = file.size / 1024 / 1024 < 1;
+    if (!isLt1M) {
+      return;
+    }
+    const check = isJpgOrPng && isLt1M;
+    const updateinfo = info.fileList.filter((f) => {
+      const b1 = f.type === "image/jpeg" || f.type === "image/png";
+      const b2 = f.size / 1024 / 1024 < 1;
+      return b1 && b2;
+    });
+    info.fileList = updateinfo;
+    if (check) {
+      console.log("Line 69", info);
+      info.file.status = "done";
+      for (let i = 0; i < info.fileList.length; i++) {
+        info.fileList[i].status = "done";
+      }
+      this.setState({ fileList: info.fileList });
+      // message.success(`${info.file.name} file uploaded successfully`);
       // Get this url from response in real world.
-    } else if (info.file.status === "error") {
-      message.error(`${info.file.name} file upload failed.`);
+      this.getAllBase64(info.fileList);
     }
   };
 
@@ -87,8 +119,9 @@ class PhotoWall extends React.Component {
           fileList={fileList}
           onPreview={this.handlePreview}
           onChange={this.handleChange}
+          beforeUpload={beforeUpload}
         >
-          {fileList.length >= 8 ? null : uploadButton}
+          {fileList.length >= 4 ? null : uploadButton}
         </Upload>
         <Modal
           visible={previewVisible}

@@ -14,12 +14,14 @@ function beforeUpload(file) {
   const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
   if (!isJpgOrPng) {
     message.error("You can only upload JPG/PNG file!");
+    return false;
   }
-  const isLt2M = file.size / 1024 / 1024 < 2;
-  if (!isLt2M) {
-    message.error("Image must smaller than 2MB!");
+  const isLt1M = file.size / 1024 / 1024 < 1;
+  if (!isLt1M) {
+    message.error("Image must smaller than 1MB!");
+    return false;
   }
-  return isJpgOrPng && isLt2M;
+  return isJpgOrPng && isLt1M;
 }
 
 class ProfilePhoto extends React.Component {
@@ -28,23 +30,33 @@ class ProfilePhoto extends React.Component {
   };
 
   handleChange = (info) => {
-    console.log(info);
-    if (info.file.status === "uploading") {
-      this.setState({ loading: true });
+    const file = info.file;
+    const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
+    if (!isJpgOrPng) {
       return;
     }
-    if (info.file.status === "done") {
-      message.success(`${info.file.name} file uploaded successfully`);
-      // Get this url from response in real world.
-      getBase64(info.file.originFileObj, (imageUrl) => {
-        this.setState({
-          imageUrl,
-          loading: false,
+    const isLt1M = file.size / 1024 / 1024 < 1;
+    if (!isLt1M) {
+      return;
+    }
+    const check = isJpgOrPng && isLt1M;
+    if (check) {
+      console.log(info);
+      if (info.file.status === "uploading") {
+        this.setState({ loading: true });
+        return;
+      } else {
+        info.file.status = "done";
+        message.success(`${info.file.name} file uploaded successfully`);
+        // Get this url from response in real world.
+        getBase64(info.file.originFileObj, (imageUrl) => {
+          this.setState({
+            imageUrl,
+            loading: false,
+          });
+          this.props.setAvaterUrl(imageUrl);
         });
-        this.props.setAvaterUrl(imageUrl);
-      });
-    } else if (info.file.status === "error") {
-      message.error(`${info.file.name} file upload failed.`);
+      }
     }
   };
 
@@ -66,8 +78,8 @@ class ProfilePhoto extends React.Component {
           name="file"
           showUploadList={false}
           action="/current_user/profile/picture"
-          beforeUpload={beforeUpload}
           onChange={this.handleChange}
+          beforeUpload={beforeUpload}
         >
           <Button icon={<UploadOutlined />}>Click to Upload</Button>
         </Upload>
