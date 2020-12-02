@@ -1,9 +1,10 @@
-from flask import jsonify, request, Blueprint
+from flask import Blueprint, jsonify, request
 from flask_login import current_user, login_user
 
 from ..usecases import handle_report_helpers, login_register_helpers
 
-login_page = Blueprint('login_page', __name__, static_folder='../../frontend/build/static',
+login_page = Blueprint('login_page', __name__,
+                       static_folder='../../frontend/build/static',
                        template_folder='../../frontend/build/')
 
 
