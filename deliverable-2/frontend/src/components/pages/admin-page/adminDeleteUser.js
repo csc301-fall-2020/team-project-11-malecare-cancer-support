@@ -106,9 +106,9 @@ const AdminDeleteUser = () => {
     const requestBody = { email: toDelete };
     console.log("delete", requestBody);
     axios
-      .post(HOST_URL + "/reset_password/email", requestBody)
+      .post(HOST_URL + "/report/delete_user", requestBody)
       .then((response) => {
-        message.success("Delete success");
+        message.success(response.data);
       })
       .catch((err) => {
         message.error(err.response.data);

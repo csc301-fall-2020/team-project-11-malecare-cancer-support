@@ -63,34 +63,21 @@ def get_reported_user_message():
         reported_uid, reporter_uid)
 
 
-# @app.route('/report/email_by_id', methods=['POST'])
-# @login_required
-# @admin_only
-# def get_email_by_user_id():
-#     user_id = request.get_json()['user_id']
-#     if login_register_helpers.is_user_id_existed(user_id):
-#         return jsonify(login_register_helpers.get_email_by_id(user_id=user_id))
-#     return "[User deleted]"
-
-
-# @app.route('/admin_sign_up', methods=["POST"])
-# def create_admin():
-#     my_json = request.get_json()
-#     login_register_helpers.create_admin(email=my_json["email"],
-#                                         password=my_json["password"])
-#     return "Create admin successfully"
-
-
 @report_page.route('/report/delete_user', methods=['POST'])
 @login_required
 def delete_user_by_email():
-    my_json = request.get_json()
-    email = my_json["email"]
-    if login_register_helpers.email_already_existed(email):
-        result = delete_helpers.delete_user_by_email(email)
-    else:
-        result = "Email does not exists"
-    return result
+    try:
+        my_json = request.get_json()
+        email_lst = my_json["email"]
+        acc = 0
+        for email in email_lst:
+            if login_register_helpers.email_already_existed(email):
+                delete_helpers.delete_user_by_email(email)
+                acc += 1
+        return "Successfully delete {0} accounts".format(acc)
+    except Exception as e:
+        print(e)
+        return "Error occurs", 500
 
 
 @report_page.route('/report/all_emails', methods=['POST'])
