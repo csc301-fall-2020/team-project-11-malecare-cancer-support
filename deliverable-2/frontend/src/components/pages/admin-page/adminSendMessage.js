@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { UserContext } from "../../../contexts/UserContext";
 import { getUserDetailOptions } from "./helper";
+import RegionDropdown from "../../component-library/RegionDropdown";
 import MultiCardSelection from "../../component-library/MultiCardSelection";
 import MultiSelectionDropdown from "../../component-library/MultiSelectionDropdown";
 import SliderSelection from "../../component-library/SliderSelection";
@@ -95,6 +96,7 @@ const AdminSendMessages = () => {
 
   const [includeGenders, setIncludeGenders] = useState([]);
   const [includeAges, setIncludeAges] = useState([18, 100]);
+  const [includeRegions, setIncludeRegions] = useState({});
   const [includeCancerTypes, setIncludeCancerTypes] = useState([]);
   const [excludeCancerTypes, setExcludeCancerTypes] = useState([]);
   const [includeMedications, setIncludeMedications] = useState([]);
@@ -174,6 +176,7 @@ const AdminSendMessages = () => {
     const requestBody = {
       includeGenders,
       includeAges,
+      includeRegions,
       includeCancerTypes,
       excludeCancerTypes,
       includeMedications,
@@ -183,7 +186,10 @@ const AdminSendMessages = () => {
     };
     console.log(requestBody);
     try {
-      const response = await axios.post(HOST_URL + "/admin/get_filter_email", requestBody);
+      const response = await axios.post(
+        HOST_URL + "/admin/get_filter_email",
+        requestBody
+      );
       console.log(response.data);
       const fetchedEmailList = _.get(response, "data.email", []);
       if (!_.isEmpty(fetchedEmailList)) {
@@ -205,6 +211,17 @@ const AdminSendMessages = () => {
     setTextBoxLoading(true);
     setErrorMessage("");
     if (
+      _.isNil(_.get(includeRegions, "selectedAll")) &&
+      (_.isEmpty(_.get(includeRegions, "countryData")) ||
+        _.isEmpty(_.get(includeRegions, "stateData")))
+    ) {
+      setTextBoxLoading(false);
+      return setErrorMessage(
+        "Please fill in the region you would like to share message to."
+      );
+    }
+
+    if (
       _.isEmpty(includeGenders) ||
       _.isEmpty(includeAges) ||
       _.isEmpty(includeCancerTypes) ||
@@ -216,6 +233,7 @@ const AdminSendMessages = () => {
         "Please fill in all the filters in the Filters(include) section."
       );
     }
+
     if (_.isEmpty(message)) {
       setTextBoxLoading(false);
       return setErrorMessage("The message cannot be empty.");
@@ -225,6 +243,7 @@ const AdminSendMessages = () => {
     const requestBody = {
       includeGenders,
       includeAges,
+      includeRegions,
       includeCancerTypes,
       excludeCancerTypes,
       includeMedications,
@@ -267,6 +286,13 @@ const AdminSendMessages = () => {
             label="Ages"
             includeAges={includeAges}
             setIncludeAges={setIncludeAges}
+          />
+          <RegionDropdown
+            label="Location:"
+            labelSize="18px"
+            allowSelectAll
+            region={includeRegions}
+            setRegion={setIncludeRegions}
           />
           <MultiSelectionDropdown
             label="Types of Cancer:"
