@@ -52,6 +52,16 @@ def new_report():
 def get_all_black_list():
     return jsonify(handle_report_helpers.get_all_black_list())
 
+@report_page.route('/report/black_list/delete')
+@login_required
+def remove_from_block_list():
+    try:
+        return handle_report_helpers\
+            .move_user_out_block_list(request.get_json()['user_id'])
+    except Exception as e:
+        print(e)
+        return "Error occurs", 500
+
 
 @report_page.route('/report/check_reported_user', methods=['POST'])
 @login_required

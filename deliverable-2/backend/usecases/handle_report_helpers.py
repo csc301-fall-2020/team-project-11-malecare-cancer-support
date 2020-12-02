@@ -59,6 +59,13 @@ def ignore_report(report_id):
     ReportHistory.objects(report_id=report_id).update(is_handle=True)
     return DECLINE_REPORT
 
+def move_user_out_block_list(user_id):
+    user = BlackList.objects(uid=user_id).first()
+    if user is None:
+        return "User not in block list", 404
+    user.delete()
+    return "Remove from block list"
+
 
 def get_all_black_list():
     block_list =  BlackList.objects().to_json()
