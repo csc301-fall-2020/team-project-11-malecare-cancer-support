@@ -161,6 +161,16 @@ const AdminSendMessages = () => {
     setGetEmailErrorMessage("");
     // GET request for email lists
     if (
+      _.isNil(_.get(includeRegions, "selectedAll")) &&
+      (_.isEmpty(_.get(includeRegions, "countryData")) ||
+        _.isEmpty(_.get(includeRegions, "stateData")))
+    ) {
+      return setGetEmailErrorMessage(
+        "Please fill in the region you would like to get users' email from."
+      );
+    }
+
+    if (
       _.isEmpty(includeGenders) ||
       _.isEmpty(includeAges) ||
       _.isEmpty(includeCancerTypes) ||
