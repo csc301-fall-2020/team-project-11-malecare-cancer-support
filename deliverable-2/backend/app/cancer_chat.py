@@ -18,6 +18,7 @@ from ..usecases import administrator_filter_helpers, \
 
 from ..util import helpers
 from .login_page import login_page
+from .preload_data import preload_data
 login_manager = LoginManager()
 
 app = Flask(__name__, static_folder='../../frontend/build/static',
@@ -32,6 +33,7 @@ SOCKET_ERROR_MSG = "Something was wrong."
 SOCKET_ON_SUCCESS_MSG = "Successfully sent"
 
 app.register_blueprint(login_page)
+app.register_blueprint(preload_data)
 
 # decorator for limiting access of admin-only api
 def admin_only(f):
@@ -63,51 +65,6 @@ def index():
 @app.route("/<path:path>")
 def serve(path):
     return render_template('index.html')
-
-
-# this is only for initializing empty database,
-# data can be found under backend/app/database_preload_backup/
-@app.route('/load_to_db', methods=['POST'])
-def load_to_db():
-    return preload_data_helpers \
-        .load_to_cancer_type_db(
-        cancer_type_lst=request.get_json()["cancer_types"],
-        treatment_lst=request.get_json()["treatment_types"],
-        sexual_orientation_lst=request.get_json()["sexual_orientations"],
-        gender_lst=request.get_json()["genders"],
-        medication_lst=request.get_json()["medications"],
-    )
-
-
-@app.route('/add_none_to_medication_and_treatment', methods=['POST'])
-def add_none_to_medication_and_treatment():
-    preload_data_helpers.add_none_to_all_users_medication_and_treatment()
-    return "Update Successfully"
-
-
-@app.route('/load_from_db/cancer_types')
-def get_cancer_types():
-    return jsonify(preload_data_helpers.get_cancer_types())
-
-
-@app.route('/load_from_db/treatment_types')
-def get_treatment_types():
-    return jsonify(preload_data_helpers.get_treatment_types())
-
-
-@app.route('/load_from_db/genders')
-def get_genders():
-    return jsonify(preload_data_helpers.get_genders())
-
-
-@app.route('/load_from_db/sexual_orientations')
-def get_sexual_orientations():
-    return jsonify(preload_data_helpers.get_sexual_orientations())
-
-
-@app.route('/load_from_db/medications')
-def get_medications():
-    return jsonify(preload_data_helpers.get_medications())
 
 
 @login_manager.user_loader
