@@ -142,7 +142,13 @@ const Requests = () => {
     return (
       <div style={RequestContainer}>
         <BorderContainer>
-          <img style={circlePiture} src={UserPhoto} alt="user photo" />
+          <img 
+            style={circlePiture} 
+            src={props.picture
+              ? props.picture
+              : UserPhoto} 
+            alt="user photo" 
+          />
           <InfoContainer>
             <BasicInfo>Name: {props.name}</BasicInfo>
             <BasicInfo>Age: {props.age}</BasicInfo>
@@ -287,6 +293,7 @@ const Requests = () => {
               name={item["username"]}
               age={getAge(item["date_of_birth"])}
               gender={item["gender"]}
+              picture={item["profile_picture"]}
               greeting={item["short_intro"]}
               id={item["user_id"]}
             />
