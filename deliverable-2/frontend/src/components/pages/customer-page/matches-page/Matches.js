@@ -7,7 +7,7 @@ import { filterMatches, getDefaultFilter } from "./helper";
 import styled from "styled-components";
 import RegionDropdown from "../../../component-library/RegionDropdown";
 import SliderSelection from "../../../component-library/SliderSelection";
-import img from "../../../../assets/UserPhoto.png";
+import UserPhoto from "../../../../assets/UserPhoto.png";
 import MultiCardSelection from "../../../component-library/MultiCardSelection";
 import {
   PageTitleSection,
@@ -356,7 +356,13 @@ const Matches = () => {
         <BorderContainer>
           {matches.length !== 0 && (
             <PhotoContainer>
-              <img style={picStyle} src={img} alt="user" />
+              <img 
+                style={picStyle} 
+                src={matches[matchesIndex] && matches[matchesIndex].profile_picture
+                  ? matches[matchesIndex].profile_picture
+                  : UserPhoto} 
+                alt="user" 
+              />
               <span style={label}>
                 {matches[matchesIndex].purpose &&
                   matches[matchesIndex].purpose.map((item, index) => (
