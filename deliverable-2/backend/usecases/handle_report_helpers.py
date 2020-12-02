@@ -47,7 +47,7 @@ def get_all_undecided_report():
 def block_report(report_id):
     ReportHistory.objects(report_id=report_id).update(is_handle=True)
     uid = ReportHistory.objects(report_id=report_id).first().get_reported_uid()
-    if BlackList.objects(uid=uid).first() is not None:
+    if BlackList.objects(uid=uid).first() is None:
         new_black_user = BlackList(uid=uid)
         new_black_user.save()
         return ACCEPT_REPORT.format(uid)
