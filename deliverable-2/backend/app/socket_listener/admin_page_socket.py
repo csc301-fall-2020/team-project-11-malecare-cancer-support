@@ -10,6 +10,7 @@ from backend.app.socket_listener.decorator import authenticated_only
 SOCKET_ERROR_MSG = "Something was wrong."
 SOCKET_ON_SUCCESS_MSG = "Successfully sent"
 
+SELECT_ALL_KEY = "selectedAll"
 
 @socketio.on('admin_send_msg')
 @authenticated_only
@@ -25,18 +26,33 @@ def admin_send_msg(input_json):
         include_treatment = input_json['includeTreatments']
         exclude_treatment = input_json['excludeTreatments']
         message = input_json["message"]
+        region = input_json['includeRegions']
         print("got socket")
-        uid_lst = administrator_filter_helpers.get_user_id_from_admin_filter(
-            include_cancer=include_cancer,
-            include_medication=include_medication,
-            include_treatment=include_treatment,
-            exclude_cancer=exclude_cancer,
-            exclude_medication=exclude_medication,
-            exclude_treatment=exclude_treatment,
-            age_min=age_min,
-            age_max=age_max,
-            gender=gender
-        )
+        if SELECT_ALL_KEY in region:
+            uid_lst = administrator_filter_helpers.get_user_id_from_admin_filter_worldwide(
+                include_cancer=include_cancer,
+                include_medication=include_medication,
+                include_treatment=include_treatment,
+                exclude_cancer=exclude_cancer,
+                exclude_medication=exclude_medication,
+                exclude_treatment=exclude_treatment,
+                age_min=age_min,
+                age_max=age_max,
+                gender=gender
+            )
+        else:
+            uid_lst = administrator_filter_helpers.get_user_id_from_admin_filter_region(
+                include_cancer=include_cancer,
+                include_medication=include_medication,
+                include_treatment=include_treatment,
+                exclude_cancer=exclude_cancer,
+                exclude_medication=exclude_medication,
+                exclude_treatment=exclude_treatment,
+                age_min=age_min,
+                age_max=age_max,
+                gender=gender,
+                region=region
+            )
         for uid in uid_lst:
             sid = handle_session_info_helpers.get_session_id_by_user_id(uid)
             print(sid)
