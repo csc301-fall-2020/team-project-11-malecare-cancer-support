@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Row, Col, Layout, message, Checkbox } from "antd";
+import { Row, Col, Layout, message, Checkbox, Button, Modal } from "antd";
 import styles from "./MyProfile.module.css";
 import styled from "styled-components";
 import "antd/dist/antd.css";
@@ -25,6 +25,7 @@ import { PulseLoader } from "react-spinners";
 import { css } from "@emotion/react";
 import { HOST_URL } from "../../../utils/sharedUrl";
 import { getUserDetailOptions } from "../../common-page/signup-page/helper";
+import { EditOutlined } from "@ant-design/icons";
 
 const loaderCSS = css`
   margin-top: 300px;
@@ -48,6 +49,16 @@ const SmallTitle = styled.div`
   font-size: 20px;
   color: #4d222a;
   margin-right: 10px;
+`;
+
+const Title = styled.div`
+  text-align: start;
+  color: #3c1014;
+  font-size: 24px;
+`;
+
+const RegionContainer = styled.div`
+  margin: 10px;
 `;
 
 const dateFormat = "YYYY-MM-DD";
@@ -79,7 +90,11 @@ const MyProfile = ({ user, setUser }) => {
   const [loading, setLoading] = useState(true);
   const [avaterUrl, setAvaterUrl] = useState(user.profile_picture);
   const [albumList, setAlbumList] = useState(user.album_pictures);
-  const [region, setRegion] = useState({});
+  const [region, setRegion] = useState(user.region);
+  const [showRegion, setShowRegion] = useState(false);
+  const [city, setCity] = useState(user.region.cityData.data.name);
+  const [country, setCountry] = useState(user.region.countryData.data.name);
+  const [state, setState] = useState(user.region.stateData.data.name);
 
   const handleUpdate = () => {
     if (
@@ -94,18 +109,17 @@ const MyProfile = ({ user, setUser }) => {
     } else {
       //   Initiate Login Request
       setLoading(true);
-      const newMed = [...medication, "None"];
-      const newTreat = [...treatment, "None"];
+      console.log("11111111", medication, treatment);
       const requestBody = {
         username: name,
         cancer: cancerList,
         date_of_birth: date.format(dateFormat),
         gender: gender,
-        medications: newMed,
+        medications: medication,
         purpose: purposeList,
         sex_orientation: sex,
         short_intro: greetMsg,
-        treatments: newTreat,
+        treatments: treatment,
         profile_picture: avaterUrl,
         album_pictures: albumList,
         date_of_birth_bool: dobChecked,
@@ -141,8 +155,24 @@ const MyProfile = ({ user, setUser }) => {
     fetchUserDetailSelections();
   }, []);
 
-  // <Layout>
-  //   <Content className={styles.ProfileContainer}>
+  const handleOk = () => {
+    if (
+      !(region.countryData.data && region.countryData.data.name) ||
+      !(region.cityData.data && region.cityData.data.name) ||
+      !(region.stateData.data && region.stateData.data.name)
+    ) {
+      message.warning("Please select a complete region!");
+    } else {
+      setState(region.stateData.data.name);
+      setState(region.stateData.data.name);
+      setCountry(region.countryData.data.name);
+      setShowRegion(false);
+    }
+  };
+
+  const handleCancel = () => {
+    setShowRegion(false);
+  };
 
   return loading ? (
     <PulseLoader
@@ -205,11 +235,38 @@ const MyProfile = ({ user, setUser }) => {
             data={userDetailSelections.cancerTypeOptions}
           ></MultiSelect>
           <Greeting greetMsg={greetMsg} setGreetMsg={setGreetMsg}></Greeting>
-          <RegionDropdown
-            label="Location:"
-            region={region}
-            setRegion={setRegion}
-          />
+          <p></p>
+          <div>
+            <Row>
+              <Col span={6}>
+                <Title>Locations:</Title>
+              </Col>
+              <Col span={8}>
+                <RegionContainer>
+                  {city + ", " + state + ", " + country}{" "}
+                </RegionContainer>
+              </Col>
+              <Col>
+                {" "}
+                <Button
+                  icon={<EditOutlined />}
+                  onClick={() => {
+                    setShowRegion(true);
+                  }}
+                ></Button>
+              </Col>
+            </Row>
+            <p></p>
+          </div>
+
+          <Modal
+            title="Select region"
+            visible={showRegion}
+            onOk={handleOk}
+            onCancel={handleCancel}
+          >
+            <RegionDropdown label="" region={region} setRegion={setRegion} />
+          </Modal>
         </Col>
       </Row>
 

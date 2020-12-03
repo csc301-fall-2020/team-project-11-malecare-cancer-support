@@ -21,6 +21,7 @@ const MultiSelect = ({
 }) => {
   function handleChange(value) {
     console.log(`selected ${value}`);
+    console.log("select", value);
     setList([...value]);
   }
 
@@ -28,7 +29,7 @@ const MultiSelect = ({
     if (!l) {
       return [];
     }
-    return Array.from(l);
+    return l.filter((item) => item !== "None");
   };
 
   return (
