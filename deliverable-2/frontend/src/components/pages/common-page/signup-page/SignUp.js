@@ -14,6 +14,7 @@ import SingleCardSelection from "../../../component-library/SingleCardSelection"
 import MultiCardSelection from "../../../component-library/MultiCardSelection";
 import MultiSelectionDropdown from "../../../component-library/MultiSelectionDropdown";
 import RegionDropdown from "../../../component-library/RegionDropdown";
+import Terms from "./Terms";
 
 import {
   Space,
@@ -24,6 +25,7 @@ import {
 } from "../../../share-styled-component";
 
 import { labelDescription } from "./constant";
+import { validateEmailAddress } from "../../../utils/helpers";
 import { getUserDetailOptions } from "./helper";
 import { getCurrentUser } from "../../../utils/helpers";
 
@@ -118,6 +120,10 @@ const SignUp = () => {
       return setErrorMessage(
         "Please fill in your country and state information."
       );
+    }
+
+    if (!validateEmailAddress(email)) {
+      return setErrorMessage("Invalid email address provided");
     }
 
     if (password !== confirmPassword) {
@@ -268,8 +274,9 @@ const SignUp = () => {
       <Space height="36px" />
 
       {/* Action */}
+      <Terms></Terms>
       <Checkbox
-        label="I agree terms"
+        label="I agree to the above terms."
         isChecked={agreeTerms}
         onClick={() => {
           setAgreeTerms(!agreeTerms);

@@ -1,7 +1,6 @@
 import axios from "axios";
 import { HOST_URL } from "./sharedUrl";
 
-
 export const formatDate = (date) => {
   const parsedDate = new Date(date);
   let month = "" + (parsedDate.getMonth() + 1);
@@ -12,6 +11,11 @@ export const formatDate = (date) => {
   if (day.length < 2) day = "0" + day;
 
   return [year, month, day].join("-");
+};
+
+export const validateEmailAddress = (emailValue) => {
+  const emailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+  return !!emailValue.match(emailformat);
 };
 
 export const getAge = (date) => {
