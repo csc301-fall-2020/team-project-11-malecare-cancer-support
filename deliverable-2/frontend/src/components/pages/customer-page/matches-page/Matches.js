@@ -164,6 +164,7 @@ const Matches = () => {
   const [loading, setLoading] = useState(true);
   const [matchesIndex, setMatchesIndex] = useState(0);
   const [mSocket, setMSocket] = useState(null);
+  const [matchLoading, setMatchLoading] = useState(true)
 
   const handleApply = async () => {
     if (
@@ -175,7 +176,7 @@ const Matches = () => {
       message.warning("Empty filter");
       // TODO: Maybe fill the filter item? Make it filter nothing?
     } else {
-      setLoading(true);
+      setMatchLoading(true);
       console.log("SELECTOR REGION", region)
       const myMatches = await filterMatches(
         filterSexOrientation,
@@ -191,7 +192,7 @@ const Matches = () => {
       }
     }
     console.log("update");
-    setLoading(false);
+    setMatchLoading(false)
   };
 
   useEffect(() => {
@@ -233,6 +234,7 @@ const Matches = () => {
         console.log("match", myMatches);
         if (myMatches) {
           setMatches(myMatches);
+          setMatchLoading(false)
         }
         // setLoading(false);
       }
@@ -353,7 +355,16 @@ const Matches = () => {
         <Space height="24px" />
       </FilterContainer>
       <MatchContainer>
-        <BorderContainer>
+       {matchLoading ? (
+         <BorderContainer>
+    <PulseLoader
+      css={loaderCSS}
+      size={20}
+      loading={matchLoading}
+      color="rgb(172, 102, 104)"
+    ></PulseLoader>
+    </BorderContainer>
+  ) :  <BorderContainer>
           {matches.length !== 0 && (
             <PhotoContainer>
               <img 
@@ -399,7 +410,7 @@ const Matches = () => {
               It is sad but no one is here. Maybe try another filter?
             </EmptyMatch>
           )}
-        </BorderContainer>
+        </BorderContainer>}
         {matches.length !== 0 && (
           <div style={buttons}>
             <SmallButton style={alignedButton} onClick={handleGotoPrevious}>
