@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { UserContext } from "../../../contexts/UserContext";
-import { message as alertMessage } from "antd";
+import { message as alertMessage, Modal } from "antd";
 import { HOST_URL } from "../../utils/sharedUrl";
 import axios from "axios";
 import { getAge, getCurrentUser } from "../../utils/helpers";
@@ -126,6 +126,42 @@ const AdminHandleReports = () => {
     asyncReq();
   }
 
+  const handleViewMessage = (reported, reporter) => {
+    axios.post(
+      HOST_URL + "/report/check_reported_user", 
+      {reported_uid: reported, reporter_uid: reporter}
+    ).then(value => {
+      let messages = value.data;
+      console.log(messages);
+      return (
+        Modal.info({
+          title: 'Messages between ' + reported + " and " + reporter,
+          content: (
+            <div>
+              {messages &&
+                messages.map((item, index) => {
+                  return (
+                    <p key={index}>{item["sender_uid"]}: {item["text"]}</p>
+                  );
+              })}
+              {messages.length === 0 && (
+                <p>There are no messages between them. </p>
+              )}
+            </div>
+          ),
+          onOk() {},
+        })
+      );
+    });
+  }
+
+  const handleRemoveBlacklist = (userId) => {
+    axios.post(HOST_URL + "/report/black_list/delete", {user_id: userId}).then(() => {
+      alertMessage.success("Removed user from blacklist.");
+    });
+    asyncReq();
+  }
+
   const asyncReq = async () => {
     const reports = await getReportList();
     const blackList = await getBlackList();
@@ -166,6 +202,12 @@ const AdminHandleReports = () => {
           </SmallButton>
           <SmallButton
             style={alignedButton}
+            onClick={handleViewMessage.bind(this, props.reported, props.reporter)}
+          >
+            view message
+          </SmallButton>
+          <SmallButton
+            style={alignedButton}
             onClick={handleIngoreReport.bind(this, props.reportId)}
           >
             ignore report
@@ -199,6 +241,7 @@ const AdminHandleReports = () => {
           </SmallButton>
           <SmallButton
             style={alignedButton}
+            onClick={handleRemoveBlacklist.bind(this, props.userId)}
           >
             unblock user
           </SmallButton>

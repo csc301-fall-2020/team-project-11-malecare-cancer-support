@@ -52,7 +52,7 @@ def new_report():
 def get_all_black_list():
     return jsonify(handle_report_helpers.get_all_black_list())
 
-@report_page.route('/report/black_list/delete')
+@report_page.route('/report/black_list/delete', methods=['POST'])
 @login_required
 def remove_from_block_list():
     try:
