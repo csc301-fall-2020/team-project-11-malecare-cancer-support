@@ -25,6 +25,15 @@ const ProfileTitle = styled.div`
   color: #4d222a;
 `;
 
+const NotFoundSection = styled.div`
+  text-align: center;
+  color: #d54e54;
+  font-size: 60px;
+  position: absolute;
+  left: 38%;
+  top: 35%;
+`;
+
 const timeFormat = (inputString) => {
   const d = new Date(inputString);
   var month = (d.getMonth() + 1).toString().padStart(2, "0");
@@ -48,6 +57,7 @@ const UserProfile = ({ match }) => {
   const history = useHistory();
   const [loading, setLoading] = useState(true);
   const [navLoading, setNavLoading] = useState(true);
+  const [notFound, setNotFound] = useState(false);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -70,8 +80,14 @@ const UserProfile = ({ match }) => {
   const requestBody = { user_id: match.params.id };
   const [profileUser, setProfileUser] = useState({});
   const getProfileInfo = async () => {
-    const response = await axios.post(HOST_URL + "/get_user", requestBody);
-    return response.data;
+    axios
+      .post(HOST_URL + "/get_user", requestBody)
+      .then((response) => {
+        return response.data;
+      })
+      .catch((err) => {
+        setNotFound(true);
+      });
   };
   useEffect(() => {
     const fetchUser = async () => {
@@ -81,6 +97,10 @@ const UserProfile = ({ match }) => {
 
     fetchUser();
   }, []);
+
+  if (notFound) {
+    return <NotFoundSection>404: Page not found</NotFoundSection>;
+  }
 
   return loading || navLoading ? (
     <PulseLoader
