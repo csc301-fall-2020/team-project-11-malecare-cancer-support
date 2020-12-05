@@ -67,7 +67,7 @@ const Nav = () => {
 
   return (
     <NavBarContainer>
-      <NavLink to="/">Cancerchat</NavLink>
+      <NavLink to="/">CancerChat</NavLink>
       <NavLinkContainer>{renderNavBarItems()}</NavLinkContainer>
     </NavBarContainer>
   );
