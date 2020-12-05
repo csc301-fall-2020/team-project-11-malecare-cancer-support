@@ -5,5 +5,5 @@ npm run build:prod
 cd ../backend
 pip install -r requirements.txt
 export AWS_URL=True
-cd ..
-nohup python -m backend.app.cancer_chat &
+export FLASK_APP=app/cancer_chat.py
+nohup flask run --host=0.0.0.0 &

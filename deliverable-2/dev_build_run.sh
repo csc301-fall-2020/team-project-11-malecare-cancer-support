@@ -4,5 +4,6 @@ npm i
 npm run build:dev
 cd ../backend
 pip install -r requirements.txt
-cd ..
-python -m backend.app.cancer_chat
+export AWS_URL=False
+export FLASK_APP=app/cancer_chat.py
+flask run
