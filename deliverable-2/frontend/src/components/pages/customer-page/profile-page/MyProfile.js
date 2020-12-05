@@ -92,7 +92,7 @@ const MyProfile = ({ user, setUser }) => {
   const [albumList, setAlbumList] = useState(user.album_pictures);
   const [region, setRegion] = useState(user.region);
   const [showRegion, setShowRegion] = useState(false);
-  const [city, setCity] = useState(user.region.cityData.data.name);
+  const [city, setCity] = useState(user.region.cityData.data ? user.region.cityData.data.name : "");
   const [country, setCountry] = useState(user.region.countryData.data.name);
   const [state, setState] = useState(user.region.stateData.data.name);
 
@@ -158,12 +158,12 @@ const MyProfile = ({ user, setUser }) => {
   const handleOk = () => {
     if (
       !(region.countryData.data && region.countryData.data.name) ||
-      !(region.cityData.data && region.cityData.data.name) ||
+      // !(region.cityData.data && region.cityData.data.name) ||
       !(region.stateData.data && region.stateData.data.name)
     ) {
       message.warning("Please select a complete region!");
     } else {
-      setState(region.stateData.data.name);
+      setCity(region.cityData.data ? region.cityData.data.name : "");
       setState(region.stateData.data.name);
       setCountry(region.countryData.data.name);
       setShowRegion(false);
@@ -243,7 +243,7 @@ const MyProfile = ({ user, setUser }) => {
               </Col>
               <Col span={8}>
                 <RegionContainer>
-                  {city + ", " + state + ", " + country}{" "}
+                  {city ? (city + ", " + state + ", " + country) : (state + ", " + country)}{" "}
                 </RegionContainer>
               </Col>
               <Col>
