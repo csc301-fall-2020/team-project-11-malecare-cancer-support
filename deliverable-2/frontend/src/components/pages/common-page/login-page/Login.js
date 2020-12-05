@@ -131,7 +131,7 @@ const Login = () => {
 
   return (
     <LoginPageContainer>
-      <MainTitleLarge>Cancerchat</MainTitleLarge>
+      <MainTitleLarge>CancerChat</MainTitleLarge>
       <Space height="24px" />
       <MainSubTitleLarge>
         Meet &amp; chat to someone just like you
