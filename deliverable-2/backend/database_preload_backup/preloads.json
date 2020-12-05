@@ -21,7 +21,8 @@
     "Speech Therapy",
     "Stem Cell Transplant",
     "Surgery (Any Kind)",
-    "Targeted Gene Treatment"
+    "Targeted Gene Treatment",
+    "None"
   ],
   "sexual_orientations": [
     "heterosexual",
@@ -464,12 +465,9 @@
     "H": [
       "Halaven (Eribulin Mesylate)",
       "Herceptin (Trastuzumab)",
-      "HPV Bivalent Vaccine",
-      "Recombinant",
-      "HPV Nonavalent Vaccine",
-      "Recombinant",
-      "HPV Quadrivalent Vaccine",
-      "Recombinant",
+      "HPV Bivalent Vaccine, Recombinant",
+      "HPV Nonavalent Vaccine, Recombinant",
+      "HPV Quadrivalent Vaccine, Recombinant",
       "Hycamtin (Topotecan Hydrochloride)",
       "Hydrea (Hydroxyurea)",
       "Hydroxyurea",
@@ -580,7 +578,8 @@
       "Ninlaro (Ixazomib Citrate)",
       "Nivolumab",
       "Nolvadex (Tamoxifen Citrate)",
-      "Nplate (Romiplostim)"
+      "Nplate (Romiplostim)",
+      "None"
     ],
     "O": [
       "Obinutuzumab",

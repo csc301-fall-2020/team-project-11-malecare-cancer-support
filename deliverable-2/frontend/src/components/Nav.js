@@ -9,6 +9,7 @@ import {
   NavLink,
   LogoutSection,
 } from "./share-styled-component";
+import { HOST_URL } from "./utils/sharedUrl";
 
 const Nav = () => {
   const { user, setUser } = useContext(UserContext);
@@ -16,7 +17,7 @@ const Nav = () => {
 
   const logoutUser = async (event) => {
     event.preventDefault();
-    const response = await axios.get("/logout");
+    const response = await axios.get(HOST_URL + "/logout");
     if (!response || response.status !== 200 || response.data !== "logout") {
       // placeholder - Adding some error messages here?
     }
@@ -33,6 +34,9 @@ const Nav = () => {
           </NavLink>
           <NavLink to="/adminSendMessages">
             <li>Send Messages</li>
+          </NavLink>
+          <NavLink to="/adminDeleteUser">
+            <li>Delete User</li>
           </NavLink>
           <LogoutSection onClick={logoutUser}>Logout</LogoutSection>
         </>
@@ -53,6 +57,9 @@ const Nav = () => {
         <NavLink to="/requests">
           <li>Requests</li>
         </NavLink>
+        <NavLink to="/account">
+          <li>Account</li>
+        </NavLink>
         <LogoutSection onClick={logoutUser}>Logout</LogoutSection>
       </>
     );
@@ -60,7 +67,7 @@ const Nav = () => {
 
   return (
     <NavBarContainer>
-      <NavLink to="/">Cancerchat</NavLink>
+      <NavLink to="/">CancerChat</NavLink>
       <NavLinkContainer>{renderNavBarItems()}</NavLinkContainer>
     </NavBarContainer>
   );

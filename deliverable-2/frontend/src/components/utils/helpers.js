@@ -1,4 +1,5 @@
 import axios from "axios";
+import { HOST_URL } from "./sharedUrl";
 
 export const formatDate = (date) => {
   const parsedDate = new Date(date);
@@ -12,6 +13,11 @@ export const formatDate = (date) => {
   return [year, month, day].join("-");
 };
 
+export const validateEmailAddress = (emailValue) => {
+  const emailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+  return !!emailValue.match(emailformat);
+};
+
 export const getAge = (date) => {
   const parsedDate = new Date(date);
   let year = parsedDate.getFullYear();
@@ -21,7 +27,7 @@ export const getAge = (date) => {
 
 export const getCurrentUser = async () => {
   try {
-    const response = await axios.get("/current_user");
+    const response = await axios.get(HOST_URL + "/current_user");
     return response ? response.data : null;
   } catch (err) {
     return null;

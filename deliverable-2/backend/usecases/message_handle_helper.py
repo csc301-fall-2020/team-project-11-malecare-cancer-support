@@ -1,3 +1,5 @@
+import datetime
+
 from mongoengine.queryset.visitor import Q
 
 from .login_register_helpers import is_user_id_existed
@@ -17,7 +19,8 @@ def create_new_text_msg(sender_uid, receiver_uid, text):
 
     new_text_msg = Message(sender_uid=sender_uid,
                            receiver_uid=receiver_uid,
-                           text=text)
+                           text=text,
+                           send_at=datetime.datetime.utcnow())
     new_text_msg.save()
     return SUCCESS_CREATE_NEW_TEXT_MSG
 
@@ -35,6 +38,15 @@ def mark_as_read_by_sender_receiver(sender_uid, receiver_uid):
     Message.objects(sender_uid=sender_uid, receiver_uid=receiver_uid,
                     if_read=False).update(set__if_read=True)
     return SUCCESS_MARK_AS_READ_MSG.format(number_unread_msg)
+
+
+def unread_msg_sender_list_by_receiver_id(receiver_uid):
+    sender_lst = Message.objects(receiver_uid=receiver_uid, if_read=False).values_list('sender_uid')
+
+    # remove duplicates
+    sender_lst = list((set(sender_lst)))
+    print(sender_lst)
+    return sender_lst
 
 
 def get_message_by_sender_and_receiver_id(sender_uid, receiver_uid):

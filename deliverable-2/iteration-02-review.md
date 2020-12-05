@@ -31,6 +31,7 @@
 
 3. To save time, the team has decided to not spending time designing the parameters of APIs and start directly. Because the frontend and backend were implemented asynchronously, sometimes we had to change the API that has been written to meet the needs of the frontend, which wasted a lot of time, and also produced some hard-to-find bugs.
 
+
 #### Q3. Planned changes
 
 1. Share deadlines, organize better:  
@@ -39,7 +40,9 @@ we think it would be a good idea to take every member's personal schedule and pr
 2. Agree on API before developing new features:  
 At deliverable-2, we started our coding work before designing APIs. This means overtimes, members who work at the front-end will need to communicate with back-end members on deciding APIs. This is more time consuming than we thought due to the timezone issue. It will be efficient if we can agree on complete APIs before doing our work.
 3. More meetings, more communication:  
-At deliverable-2, we have weekly meetings with MaleCare and have a lot of group meetings. However, we still think this is not enough. We need to have more communication with group members as well as MaleCare. We can know our group members' working progress even better. If some of the group members need help, we can help them.
+At deliverable-2, we have weekly meetings with MaleCare and have a lot of group meetings. However, we still think this is not enough. We need to have more communication with group members as well as MaleCare. We can know our group members' working progress even better. If some of the group members need help, we can help them. In the following meetings, we will discuss with the client which features they would like to prioritize in development.
+4. Divide milestones:  
+At deliverable-2, we did not deploy the app soon enough which caused many problems when we finally deployed the app and found out that the production environment is very different from the development environment. In the following deliverables, we will try to divide the milestones and push to master branch more often, and also deploy the app earlier to see if any problem shows up after switching to the production environment.
 
 ## Product - Review
 

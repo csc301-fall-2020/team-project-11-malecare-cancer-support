@@ -1,0 +1,12 @@
+.ProfileContainer {
+  text-align: start;
+  margin-left: 50px;
+  margin-right: 50px;
+  width: 1400px;
+}
+
+.avater {
+  border: 1px dashed gray;
+  width: 64px;
+  height: 50px;
+}
