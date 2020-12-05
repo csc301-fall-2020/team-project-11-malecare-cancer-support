@@ -92,22 +92,17 @@ or you can click the Create Account button and create a new user:
  - Installation of npm, node, python3, python3-pip, flask are required. Python packages requirements has shown in requirements.txt. 
  - Instructions for setting up and running the application:
    - Open the deliverable-2 folder:
-     - Open one terminal for backend:
-     - Step 1:
-        - go to backend folder: `cd backend`
-        - install requirements using pip: `pip install -r requirements.txt` or `pip3 install -r requirements.txt`
-     - Step 2:
-        - if your operation system is MacOS/Linux, please `export FLASK_APP=app/cancer_chat.py`
-        - if your operation system is Windows, please `set FLASK_APP=app/cancer_chat.py`
-     - Step 3:
-        - `flask run`
-     - Open another terminal for frontend:
-     - Step 1:
-        - `cd frontend`
-     - Step 2:
-        - `npm i`
-     - Step 3:
-        - `npm start`
+   - Go to front-end folder: `cd frontend`
+   - Install requirements: `npm i`
+   - Build: `npm run build:dev`
+   - Go to backend folder: `cd backend`
+   - Install requirements using pip: `pip install -r requirements.txt` or `pip3 install -r requirements.txt`
+   - if you are using bash, please `export FLASK_APP=app/cancer_chat.py`
+   - if you are using cmd, please `set FLASK_APP=app/cancer_chat.py`
+   - `flask run`
+- Another way to run the app:
+   - Open the deliverable-2 folder:
+   - run script: `sh dev_build_run.sh`
         
  ## Deployment and Github Workflow
 
@@ -146,16 +141,14 @@ or you can click the Create Account button and create a new user:
    - Create a new EC2 instance
    - `ssh` to the instance
    - Clone our project from Github to the instance
-   - Checkout `deploy_preparation` branch
    - Install requirements
    - In frontend folder, run:
     - `npm i`
     - `npm run build:prod`
    - set path to backend folder, run:
+    - `export AWS_URL=True`
     - `export FLASK_APP=app/cancer_chat.py`
     - `nohup flask run --host=0.0.0.0 &`
-
-Note that the main difference between the commands for deployment and development is that deployment requires `build`, which is the main reason why we have a separate branch for deployment. We do not want to run `build` when developing the app, since it is time-consuming. We also have different .env files in the `deploy_preparation` branch for setting up the production environment. Replacing `npm run build:prod` with `npm run build:dev` at local machine can make the deployed version run locally. It works fine, too.
    
 
  ## Licenses 
