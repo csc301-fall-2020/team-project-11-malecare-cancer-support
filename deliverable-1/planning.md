@@ -271,6 +271,8 @@ We've been in that situation before. When we were discussing what stack technolo
 
 After voting, we choose Node.js and MongoDB, since it's apparent that this combination has more advantages.
 
+**update:** We switched to Flask and MongoDB, because we have worked with Flask in assignment2.
+
 2. Divide up the work through several meetings
 Since there are five people in our group and our project is a dating software, the front-end requires more time and coding compared to the backend, so we decided to have three people in charge of the front-end and two other people in charge of the back-end and database. We have made choices based on personal preference. 
 Finally determined: front-end: Xiaomeng Hu, Ruikai Fang, Meilin Yang; back-end: Rui Zhu, Jiayueran Sun
@@ -280,3 +282,4 @@ Finally determined: front-end: Xiaomeng Hu, Ruikai Fang, Meilin Yang; back-end: 
 	2. Provide users with the latest cancer-related information. For example, a certain organization has just developed an effective drug to treat skin cancer, but many cancer patients do not know this news in time. Our app will remind users as soon as possible.
 	3. Show users the distance between them and other users.
 	4. Detect users' latest location and recommend users to people who live in the same city as them.
+
