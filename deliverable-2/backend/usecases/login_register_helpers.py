@@ -5,6 +5,8 @@ from passlib.context import CryptContext
 
 from ..models.user import User
 
+USER_ID_LENGTH = 6
+
 pwd_context = CryptContext(schemes=['bcrypt'], deprecated="auto")
 
 
@@ -38,7 +40,7 @@ def create_new_user(email, password, date_of_birth, gender, cancer, purpose,
     new_user = User(email=email,
                     password=hashed_password,
                     username=username,
-                    user_id=generate_random_user_id(6),
+                    user_id=generate_random_user_id(USER_ID_LENGTH),
                     date_of_birth=date_of_birth,
                     gender=gender,
                     cancer=cancer,
