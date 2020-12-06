@@ -84,7 +84,8 @@ const MyProfile = ({ user, setUser }) => {
   const [loading, setLoading] = useState(true);
   const [avaterUrl, setAvaterUrl] = useState(user.profile_picture);
   const [albumList, setAlbumList] = useState(user.album_pictures);
-  const [region, setRegion] = useState(user.region);
+  // const [region, setRegion] = useState(user.region);
+  const [region, setRegion] = useState({});
   const [showRegion, setShowRegion] = useState(false);
   const [city, setCity] = useState(
     user.region.cityData.data ? user.region.cityData.data.name : ""
@@ -135,6 +136,7 @@ const MyProfile = ({ user, setUser }) => {
           }
         })
         .catch((err) => {
+          setLoading(false)
           console.log(err);
           message.error("Error occurs");
         });
