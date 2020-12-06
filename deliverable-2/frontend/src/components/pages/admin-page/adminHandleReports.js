@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { UserContext } from "../../../contexts/UserContext";
-import { message as alertMessage, Modal } from "antd";
+import { message as alertMessage, message, Modal } from "antd";
 import { HOST_URL } from "../../utils/sharedUrl";
 import axios from "axios";
 import { getCurrentUser } from "../../utils/helpers";
@@ -107,6 +107,26 @@ const AdminHandleReports = () => {
     return response.data;
   };
 
+  const setUpBlackList = () => {
+    axios.get(HOST_URL + "/report/black_list")
+    .then((response)=>{
+      setBlockedList(response.data)
+    })
+    .catch((err)=>{
+      message.error(err.response.data)
+    })
+  }
+  
+  const setUpReportList = () => {
+    axios.get(HOST_URL + "/report/history")
+    .then((response)=>{
+      setReportsList(response.data)
+    })
+    .catch((err)=>{
+      message.error(err.response.data)
+    })
+  }
+
   const handleViewProfile = (reportedId) => {
     const w = window.open("about:blank");
     w.location.href = "/profile/" + reportedId;
@@ -122,7 +142,9 @@ const AdminHandleReports = () => {
   const handleBlockByReport = (reportId) => {
     axios.post(HOST_URL + "/report/block", {report_id: reportId}).then(() => {
       alertMessage.success("Blocked user in this report.");
-      asyncReq();
+      // asyncReq();
+      setUpBlackList()
+      setUpReportList()
     });
   }
 
@@ -166,6 +188,8 @@ const AdminHandleReports = () => {
     const reports = await getReportList();
     const blackList = await getBlackList();
     if (reports && blackList) {
+      console.log(blackList)
+      console.log(reports)
       setReportsList(reports);
       setBlockedList(blackList);
       setLoading(false);
