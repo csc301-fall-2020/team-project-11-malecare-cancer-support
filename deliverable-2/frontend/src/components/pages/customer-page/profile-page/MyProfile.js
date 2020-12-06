@@ -105,7 +105,6 @@ const MyProfile = ({ user, setUser }) => {
     } else {
       //   Initiate Login Request
       setLoading(true);
-      console.log("11111111", medication, treatment);
       const requestBody = {
         username: name,
         cancer: cancerList,
@@ -125,6 +124,7 @@ const MyProfile = ({ user, setUser }) => {
         purpose_bool: purposeChecked,
         region: region,
       };
+      console.log("profile", requestBody);
       axios
         .post(HOST_URL + "/current_user/profile/update", requestBody)
         .then((response) => {
