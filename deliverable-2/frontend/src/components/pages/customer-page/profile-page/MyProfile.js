@@ -33,12 +33,6 @@ const loaderCSS = css`
   flex: 1;
 `;
 
-// const ProfileTitle = styled.div`
-//   font-size: 38px;
-//   font-weight: bold;
-//   color: #4d222a;
-// `;
-
 const CheckboxSection = styled.div`
   align-items: flex-start;
   display: flex;
@@ -92,7 +86,9 @@ const MyProfile = ({ user, setUser }) => {
   const [albumList, setAlbumList] = useState(user.album_pictures);
   const [region, setRegion] = useState(user.region);
   const [showRegion, setShowRegion] = useState(false);
-  const [city, setCity] = useState(user.region.cityData.data ? user.region.cityData.data.name : "");
+  const [city, setCity] = useState(
+    user.region.cityData.data ? user.region.cityData.data.name : ""
+  );
   const [country, setCountry] = useState(user.region.countryData.data.name);
   const [state, setState] = useState(user.region.stateData.data.name);
 
@@ -223,7 +219,7 @@ const MyProfile = ({ user, setUser }) => {
           <MultiSelect
             List={purposeList}
             setList={setPurposeList}
-            lineTitle={"Purpose"}
+            lineTitle={"Label(s):"}
             data={userDetailSelections.purposeOptions}
             checked={purposeChecked}
             setChecked={setPurposeChecked}
@@ -243,7 +239,9 @@ const MyProfile = ({ user, setUser }) => {
               </Col>
               <Col span={8}>
                 <RegionContainer>
-                  {city ? (city + ", " + state + ", " + country) : (state + ", " + country)}{" "}
+                  {city
+                    ? city + ", " + state + ", " + country
+                    : state + ", " + country}{" "}
                 </RegionContainer>
               </Col>
               <Col>

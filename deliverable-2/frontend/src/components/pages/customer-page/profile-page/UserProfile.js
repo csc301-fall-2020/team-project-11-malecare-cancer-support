@@ -179,7 +179,7 @@ const UserProfile = ({ match }) => {
           {profileUser && profileUser.purpose_bool ? (
             <>
               <Row>
-                <Col span={4}>Purpose:</Col>
+                <Col span={4}>Label(s):</Col>
                 <Col span={12}>
                   {profileUser.purpose.map((item, index) => {
                     return <div key={index}>{item}</div>;
@@ -249,7 +249,7 @@ const UserProfile = ({ match }) => {
                     <Image key={index} width={200} src={item} />
                   </Col>
                 ))
-              : "The user has not upload any pictures to the album yet."}
+              : "The user has not uploaded any pictures to the album yet."}
           </Row>
         </Col>
       </Row>
