@@ -30,7 +30,7 @@ const NotFoundSection = styled.div`
   color: #d54e54;
   font-size: 60px;
   position: absolute;
-  left: 38%;
+  left: 34%;
   top: 35%;
 `;
 
@@ -80,14 +80,12 @@ const UserProfile = ({ match }) => {
   const requestBody = { user_id: match.params.id };
   const [profileUser, setProfileUser] = useState({});
   const getProfileInfo = async () => {
-    axios
-      .post(HOST_URL + "/get_user", requestBody)
-      .then((response) => {
-        return response.data;
-      })
-      .catch((err) => {
-        setNotFound(true);
-      });
+    try {
+      const response = await axios.post(HOST_URL + "/get_user", requestBody);
+      return response.data;
+    } catch (err) {
+      setNotFound(true);
+    }
   };
   useEffect(() => {
     const fetchUser = async () => {
