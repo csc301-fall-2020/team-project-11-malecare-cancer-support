@@ -115,15 +115,15 @@ const AdminHandleReports = () => {
   const handleIngoreReport = (reportId) => {
     axios.post(HOST_URL + "/report/ignore", {report_id: reportId}).then(() => {
       alertMessage.success("Report ignored.");
+      asyncReq();
     });
-    asyncReq();
   }
   
   const handleBlockByReport = (reportId) => {
     axios.post(HOST_URL + "/report/block", {report_id: reportId}).then(() => {
       alertMessage.success("Blocked user in this report.");
+      asyncReq();
     });
-    asyncReq();
   }
 
   const handleViewMessage = (reported, reporter) => {
@@ -158,8 +158,8 @@ const AdminHandleReports = () => {
   const handleRemoveBlacklist = (userId) => {
     axios.post(HOST_URL + "/report/black_list/delete", {user_id: userId}).then(() => {
       alertMessage.success("Removed user from blacklist.");
+      asyncReq();
     });
-    asyncReq();
   }
 
   const asyncReq = async () => {
@@ -297,6 +297,7 @@ const AdminHandleReports = () => {
             <BlockCard
               key={index}
               userId={item["uid"]}
+              email={item["email"]}
             />
           );
         })}
