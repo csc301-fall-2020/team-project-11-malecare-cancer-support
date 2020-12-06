@@ -2,10 +2,10 @@ import React, { useState, useEffect, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { UserContext } from "../../../contexts/UserContext";
-import { message as alertMessage, Modal } from "antd";
+import { message as alertMessage, message, Modal } from "antd";
 import { HOST_URL } from "../../utils/sharedUrl";
 import axios from "axios";
-import { getAge, getCurrentUser } from "../../utils/helpers";
+import { getCurrentUser } from "../../utils/helpers";
 import { PulseLoader } from "react-spinners";
 import { css } from "@emotion/react";
 
@@ -107,6 +107,26 @@ const AdminHandleReports = () => {
     return response.data;
   };
 
+  const setUpBlackList = () => {
+    axios.get(HOST_URL + "/report/black_list")
+    .then((response)=>{
+      setBlockedList(response.data)
+    })
+    .catch((err)=>{
+      message.error(err.response.data)
+    })
+  }
+  
+  const setUpReportList = () => {
+    axios.get(HOST_URL + "/report/history")
+    .then((response)=>{
+      setReportsList(response.data)
+    })
+    .catch((err)=>{
+      message.error(err.response.data)
+    })
+  }
+
   const handleViewProfile = (reportedId) => {
     const w = window.open("about:blank");
     w.location.href = "/profile/" + reportedId;
@@ -115,15 +135,17 @@ const AdminHandleReports = () => {
   const handleIngoreReport = (reportId) => {
     axios.post(HOST_URL + "/report/ignore", {report_id: reportId}).then(() => {
       alertMessage.success("Report ignored.");
+      asyncReq();
     });
-    asyncReq();
   }
   
   const handleBlockByReport = (reportId) => {
     axios.post(HOST_URL + "/report/block", {report_id: reportId}).then(() => {
       alertMessage.success("Blocked user in this report.");
+      // asyncReq();
+      setUpBlackList()
+      setUpReportList()
     });
-    asyncReq();
   }
 
   const handleViewMessage = (reported, reporter) => {
@@ -158,14 +180,16 @@ const AdminHandleReports = () => {
   const handleRemoveBlacklist = (userId) => {
     axios.post(HOST_URL + "/report/black_list/delete", {user_id: userId}).then(() => {
       alertMessage.success("Removed user from blacklist.");
+      asyncReq();
     });
-    asyncReq();
   }
 
   const asyncReq = async () => {
     const reports = await getReportList();
     const blackList = await getBlackList();
     if (reports && blackList) {
+      console.log(blackList)
+      console.log(reports)
       setReportsList(reports);
       setBlockedList(blackList);
       setLoading(false);
@@ -177,10 +201,24 @@ const AdminHandleReports = () => {
   }, []);
 
   useEffect(() => {
-    if (!user) {
-      history.push("/login");
-    }
-  }, [user, history]);
+    const fetchUser = async () => {
+      const fetchedUser = await getCurrentUser();
+      if (!fetchedUser) {
+        // User not logged in
+        history.push("/");
+      } else if (!fetchedUser.is_admin) {
+        // User is not admin
+        history.push("/matches");
+      } else {
+        // User fetched and updated
+        setUser(fetchedUser);
+        asyncReq();
+        setLoading(false);
+      }
+    };
+
+    fetchUser();
+  }, [setUser, history]);
 
   function ReportCard(props) {
     return (
@@ -283,6 +321,7 @@ const AdminHandleReports = () => {
             <BlockCard
               key={index}
               userId={item["uid"]}
+              email={item["email"]}
             />
           );
         })}

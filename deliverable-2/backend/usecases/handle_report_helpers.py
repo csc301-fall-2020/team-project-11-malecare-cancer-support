@@ -62,7 +62,7 @@ def ignore_report(report_id):
 def move_user_out_block_list(user_id):
     user = BlackList.objects(uid=user_id).first()
     if user is None:
-        return "User not in block list", 404
+        return "User not in block list"
     user.delete()
     return "Remove from block list"
 

@@ -55,6 +55,13 @@ def get_message_by_sender_and_receiver_id(sender_uid, receiver_uid):
         order_by('send_at').to_json()
     return query_result
 
+def get_message_between_two_users(user1_id, user2_id):
+    query_result = Message.objects \
+            .filter((Q(sender_uid=user1_id) & Q(receiver_uid=user2_id))|
+                    (Q(sender_uid=user2_id) & Q(receiver_uid=user1_id)))\
+        .order_by('send_at').to_json()
+    return query_result
+
 
 def get_all_messages_by_user_id(user_id):
     query_result = Message.objects \

@@ -164,7 +164,7 @@ const Matches = () => {
   const [loading, setLoading] = useState(true);
   const [matchesIndex, setMatchesIndex] = useState(0);
   const [mSocket, setMSocket] = useState(null);
-  const [matchLoading, setMatchLoading] = useState(true)
+  const [matchLoading, setMatchLoading] = useState(true);
 
   const handleApply = async () => {
     if (
@@ -177,11 +177,11 @@ const Matches = () => {
       // TODO: Maybe fill the filter item? Make it filter nothing?
     } else {
       setMatchLoading(true);
-      console.log("SELECTOR REGION", region)
+      console.log("SELECTOR REGION", region);
       const myMatches = await filterMatches(
         filterSexOrientation,
         filterGender,
-        filterPurpose, 
+        filterPurpose,
         includeAges,
         region
       );
@@ -192,7 +192,7 @@ const Matches = () => {
       }
     }
     console.log("update");
-    setMatchLoading(false)
+    setMatchLoading(false);
   };
 
   useEffect(() => {
@@ -212,10 +212,10 @@ const Matches = () => {
           fetchedUser.gender,
           fetchedUser.sex_orientation,
           fetchedUser.purpose
-          )
-        setFilterGender(defaultFilter.defaultGender)
-        setFilteredSexOrientation(defaultFilter.defaultSexOrientation)
-        setFilterPurpose(defaultFilter.defaultPurpose)
+        );
+        setFilterGender(defaultFilter.defaultGender);
+        setFilteredSexOrientation(defaultFilter.defaultSexOrientation);
+        setFilterPurpose(defaultFilter.defaultPurpose);
         // console.log("FETCHED USER REGION", fetchedUser.region)
         // const myMatches = await filterMatches(
         //   filterSexOrientation,
@@ -234,7 +234,7 @@ const Matches = () => {
         console.log("match", myMatches);
         if (myMatches) {
           setMatches(myMatches);
-          setMatchLoading(false)
+          setMatchLoading(false);
         }
         // setLoading(false);
       }
@@ -346,7 +346,7 @@ const Matches = () => {
         />
         <Space height="12px" />
         <RegionDropdown
-          label="Location (Your current location by default):"
+          label="Location (Leave it empty to use your current location):"
           region={region}
           setRegion={setRegion}
         />
@@ -355,62 +355,69 @@ const Matches = () => {
         <Space height="24px" />
       </FilterContainer>
       <MatchContainer>
-       {matchLoading ? (
-         <BorderContainer>
-    <PulseLoader
-      css={loaderCSS}
-      size={20}
-      loading={matchLoading}
-      color="rgb(172, 102, 104)"
-    ></PulseLoader>
-    </BorderContainer>
-  ) :  <BorderContainer>
-          {matches.length !== 0 && (
-            <PhotoContainer>
-              <img 
-                style={picStyle} 
-                src={matches[matchesIndex] && matches[matchesIndex].profile_picture
-                  ? matches[matchesIndex].profile_picture
-                  : UserPhoto} 
-                alt="user" 
-              />
-              <span style={label}>
-                {matches[matchesIndex].purpose &&
-                  matches[matchesIndex].purpose.map((item, index) => (
-                    <div key={index}>{item}</div>
-                  ))}{" "}
-              </span>
-            </PhotoContainer>
-          )}
-          {matches.length !== 0 ? (
-            <InfoContainer>
-              <span style={info}>Name: {matches[matchesIndex].username} </span>
-              <span style={info}>
-                Age:
-                {getAge(matches[matchesIndex].date_of_birth)}
-              </span>
-              <span style={info}>Gender: {matches[matchesIndex].gender}</span>
-              <span style={info}>
-                Cancer Type(s): 
-                {matches[matchesIndex].cancer &&
-                  (matches[matchesIndex].cancer.length <= 3
-                    ? matches[matchesIndex].cancer
-                    : matches[matchesIndex].cancer.slice(0, 3).concat(["..."])
-                  ).map((item, index) => <div key={index}>{item}</div>)}
-              </span>
-              <span style={info}>
-                Greeting message: {matches[matchesIndex].short_intro}
-              </span>
-              <SmallButton style={profileButton} onClick={handleViewProfile}>
-                full profile
-              </SmallButton>
-            </InfoContainer>
-          ) : (
-            <EmptyMatch>
-              It is sad but no one is here. Maybe try another filter?
-            </EmptyMatch>
-          )}
-        </BorderContainer>}
+        {matchLoading ? (
+          <BorderContainer>
+            <PulseLoader
+              css={loaderCSS}
+              size={20}
+              loading={matchLoading}
+              color="rgb(172, 102, 104)"
+            ></PulseLoader>
+          </BorderContainer>
+        ) : (
+          <BorderContainer>
+            {matches.length !== 0 && (
+              <PhotoContainer>
+                <img
+                  style={picStyle}
+                  src={
+                    matches[matchesIndex] &&
+                    matches[matchesIndex].profile_picture
+                      ? matches[matchesIndex].profile_picture
+                      : UserPhoto
+                  }
+                  alt="user"
+                />
+                <span style={label}>
+                  {matches[matchesIndex].purpose &&
+                    matches[matchesIndex].purpose.map((item, index) => (
+                      <div key={index}>{item}</div>
+                    ))}{" "}
+                </span>
+              </PhotoContainer>
+            )}
+            {matches.length !== 0 ? (
+              <InfoContainer>
+                <span style={info}>
+                  Name: {matches[matchesIndex].username}{" "}
+                </span>
+                <span style={info}>
+                  Age:
+                  {getAge(matches[matchesIndex].date_of_birth)}
+                </span>
+                <span style={info}>Gender: {matches[matchesIndex].gender}</span>
+                <span style={info}>
+                  Cancer Type(s): 
+                  {matches[matchesIndex].cancer &&
+                    (matches[matchesIndex].cancer.length <= 3
+                      ? matches[matchesIndex].cancer
+                      : matches[matchesIndex].cancer.slice(0, 3).concat(["..."])
+                    ).map((item, index) => <div key={index}>{item}</div>)}
+                </span>
+                <span style={info}>
+                  Greeting message: {matches[matchesIndex].short_intro}
+                </span>
+                <SmallButton style={profileButton} onClick={handleViewProfile}>
+                  full profile
+                </SmallButton>
+              </InfoContainer>
+            ) : (
+              <EmptyMatch>
+                It is sad but no one is here. Maybe try another filter?
+              </EmptyMatch>
+            )}
+          </BorderContainer>
+        )}
         {matches.length !== 0 && (
           <div style={buttons}>
             <SmallButton style={alignedButton} onClick={handleGotoPrevious}>
