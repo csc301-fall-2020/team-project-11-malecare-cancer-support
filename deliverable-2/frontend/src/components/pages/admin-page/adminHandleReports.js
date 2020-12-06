@@ -5,7 +5,7 @@ import { UserContext } from "../../../contexts/UserContext";
 import { message as alertMessage, Modal } from "antd";
 import { HOST_URL } from "../../utils/sharedUrl";
 import axios from "axios";
-import { getAge, getCurrentUser } from "../../utils/helpers";
+import { getCurrentUser } from "../../utils/helpers";
 import { PulseLoader } from "react-spinners";
 import { css } from "@emotion/react";
 
@@ -177,10 +177,24 @@ const AdminHandleReports = () => {
   }, []);
 
   useEffect(() => {
-    if (!user) {
-      history.push("/login");
-    }
-  }, [user, history]);
+    const fetchUser = async () => {
+      const fetchedUser = await getCurrentUser();
+      if (!fetchedUser) {
+        // User not logged in
+        history.push("/");
+      } else if (!fetchedUser.is_admin) {
+        // User is not admin
+        history.push("/matches");
+      } else {
+        // User fetched and updated
+        setUser(fetchedUser);
+        asyncReq();
+        setLoading(false);
+      }
+    };
+
+    fetchUser();
+  }, [setUser, history]);
 
   function ReportCard(props) {
     return (
