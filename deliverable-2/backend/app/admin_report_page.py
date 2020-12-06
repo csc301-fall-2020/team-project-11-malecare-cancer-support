@@ -69,7 +69,7 @@ def get_reported_user_message():
     my_json = request.get_json()
     reported_uid = my_json["reported_uid"]
     reporter_uid = my_json["reporter_uid"]
-    return message_handle_helper.get_message_by_sender_and_receiver_id(
+    return message_handle_helper.get_message_between_two_users(
         reported_uid, reporter_uid)
 
 
