@@ -4,7 +4,7 @@ import _ from "lodash";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { UserContext } from "../../../contexts/UserContext";
-import { getUserDetailOptions } from "./helper";
+import { getUserDetailOptions, listToJson } from "./helper";
 import RegionDropdown from "../../component-library/RegionDropdown";
 import MultiCardSelection from "../../component-library/MultiCardSelection";
 import MultiSelectionDropdown from "../../component-library/MultiSelectionDropdown";
@@ -22,6 +22,7 @@ import {
 import { PulseLoader } from "react-spinners";
 import { css } from "@emotion/react";
 import { HOST_URL } from "../../utils/sharedUrl";
+import { ExportCSV } from "../../component-library/ExportCSV";
 
 const loaderCSS = css`
   margin-top: 300px;
@@ -379,6 +380,10 @@ const AdminSendMessages = () => {
             <UpdateButton onClick={handleGetEmailList}>
               Get email list
             </UpdateButton>
+            <ExportCSV 
+              csvData={listToJson(matchedEmailList)} 
+              fileName="Emails">
+            </ExportCSV>
           </ButtonGroupContainer>
         </div>
         <Space height="24px" />
