@@ -84,7 +84,8 @@ const MyProfile = ({ user, setUser }) => {
   const [loading, setLoading] = useState(true);
   const [avaterUrl, setAvaterUrl] = useState(user.profile_picture);
   const [albumList, setAlbumList] = useState(user.album_pictures);
-  const [region, setRegion] = useState(user.region);
+  // const [region, setRegion] = useState(user.region);
+  const [region, setRegion] = useState({});
   const [showRegion, setShowRegion] = useState(false);
   const [city, setCity] = useState(
     user.region.cityData.data ? user.region.cityData.data.name : ""
@@ -105,7 +106,6 @@ const MyProfile = ({ user, setUser }) => {
     } else {
       //   Initiate Login Request
       setLoading(true);
-      console.log("11111111", medication, treatment);
       const requestBody = {
         username: name,
         cancer: cancerList,
@@ -125,6 +125,7 @@ const MyProfile = ({ user, setUser }) => {
         purpose_bool: purposeChecked,
         region: region,
       };
+      console.log("profile", requestBody);
       axios
         .post(HOST_URL + "/current_user/profile/update", requestBody)
         .then((response) => {
@@ -135,6 +136,7 @@ const MyProfile = ({ user, setUser }) => {
           }
         })
         .catch((err) => {
+          setLoading(false)
           console.log(err);
           message.error("Error occurs");
         });

@@ -49,3 +49,13 @@ def augment_user_dict_with_friends_user_name(user_id):
 
 def add_friend_to_all_users(user_id):
     User.objects(user_id__ne=user_id).update(add_to_set__friends=user_id)
+
+
+def delete_friend(current_user_id, friend_id):
+    current_user = User.objects(user_id=current_user_id).first()
+    if current_user is not None:
+        current_user.update(pull__friends=friend_id)
+    friend = User.objects(user_id=friend_id).first()
+    if friend is not None:
+        friend.update(pull__friends=current_user_id)
+    return "Successfully delete"

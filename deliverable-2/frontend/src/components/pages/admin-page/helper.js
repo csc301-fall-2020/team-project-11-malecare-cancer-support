@@ -69,3 +69,11 @@ export const getAges = async () => {
     "over 100",
   ];
 };
+
+export const listToJson = (emails) => {
+  let result = []
+  for (let i = 0; i < emails.length; i++) {
+    result.push({ EMAIL: emails[i] })
+  }
+  return result
+}

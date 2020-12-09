@@ -47,11 +47,16 @@ class PhotoWall extends React.Component {
   }
 
   getAllBase64(fileList) {
+    console.log(fileList);
     let allBase64 = [];
     for (let i = 0; i < fileList.length; i++) {
-      this.getBase64(fileList[i].originFileObj, (imageUrl) => {
-        allBase64.push(imageUrl);
-      });
+      if (fileList[i].uid[0] === "-") {
+        allBase64.push(fileList[i].url);
+      } else {
+        this.getBase64(fileList[i].originFileObj, (imageUrl) => {
+          allBase64.push(imageUrl);
+        });
+      }
     }
     this.props.setAlbumList(allBase64);
   }
@@ -87,7 +92,8 @@ class PhotoWall extends React.Component {
     const updateinfo = info.fileList.filter((f) => {
       const b1 = f.type === "image/jpeg" || f.type === "image/png";
       const b2 = f.size / 1024 / 1024 < 1;
-      return b1 && b2;
+      const alreadyLoad = f.uid[0] === "-";
+      return (b1 && b2) || alreadyLoad;
     });
     info.fileList = updateinfo;
     if (check) {
@@ -101,6 +107,17 @@ class PhotoWall extends React.Component {
       // Get this url from response in real world.
       this.getAllBase64(info.fileList);
     }
+  };
+
+  onRemove = (file) => {
+    console.log("this.state.fileList", this.state.fileList);
+    console.log("file", file);
+    const newFileList = this.state.fileList.filter((f) => f.uid !== file.uid);
+    this.setState({
+      fileList: newFileList,
+    });
+    const newAlbumList = newFileList.map((f) => f.url);
+    this.props.setAlbumList(newAlbumList);
   };
 
   render() {
@@ -120,6 +137,7 @@ class PhotoWall extends React.Component {
           onPreview={this.handlePreview}
           onChange={this.handleChange}
           beforeUpload={beforeUpload}
+          onRemove={this.onRemove}
         >
           {fileList.length >= 4 ? null : uploadButton}
         </Upload>
