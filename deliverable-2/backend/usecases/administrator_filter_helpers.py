@@ -50,7 +50,7 @@ def get_email_from_admin_filter_region(include_cancer, exclude_cancer,
 
 
 def get_all_emails():
-    return User.objects().only('email').values_list('email')
+    return User.objects(is_admin=False).only('email').values_list('email')
 
 
 def _worldwide_filter(include_cancer, exclude_cancer,
