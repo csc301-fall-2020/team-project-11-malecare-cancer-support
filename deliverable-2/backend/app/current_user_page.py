@@ -22,53 +22,61 @@ def get_current_user():
 
 @current_user_page.route('/current_user/profile/update', methods=['POST'])
 def change_current_user_profile_update():
-    my_json = request.get_json()
-    my_id = current_user.get_id()
-    my_functions = [customize_user_profile_helpers.set_cancer_types_by_user_id,
-                    customize_user_profile_helpers.set_sexual_orientation_by_user_id,
-                    customize_user_profile_helpers.set_gender_by_user_id,
-                    customize_user_profile_helpers.set_purpose_by_user_id,
-                    customize_user_profile_helpers.set_date_of_birth_by_user_id,
-                    customize_user_profile_helpers.set_medications_by_user_id,
-                    customize_user_profile_helpers.set_treatments_by_user_id,
-                    customize_user_profile_helpers.set_short_intro_by_user_id,
-                    customize_user_profile_helpers.set_username_by_user_id,
-                    customize_user_profile_helpers.
-                        set_profile_picture_by_user_id,
-                    customize_user_profile_helpers.set_album_pictures_by_user_id,
-                    customize_user_profile_helpers.set_region_by_user_id,
-                    customize_user_profile_helpers.set_date_of_birth_bool_by_user_id,
-                    customize_user_profile_helpers.set_gender_bool_by_user_id,
-                    customize_user_profile_helpers.set_sex_orientation_bool_by_user_id,
-                    customize_user_profile_helpers.
-                        set_medications_and_treatments_bool_by_user_id,
-                    customize_user_profile_helpers.set_purpose_bool_by_user_id
-                    ]
+    try:
+        print("UPDATE CURRENT PROFILE")
+        my_json = request.get_json()
+        my_id = current_user.get_id()
+        region = my_json["region"]
+        if region == {}:
+            region = current_user.get_json()["region"]
+        my_functions = [customize_user_profile_helpers.set_cancer_types_by_user_id,
+                        customize_user_profile_helpers.set_sexual_orientation_by_user_id,
+                        customize_user_profile_helpers.set_gender_by_user_id,
+                        customize_user_profile_helpers.set_purpose_by_user_id,
+                        customize_user_profile_helpers.set_date_of_birth_by_user_id,
+                        customize_user_profile_helpers.set_medications_by_user_id,
+                        customize_user_profile_helpers.set_treatments_by_user_id,
+                        customize_user_profile_helpers.set_short_intro_by_user_id,
+                        customize_user_profile_helpers.set_username_by_user_id,
+                        customize_user_profile_helpers.
+                            set_profile_picture_by_user_id,
+                        customize_user_profile_helpers.set_album_pictures_by_user_id,
+                        customize_user_profile_helpers.set_region_by_user_id,
+                        customize_user_profile_helpers.set_date_of_birth_bool_by_user_id,
+                        customize_user_profile_helpers.set_gender_bool_by_user_id,
+                        customize_user_profile_helpers.set_sex_orientation_bool_by_user_id,
+                        customize_user_profile_helpers.
+                            set_medications_and_treatments_bool_by_user_id,
+                        customize_user_profile_helpers.set_purpose_bool_by_user_id
+                        ]
 
-    my_new_profile_fields = [my_json["cancer"],
-                             my_json["sex_orientation"],
-                             my_json["gender"],
-                             my_json["purpose"],
-                             my_json["date_of_birth"],
-                             my_json["medications"],
-                             my_json["treatments"],
-                             my_json["short_intro"],
-                             my_json["username"],
-                             my_json["profile_picture"],
-                             my_json["album_pictures"],
-                             my_json["region"],
-                             my_json["date_of_birth_bool"],
-                             my_json["gender_bool"],
-                             my_json["sex_orientation_bool"],
-                             my_json["medications_and_treatments_bool"],
-                             my_json["purpose_bool"]
-                             ]
-    for func, field in zip(my_functions, my_new_profile_fields):
-        func(my_id, field)
-    # customize_user_profile_helpers \
-    #     .set_sexual_orientation_by_user_id(user_id=my_id,
-    #                                        sex_orientation=my_json["sex_orientation"])
-    return jsonify(login_register_helpers.get_user_by_user_id(my_id).get_json())
+        my_new_profile_fields = [my_json["cancer"],
+                                my_json["sex_orientation"],
+                                my_json["gender"],
+                                my_json["purpose"],
+                                my_json["date_of_birth"],
+                                my_json["medications"],
+                                my_json["treatments"],
+                                my_json["short_intro"],
+                                my_json["username"],
+                                my_json["profile_picture"],
+                                my_json["album_pictures"],
+                                region,
+                                my_json["date_of_birth_bool"],
+                                my_json["gender_bool"],
+                                my_json["sex_orientation_bool"],
+                                my_json["medications_and_treatments_bool"],
+                                my_json["purpose_bool"]
+                                ]
+        for func, field in zip(my_functions, my_new_profile_fields):
+            func(my_id, field)
+        # customize_user_profile_helpers \
+        #     .set_sexual_orientation_by_user_id(user_id=my_id,
+        #                                        sex_orientation=my_json["sex_orientation"])
+        return jsonify(login_register_helpers.get_user_by_user_id(my_id).get_json())
+    except Exception as e:
+        print(e)
+        return "Internal server error", 500
 
 
 @current_user_page.route('/current_user/profile/picture', methods=['POST'])
