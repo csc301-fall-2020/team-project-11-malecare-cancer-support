@@ -134,21 +134,22 @@ or you can click the Create Account button and create a new user:
 - MongoDBCompass, a GUI for MongoDB, is used to monitoring the changes happen in the database, since some of API test and UI test may result in changes in our database.
 
 ### Deployment
-- Deploy to AWS EC2.
+How to deploy to AWS EC2:
 - AWS console is used to help us deploy the app.
 - Deployment process:
    - Choose Ubuntu 20.0 as AMI
    - Create a new EC2 instance
-   - `ssh` to the instance
-   - Clone our project from Github to the instance
-   - Install requirements
-   - In frontend folder, run:
-    - `npm i`
-    - `npm run build:prod`
-   - set path to backend folder, run:
-    - `export AWS_URL=True`
-    - `export FLASK_APP=app/cancer_chat.py`
-    - `nohup flask run --host=0.0.0.0 &`
+   - Modify the security inbound to include a custom TCP with port range 5000
+   - Open a bash terminal from current directory
+     - If you are using mac OS
+       - Press command+space and search terminal
+       - Press option+command+c in deliverable-2 folder
+       - Enter `cd <paste here>`
+     - If you are using windows, download vscode and open the deliverable-2 folder through vscode, then open the terminal and select bash terminal
+   - Enter `sh prod_build_local_v2.sh` to send the zip file of the project to the remote server
+   - Enter `sh prod_connect_to_aws.sh` to connect to the server
+   - Enter `unzip cancerChat.zip`, select replace all if asked
+   - Enter `sh prod_build_run.sh` to deploy
    
 
  ## Licenses 
