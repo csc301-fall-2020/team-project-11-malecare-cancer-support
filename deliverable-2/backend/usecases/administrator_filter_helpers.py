@@ -2,10 +2,6 @@ from mongoengine.queryset.visitor import Q
 
 from ..models.user import User
 from ..util import helpers
-from mongoengine.queryset.visitor import Q
-
-from ..models.user import User
-from ..util import helpers
 
 
 def get_user_id_from_admin_filter_worldwide(include_cancer, exclude_cancer,
@@ -30,24 +26,26 @@ def get_email_from_admin_filter_worldwide(include_cancer, exclude_cancer,
                                      age_min, age_max).values_list('email')
     return query_result
 
+
 def get_user_id_from_admin_filter_region(include_cancer, exclude_cancer,
-                                          include_treatment, exclude_treatment,
-                                          include_medication, exclude_medication, gender,
-                                          age_min, age_max, region):
+                                         include_treatment, exclude_treatment,
+                                         include_medication, exclude_medication, gender,
+                                         age_min, age_max, region):
     query_result = _region_filter(include_cancer, exclude_cancer,
-                                     include_treatment, exclude_treatment,
-                                     include_medication, exclude_medication, gender,
-                                     age_min, age_max, region).values_list('user_id')
+                                  include_treatment, exclude_treatment,
+                                  include_medication, exclude_medication, gender,
+                                  age_min, age_max, region).values_list('user_id')
     return query_result
 
+
 def get_email_from_admin_filter_region(include_cancer, exclude_cancer,
-                                          include_treatment, exclude_treatment,
-                                          include_medication, exclude_medication, gender,
-                                          age_min, age_max, region):
+                                       include_treatment, exclude_treatment,
+                                       include_medication, exclude_medication, gender,
+                                       age_min, age_max, region):
     query_result = _region_filter(include_cancer, exclude_cancer,
-                                     include_treatment, exclude_treatment,
-                                     include_medication, exclude_medication, gender,
-                                     age_min, age_max, region).values_list('email')
+                                  include_treatment, exclude_treatment,
+                                  include_medication, exclude_medication, gender,
+                                  age_min, age_max, region).values_list('email')
     return query_result
 
 

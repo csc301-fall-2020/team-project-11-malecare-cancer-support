@@ -207,6 +207,7 @@ const Messages = () => {
   const inputRef = useRef();
   const [reportVisible, setReportVisible] = useState(false);
   const [reportmsg, setReportmsg] = useState("");
+  const [deleteVisible, setDeleteVisible] = useState(false)
   const send = () => {
     if (!inputText || !currentUser) return;
     socket.emit("receive_msg", {
@@ -388,6 +389,29 @@ const Messages = () => {
       });
   };
 
+  const handleDeleteCancel = () =>{
+    setDeleteVisible(false)
+  }
+
+  const handleDeleteOnClick = () => {
+    setDeleteVisible(true)
+  }
+
+  const handleDeleteOk = () => {
+    setDeleteVisible(false)
+    axios
+    .post(HOST_URL + "/chat/delete_friend", {friend_id: currentUser})
+    .then((res) => {
+      get("/current_user").then((res) => {
+        setUserList(res.friend_username);
+      });
+      message.success(res.data)
+    })
+    .catch((err) => {
+      message.error(err.response.data)
+    })
+  }
+
   return loading ? (
     <PulseLoader
       css={loaderCSS}
@@ -449,11 +473,19 @@ const Messages = () => {
               }}
             />
           </Modal>
+          <Modal
+            title="Delete"
+            visible={deleteVisible}
+            onOk={handleDeleteOk}
+            onCancel={handleDeleteCancel}
+          >
+            <p>Do you want to delete this user from your friend list?</p>
+          </Modal>
           <LinkOut>
             {currentUser && userList[currentUser] !== "Cancer Chat Official" ? (
               // <a>block</a>
-              <Button type="link" size={"small"}>
-                block
+              <Button type="link" size={"small"} onClick={handleDeleteOnClick}>
+                delete
               </Button>
             ) : null}
             {currentUser && userList[currentUser] !== "Cancer Chat Official" ? (

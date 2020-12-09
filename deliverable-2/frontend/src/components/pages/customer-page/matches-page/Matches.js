@@ -15,7 +15,7 @@ import {
   PrimaryButton,
 } from "../../../share-styled-component";
 
-import _ from "lodash";
+import _, { shuffle } from "lodash";
 import { message } from "antd";
 import { message as alertMessage } from "antd";
 
@@ -177,7 +177,6 @@ const Matches = () => {
       // TODO: Maybe fill the filter item? Make it filter nothing?
     } else {
       setMatchLoading(true);
-      console.log("SELECTOR REGION", region);
       const myMatches = await filterMatches(
         filterSexOrientation,
         filterGender,
@@ -185,15 +184,17 @@ const Matches = () => {
         includeAges,
         region
       );
-      console.log(myMatches);
       if (myMatches) {
+        shuffle(myMatches);
         setMatches(myMatches);
-        console.log("match", myMatches);
       }
     }
-    console.log("update");
     setMatchLoading(false);
   };
+
+  function shuffle(array) {
+    array.sort(() => Math.random() - 0.5);
+  }
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -231,8 +232,8 @@ const Matches = () => {
           includeAges,
           {}
         );
-        console.log("match", myMatches);
         if (myMatches) {
+          shuffle(myMatches);
           setMatches(myMatches);
           setMatchLoading(false);
         }
@@ -284,14 +285,12 @@ const Matches = () => {
 
   const handleGotoPrevious = () => {
     if (matches.length !== 0 && matchesIndex !== 0) {
-      console.log("match index: ", matchesIndex);
       setMatchesIndex(matchesIndex - 1);
     }
   };
 
   const handleGotoNext = () => {
     if (matches.length !== 0 && matchesIndex !== matches.length - 1) {
-      console.log("match index: ", matchesIndex);
       setMatchesIndex(matchesIndex + 1);
     }
   };

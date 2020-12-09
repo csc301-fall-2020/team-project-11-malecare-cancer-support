@@ -14,7 +14,7 @@ from .login_page import login_page
 from ..usecases import delete_helpers, handle_session_info_helpers, \
     login_register_helpers, \
     message_handle_helper, preload_data_helpers, \
-    reset_password_helpers
+    reset_password_helpers, friend_handler_helpers
 
 from ..util import helpers
 
@@ -62,3 +62,13 @@ def get_unread_msg_from_friends_id():
 def get_all_messages_relate_to_current_user():
     return message_handle_helper.get_all_messages_by_user_id(
         current_user.get_id())
+
+@login_required
+@chat_page.route('/chat/delete_friend', methods=['POST'])
+def delete_friend():
+    try:
+        friend = request.get_json()['friend_id']
+        return friend_handler_helpers.delete_friend(current_user.get_id(), friend)
+    except Exception as e:
+        print(e)
+        return "Error occur", 500
