@@ -1,11 +1,9 @@
-# import functools
-
-# import pymongo
 from flask import jsonify, request, Blueprint
 from flask_login import current_user, login_required
 
 from ..usecases import login_register_helpers, \
-    friend_handler_helpers, customize_user_profile_helpers
+    friend_handler_helpers, customize_user_profile_helpers, handle_report_helpers
+
 
 current_user_page = Blueprint('current_user_page', __name__,
                               static_folder='../../frontend/build/static',
@@ -15,6 +13,9 @@ current_user_page = Blueprint('current_user_page', __name__,
 @current_user_page.route('/current_user')
 @login_required
 def get_current_user():
+    email = current_user.get_email()
+    if handle_report_helpers.check_user_in_black_list_by_email(email):
+        return "This account has been locked", 412
     return jsonify(
         friend_handler_helpers.augment_user_dict_with_friends_user_name(
             current_user.get_id()))
