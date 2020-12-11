@@ -92,22 +92,17 @@ or you can click the Create Account button and create a new user:
  - Installation of npm, node, python3, python3-pip, flask are required. Python packages requirements has shown in requirements.txt. 
  - Instructions for setting up and running the application:
    - Open the deliverable-2 folder:
-     - Open one terminal for backend:
-     - Step 1:
-        - go to backend folder: `cd backend`
-        - install requirements using pip: `pip install -r requirements.txt` or `pip3 install -r requirements.txt`
-     - Step 2:
-        - if your operation system is MacOS/Linux, please `export FLASK_APP=app/cancer_chat.py`
-        - if your operation system is Windows, please `set FLASK_APP=app/cancer_chat.py`
-     - Step 3:
-        - `flask run`
-     - Open another terminal for frontend:
-     - Step 1:
-        - `cd frontend`
-     - Step 2:
-        - `npm i`
-     - Step 3:
-        - `npm start`
+   - Go to front-end folder: `cd frontend`
+   - Install requirements: `npm i`
+   - Build: `npm run build:dev`
+   - Go to backend folder: `cd backend`
+   - Install requirements using pip: `pip install -r requirements.txt` or `pip3 install -r requirements.txt`
+   - if you are using bash, please `export FLASK_APP=app/cancer_chat.py`
+   - if you are using cmd, please `set FLASK_APP=app/cancer_chat.py`
+   - `flask run`
+- Another way to run the app:
+   - Open the deliverable-2 folder:
+   - run script: `sh dev_build_run.sh`
         
  ## Deployment and Github Workflow
 
@@ -139,23 +134,22 @@ or you can click the Create Account button and create a new user:
 - MongoDBCompass, a GUI for MongoDB, is used to monitoring the changes happen in the database, since some of API test and UI test may result in changes in our database.
 
 ### Deployment
-- Deploy to AWS EC2.
+How to deploy to AWS EC2:
 - AWS console is used to help us deploy the app.
 - Deployment process:
    - Choose Ubuntu 20.0 as AMI
    - Create a new EC2 instance
-   - `ssh` to the instance
-   - Clone our project from Github to the instance
-   - Checkout `deploy_preparation` branch
-   - Install requirements
-   - In frontend folder, run:
-    - `npm i`
-    - `npm run build:prod`
-   - set path to backend folder, run:
-    - `export FLASK_APP=app/cancer_chat.py`
-    - `nohup flask run --host=0.0.0.0 &`
-
-Note that the main difference between the commands for deployment and development is that deployment requires `build`, which is the main reason why we have a separate branch for deployment. We do not want to run `build` when developing the app, since it is time-consuming. We also have different .env files in the `deploy_preparation` branch for setting up the production environment. Replacing `npm run build:prod` with `npm run build:dev` at local machine can make the deployed version run locally. It works fine, too.
+   - Modify the security inbound to include a custom TCP with port range 5000
+   - Open a bash terminal from current directory
+     - If you are using mac OS
+       - Press command+space and search terminal
+       - Press option+command+c in deliverable-2 folder
+       - Enter `cd <paste here>`
+     - If you are using windows, download vscode and open the deliverable-2 folder through vscode, then open the terminal and select bash terminal
+   - Enter `sh prod_build_local_v2.sh` to send the zip file of the project to the remote server
+   - Enter `sh prod_connect_to_aws.sh` to connect to the server
+   - Enter `unzip cancerChat.zip`, select replace all if asked
+   - Enter `sh prod_build_run.sh` to deploy
    
 
  ## Licenses 
