@@ -49,7 +49,7 @@ Administrators can send the news to target users using the filters including age
  
  Below is the welcome page of CancerChat:
  
-<img src="pictures/welcome.png" alt="welcome" />
+<img src="deliverable-2/pictures/welcome.png" alt="welcome" />
  
  Our app has two types of users: normal users and administrators.
  
@@ -57,13 +57,13 @@ Administrators can send the news to target users using the filters including age
  As a normal user, one can either register a new account or log in as an existing user. We have created a demo user for testing, and the credentials would be: email: my_cancer3@gmail.com, pwd: my_cancer2, 
 or you can click the Create Account button and create a new user:
 
-<img src="pictures/register.png" alt="register" />
+<img src="deliverable-2/pictures/register.png" alt="register" />
  
  After logging in, the user will see the matching page. To test match functionality, you can create several accounts through signup page and try to match them. Note that only users who have some types of cancer in common can be matched to each other. 
- <img src="pictures/match.jpg" alt="matches" />
+ <img src="deliverable-2/pictures/match.jpg" alt="matches" />
  
  If the user wants to talk to the match, then he/she can click the "request to chat" button user the matched user, then the matched user would receive a request on their requests page:
-  <img src="pictures/request.png" alt="requests" />
+  <img src="deliverable-2/pictures/request.png" alt="requests" />
  
  
  To test the chat functionality, we have provided two accounts that are already friended:
@@ -74,9 +74,9 @@ or you can click the Create Account button and create a new user:
    - pwd: my_cancer2
  
  Please open two two different browsers (for example, ie and Chrome or Safari and Chrome) and sign in as two users respectively and you'll find each other in the chat page. The send emoji and pictures feature has not been implemented, and will be finished in D3.
- <img src="pictures/chat.png" alt="chat" />
+ <img src="deliverable-2/pictures/chat.png" alt="chat" />
  The user can view and update their profile on the profile page. Note that the uploading photos feature has not been supported and will be finished in D3.
-  <img src="pictures/profile.png" alt="chat" />
+  <img src="deliverable-2/pictures/profile.png" alt="chat" />
   
  
  ### Admin user
@@ -86,7 +86,7 @@ or you can click the Create Account button and create a new user:
  password: Admin
  
   After logging in, the user will be redirected to the admin send message page. The reports page will be implemented in D3.
-   <img src="pictures/adminSendMessage.png" alt="adminSendMessage" />
+   <img src="deliverable-2/pictures/adminSendMessage.png" alt="adminSendMessage" />
    This page is where the admin can send messages to a specific group of users. we have both a include section and a exclude section to handle the case where the admin may want to send a message to the users who have lung cancer but are not receiving the Antibody treatment. To test this feature, please open an incognitive and sign in as admin, and open another incognitive window and sign in as a normal user. Note that only users who fill in the both sections under the detailed information in their profile page can receive admin's message.
  
  ## Development requirements
